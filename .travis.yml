@@ -6,4 +6,6 @@ node_js:
 script:
     - npm test
     - npm run build
-    
+
+notifications:
+  slack: comp30022-workspace:7vMQ7aLMccsS6rzFGygUEaTG
