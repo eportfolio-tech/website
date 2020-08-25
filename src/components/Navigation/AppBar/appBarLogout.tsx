@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { AppBar, Toolbar, Button, Typography } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import withWidth from "@material-ui/core/withWidth";
 import { Breakpoint } from "@material-ui/core/styles/createBreakpoints";
 import SignIn from "../../AuthDialogs/signInDialog";
+import SignUp from "../../AuthDialogs/signUpDialog";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) => ({
@@ -80,14 +81,16 @@ interface AppBarProps {
  */
 export default withWidth()(() => {
 	const classes = useStyles();
-	const history = useHistory();
+	const location = useLocation();
 
 	//const [avatarEL, setAvatarEL] = useState(null);
 	const [openLogin, setOpenLogin] = useState(false);
+	const [openSignUp, setOpenSignUp] = useState(false);
 
 	return (
 		<div>
 			<SignIn open={openLogin} setOpen={setOpenLogin} />
+			<SignUp open={openSignUp} setOpen={setOpenSignUp} />
 			<AppBar position="fixed" className={classes.appBar}>
 				<Toolbar className={classes.toolbar}>
 					<Typography
@@ -113,8 +116,9 @@ export default withWidth()(() => {
 						size={"large"}
 						className={classes.getStarted}
 						color="default"
+						disabled={location.pathname === "/sign-up"}
 						onClick={() => {
-							history.push("/sign-up");
+							setOpenSignUp(true);
 						}}
 					>
 						Get Started
