@@ -9,6 +9,8 @@ import DocumentTitle from "react-document-title";
 import Layout from "../components/Navigation/layout";
 import { SnackbarProvider } from "notistack";
 
+import { Intro } from "./Home/IntroAnimation.jsx";
+
 interface IProtectedRoute {
 	Component?: any;
 	path?: string | string[];
@@ -70,7 +72,11 @@ const LoggedOutRoute = ({ Component, exact, path }: IProtectedRoute) => {
 };
 
 function App() {
-	const Index = () => <Layout />;
+	const Index = () => (
+		<Layout noPadding>
+			<Intro />
+		</Layout>
+	);
 
 	const DashBoard = () => (
 		<Layout>

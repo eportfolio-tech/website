@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.leavingScreen,
 		}),
-		background: "transparent",
+		backgroundColor: "rgba(255,255,255,0.9)",
 		boxShadow: "none",
 		minHeight: 50,
 	},

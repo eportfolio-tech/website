@@ -101,6 +101,10 @@ const useStyles = makeStyles((theme: Theme) =>
 			},
 			maxWidth: "100%",
 		},
+		noPaddingContent: {
+			flexGrow: 1,
+			maxWidth: "100%",
+		},
 		bottom: {
 			position: "fixed",
 			bottom: 0,
@@ -113,12 +117,13 @@ interface ILayoutProps {
 	width: Breakpoint;
 	type?: any;
 	children?: ReactChild | ReactChildren;
+	noPadding?: boolean;
 }
 
 /***
  * The layout of the application once login in.
  */
-export default withWidth()(({ children, width }: ILayoutProps) => {
+export default withWidth()(({ children, width, noPadding }: ILayoutProps) => {
 	const classes = useStyles();
 	const theme = useTheme();
 	const dispatch = useDispatch();
@@ -235,7 +240,13 @@ export default withWidth()(({ children, width }: ILayoutProps) => {
 			{loadingRoute ? (
 				<Loading />
 			) : (
-				<main className={classes.content}>{children}</main>
+				<main
+					className={
+						noPadding ? classes.noPaddingContent : classes.content
+					}
+				>
+					{children}
+				</main>
 			)}
 		</div>
 	);
