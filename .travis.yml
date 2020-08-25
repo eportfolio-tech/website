@@ -19,6 +19,8 @@ addons:
     - 103.108.228.162:30022
 
 install:
+  - rm -rf node_modules
+  - rm package-lock.json
   - npm install
 
 script:
