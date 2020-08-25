@@ -1,24 +1,23 @@
 language: node_js
 
 node_js:
-  - "12"
+    - "12"
 
 if: branch = master
 
 before_install:
-  - sudo apt-get -y install libxml2-dev
-  
+    - sudo apt-get -y install libxml2-dev
+
 addons:
-  apt:
-    update: true
-  ssh_known_hosts: dev.eportfolio.tech
+    apt:
+        update: true
+    ssh_known_hosts: dev.eportfolio.tech
 
 install:
     - npm install
 
 script:
-    - npm test
     - npm run build
 
 notifications:
-  slack: comp30022-workspace:7vMQ7aLMccsS6rzFGygUEaTG
+    slack: comp30022-workspace:7vMQ7aLMccsS6rzFGygUEaTG
