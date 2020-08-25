@@ -1,14 +1,57 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './containers/App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./containers/App";
+import * as serviceWorker from "./serviceWorker";
+import { createStore, applyMiddleware, compose } from "redux";
+
+import { combineReducers } from "redux";
+import {
+	authenticationReducer,
+	IAuthState,
+} from "./store/reducers/authenticationReducer";
+import { subjectReducer, ISubjectState } from "./store/reducers/subjectReducer";
+import { alertReducer, IAlertState } from "./store/reducers/alertReducer";
+import { userReducer, IUserState } from "./store/reducers/userReducer";
+import { Provider } from "react-redux";
+import thunkMiddleware from "redux-thunk";
+import { createLogger } from "redux-logger";
+const loggerMiddleware = createLogger();
+
+export interface IRootState {
+	alert: IAlertState;
+	auth: IAuthState;
+	subject: ISubjectState;
+	user: IUserState;
+}
+
+declare global {
+	interface Window {
+		__REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+	}
+}
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+// Create a redux store
+const store = createStore<IRootState, any, any, any>(
+	combineReducers({
+		alert: alertReducer,
+		auth: authenticationReducer,
+		subject: subjectReducer,
+		user: userReducer,
+	}),
+	composeEnhancers(applyMiddleware(thunkMiddleware, loggerMiddleware))
+);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+	<React.StrictMode>
+		<Provider store={store}>
+			<React.Fragment>
+				<App />
+			</React.Fragment>
+		</Provider>
+	</React.StrictMode>,
+	document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
