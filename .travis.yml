@@ -12,7 +12,11 @@ before_install:
 addons:
   apt:
     update: true
-  ssh_known_hosts: dev.eportfolio.tech
+  ssh_known_hosts: 
+    - dev.eportfolio.tech
+    - dev.eportfolio.tech:30022
+    - 103.108.228.162
+    - 103.108.228.162:30022
 
 install:
   - npm install
@@ -24,6 +28,7 @@ script:
 before_deploy:
   - eval "$(ssh-agent -s)"
   - chmod 600 ./deploy_key
+  - echo -e "Host $SERVER_IP_ADDRESS\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   - ssh-add ./deploy_key
   - ssh -i ./deploy_key haswell@dev.eportfolio.tech -p 30022 pwd
 
@@ -33,3 +38,6 @@ deploy:
   script: rsync -r --delete-after --quiet -e 'ssh -p 30022' $TRAVIS_BUILD_DIR/* haswell@dev.eportfolio.tech:~/COMP30022FrontEndDev/
   on:
     branch: master
+
+notifications:
+  slack: comp30022-workspace:7vMQ7aLMccsS6rzFGygUEaTG
