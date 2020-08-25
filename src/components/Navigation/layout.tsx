@@ -1,4 +1,4 @@
-import React, { useContext, useState, ReactChildren, ReactChild } from "react";
+import React, { useState, ReactChildren, ReactChild } from "react";
 import clsx from "clsx";
 import {
 	makeStyles,
@@ -9,7 +9,7 @@ import {
 import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
 import { Breakpoint } from "@material-ui/core/styles/createBreakpoints";
 import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
+//import List from "@material-ui/core/List";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import IconButton from "@material-ui/core/IconButton";
 
@@ -22,7 +22,7 @@ import { IRootState } from "../../index";
 import AppBarLogin from "./AppBar/appBarLogin";
 import AppBarLogout from "./AppBar/appBarLogout";
 //import { UserContext, AuthApi } from "../Methods";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 //import Cookies from "js-cookie";
 
 import Loading from "./loading";
@@ -101,7 +101,7 @@ interface ILayoutProps {
 /***
  * The layout of the application once login in.
  */
-export default withWidth()(({ children, type, width }: ILayoutProps) => {
+export default withWidth()(({ children, width }: ILayoutProps) => {
 	const classes = useStyles();
 	const theme = useTheme();
 	const largeScreen = isWidthUp("lg", width);

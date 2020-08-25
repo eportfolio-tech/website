@@ -1,20 +1,8 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import {
-	Avatar,
-	AppBar,
-	Toolbar,
-	Button,
-	IconButton,
-	Menu,
-	MenuItem,
-	Typography,
-} from "@material-ui/core";
-import clsx from "clsx";
-import { useSelector } from "react-redux";
-import { IRootState } from "../../../index";
-import { useHistory, useLocation } from "react-router-dom";
-import withWidth, { isWidthDown, isWidthUp } from "@material-ui/core/withWidth";
+import { AppBar, Toolbar, Button, Typography } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
+import withWidth from "@material-ui/core/withWidth";
 import { Breakpoint } from "@material-ui/core/styles/createBreakpoints";
 
 const drawerWidth = 240;
@@ -86,10 +74,9 @@ interface AppBarProps {
 /***
  * The App Bar at the top.
  */
-export default withWidth()(({ width }: AppBarProps) => {
+export default withWidth()(() => {
 	const classes = useStyles();
 	const history = useHistory();
-	const location = useLocation();
 
 	//const [avatarEL, setAvatarEL] = useState(null);
 

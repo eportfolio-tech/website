@@ -1,13 +1,7 @@
-import React, { useContext, useState } from "react";
-import clsx from "clsx";
-import {
-	makeStyles,
-	useTheme,
-	createStyles,
-	Theme,
-} from "@material-ui/core/styles";
-import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
-import { useHistory, useLocation } from "react-router-dom";
+import React from "react";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import withWidth from "@material-ui/core/withWidth";
+import { useLocation } from "react-router-dom";
 
 import List from "@material-ui/core/List";
 
@@ -17,14 +11,14 @@ import ListItemText from "@material-ui/core/ListItemText";
 
 import TodayIcon from "@material-ui/icons/Today";
 import AlarmIcon from "@material-ui/icons/Alarm";
-import GroupAddIcon from "@material-ui/icons/GroupAdd";
+//import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import SettingsIcon from "@material-ui/icons/Settings";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
-import TimelineIcon from "@material-ui/icons/Timeline";
-import { Grow, Snackbar } from "@material-ui/core";
+//import TimelineIcon from "@material-ui/icons/Timeline";
+import { Grow } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 
-const drawerWidth = 240;
+//const drawerWidth = 240;
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -44,7 +38,6 @@ interface IMenuListProps {
 export default withWidth()(({ handleRouting }: IMenuListProps) => {
 	const classes = useStyles();
 	const loadingRoute = false;
-	const history = useHistory();
 	const location = useLocation();
 
 	const logOut = () => {

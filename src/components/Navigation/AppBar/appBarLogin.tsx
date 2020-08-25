@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import {
 	Avatar,
@@ -10,12 +10,8 @@ import {
 	MenuItem,
 } from "@material-ui/core";
 import clsx from "clsx";
-import { useSelector } from "react-redux";
-import { IRootState } from "../../../index";
-import { useHistory, useLocation } from "react-router-dom";
-import withWidth, { isWidthDown } from "@material-ui/core/withWidth";
+import withWidth from "@material-ui/core/withWidth";
 import { Breakpoint } from "@material-ui/core/styles/createBreakpoints";
-import { Link } from "react-router-dom";
 import MenuIcon from "@material-ui/icons/Menu";
 
 const drawerWidth = 240;
@@ -68,64 +64,62 @@ interface AppBarProps {
 /***
  * The App Bar at the top.
  */
-export default withWidth()(
-	({ width, handleDrawerOpen, openDrawer }: AppBarProps) => {
-		const classes = useStyles();
-		//const history = useHistory();
-		//const location = useLocation();
+export default withWidth()(({ handleDrawerOpen, openDrawer }: AppBarProps) => {
+	const classes = useStyles();
+	//const history = useHistory();
+	//const location = useLocation();
 
-		const [avatarEL, setAvatarEL] = useState(null);
+	const [avatarEL, setAvatarEL] = useState(null);
 
-		return (
-			<AppBar
-				position="fixed"
-				className={clsx(classes.appBar, {
-					[classes.appBarShift]: openDrawer,
-				})}
-			>
-				<Toolbar>
-					<IconButton
-						aria-label="open drawer"
-						edge="start"
-						onClick={handleDrawerOpen}
-						className={clsx(classes.menuButton, {
-							[classes.hide]: openDrawer,
-						})}
+	return (
+		<AppBar
+			position="fixed"
+			className={clsx(classes.appBar, {
+				[classes.appBarShift]: openDrawer,
+			})}
+		>
+			<Toolbar>
+				<IconButton
+					aria-label="open drawer"
+					edge="start"
+					onClick={handleDrawerOpen}
+					className={clsx(classes.menuButton, {
+						[classes.hide]: openDrawer,
+					})}
+				>
+					<MenuIcon />
+				</IconButton>
+				<Button></Button>
+
+				<div className={classes.link}>
+					<Button
+						className={classes.link}
+						onClick={(event: any) => {
+							setAvatarEL(event.currentTarget);
+						}}
 					>
-						<MenuIcon />
-					</IconButton>
-					<Button></Button>
-
-					<div className={classes.link}>
-						<Button
-							className={classes.link}
-							onClick={(event: any) => {
-								setAvatarEL(event.currentTarget);
+						<Avatar />
+					</Button>
+					<Menu
+						open={Boolean(avatarEL)}
+						keepMounted
+						anchorEl={avatarEL}
+						onClose={() => {
+							setAvatarEL(null);
+						}}
+					>
+						<MenuItem
+							className={classes.menuItem}
+							onClick={() => {
+								localStorage.removeItem("user");
+								window.location.reload(false);
 							}}
 						>
-							<Avatar />
-						</Button>
-						<Menu
-							open={Boolean(avatarEL)}
-							keepMounted
-							anchorEl={avatarEL}
-							onClose={() => {
-								setAvatarEL(null);
-							}}
-						>
-							<MenuItem
-								className={classes.menuItem}
-								onClick={() => {
-									localStorage.removeItem("user");
-									window.location.reload(false);
-								}}
-							>
-								Logout
-							</MenuItem>
-						</Menu>
-					</div>
-				</Toolbar>
-			</AppBar>
-		);
-	}
-);
+							Logout
+						</MenuItem>
+					</Menu>
+				</div>
+			</Toolbar>
+		</AppBar>
+	);
+});

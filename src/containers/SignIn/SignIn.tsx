@@ -17,7 +17,7 @@ import { useHistory } from "react-router-dom";
 //Redux
 import { useDispatch } from "react-redux";
 import { userActions } from "../../store/actions/userActions";
-import { alertActions } from "../../store/actions/alertActions";
+//import { alertActions } from "../../store/actions/alertActions";
 
 function Copyright() {
 	return (
