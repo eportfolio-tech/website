@@ -2,25 +2,16 @@ import { userActions } from "../actions/userActions";
 import { userConstants } from "../constants/userConstants";
 
 export interface IAuthState {
-	loggedIn: boolean;
+	loggedIn: boolean | undefined;
 	user?: String | null;
 	token?: String | null;
 }
 
-let user = JSON.parse(localStorage.getItem("user") || "{}");
-
-const initialState =
-	user == {}
-		? {
-				loggedIn: true,
-				user: user.user,
-				token: user.token,
-		  }
-		: {
-				loggedIn: false,
-				user: null,
-				token: null,
-		  };
+let initialState = JSON.parse(
+	localStorage.getItem("user") ||
+		'{"loggedIn":false, "user": null, "token": null}'
+);
+if (initialState.loggedIn == undefined) initialState.loggedIn = true;
 
 export function authenticationReducer(
 	state: IAuthState = initialState,

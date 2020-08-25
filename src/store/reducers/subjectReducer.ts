@@ -6,7 +6,7 @@ export interface ISubjectState {
 
 let subject = JSON.parse(localStorage.getItem("subject") || "{}");
 
-const initialState = subject ? { subject: subject } : { selected: null };
+const initialState = subject ? { selected: subject } : { selected: null };
 
 export const subjectReducer = (
 	state: ISubjectState = initialState,
