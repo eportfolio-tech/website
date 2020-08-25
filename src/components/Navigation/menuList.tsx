@@ -16,7 +16,6 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 //import TimelineIcon from "@material-ui/icons/Timeline";
 import { Grow } from "@material-ui/core";
-import Divider from "@material-ui/core/Divider";
 
 //const drawerWidth = 240;
 
@@ -24,6 +23,9 @@ const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		icon: {
 			marginLeft: theme.spacing(1),
+		},
+		item: {
+			borderRadius: 50,
 		},
 	})
 );
@@ -54,6 +56,7 @@ export default withWidth()(({ handleRouting }: IMenuListProps) => {
 						button
 						onClick={() => handleRouting("dashboard")}
 						selected={path === "/dashboard"}
+						className={classes.item}
 					>
 						<ListItemIcon className={classes.icon}>
 							<TodayIcon />
@@ -66,6 +69,7 @@ export default withWidth()(({ handleRouting }: IMenuListProps) => {
 						button
 						onClick={() => handleRouting("friends")}
 						selected={path === "/friends"}
+						className={classes.item}
 					>
 						<ListItemIcon className={classes.icon}>
 							<AlarmIcon />
@@ -74,7 +78,6 @@ export default withWidth()(({ handleRouting }: IMenuListProps) => {
 					</ListItem>
 				</Grow>
 			</List>
-			<Divider />
 
 			<List>
 				<Grow in={!loadingRoute} timeout={1100}>
@@ -82,6 +85,7 @@ export default withWidth()(({ handleRouting }: IMenuListProps) => {
 						button
 						onClick={() => handleRouting("settings")}
 						selected={path === "/settings"}
+						className={classes.item}
 					>
 						<ListItemIcon className={classes.icon}>
 							<SettingsIcon />
@@ -90,7 +94,7 @@ export default withWidth()(({ handleRouting }: IMenuListProps) => {
 					</ListItem>
 				</Grow>
 				<Grow in={!loadingRoute} timeout={1300}>
-					<ListItem button onClick={logOut}>
+					<ListItem button onClick={logOut} className={classes.item}>
 						<ListItemIcon className={classes.icon}>
 							<PowerSettingsNewIcon />
 						</ListItemIcon>

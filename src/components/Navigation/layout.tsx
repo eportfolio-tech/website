@@ -1,4 +1,10 @@
-import React, { useState, ReactChildren, ReactChild } from "react";
+import React, {
+	useState,
+	ReactChildren,
+	ReactChild,
+	useEffect,
+	Fragment,
+} from "react";
 import clsx from "clsx";
 import {
 	makeStyles,
@@ -25,8 +31,14 @@ import AppBarLogout from "./AppBar/appBarLogout";
 import { useHistory } from "react-router-dom";
 //import Cookies from "js-cookie";
 
+import { useSnackbar } from "notistack";
+
+import { useDispatch } from "react-redux";
+import { alertActions } from "../../store/actions/alertActions";
+
 import Loading from "./loading";
 import MenuList from "./menuList";
+import CancelIcon from "@material-ui/icons/Cancel";
 
 const drawerWidth = 240;
 
@@ -49,6 +61,9 @@ const useStyles = makeStyles((theme: Theme) =>
 				easing: theme.transitions.easing.sharp,
 				duration: theme.transitions.duration.enteringScreen,
 			}),
+
+			background: theme.palette.background.default,
+			border: "none",
 		},
 		drawerClose: {
 			transition: theme.transitions.create("width", {
@@ -60,6 +75,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			[theme.breakpoints.up("md")]: {
 				width: theme.spacing(9) + 1,
 			},
+			background: theme.palette.background.default,
+			border: "none",
 		},
 		toolbar: {
 			display: "flex",
@@ -104,14 +121,16 @@ interface ILayoutProps {
 export default withWidth()(({ children, width }: ILayoutProps) => {
 	const classes = useStyles();
 	const theme = useTheme();
+	const dispatch = useDispatch();
+	const history = useHistory();
 	const largeScreen = isWidthUp("lg", width);
 
 	const loggedIn = useSelector<IRootState, boolean | undefined>(
 		(state) => state.auth.loggedIn
 	);
 
-	//Navigation Drawer...
-	const history = useHistory();
+	const alert = useSelector<IRootState, any>((state) => state.alert);
+	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
 	const loadingRoute = false;
 	const [open, setOpen] = useState(largeScreen);
@@ -126,19 +145,38 @@ export default withWidth()(({ children, width }: ILayoutProps) => {
 		setOpen(false);
 	};
 
-	//Log out...
-	/*
-		const { setAuth } = useContext(AuthApi);
-		const logOut = () => {
-			setAuth(false);
-			setUser({});
-			Cookies.remove("meetute");
-		};*/
-
 	const getDrawlerOnClose = () => {
 		if (largeScreen) return;
 		setOpen(false);
 	};
+
+	// using alert bar.
+	useEffect(() => {
+		// customized closed button in snackbar
+		const action = (key: any) => (
+			<Fragment>
+				<IconButton
+					onClick={() => {
+						closeSnackbar(key);
+					}}
+				>
+					<CancelIcon />
+				</IconButton>
+			</Fragment>
+		);
+
+		if (alert.type) {
+			enqueueSnackbar(alert.message, {
+				variant: alert.type,
+				anchorOrigin: {
+					vertical: "top",
+					horizontal: "center",
+				},
+				action,
+			});
+			dispatch(alertActions.clear());
+		}
+	}, [alert, enqueueSnackbar, dispatch, closeSnackbar]);
 
 	return (
 		<div className={classes.root}>

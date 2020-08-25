@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 			duration: theme.transitions.duration.leavingScreen,
 		}),
 		background: theme.palette.background.default,
+		boxShadow: "none",
 	},
 	appBarShift: {
 		marginLeft: drawerWidth,
@@ -72,54 +73,56 @@ export default withWidth()(({ handleDrawerOpen, openDrawer }: AppBarProps) => {
 	const [avatarEL, setAvatarEL] = useState(null);
 
 	return (
-		<AppBar
-			position="fixed"
-			className={clsx(classes.appBar, {
-				[classes.appBarShift]: openDrawer,
-			})}
-		>
-			<Toolbar>
-				<IconButton
-					aria-label="open drawer"
-					edge="start"
-					onClick={handleDrawerOpen}
-					className={clsx(classes.menuButton, {
-						[classes.hide]: openDrawer,
-					})}
-				>
-					<MenuIcon />
-				</IconButton>
-				<Button></Button>
+		<div>
+			<AppBar
+				position="fixed"
+				className={clsx(classes.appBar, {
+					[classes.appBarShift]: openDrawer,
+				})}
+			>
+				<Toolbar>
+					<IconButton
+						aria-label="open drawer"
+						edge="start"
+						onClick={handleDrawerOpen}
+						className={clsx(classes.menuButton, {
+							[classes.hide]: openDrawer,
+						})}
+					>
+						<MenuIcon />
+					</IconButton>
+					<Button></Button>
 
-				<div className={classes.link}>
-					<Button
-						className={classes.link}
-						onClick={(event: any) => {
-							setAvatarEL(event.currentTarget);
-						}}
-					>
-						<Avatar />
-					</Button>
-					<Menu
-						open={Boolean(avatarEL)}
-						keepMounted
-						anchorEl={avatarEL}
-						onClose={() => {
-							setAvatarEL(null);
-						}}
-					>
-						<MenuItem
-							className={classes.menuItem}
-							onClick={() => {
-								localStorage.removeItem("user");
-								window.location.reload(false);
+					<div className={classes.link}>
+						<Button
+							className={classes.link}
+							onClick={(event: any) => {
+								setAvatarEL(event.currentTarget);
 							}}
 						>
-							Logout
-						</MenuItem>
-					</Menu>
-				</div>
-			</Toolbar>
-		</AppBar>
+							<Avatar />
+						</Button>
+						<Menu
+							open={Boolean(avatarEL)}
+							keepMounted
+							anchorEl={avatarEL}
+							onClose={() => {
+								setAvatarEL(null);
+							}}
+						>
+							<MenuItem
+								className={classes.menuItem}
+								onClick={() => {
+									localStorage.removeItem("user");
+									window.location.reload(false);
+								}}
+							>
+								Logout
+							</MenuItem>
+						</Menu>
+					</div>
+				</Toolbar>
+			</AppBar>
+		</div>
 	);
 });

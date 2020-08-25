@@ -17,6 +17,7 @@ import { useHistory } from "react-router-dom";
 //Redux
 import { useDispatch } from "react-redux";
 import { userActions } from "../../store/actions/userActions";
+import { alertActions } from "../../store/actions/alertActions";
 //import { alertActions } from "../../store/actions/alertActions";
 
 function Copyright() {
@@ -75,6 +76,7 @@ export default function SignInSide() {
 	const sampleLogIn = () => {
 		const sampleCookie = { user: "test", token: "123" };
 		dispatch(userActions.login("Sample user"));
+		dispatch(alertActions.success("Successfully Logged in!"));
 		localStorage.setItem("user", JSON.stringify(sampleCookie));
 
 		history.push("/dashboard");

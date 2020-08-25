@@ -6,6 +6,7 @@ import { IRootState } from "../index";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import DocumentTitle from "react-document-title";
 import Layout from "../components/Navigation/layout";
+import { SnackbarProvider } from "notistack";
 
 interface IProtectedRoute {
 	Component?: any;
@@ -90,36 +91,38 @@ function App() {
 	return (
 		<BrowserRouter>
 			<DocumentTitle title="E-Portfolios">
-				<Switch>
-					<LoggedInRoute
-						exact
-						path={"/dashBoard"}
-						Component={DashBoard}
-					/>
-					<LoggedInRoute
-						exact
-						path={"/settings"}
-						Component={Settings}
-					/>
-					<LoggedInRoute
-						exact
-						path={"/friends"}
-						Component={Friends}
-					/>
+				<SnackbarProvider maxSnack={5}>
+					<Switch>
+						<LoggedInRoute
+							exact
+							path={"/dashBoard"}
+							Component={DashBoard}
+						/>
+						<LoggedInRoute
+							exact
+							path={"/settings"}
+							Component={Settings}
+						/>
+						<LoggedInRoute
+							exact
+							path={"/friends"}
+							Component={Friends}
+						/>
 
-					<LoggedOutRoute exact path={"/"} Component={Index} />
+						<LoggedOutRoute exact path={"/"} Component={Index} />
 
-					<LoggedOutRoute
-						exact
-						path={"/sign-in"}
-						Component={SignIn}
-					/>
-					<LoggedOutRoute
-						exact
-						path={"/sign-up"}
-						Component={SignIn}
-					/>
-				</Switch>
+						<LoggedOutRoute
+							exact
+							path={"/sign-in"}
+							Component={SignIn}
+						/>
+						<LoggedOutRoute
+							exact
+							path={"/sign-up"}
+							Component={SignIn}
+						/>
+					</Switch>
+				</SnackbarProvider>
 			</DocumentTitle>
 		</BrowserRouter>
 	);

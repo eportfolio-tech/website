@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { AppBar, Toolbar, Button, Typography } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import withWidth from "@material-ui/core/withWidth";
 import { Breakpoint } from "@material-ui/core/styles/createBreakpoints";
+import SignIn from "../../AuthDialogs/signInDialog";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) => ({
@@ -21,16 +22,17 @@ const useStyles = makeStyles((theme: Theme) => ({
 	getStarted: {
 		margin: theme.spacing(1, 20, 1, 1),
 		minWidth: "10rem",
-		background: "linear-gradient(to right, #92fe9d 0%, #00c9ff 100%)",
+		background: "linear-gradient(-60deg, #16a085 0%, #0d77db 100%);",
 		borderRadius: 10,
 		textTransform: "none",
-		fontWeight: 530,
+		fontWeight: 550,
 		fontFamily: "Arial",
+		color: "white",
 	},
 	signIn: {
 		textTransform: "none",
 		minWidth: "10rem",
-		fontWeight: 530,
+		fontWeight: 550,
 		borderRadius: 10,
 	},
 	appBar: {
@@ -39,7 +41,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.leavingScreen,
 		}),
-		background: theme.palette.background.default,
+		background: "transparent",
+		boxShadow: "none",
+		minHeight: 50,
 	},
 	appBarShift: {
 		marginLeft: drawerWidth,
@@ -79,39 +83,44 @@ export default withWidth()(() => {
 	const history = useHistory();
 
 	//const [avatarEL, setAvatarEL] = useState(null);
+	const [openLogin, setOpenLogin] = useState(false);
 
 	return (
-		<AppBar position="fixed" className={classes.appBar}>
-			<Toolbar className={classes.toolbar}>
-				<Typography
-					variant="h6"
-					noWrap
-					color="textPrimary"
-					className={classes.toolbarTitle}
-				>
-					COMP30022
-				</Typography>
+		<div>
+			<SignIn open={openLogin} setOpen={setOpenLogin} />
+			<AppBar position="fixed" className={classes.appBar}>
+				<Toolbar className={classes.toolbar}>
+					<Typography
+						variant="h6"
+						noWrap
+						color="textPrimary"
+						className={classes.toolbarTitle}
+					>
+						COMP30022
+					</Typography>
 
-				<Button
-					size={"large"}
-					className={classes.signIn}
-					onClick={() => {
-						history.push("/sign-in");
-					}}
-				>
-					Sign In
-				</Button>
-				<Button
-					size={"large"}
-					className={classes.getStarted}
-					color="default"
-					onClick={() => {
-						history.push("/sign-up");
-					}}
-				>
-					Get Started
-				</Button>
-			</Toolbar>
-		</AppBar>
+					<Button
+						size={"large"}
+						className={classes.signIn}
+						onClick={() => {
+							//history.push("/sign-in");
+							setOpenLogin(true);
+						}}
+					>
+						Sign In
+					</Button>
+					<Button
+						size={"large"}
+						className={classes.getStarted}
+						color="default"
+						onClick={() => {
+							history.push("/sign-up");
+						}}
+					>
+						Get Started
+					</Button>
+				</Toolbar>
+			</AppBar>
+		</div>
 	);
 });
