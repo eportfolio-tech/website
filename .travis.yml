@@ -25,7 +25,7 @@ install:
 
 script:
   - npm test
-  - npm run build
+  - CI=false npm run build
 
 before_deploy:
   - eval "$(ssh-agent -s)"
@@ -40,6 +40,9 @@ deploy:
   script: rsync -r --delete-after --quiet -e 'ssh -p 30022' $TRAVIS_BUILD_DIR/* haswell@dev.eportfolio.tech:~/COMP30022FrontEndDev/
   on:
     branch: master
+
+after_deploy:
+  - rm deploy_key
 
 notifications:
   slack: comp30022-workspace:7vMQ7aLMccsS6rzFGygUEaTG

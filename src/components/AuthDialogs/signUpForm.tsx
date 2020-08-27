@@ -9,14 +9,13 @@ import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
 import AccountForm from "../Forms/AccountForm/AccountForm";
 import OptionalForm from "../Forms/OptionalForm/OptionalForm";
-import Review from "../Review/Review";
-
+import ReviewForm from "../Forms/ReviewForm/ReviewForm";
 function Copyright() {
 	return (
 		<Typography variant="body2" color="textSecondary" align="center">
 			{"Copyright © "}
-			<Link color="inherit" href="https://material-ui.com/">
-				Your Website
+			<Link color="inherit" href="https://dev.eportfolio.tech/">
+				COMP30022
 			</Link>{" "}
 			{new Date().getFullYear()}
 			{"."}
@@ -62,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-const steps = ["Enter details", "Optional details", "Verification (还没做)"];
+const steps = ["Enter details", "Optional details", "Verification"];
 
 function getStepContent(step: number) {
 	switch (step) {
@@ -71,7 +70,7 @@ function getStepContent(step: number) {
 		case 1:
 			return <OptionalForm />;
 		case 2:
-			return <Review />;
+			return <ReviewForm />;
 		default:
 			throw new Error("Unknown step");
 	}
@@ -107,12 +106,10 @@ export default ({ setOpen }: ISignUpForm) => {
 				{activeStep === steps.length ? (
 					<div>
 						<Typography variant="h5" gutterBottom>
-							Thank you for your order.
+							Registration Succeed.
 						</Typography>
 						<Typography variant="subtitle1">
-							Your order number is #2001539. We have emailed your
-							order confirmation, and will send you an update when
-							your order has shipped.
+							You can manage your personal details under your dashboard.
 						</Typography>
 					</div>
 				) : (
@@ -134,7 +131,7 @@ export default ({ setOpen }: ISignUpForm) => {
 								className={classes.button}
 							>
 								{activeStep === steps.length - 1
-									? "Place order"
+									? "Done"
 									: "Next"}
 							</Button>
 						</div>

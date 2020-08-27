@@ -9,16 +9,14 @@ import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
 import AccountForm from "../../components/Forms/AccountForm/AccountForm";
 import OptionalForm from "../../components/Forms/OptionalForm/OptionalForm";
-import Review from "../../components/Review/Review";
-
-import Layout from "../../components/Navigation/layout";
+import ReviewForm from "../../components/Forms/ReviewForm/ReviewForm";
 
 function Copyright() {
 	return (
 		<Typography variant="body2" color="textSecondary" align="center">
 			{"Copyright © "}
-			<Link color="inherit" href="https://material-ui.com/">
-				Your Website
+			<Link color="inherit" href="https://dev.eportfolio.tech/">
+				COMP30022
 			</Link>{" "}
 			{new Date().getFullYear()}
 			{"."}
@@ -65,7 +63,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-const steps = ["Enter details", "Optional details", "Verification (还没做)"];
+const steps = ["Enter details", "Optional details", "Verification"];
 
 function getStepContent(step: number) {
 	switch (step) {
@@ -74,7 +72,7 @@ function getStepContent(step: number) {
 		case 1:
 			return <OptionalForm />;
 		case 2:
-			return <Review />;
+			return <ReviewForm />;
 		default:
 			throw new Error("Unknown step");
 	}
@@ -93,62 +91,52 @@ export default function Checkout() {
 	};
 
 	return (
-		<Layout>
-			<main className={classes.layout}>
-				<Paper className={classes.paper}>
-					<Typography component="h1" variant="h4" align="center">
-						Sign Up
-					</Typography>
-					<Stepper
-						activeStep={activeStep}
-						className={classes.stepper}
-					>
-						{steps.map((label) => (
-							<Step key={label}>
-								<StepLabel>{label}</StepLabel>
-							</Step>
-						))}
-					</Stepper>
+		<main className={classes.layout}>
+			<Paper className={classes.paper}>
+				<Stepper activeStep={activeStep} className={classes.stepper}>
+					{steps.map((label) => (
+						<Step key={label}>
+							<StepLabel>{label}</StepLabel>
+						</Step>
+					))}
+				</Stepper>
 
-					{activeStep === steps.length ? (
-						<div>
-							<Typography variant="h5" gutterBottom>
-								Thank you for your order.
-							</Typography>
-							<Typography variant="subtitle1">
-								Your order number is #2001539. We have emailed
-								your order confirmation, and will send you an
-								update when your order has shipped.
-							</Typography>
-						</div>
-					) : (
-						<div>
-							{getStepContent(activeStep)}
-							<div className={classes.buttons}>
-								{activeStep !== 0 && (
-									<Button
-										onClick={handleBack}
-										className={classes.button}
-									>
-										Back
-									</Button>
-								)}
+				{activeStep === steps.length ? (
+					<div>
+						<Typography variant="h5" gutterBottom>
+							Registration Succeed.
+						</Typography>
+						<Typography variant="subtitle1">
+							You can manage your personal details under your dashboard.
+						</Typography>
+					</div>
+				) : (
+					<div>
+						{getStepContent(activeStep)}
+						<div className={classes.buttons}>
+							{activeStep !== 0 && (
 								<Button
-									variant="contained"
-									color="primary"
-									onClick={handleNext}
+									onClick={handleBack}
 									className={classes.button}
 								>
-									{activeStep === steps.length - 1
-										? "Place order"
-										: "Next"}
+									Back
 								</Button>
-							</div>
+							)}
+							<Button
+								variant="contained"
+								color="primary"
+								onClick={handleNext}
+								className={classes.button}
+							>
+								{activeStep === steps.length - 1
+									? "Done"
+									: "Next"}
+							</Button>
 						</div>
-					)}
-				</Paper>
-				<Copyright />
-			</main>
-		</Layout>
+					</div>
+				)}
+			</Paper>
+			<Copyright />
+		</main>
 	);
 }
