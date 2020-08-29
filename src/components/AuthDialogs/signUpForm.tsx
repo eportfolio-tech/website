@@ -172,7 +172,8 @@ export default ({ setOpen }: ISignUpForm) => {
 									!(userInfo as any).lastName || 
 									!(userInfo as any).email || 
 									!(userInfo as any).password || 
-									!(userInfo as any).repassword}
+									!(userInfo as any).repassword ||
+									(userInfo as any).password !== (userInfo as any).repassword}
 							>
 								{activeStep === steps.length - 1
 									? "Done"
