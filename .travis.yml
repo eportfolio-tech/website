@@ -42,7 +42,7 @@ deploy:
     branch: master
 
 after_deploy:
-  - rm deploy_key
+  - sudo rm -f deploy_key
 
 notifications:
   slack: comp30022-workspace:7vMQ7aLMccsS6rzFGygUEaTG

@@ -63,18 +63,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const steps = ["Enter details", "Optional details", "Verification"];
 
-function getStepContent(step: number) {
-	switch (step) {
-		case 0:
-			return <AccountForm />;
-		case 1:
-			return <OptionalForm />;
-		case 2:
-			return <ReviewForm />;
-		default:
-			throw new Error("Unknown step");
-	}
-}
 
 interface ISignUpForm {
 	setOpen: any;
@@ -84,6 +72,21 @@ export default ({ setOpen }: ISignUpForm) => {
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
 
+	const [userInfo, setUserInfo] = React.useState({});
+
+	function getStepContent(step: number) {
+		switch (step) {
+			case 0:
+				return <AccountForm info={userInfo} handle={handleInput}/>;
+			case 1:
+				return <OptionalForm info={userInfo} handle={handleInput}/>;
+			case 2:
+				return <ReviewForm />;
+			default:
+				throw new Error("Unknown step");
+		}
+	}
+
 	const handleNext = () => {
 		setActiveStep(activeStep + 1);
 	};
@@ -91,6 +94,15 @@ export default ({ setOpen }: ISignUpForm) => {
 	const handleBack = () => {
 		setActiveStep(activeStep - 1);
 	};
+
+	const handleInput = (propertyName: any) => (event: { target: { value: any; }; }) => {
+		const newUserInfo = {
+			...userInfo,
+			[propertyName]: event.target.value
+		};
+		setUserInfo(newUserInfo);
+		// console.log(userInfo);
+	}
 
 	return (
 		<main className={classes.layout}>

@@ -65,22 +65,36 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const steps = ["Enter details", "Optional details", "Verification"];
 
-function getStepContent(step: number) {
-	switch (step) {
-		case 0:
-			return <AccountForm />;
-		case 1:
-			return <OptionalForm />;
-		case 2:
-			return <ReviewForm />;
-		default:
-			throw new Error("Unknown step");
-	}
-}
+
 
 export default function Checkout() {
+
+	function getStepContent(step: number) {
+		switch (step) {
+			case 0:
+				return <AccountForm info={userInfo} handle={handleInput}/>;
+			case 1:
+				return <OptionalForm info={userInfo} handle={handleInput}/>;
+			case 2:
+				return <ReviewForm />;
+			default:
+				throw new Error("Unknown step");
+		}
+	}
+
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
+
+	const [userInfo, setUserInfo] = React.useState(
+		{
+			userInfo: {
+				firstName: '',
+				lastName: '',
+				email: '',
+				password: ''
+			}
+		}
+	)
 
 	const handleNext = () => {
 		setActiveStep(activeStep + 1);
@@ -89,6 +103,17 @@ export default function Checkout() {
 	const handleBack = () => {
 		setActiveStep(activeStep - 1);
 	};
+
+	const handleInput = () => {
+		setUserInfo({
+			userInfo: {
+				firstName: '',
+				lastName: '',
+				email: '',
+				password: ''
+			}
+		})
+	}
 
 	return (
 		<main className={classes.layout}>

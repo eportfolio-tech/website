@@ -7,10 +7,14 @@ import TextField from '@material-ui/core/TextField';
 // import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 // import { MenuItem } from '@material-ui/core';
 
+interface PassedProps extends React.Props<any> {
+  info: any
+  handle: any
+}
 
-export default function OptionalForm() {
-
-  return (
+class OptionalForm extends React.Component<PassedProps> {
+  render() {
+    return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
         You can complete this after registration
@@ -22,6 +26,8 @@ export default function OptionalForm() {
             label="Prefered Name" 
             fullWidth 
             autoComplete="cc-name" 
+            defaultValue={this.props.info.preferedName}
+            onChange={this.props.handle('preferedName')}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -30,6 +36,8 @@ export default function OptionalForm() {
             label="Title"
             fullWidth
             autoComplete="title"
+            defaultValue={this.props.info.title}
+            onChange={this.props.handle('title')}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -38,6 +46,8 @@ export default function OptionalForm() {
             label="Region" 
             fullWidth 
             autoComplete="region" 
+            defaultValue={this.props.info.region}
+            onChange={this.props.handle('region')}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -46,6 +56,8 @@ export default function OptionalForm() {
             label="ZIP"
             fullWidth
             autoComplete="zip"
+            defaultValue={this.props.info.zip}
+            onChange={this.props.handle('zip')}
           />
         </Grid>
         <Grid item xs={12}>
@@ -54,6 +66,8 @@ export default function OptionalForm() {
             label="Mobile Number"
             fullWidth
             autoComplete="mobile"
+            defaultValue={this.props.info.mobile}
+            onChange={this.props.handle('mobile')}
           />
         </Grid>
         <Grid item xs={12}>
@@ -61,10 +75,16 @@ export default function OptionalForm() {
               id="role"
               select
               fullWidth
-              label="Which role can best describe you?">
-          </TextField>
+              label="Which role can best describe you?"
+              defaultValue={this.props.info.role}
+              onChange={this.props.handle('role')}
+          />
         </Grid>
       </Grid>
     </React.Fragment>
   );
+  }
+  
 }
+
+export default OptionalForm;
