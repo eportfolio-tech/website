@@ -72,7 +72,7 @@ export default function Checkout() {
 	function getStepContent(step: number) {
 		switch (step) {
 			case 0:
-				return <AccountForm info={userInfo} handle={handleInput}/>;
+				return <AccountForm info={userInfo} handle={handleInput} check={checkPassword}/>;
 			case 1:
 				return <OptionalForm info={userInfo} handle={handleInput}/>;
 			case 2:
@@ -113,6 +113,13 @@ export default function Checkout() {
 				password: ''
 			}
 		})
+	}
+
+	const checkPassword = () => {
+		if ((userInfo as any).password !== (userInfo as any).repassword) {
+			return false;
+		}
+		return true;
 	}
 
 	return (

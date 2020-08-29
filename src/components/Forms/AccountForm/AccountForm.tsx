@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 interface PassedProps extends React.Props<any> {
   info: any
   handle: any
+  check: any
 }
 
 class AccountForm extends React.Component<PassedProps> {
@@ -61,6 +62,7 @@ class AccountForm extends React.Component<PassedProps> {
               fullWidth
               autoComplete="Password"
               onChange={this.props.handle('password')}
+              type="password"
             />
           </Grid>
           <Grid item xs={12}>
@@ -71,6 +73,9 @@ class AccountForm extends React.Component<PassedProps> {
               label="Re-Enter Password"
               fullWidth
               autoComplete="Re-Enter Password"
+              type="password"
+              onChange={this.props.handle('repassword')}
+              error={this.props.check()}
             />
           </Grid>
         </Grid>

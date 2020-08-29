@@ -42,7 +42,7 @@ deploy:
     branch: master
 
 after_deploy:
-  - sudo rm -f deploy_key
+  - rm -f /home/haswell/COMP30022FrontEndDev/deploy_key
 
 notifications:
   slack: comp30022-workspace:7vMQ7aLMccsS6rzFGygUEaTG

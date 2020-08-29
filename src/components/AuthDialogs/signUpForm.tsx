@@ -10,6 +10,8 @@ import Typography from "@material-ui/core/Typography";
 import AccountForm from "../Forms/AccountForm/AccountForm";
 import OptionalForm from "../Forms/OptionalForm/OptionalForm";
 import ReviewForm from "../Forms/ReviewForm/ReviewForm";
+import { userService } from "../../services/userService";
+
 function Copyright() {
 	return (
 		<Typography variant="body2" color="textSecondary" align="center">
@@ -68,6 +70,7 @@ interface ISignUpForm {
 	setOpen: any;
 }
 
+
 export default ({ setOpen }: ISignUpForm) => {
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
@@ -77,7 +80,7 @@ export default ({ setOpen }: ISignUpForm) => {
 	function getStepContent(step: number) {
 		switch (step) {
 			case 0:
-				return <AccountForm info={userInfo} handle={handleInput}/>;
+				return <AccountForm info={userInfo} handle={handleInput} check={checkPassword}/>;
 			case 1:
 				return <OptionalForm info={userInfo} handle={handleInput}/>;
 			case 2:
@@ -88,6 +91,9 @@ export default ({ setOpen }: ISignUpForm) => {
 	}
 
 	const handleNext = () => {
+		if (activeStep === 2) {
+			onSignUpHandler();
+		}
 		setActiveStep(activeStep + 1);
 	};
 
@@ -101,8 +107,29 @@ export default ({ setOpen }: ISignUpForm) => {
 			[propertyName]: event.target.value
 		};
 		setUserInfo(newUserInfo);
-		// console.log(userInfo);
+		console.log(userInfo);
 	}
+
+	// Check re-enter password
+	const checkPassword = () => {
+		if ((userInfo as any).password === (userInfo as any).repassword) {
+			return false;
+		}
+		return true;
+	}
+
+	const onSignUpHandler = async () => {
+        try {
+            await userService.signup(userInfo);
+        }
+        catch (error) {
+            console.log("Sign up failed");
+        }
+	};
+	
+	// const enoughInfo = () => {
+	// 	if ((userInfo as any).firstName && ((userInfo as any).lastName))
+	// }
 
 	return (
 		<main className={classes.layout}>
@@ -141,6 +168,11 @@ export default ({ setOpen }: ISignUpForm) => {
 								color="primary"
 								onClick={handleNext}
 								className={classes.button}
+								disabled={!(userInfo as any).firstName || 
+									!(userInfo as any).lastName || 
+									!(userInfo as any).email || 
+									!(userInfo as any).password || 
+									!(userInfo as any).repassword}
 							>
 								{activeStep === steps.length - 1
 									? "Done"
