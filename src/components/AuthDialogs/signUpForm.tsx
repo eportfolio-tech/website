@@ -121,6 +121,9 @@ export default () => {
         if (userInfo.password === userInfo.repassword) {
             return false;
         }
+        if (userInfo.password.length <= 7) {
+            return false;
+        }
         return true;
     };
 
