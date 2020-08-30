@@ -1,5 +1,5 @@
-import axios from "../helper/axios";
-import { sha256 } from 'js-sha256';
+import axios from '../helper/axios';
+import {sha256} from 'js-sha256';
 
 export const userService = {
     // login,
@@ -34,15 +34,12 @@ export const userService = {
 // }
 
 async function signup(userInfo) {
-    const response = await axios.post(
-        '/api/users/',
-        null,
-        {
-            params: {
-                firstName: userInfo.firstName,
-                lastName: userInfo.lastName,
-                password: sha256.hmac('e-portfolio', userInfo.password)
-            }
-        });
+    const response = await axios.post('/api/users/', null, {
+        params: {
+            firstName: userInfo.firstName,
+            lastName: userInfo.lastName,
+            password: sha256.hmac('e-portfolio', userInfo.password),
+        },
+    });
     return response.data;
 }

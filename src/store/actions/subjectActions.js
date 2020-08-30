@@ -1,14 +1,14 @@
-import { subjectConstants } from "../constants/subjectConstants";
+import {subjectConstants} from '../constants/subjectConstants';
 
 export const subjectActions = {
-	set,
-	clear,
+    set,
+    clear,
 };
 
 function set(code) {
-	return { type: subjectConstants.SET_SUBJECT, code };
+    return {type: subjectConstants.SET_SUBJECT, code};
 }
 
 function clear(code) {
-	return { type: subjectConstants.CLEAR_SUBJECT, code };
+    return {type: subjectConstants.CLEAR_SUBJECT, code};
 }

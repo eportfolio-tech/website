@@ -1,6 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import {render} from '@testing-library/react';
 import App from './App';
 
-test('tests to be added', () => {
-});
+test('tests to be added', () => {});
