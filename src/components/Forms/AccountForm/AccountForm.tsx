@@ -58,7 +58,7 @@ class AccountForm extends React.Component<PassedProps> {
                             required
                             id="password"
                             name="password"
-                            label="Password"
+                            label="Password (with minimum eight characters)"
                             fullWidth
                             autoComplete="Password"
                             onChange={this.props.handle('password')}
@@ -70,7 +70,7 @@ class AccountForm extends React.Component<PassedProps> {
                             required
                             id="repassword"
                             name="repassword"
-                            label="Re-Enter Password"
+                            label="Please Re-Enter your Password"
                             fullWidth
                             autoComplete="Re-Enter Password"
                             type="password"

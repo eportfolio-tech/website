@@ -120,6 +120,9 @@ export default function Checkout() {
         if ((userInfo as any).password !== (userInfo as any).repassword) {
             return false;
         }
+        if (((userInfo as any).password.length) <= 7) {
+            return false;
+        }
         return true;
     };
 
