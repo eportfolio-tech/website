@@ -223,34 +223,6 @@ export default ({ toggle }) => {
 						style={{ width: "20%" }}
 					/>
 				</ParallaxLayer>
-				<ParallaxLayer
-					offset={0}
-					speed={0.1}
-					onClick={() => parallax.scrollTo(1)}
-					style={{
-						display: "flex",
-						alignItems: "center",
-						justifyContent: "center",
-					}}
-				>
-					<IconButton
-						style={{
-							color: "white",
-							background:
-								"linear-gradient(-60deg, #16a085 0%, #0d77db 100%)",
-						}}
-						onClick={() => {
-							toggle(false);
-						}}
-					>
-						<SearchIcon
-							style={{
-								height: "100px",
-								width: "100px",
-							}}
-						/>
-					</IconButton>
-				</ParallaxLayer>
 
 				<ParallaxLayer
 					offset={1}
