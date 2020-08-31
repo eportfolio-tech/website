@@ -1,45 +1,48 @@
 language: node_js
 
 node_js:
-  - '12'
+    - '12'
 
 if: branch = master
 
 before_install:
-  - openssl aes-256-cbc -K $encrypted_dfdcfd5172af_key -iv $encrypted_dfdcfd5172af_iv -in deploy_key.enc -out ./deploy_key -d
-  - sudo apt-get -y install libxml2-dev
+    - openssl aes-256-cbc -K $encrypted_dfdcfd5172af_key -iv $encrypted_dfdcfd5172af_iv -in deploy_key.enc -out ./deploy_key -d
+    - sudo apt-get -y install libxml2-dev
 
 addons:
-  apt:
-    update: true
-  ssh_known_hosts: 
-    - dev.eportfolio.tech
-    - dev.eportfolio.tech:30022
-    - 103.108.228.162
-    - 103.108.228.162:30022
+    apt:
+        update: true
+    ssh_known_hosts:
+        - dev.eportfolio.tech
+        - dev.eportfolio.tech:30022
+        - 103.108.228.162
+        - 103.108.228.162:30022
 
 install:
-  - rm -rf node_modules
-  - rm package-lock.json
-  - npm install
+    - rm -rf node_modules
+    - rm -f package-lock.json
+    - npm install
 
 script:
-  - npm test
-  - npm run build
+    - npm test
+    - CI=false npm run build
 
 before_deploy:
-  - eval "$(ssh-agent -s)"
-  - chmod 600 ./deploy_key
-  - echo -e "Host $SERVER_IP_ADDRESS\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-  - ssh-add ./deploy_key
-  - ssh -i ./deploy_key haswell@dev.eportfolio.tech -p 30022 pwd
+    - eval "$(ssh-agent -s)"
+    - chmod 600 ./deploy_key
+    - echo -e "Host $SERVER_IP_ADDRESS\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+    - ssh-add ./deploy_key
+    - ssh -i ./deploy_key haswell@dev.eportfolio.tech -p 30022 pwd
 
 deploy:
-  provider: script
-  skip_cleanup: true
-  script: rsync -r --delete-after --quiet -e 'ssh -p 30022' $TRAVIS_BUILD_DIR/* haswell@dev.eportfolio.tech:~/COMP30022FrontEndDev/
-  on:
-    branch: master
+    provider: script
+    skip_cleanup: true
+    script: rsync -r --delete-after --quiet -e 'ssh -p 30022' $TRAVIS_BUILD_DIR/* haswell@dev.eportfolio.tech:~/COMP30022FrontEndDev/
+    on:
+        branch: master
+
+after_deploy:
+    - rm -f /home/haswell/COMP30022FrontEndDev/deploy_key
 
 notifications:
-  slack: comp30022-workspace:7vMQ7aLMccsS6rzFGygUEaTG
+    slack: comp30022-workspace:7vMQ7aLMccsS6rzFGygUEaTG

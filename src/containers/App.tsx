@@ -1,6 +1,5 @@
 import React from "react";
 import SignIn from "../containers/SignIn/SignIn";
-import SignUp from "../containers/SignUp/Signup";
 import { useSelector } from "react-redux";
 import { IRootState } from "../index";
 
@@ -117,11 +116,11 @@ function App() {
 							path={"/sign-in"}
 							Component={SignIn}
 						/>
-						<LoggedOutRoute
-							exact
-							path={"/sign-up"}
-							Component={SignUp}
-						/>
+						{/* <LoggedOutRoute
+                            exact
+                            path={'/sign-up'}
+                            Component={SignUp}
+                        /> */}
 					</Switch>
 				</SnackbarProvider>
 			</DocumentTitle>
