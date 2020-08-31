@@ -12,7 +12,7 @@ const url = (name, wrap = false) =>
 		wrap ? ")" : ""
 	}`;
 
-export default ({ setShow }) => {
+export default ({ toggle }) => {
 	let parallax;
 	return (
 		<div>
@@ -240,7 +240,7 @@ export default ({ setShow }) => {
 								"linear-gradient(-60deg, #16a085 0%, #0d77db 100%)",
 						}}
 						onClick={() => {
-							setShow(false);
+							toggle(false);
 						}}
 					>
 						<SearchIcon
@@ -301,9 +301,7 @@ export default ({ setShow }) => {
 							background:
 								"linear-gradient(-60deg, #16a085 0%, #0d77db 100%)",
 						}}
-						onClick={() => {
-							setShow(false);
-						}}
+						onClick={toggle}
 					>
 						<SearchIcon
 							style={{
