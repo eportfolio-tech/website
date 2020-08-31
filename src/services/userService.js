@@ -34,12 +34,12 @@ export const userService = {
 // }
 
 async function signup(userInfo) {
-    const response = await axios.post('/api/users/', null, {
-        params: {
-            firstName: userInfo.firstName,
-            lastName: userInfo.lastName,
-            password: sha256.hmac('e-portfolio', userInfo.password),
-        },
+    const response = await axios.post('/users/', {
+        firstName: userInfo.firstName,
+        lastName: userInfo.lastName,
+        email: userInfo.email,
+        password: sha256.hmac('e-portfolio', userInfo.password),
     });
+    // console.log(response);
     return response.data;
 }
