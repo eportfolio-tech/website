@@ -73,7 +73,7 @@ export default () => {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState<number>(0);
 
-    const [userInfo, setUserInfo] = React.useState<any | null>({});
+    const [userInfo, setUserInfo] = React.useState<any | null>({password: ''});
 
     function getStepContent(step: number) {
         switch (step) {
@@ -86,7 +86,13 @@ export default () => {
                     />
                 );
             case 1:
-                return <OptionalForm info={userInfo} handle={handleInput} />;
+                return (
+                    <OptionalForm
+                        info={userInfo}
+                        handle={handleInput}
+                        handlePhone={handlePhone}
+                    />
+                );
             case 2:
                 return <ReviewForm />;
             default:
@@ -116,12 +122,17 @@ export default () => {
         // console.log(userInfo);
     };
 
-    // Check re-enter password
+    const handlePhone = (phone: string) => {
+        const newUserInfo = {
+            ...userInfo,
+            phone: phone,
+        };
+        setUserInfo(newUserInfo);
+    };
+
     const checkPassword = () => {
-        if (userInfo.password === userInfo.repassword) {
-            return false;
-        }
-        if (userInfo.password.length <= 7) {
+        console.log(userInfo.password);
+        if (userInfo.password.length < 8) {
             return false;
         }
         return true;
@@ -134,10 +145,6 @@ export default () => {
             console.log('Sign up failed');
         }
     };
-
-    // const enoughInfo = () => {
-    // 	if ((userInfo as any).firstName && ((userInfo as any).lastName))
-    // }
 
     return (
         <main className={classes.layout}>

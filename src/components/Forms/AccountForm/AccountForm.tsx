@@ -62,6 +62,7 @@ class AccountForm extends React.Component<PassedProps> {
                             fullWidth
                             autoComplete="Password"
                             onChange={this.props.handle('password')}
+                            error={!this.props.check()}
                             type="password"
                         />
                     </Grid>
@@ -75,7 +76,10 @@ class AccountForm extends React.Component<PassedProps> {
                             autoComplete="Re-Enter Password"
                             type="password"
                             onChange={this.props.handle('repassword')}
-                            error={this.props.check()}
+                            error={
+                                this.props.info.password !==
+                                this.props.info.repassword
+                            }
                         />
                     </Grid>
                 </Grid>

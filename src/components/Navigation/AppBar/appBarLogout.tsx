@@ -118,7 +118,7 @@ export default withWidth()(() => {
                         onClick={() => {
                             setOpenSignUp(true);
                         }}>
-                        Get Started
+                        Join Us
                     </Button>
                 </Toolbar>
             </AppBar>
