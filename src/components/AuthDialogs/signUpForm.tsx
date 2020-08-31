@@ -73,7 +73,11 @@ export default () => {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState<number>(0);
 
-    const [userInfo, setUserInfo] = React.useState<any | null>({password: ''});
+    const [userInfo, setUserInfo] = React.useState<any | null>({
+        password: '',
+        title: '',
+        role: '',
+    });
 
     function getStepContent(step: number) {
         switch (step) {
@@ -131,8 +135,8 @@ export default () => {
     };
 
     const checkPassword = () => {
-        console.log(userInfo.password);
-        if (userInfo.password.length < 8) {
+        // console.log(userInfo.password);
+        if (userInfo.password.length < 8 && userInfo.password.length > 0) {
             return false;
         }
         return true;
@@ -189,7 +193,8 @@ export default () => {
                                     !userInfo.email ||
                                     !userInfo.password ||
                                     !userInfo.repassword ||
-                                    userInfo.password !== userInfo.repassword
+                                    userInfo.password !== userInfo.repassword ||
+                                    !checkPassword
                                 }>
                                 {activeStep === steps.length - 1
                                     ? 'Done'

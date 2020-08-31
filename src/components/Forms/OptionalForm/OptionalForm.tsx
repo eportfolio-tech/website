@@ -40,6 +40,17 @@ class OptionalForm extends React.Component<PassedProps> {
         },
     ];
 
+    roles = [
+        {
+            value: 'Software Engineer',
+            label: 'Software Engineer',
+        },
+        {
+            value: 'Data Scientist',
+            label: 'Data Scientist',
+        },
+    ];
+
     render() {
         return (
             <React.Fragment>
@@ -51,6 +62,7 @@ class OptionalForm extends React.Component<PassedProps> {
                     <Grid item xs={12} md={6}>
                         <TextField
                             id="outlined-select-currency"
+                            value={this.props.info.title}
                             select
                             label="Select Title"
                             fullWidth
@@ -76,13 +88,14 @@ class OptionalForm extends React.Component<PassedProps> {
                         />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <TextField
-                            id="region"
-                            label="Region"
-                            fullWidth
-                            autoComplete="region"
-                            defaultValue={this.props.info.region}
-                            onChange={this.props.handle('region')}
+                        <PhoneInput
+                            country={'au'}
+                            enableAreaCodes={false}
+                            onChange={(phone) => this.props.handlePhone(phone)}
+                            value={this.props.info.phone}
+                            inputStyle={{
+                                width: '100%',
+                            }}
                         />
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -95,24 +108,24 @@ class OptionalForm extends React.Component<PassedProps> {
                             onChange={this.props.handle('zip')}
                         />
                     </Grid>
-                    <Grid item xs={12}>
-                        {/* https://github.com/bl00mber/react-phone-input-2 */}
-                        <PhoneInput
-                            country={'au'}
-                            enableAreaCodes={false}
-                            onChange={(phone) => this.props.handlePhone(phone)}
-                            value={this.props.info.phone}
-                        />
-                    </Grid>
+
                     <Grid item xs={12}>
                         <TextField
                             id="role"
                             select
                             fullWidth
                             label="Which role can best describe you?"
-                            defaultValue={this.props.info.role}
                             onChange={this.props.handle('role')}
-                        />
+                            value={this.props.info.role}
+                            variant="outlined">
+                            {this.roles.map((option) => (
+                                <MenuItem
+                                    key={option.value}
+                                    value={option.value}>
+                                    {option.label}
+                                </MenuItem>
+                            ))}
+                        </TextField>
                     </Grid>
                 </Grid>
             </React.Fragment>
