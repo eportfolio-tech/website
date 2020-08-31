@@ -6,7 +6,7 @@ import { useSpring, animated as a } from "react-spring";
 import SearchPage from "./search";
 
 export default () => {
-	const [flipped, setFlipped] = useState(true);
+	const [flipped, setFlipped] = useState(false);
 	const { transform, opacity }: any = useSpring({
 		opacity: flipped ? 1 : 0,
 		transform: `perspective(600px) rotateX(${flipped ? 180 : 0}deg)`,
