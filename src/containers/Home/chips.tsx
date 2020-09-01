@@ -12,7 +12,7 @@ export interface IChip {
 const useStyles = makeStyles(() =>
 	createStyles({
 		chip: {
-			fontSize: 23,
+			fontSize: 24,
 			fontWeight: "bold",
 			borderRadius: 40,
 			height: "100%",
