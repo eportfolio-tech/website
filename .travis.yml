@@ -18,10 +18,16 @@ addons:
     - 103.108.228.162
     - 103.108.228.162:30022
 
-# install:
-#     - rm -rf node_modules
-#     - rm -f package-lock.json
-#     - npm install
+install:
+  - rm -rf node_modules
+  - rm -f package-lock.json
+  - npm install
+  - npm ci
+
+# keep the npm cache around to speed up installs
+cache:
+  directories:
+    - "$HOME/.npm"
 
 script:
   - npm test
