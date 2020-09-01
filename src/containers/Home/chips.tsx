@@ -2,7 +2,7 @@ import React from "react";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 import { Typography, TextField, Chip } from "@material-ui/core";
 import FaceIcon from "@material-ui/icons/Face";
-import Autocomplete from "@material-ui/lab/autocomplete";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
 export interface IChip {
 	type: string;
