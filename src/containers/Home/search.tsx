@@ -25,12 +25,10 @@ const useStyles = makeStyles(() =>
 );
 
 const intChips = [
-	{ type: "tag", content: "COMP30022" },
-	{ type: "tag", content: "COMP30020" },
-	{ type: "person", content: "Alex" },
-	{ type: "tag", content: "SWEN30006" },
-	{ type: "person", content: "Bob" },
-	{ type: "tag", content: "INFO30005" },
+	{ type: "person", content: "Alex Smith" },
+	{ type: "person", content: "Bob Jones" },
+	{ type: "tag", content: "Software Engineer" },
+	{ type: "tag", content: "Marketing Analyst" },
 ];
 
 export default () => {
