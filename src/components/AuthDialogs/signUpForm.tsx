@@ -128,7 +128,7 @@ export default (props: { close: () => void }) => {
       });
       props.close();
     } catch (error) {
-      enqueueSnackbar("signup failed: " + error.message, {
+      enqueueSnackbar("signup failed: " + error.response.data.errors, {
         variant: "error",
       });
     }
