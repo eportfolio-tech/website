@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
@@ -84,10 +84,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default () => {
+export default (props: { close: () => void }) => {
   const classes = useStyles();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  const [userInfo, setUserInfo] = React.useState<any | null>({
+  const [signupFailed, setSignupFailed] = useState(false);
+  const [userInfo, setUserInfo] = useState<any | null>({
     password: "",
     title: "",
   });
@@ -98,6 +99,7 @@ export default () => {
       [key]: value,
     };
     setUserInfo(newUserInfo);
+    setSignupFailed(true);
   };
 
   const checkPassword = () => {
@@ -121,11 +123,12 @@ export default () => {
   const onSignUpHandler = async () => {
     try {
       await userService.signup(userInfo);
-      enqueueSnackbar("sign up succeed", {
+      enqueueSnackbar("signup succeed", {
         variant: "success",
       });
+      props.close();
     } catch (error) {
-      enqueueSnackbar("sign up failed", {
+      enqueueSnackbar("signup failed: " + error.message, {
         variant: "error",
       });
     }
@@ -158,13 +161,13 @@ export default () => {
             </Grid>
             <Grid item xs={12} md={6}>
               <TextField
-                id="preferedname"
-                label="Prefered Name"
+                id="username"
+                label="Username"
                 fullWidth
-                autoComplete="cc-name"
-                defaultValue={userInfo.preferedName}
+                required
+                defaultValue={userInfo.username}
                 onChange={(event) =>
-                  handleInput("preferedname", event.target.value)
+                  handleInput("username", event.target.value)
                 }
               />
             </Grid>
@@ -255,16 +258,6 @@ export default () => {
                 }}
               />
             </Grid>
-            {/* <Grid item xs={12} md={6}>
-              <TextField
-                id="zip"
-                label="ZIP"
-                fullWidth
-                autoComplete="zip"
-                defaultValue={this.props.info.zip}
-                onChange={this.props.handle("zip")}
-              />
-            </Grid> */}
 
             {/* <Grid item xs={12}>
               <TextField
@@ -291,13 +284,14 @@ export default () => {
               className={classes.button}
               onClick={onSignUpHandler}
               disabled={
+                !userInfo.username ||
                 !userInfo.firstName ||
                 !userInfo.lastName ||
                 !userInfo.email ||
                 !userInfo.password ||
                 !userInfo.repassword ||
                 userInfo.password !== userInfo.repassword ||
-                !checkPassword
+                !checkPassword()
               }
             >
               Register

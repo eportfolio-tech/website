@@ -30,8 +30,10 @@ async function signup(userInfo) {
     firstName: userInfo.firstName,
     lastName: userInfo.lastName,
     email: userInfo.email,
-    password: sha256.hmac("e-portfolio", userInfo.password),
+    password: userInfo.password,
+    username: userInfo.username,
+    title: userInfo.title,
+    phone: userInfo.phone,
   });
-  // console.log(response);
   return response.data;
 }
