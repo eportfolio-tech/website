@@ -98,7 +98,7 @@ export default withWidth()(() => {
                         noWrap
                         color="textPrimary"
                         className={classes.toolbarTitle}>
-                        COMP30022
+                        Forty-Two
                     </Typography>
 
                     <Button

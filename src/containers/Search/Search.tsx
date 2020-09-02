@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
             flexDirection: 'column',
         },
         cardMedia: {
-            paddingTop: '56.25%', // 16:9
+            paddingTop: '141.428%', // A4 size
         },
         cardContent: {
             flexGrow: 1,
