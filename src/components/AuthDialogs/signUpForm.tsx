@@ -8,7 +8,10 @@ import { userService } from "../../services/userService";
 import { TextField, Grid, MenuItem } from "@material-ui/core";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/material.css";
-import { useSnackbar } from "notistack";
+
+import { useDispatch } from "react-redux";
+import { userActions } from "../../store/actions/userActions";
+import { alertActions } from "../../store/actions/alertActions";
 
 function Copyright() {
   return (
@@ -86,7 +89,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default (props: { close: () => void }) => {
   const classes = useStyles();
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const dispatch = useDispatch();
   const [signupFailed, setSignupFailed] = useState(false);
   const [userInfo, setUserInfo] = useState<any | null>({
     password: "",
@@ -123,14 +126,13 @@ export default (props: { close: () => void }) => {
   const onSignUpHandler = async () => {
     try {
       await userService.signup(userInfo);
-      enqueueSnackbar("signup succeed", {
-        variant: "success",
-      });
+      dispatch(userActions.login("sample"));
+      dispatch(alertActions.success("sign up succeed"));
       props.close();
     } catch (error) {
-      enqueueSnackbar("signup failed: " + error.response.data.errors, {
-        variant: "error",
-      });
+      dispatch(
+        alertActions.error("sign up failed: " + error.response.data.errors)
+      );
     }
   };
 
