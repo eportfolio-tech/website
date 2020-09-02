@@ -1,5 +1,6 @@
 import React from "react";
 import SignIn from "../containers/SignIn/SignIn";
+import Search from "../containers/Search/Search";
 import { useSelector } from "react-redux";
 import { IRootState } from "../index";
 
@@ -115,6 +116,11 @@ function App() {
 							exact
 							path={"/sign-in"}
 							Component={SignIn}
+						/>
+						<LoggedOutRoute
+							exact
+							path={"/result"}
+							Component={Search}
 						/>
 						{/* <LoggedOutRoute
                             exact
