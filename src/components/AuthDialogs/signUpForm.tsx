@@ -130,9 +130,11 @@ export default (props: { close: () => void }) => {
       dispatch(alertActions.success("sign up succeed"));
       props.close();
     } catch (error) {
-      dispatch(
-        alertActions.error("sign up failed: " + error.response.data.errors)
-      );
+      const err_msg = error.response.data.errors[0].split(",");
+      err_msg.forEach((err: any) => {
+        dispatch(alertActions.clear());
+        dispatch(alertActions.error("sign up failed: " + err));
+      });
     }
   };
 
