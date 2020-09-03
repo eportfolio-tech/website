@@ -118,8 +118,7 @@ export default (props: { close: () => void }) => {
     }
     return (
       /[a-z]/.test(userInfo.password) &&
-      /[A-Z]/.test(userInfo.password) &&
-      /\d/.test(userInfo.password)
+      /[A-Z]/.test(userInfo.password)
     );
   };
 
@@ -131,7 +130,7 @@ export default (props: { close: () => void }) => {
       props.close();
     } catch (error) {
       dispatch(
-        alertActions.error("sign up failed: " + error.response.data.errors)
+        alertActions.error("Sign up failed: " + error.response.data.errors)
       );
     }
   };
