@@ -13,9 +13,11 @@ async function login(username, password) {
       password: password,
     },
   });
-  const user = response.data.data;
+  const user = response.data;
+  const token = response.headers["x-jwt-token"];
   localStorage.setItem("user", JSON.stringify(user));
-  return user;
+  localStorage.setItem("token", JSON.stringify(token));
+  return { user: user, token: token };
 }
 
 // async function logout() {
