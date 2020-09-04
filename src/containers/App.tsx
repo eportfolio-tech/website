@@ -11,6 +11,8 @@ import { SnackbarProvider } from "notistack";
 
 import Index from "./Home/home";
 
+import ResetPassword from "../containers/Settings/ResetPassword";
+
 interface IProtectedRoute {
   Component?: any;
   path?: string | string[];
@@ -80,7 +82,7 @@ function App() {
 
   const Settings = () => (
     <Layout>
-      <h1>Settings </h1>
+      <ResetPassword />
     </Layout>
   );
   const Friends = () => (
