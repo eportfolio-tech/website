@@ -4,114 +4,109 @@ import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { userService } from "../../services/userService";
-import { TextField, Grid } from "@material-ui/core";
+import TextField from "./textField";
 
 import { useDispatch } from "react-redux";
 import { userActions } from "../../store/actions/userActions";
 import { alertActions } from "../../store/actions/alertActions";
 
+// Extension Styles
 const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    appBar: {
-      position: "relative",
-    },
-    layout: {
-      width: "auto",
-      marginLeft: theme.spacing(2),
-      marginRight: theme.spacing(2),
-      [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-        width: 600,
-        marginLeft: "auto",
-        marginRight: "auto",
-      },
-    },
-    paper: {
-      marginTop: theme.spacing(3),
-      marginBottom: theme.spacing(3),
-      padding: theme.spacing(2),
-      [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-        marginBottom: theme.spacing(6),
-        padding: theme.spacing(3),
-      },
-    },
-    stepper: {
-      padding: theme.spacing(3, 0, 5),
-    },
-    buttons: {
-      display: "flex",
-      justifyContent: "flex-end",
-    },
-    button: {
-      marginTop: theme.spacing(3),
-      marginLeft: theme.spacing(1),
-    },
-  })
+	createStyles({
+		paper: {
+			display: "flex",
+			flexDirection: "column",
+			alignItems: "center",
+			width: "90%",
+			height: "90%",
+		},
+
+		form: {
+			marginTop: theme.spacing(3),
+		},
+		submit: {
+			margin: theme.spacing(2, 0, 0),
+			background: "linear-gradient(-60deg, #16a085 0%, #0d77db 100%);",
+			borderRadius: 10,
+			textTransform: "none",
+			fontWeight: 550,
+			fontFamily: "Arial",
+		},
+		signUpButton: {
+			textTransform: "none",
+			color: "#31a065",
+			fontWeight: 550,
+			borderRadius: 10,
+			fontFamily: "Arial",
+		},
+
+		warn: {
+			marginTop: theme.spacing(0.8),
+		},
+		close: {
+			position: "absolute",
+			right: theme.spacing(1),
+			top: theme.spacing(1),
+			color: theme.palette.grey[500],
+		},
+	})
 );
 
 export default (props: { close: () => void }) => {
-  const classes = useStyles();
-  const dispatch = useDispatch();
-  // const [signinFailed, setSigninFailed] = useState(false);
-  const [userName, setUserName] = useState("");
-  // const [userEmail, setUserEmail] = useState("");
-  const [userPassword, setUserPassword] = useState("");
+	const classes = useStyles();
+	const dispatch = useDispatch();
 
-  const onSignUpHandler = async () => {
-    try {
-      const user = await userService.login(userName, userPassword);
-      dispatch(userActions.login(user));
-      dispatch(alertActions.success("log in succeed"));
-      props.close();
-    } catch (error) {
-      dispatch(
-        alertActions.error("log in failed: " + error.response.data.errors)
-      );
-    }
-  };
+	// const [signinFailed, setSigninFailed] = useState(false);
+	const [userName, setUserName] = useState("");
+	// const [userEmail, setUserEmail] = useState("");
+	const [userPassword, setUserPassword] = useState("");
 
-  return (
-    <main className={classes.layout}>
-      <Paper className={classes.paper}>
-        <div>
-          <Typography variant="h6" gutterBottom>
-            Welcome Back
-          </Typography>
-          <Grid container spacing={4}>
-            <Grid item xs={12}>
-              <TextField
-                id="username"
-                label="Username"
-                fullWidth
-                required
-                defaultValue={userName}
-                onChange={(event) => setUserName(event.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                id="password"
-                name="password"
-                label="Password"
-                fullWidth
-                type="password"
-                defaultValue={userPassword}
-                onChange={(event) => setUserPassword(event.target.value)}
-              />
-            </Grid>
-          </Grid>
-          <div className={classes.buttons}>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-              onClick={onSignUpHandler}
-            >
-              Log in
-            </Button>
-          </div>
-        </div>
-      </Paper>
-    </main>
-  );
+	const onSignUpHandler = async () => {
+		try {
+			const user = await userService.login(userName, userPassword);
+			dispatch(userActions.login(user));
+			dispatch(alertActions.success("log in succeed"));
+			props.close();
+		} catch (error) {
+			dispatch(
+				alertActions.error(
+					"log in failed: " + error.response.data.errors
+				)
+			);
+		}
+	};
+
+	return (
+		<Paper elevation={0} className={classes.paper}>
+			<Typography variant="h4" align="center">
+				Welcome Back.
+			</Typography>
+			<form className={classes.form}>
+				<TextField
+					label="user name"
+					setState={setUserName}
+					required={true}
+				/>
+				<TextField
+					label="Password"
+					setState={setUserPassword}
+					required={true}
+					type={"password"}
+				/>
+
+				<Button
+					fullWidth
+					variant="contained"
+					color="primary"
+					className={classes.submit}
+					size="large"
+					onClick={onSignUpHandler}
+				>
+					Login In
+				</Button>
+			</form>
+			<br />
+			<br />
+		</Paper>
+	);
 };
