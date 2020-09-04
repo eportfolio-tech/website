@@ -1,14 +1,14 @@
 import React from "react";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
-import { Container } from "@material-ui/core";
-import { Chips } from "./chips";
-
+import { Container, Grid } from "@material-ui/core";
+import { Chips } from "../Home/chips";
+import { Search as SearchIcon } from "@material-ui/icons";
+import Results from "./ressults";
 const useStyles = makeStyles(() =>
 	createStyles({
 		root: {
 			position: "absolute",
-			top: "20%",
-
+			top: "15%",
 			width: "100%",
 		},
 		chip: {
@@ -36,9 +36,21 @@ export default () => {
 
 	return (
 		<div className={classes.root}>
-			<Container maxWidth="sm">
-				<Chips chips={intChips} />
+			<Container maxWidth="md">
+				<Grid container>
+					<Grid item xs={1}>
+						<Grid container justify="center">
+							<SearchIcon
+								style={{ width: "60%", height: "60%" }}
+							/>
+						</Grid>
+					</Grid>
+					<Grid item xs={11}>
+						<Chips chips={intChips} />
+					</Grid>
+				</Grid>
 			</Container>
+			<Results />
 		</div>
 	);
 };

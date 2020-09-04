@@ -3,17 +3,20 @@ import Intro from "./IntroAnimation.jsx";
 import Layout from "../../components/Navigation/layout";
 import { useTheme } from "@material-ui/core/styles";
 import { useSpring, animated as a } from "react-spring";
-import SearchPage from "./search";
+import SearchPage from "../Search/searchPage";
+import { useHistory, useLocation } from "react-router-dom";
 
 export default () => {
-	const [flipped, setFlipped] = useState(false);
+	const theme = useTheme();
+	const history = useHistory();
+	const location = useLocation();
+
+	const [flipped, setFlipped] = useState(location.pathname === "/search");
 	const { transform, opacity }: any = useSpring({
 		opacity: flipped ? 1 : 0,
 		transform: `perspective(600px) rotateX(${flipped ? 180 : 0}deg)`,
 		config: { mass: 5, tension: 500, friction: 80 },
 	});
-	const theme = useTheme();
-
 	return (
 		<Layout noPadding>
 			<div>
@@ -21,6 +24,7 @@ export default () => {
 					<Intro
 						toggle={() => {
 							setFlipped((state) => !state);
+							history.push("/search");
 						}}
 					/>
 				</a.div>
