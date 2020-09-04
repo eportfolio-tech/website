@@ -1,14 +1,14 @@
-import {userConstants} from '../constants/userConstants';
+import { userConstants } from "../constants/userConstants";
 
 export const userActions = {
-    login,
-    logout,
+  login,
+  logout,
 };
 
 function login(payload) {
-    return {type: userConstants.LOGIN_SUCCESS, payload};
+  return { type: userConstants.LOGIN_SUCCESS, payload };
 }
 
 function logout() {
-    return {type: userConstants.LOGOUT};
+  return { type: userConstants.LOGOUT };
 }

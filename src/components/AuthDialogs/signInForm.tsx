@@ -51,15 +51,15 @@ const useStyles = makeStyles((theme: Theme) =>
 export default (props: { close: () => void }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [signinFailed, setSigninFailed] = useState(false);
+  // const [signinFailed, setSigninFailed] = useState(false);
   const [userName, setUserName] = useState("");
-  const [userEmail, setUserEmail] = useState("");
+  // const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
 
   const onSignUpHandler = async () => {
     try {
-      await userService.login(userName, userPassword);
-      dispatch(userActions.login("sample"));
+      const user = await userService.login(userName, userPassword);
+      dispatch(userActions.login(user));
       dispatch(alertActions.success("log in succeed"));
       props.close();
     } catch (error) {

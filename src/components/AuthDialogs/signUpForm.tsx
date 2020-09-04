@@ -118,20 +118,27 @@ export default (props: { close: () => void }) => {
     }
     return (
       /[a-z]/.test(userInfo.password) &&
-      /[A-Z]/.test(userInfo.password)
+      /[A-Z]/.test(userInfo.password) &&
+      /\d/.test(userInfo.password)
     );
   };
 
   const onSignUpHandler = async () => {
     try {
       await userService.signup(userInfo);
-      dispatch(userActions.login("sample"));
+      const user_payload = await userService.login(
+        userInfo.username,
+        userInfo.password
+      );
+      dispatch(userActions.login(user_payload));
       dispatch(alertActions.success("sign up succeed"));
       props.close();
     } catch (error) {
-      dispatch(
-        alertActions.error("Sign up failed: " + error.response.data.errors)
-      );
+      const err_msg = error.response.data.errors[0].split(",");
+      err_msg.forEach((err: any) => {
+        dispatch(alertActions.clear());
+        dispatch(alertActions.error("sign up failed: " + err));
+      });
     }
   };
 

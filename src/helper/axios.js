@@ -1,8 +1,8 @@
-import axios from 'axios';
+import axios from "axios";
 
 // Set config defaults when creating the instance
 var instance = axios.create({
-    baseURL: 'https://api.eportfolio.tech/',
+  baseURL: "https://api.eportfolio.tech/",
 });
 
 // const user = JSON.parse(localStorage.getItem('user'));
@@ -11,14 +11,14 @@ var instance = axios.create({
 //     instance.defaults.headers.common['Authorization'] = 'Bearer ' + user.token;
 // }
 instance.interceptors.request.use(
-    (request) => {
-        console.log(request);
-        return request;
-    },
-    (error) => {
-        console.log(error);
-        Promise.reject(error);
-    }
+  (request) => {
+    console.log("axios request: ", request);
+    return request;
+  },
+  (error) => {
+    console.log("axios error: ", error);
+    Promise.reject(error);
+  }
 );
 
 export default instance;
