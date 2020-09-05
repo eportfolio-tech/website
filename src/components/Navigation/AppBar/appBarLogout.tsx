@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import {makeStyles, Theme} from '@material-ui/core/styles';
-import {AppBar, Toolbar, Button, Typography} from '@material-ui/core';
-import {useLocation} from 'react-router-dom';
+import React, { useState } from 'react';
+import { makeStyles, Theme } from '@material-ui/core/styles';
+import { AppBar, Toolbar, Button, Typography, Link } from '@material-ui/core';
+import { useHistory, useLocation } from 'react-router-dom';
 import withWidth from '@material-ui/core/withWidth';
-import {Breakpoint} from '@material-ui/core/styles/createBreakpoints';
+import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import SignIn from '../../AuthDialogs/signInDialog';
 import SignUp from '../../AuthDialogs/signUpDialog';
 
@@ -87,37 +87,43 @@ export default withWidth()(() => {
     const [openLogin, setOpenLogin] = useState(false);
     const [openSignUp, setOpenSignUp] = useState(false);
 
+    const history = useHistory();
+
     return (
         <div>
             <SignIn open={openLogin} setOpen={setOpenLogin} />
             <SignUp open={openSignUp} setOpen={setOpenSignUp} />
-            <AppBar position="fixed" className={classes.appBar}>
+            <AppBar position='fixed' className={classes.appBar}>
                 <Toolbar className={classes.toolbar}>
                     <Typography
-                        variant="h6"
+                        variant='h6'
                         noWrap
-                        color="textPrimary"
-                        className={classes.toolbarTitle}>
-                        Forty-Two
+                        className={classes.toolbarTitle}
+                    >
+                        <Link underline='none' color='textPrimary' href='/'>
+                            Forty-Two
+                        </Link>
                     </Typography>
 
                     <Button
                         size={'large'}
                         className={classes.signIn}
                         onClick={() => {
-                            //history.push("/sign-in");
+                            // history.push('/sign-in');
                             setOpenLogin(true);
-                        }}>
+                        }}
+                    >
                         Sign In
                     </Button>
                     <Button
                         size={'large'}
                         className={classes.getStarted}
-                        color="default"
+                        color='default'
                         disabled={location.pathname === '/sign-up'}
                         onClick={() => {
                             setOpenSignUp(true);
-                        }}>
+                        }}
+                    >
                         Join Us
                     </Button>
                 </Toolbar>
