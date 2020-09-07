@@ -73,7 +73,11 @@ export default ({ open, setOpen }: IVerify) => {
 
             history.push('/login');
             setOpen(false);
-            dispatch(alertActions.success('successfully verified.'));
+            dispatch(
+                alertActions.success(
+                    'Your email have been successfully verified.'
+                )
+            );
         } catch (error) {
             dispatch(alertActions.error(error.response.data.errors));
         }

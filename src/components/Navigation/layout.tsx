@@ -12,29 +12,29 @@ import {
     createStyles,
     Theme,
 } from '@material-ui/core/styles';
-import withWidth, {isWidthUp} from '@material-ui/core/withWidth';
-import {Breakpoint} from '@material-ui/core/styles/createBreakpoints';
+import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
+import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import Drawer from '@material-ui/core/Drawer';
 //import List from "@material-ui/core/List";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import IconButton from '@material-ui/core/IconButton';
 
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import RemoveIcon from '@material-ui/icons/Remove';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
-import {useSelector} from 'react-redux';
-import {IRootState} from '../../index';
+import { useSelector } from 'react-redux';
+import { IRootState } from '../../index';
 
 import AppBarLogin from './AppBar/appBarLogin';
 import AppBarLogout from './AppBar/appBarLogout';
 //import { UserContext, AuthApi } from "../Methods";
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 //import Cookies from "js-cookie";
 
-import {useSnackbar} from 'notistack';
+import { useSnackbar } from 'notistack';
 
-import {useDispatch} from 'react-redux';
-import {alertActions} from '../../store/actions/alertActions';
+import { useDispatch } from 'react-redux';
+import { alertActions } from '../../store/actions/alertActions';
 
 import Loading from './loading';
 import MenuList from './menuList';
@@ -123,7 +123,7 @@ interface ILayoutProps {
 /***
  * The layout of the application once login in.
  */
-export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
+export default withWidth()(({ children, width, noPadding }: ILayoutProps) => {
     const classes = useStyles();
     const theme = useTheme();
     const dispatch = useDispatch();
@@ -135,7 +135,7 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
     );
 
     const alert = useSelector<IRootState, any>((state) => state.alert);
-    const {enqueueSnackbar, closeSnackbar} = useSnackbar();
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
     const loadingRoute = false;
     const [open, setOpen] = useState(largeScreen);
@@ -163,7 +163,8 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
                 <IconButton
                     onClick={() => {
                         closeSnackbar(key);
-                    }}>
+                    }}
+                >
                     <CancelIcon />
                 </IconButton>
             </Fragment>
@@ -217,13 +218,14 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
                             : undefined
                     }
                     open={largeScreen ? false : open}
-                    onClose={getDrawlerOnClose}>
+                    onClose={getDrawlerOnClose}
+                >
                     <div className={classes.toolbar}>
                         <IconButton onClick={handleDrawerClose}>
                             {theme.direction === 'rtl' ? (
                                 <ChevronRightIcon />
                             ) : (
-                                <ChevronLeftIcon />
+                                <RemoveIcon />
                             )}
                         </IconButton>
                     </div>
@@ -241,7 +243,8 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
                 <main
                     className={
                         noPadding ? classes.noPaddingContent : classes.content
-                    }>
+                    }
+                >
                     {children}
                 </main>
             )}

@@ -12,6 +12,8 @@ import Index from './Home/home';
 
 import SettingPage from '../containers/Settings/Settings';
 
+import Explore from '../containers/Explore/explore';
+
 interface IProtectedRoute {
     Component?: any;
     path?: string | string[];
@@ -75,18 +77,13 @@ const LoggedOutRoute = ({ Component, exact, path }: IProtectedRoute) => {
 function App() {
     const DashBoard = () => (
         <Layout>
-            <h1>logged in </h1>
+            <h1>Welcome </h1>
         </Layout>
     );
 
     const Settings = () => (
         <Layout>
             <SettingPage />
-        </Layout>
-    );
-    const Friends = () => (
-        <Layout>
-            <h1>Friends </h1>
         </Layout>
     );
 
@@ -107,8 +104,8 @@ function App() {
                         />
                         <LoggedInRoute
                             exact
-                            path={'/friends'}
-                            Component={Friends}
+                            path={'/explore'}
+                            Component={Explore}
                         />
 
                         <LoggedOutRoute

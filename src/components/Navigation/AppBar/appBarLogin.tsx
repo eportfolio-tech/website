@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {makeStyles, Theme} from '@material-ui/core/styles';
+import React, { useState } from 'react';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import {
     Avatar,
     AppBar,
@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import clsx from 'clsx';
 import withWidth from '@material-ui/core/withWidth';
-import {Breakpoint} from '@material-ui/core/styles/createBreakpoints';
+import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import MenuIcon from '@material-ui/icons/Menu';
 
 const drawerWidth = 240;
@@ -65,7 +65,7 @@ interface AppBarProps {
 /***
  * The App Bar at the top.
  */
-export default withWidth()(({handleDrawerOpen, openDrawer}: AppBarProps) => {
+export default withWidth()(({ handleDrawerOpen, openDrawer }: AppBarProps) => {
     const classes = useStyles();
     //const history = useHistory();
     //const location = useLocation();
@@ -75,18 +75,20 @@ export default withWidth()(({handleDrawerOpen, openDrawer}: AppBarProps) => {
     return (
         <div>
             <AppBar
-                position="fixed"
+                position='fixed'
                 className={clsx(classes.appBar, {
                     [classes.appBarShift]: openDrawer,
-                })}>
+                })}
+            >
                 <Toolbar>
                     <IconButton
-                        aria-label="open drawer"
-                        edge="start"
+                        aria-label='open drawer'
+                        edge='start'
                         onClick={handleDrawerOpen}
                         className={clsx(classes.menuButton, {
                             [classes.hide]: openDrawer,
-                        })}>
+                        })}
+                    >
                         <MenuIcon />
                     </IconButton>
                     <Button></Button>
@@ -96,7 +98,8 @@ export default withWidth()(({handleDrawerOpen, openDrawer}: AppBarProps) => {
                             className={classes.link}
                             onClick={(event: any) => {
                                 setAvatarEL(event.currentTarget);
-                            }}>
+                            }}
+                        >
                             <Avatar />
                         </Button>
                         <Menu
@@ -105,13 +108,15 @@ export default withWidth()(({handleDrawerOpen, openDrawer}: AppBarProps) => {
                             anchorEl={avatarEL}
                             onClose={() => {
                                 setAvatarEL(null);
-                            }}>
+                            }}
+                        >
                             <MenuItem
                                 className={classes.menuItem}
                                 onClick={() => {
                                     localStorage.removeItem('user');
                                     window.location.reload(false);
-                                }}>
+                                }}
+                            >
                                 Logout
                             </MenuItem>
                         </Menu>

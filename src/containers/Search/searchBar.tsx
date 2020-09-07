@@ -12,11 +12,6 @@ import { Chips } from './chips';
 import { Search as SearchIcon } from '@material-ui/icons';
 const useStyles = makeStyles(() =>
     createStyles({
-        root: {
-            position: 'absolute',
-            top: '15%',
-            width: '100%',
-        },
         chip: {
             fontSize: 45,
             fontWeight: 'bold',
