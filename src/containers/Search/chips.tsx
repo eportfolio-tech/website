@@ -73,7 +73,6 @@ export function Chips({ setChips }: IChips) {
         const response = await fetch('https://api.eportfolio.tech/tags/');
         await sleep(500); // For demo purposes.
         const tags = await response.json();
-        console.log(tags);
 
         if (active) {
             setOptions(tags);
@@ -93,12 +92,6 @@ export function Chips({ setChips }: IChips) {
             active = false;
         };
     }, [loading]);
-
-    useEffect(() => {
-        if (!open) {
-            setOptions([]);
-        }
-    }, [open]);
 
     return (
         <Autocomplete
