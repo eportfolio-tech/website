@@ -10,7 +10,6 @@ const useStyles = makeStyles((theme: Theme) =>
         root: {
             flexGrow: 1,
             width: '100%',
-            maxWidth: 500,
         },
         paper: {
             padding: theme.spacing(2),
@@ -25,13 +24,13 @@ export default () => {
     return (
         <div className={classes.root}>
             <Grid container spacing={3}>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12}>
                     <Typography variant='h6' gutterBottom>
                         Reset Password
                     </Typography>
                     <ResetPassword />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12}>
                     <Typography variant='h6' gutterBottom>
                         Modify your tags
                     </Typography>
