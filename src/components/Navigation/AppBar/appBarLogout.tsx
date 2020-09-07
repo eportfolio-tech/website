@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import {makeStyles, Theme} from '@material-ui/core/styles';
-import {AppBar, Toolbar, Button, Typography} from '@material-ui/core';
-import {useLocation} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { makeStyles, Theme } from '@material-ui/core/styles';
+import { AppBar, Toolbar, Button, Typography } from '@material-ui/core';
+import { useLocation, useHistory } from 'react-router-dom';
 import withWidth from '@material-ui/core/withWidth';
-import {Breakpoint} from '@material-ui/core/styles/createBreakpoints';
+import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import SignIn from '../../AuthDialogs/signInDialog';
 import SignUp from '../../AuthDialogs/signUpDialog';
 
@@ -82,22 +82,34 @@ interface AppBarProps {
 export default withWidth()(() => {
     const classes = useStyles();
     const location = useLocation();
+    const history = useHistory();
 
     //const [avatarEL, setAvatarEL] = useState(null);
-    const [openLogin, setOpenLogin] = useState(false);
-    const [openSignUp, setOpenSignUp] = useState(false);
+    const [openLogin, setOpenLogin] = useState(location.pathname === '/login');
+    const [openSignUp, setOpenSignUp] = useState(
+        location.pathname === '/sign-up'
+    );
+
+    useEffect(() => {
+        if (location.pathname === '/login') {
+            setOpenLogin(true);
+        } else if (location.pathname === '/sign-up') {
+            setOpenSignUp(true);
+        }
+    }, [location.pathname]);
 
     return (
         <div>
             <SignIn open={openLogin} setOpen={setOpenLogin} />
             <SignUp open={openSignUp} setOpen={setOpenSignUp} />
-            <AppBar position="fixed" className={classes.appBar}>
+            <AppBar position='fixed' className={classes.appBar}>
                 <Toolbar className={classes.toolbar}>
                     <Typography
-                        variant="h6"
+                        variant='h6'
                         noWrap
-                        color="textPrimary"
-                        className={classes.toolbarTitle}>
+                        color='textPrimary'
+                        className={classes.toolbarTitle}
+                    >
                         Forty-Two
                     </Typography>
 
@@ -105,19 +117,22 @@ export default withWidth()(() => {
                         size={'large'}
                         className={classes.signIn}
                         onClick={() => {
-                            //history.push("/sign-in");
+                            history.push('/login');
                             setOpenLogin(true);
-                        }}>
+                        }}
+                    >
                         Sign In
                     </Button>
                     <Button
                         size={'large'}
                         className={classes.getStarted}
-                        color="default"
+                        color='default'
                         disabled={location.pathname === '/sign-up'}
                         onClick={() => {
+                            history.push('/sign-up');
                             setOpenSignUp(true);
-                        }}>
+                        }}
+                    >
                         Join Us
                     </Button>
                 </Toolbar>

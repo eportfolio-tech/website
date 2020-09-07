@@ -1,8 +1,8 @@
-import {alertConstants} from '../constants/alertConstants';
+import { alertConstants } from '../constants/alertConstants';
 
 export interface IAlertState {
-    type?: String;
-    message?: String | null;
+    type?: string;
+    message?: string | null;
 }
 
 export function alertReducer(
