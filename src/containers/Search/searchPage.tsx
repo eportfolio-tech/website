@@ -1,56 +1,48 @@
-import React from "react";
-import { createStyles, makeStyles } from "@material-ui/core/styles";
-import { Container, Grid } from "@material-ui/core";
-import { Chips } from "../Home/chips";
-import { Search as SearchIcon } from "@material-ui/icons";
-import Results from "./ressults";
+import React, { useState } from 'react';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import Results from './results';
+import SearchBar from './searchBar';
 const useStyles = makeStyles(() =>
-	createStyles({
-		root: {
-			position: "absolute",
-			top: "15%",
-			width: "100%",
-		},
-		chip: {
-			fontSize: 45,
-			fontWeight: "bold",
-			borderRadius: 40,
-			height: "100%",
-		},
-		icon: {
-			width: "1em",
-			height: "1em",
-		},
-	})
+    createStyles({
+        root: {
+            position: 'absolute',
+            top: '15%',
+            width: '100%',
+        },
+        chip: {
+            fontSize: 45,
+            fontWeight: 'bold',
+            borderRadius: 40,
+            height: '100%',
+        },
+        icon: {
+            width: '1em',
+            height: '1em',
+        },
+        searchButton: {
+            height: '100%',
+            textTransform: 'none',
+            fontWeight: 550,
+            fontFamily: 'Arial',
+            color: 'white',
+        },
+    })
 );
 
-const intChips = [
-	{ type: "person", content: "Alex Smith" },
-	{ type: "person", content: "Bob Jones" },
-	{ type: "tag", content: "Software Engineer" },
-	{ type: "tag", content: "Marketing Analyst" },
-];
+const options = ['Tags', 'Names'];
 
 export default () => {
-	const classes = useStyles();
+    const classes = useStyles();
+    const [option, setOption] = useState<string | null>(options[0]);
 
-	return (
-		<div className={classes.root}>
-			<Container maxWidth="md">
-				<Grid container>
-					<Grid item xs={1}>
-						<Grid container justify="center">
-							<SearchIcon
-								style={{ width: "60%", height: "60%" }}
-							/>
-						</Grid>
-					</Grid>
-					<Grid item xs={11}>
-						<Chips chips={intChips} />
-					</Grid>
-				</Grid>
-			</Container>
-			<Results />
-		</div>
-	);
+    return (
+        <div className={classes.root}>
+            <SearchBar
+                options={options}
+                option={option}
+                setOption={setOption}
+            />
+            <Results />
+        </div>
+    );
 };
