@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import { Chips } from './chips';
 import { Search as SearchIcon } from '@material-ui/icons';
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme) =>
     createStyles({
         chip: {
             fontSize: 45,

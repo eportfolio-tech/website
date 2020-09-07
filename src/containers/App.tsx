@@ -102,11 +102,7 @@ function App() {
                             path={'/settings'}
                             Component={Settings}
                         />
-                        <LoggedInRoute
-                            exact
-                            path={'/explore'}
-                            Component={Explore}
-                        />
+                        <LoggedInRoute path={'/explore'} Component={Explore} />
 
                         <LoggedOutRoute
                             exact

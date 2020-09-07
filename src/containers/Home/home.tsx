@@ -23,15 +23,6 @@ export default () => {
     return (
         <Layout noPadding>
             <div>
-                <a.div>
-                    <Verify open={openVerify} setOpen={setOpenVerify} />
-                    <Intro
-                        toggle={() => {
-                            setFlipped((state) => !state);
-                            history.push('/search');
-                        }}
-                    />
-                </a.div>
                 {flipped ? (
                     <a.div
                         style={{
@@ -48,7 +39,17 @@ export default () => {
                     >
                         <SearchPage />
                     </a.div>
-                ) : null}
+                ) : (
+                    <a.div>
+                        <Verify open={openVerify} setOpen={setOpenVerify} />
+                        <Intro
+                            toggle={() => {
+                                setFlipped((state) => !state);
+                                history.push('/search');
+                            }}
+                        />
+                    </a.div>
+                )}
             </div>
         </Layout>
     );

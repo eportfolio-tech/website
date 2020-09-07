@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
+import { useHistory, useLocation } from 'react-router-dom';
 function Copyright() {
     return (
         <Typography variant='body2' color='textSecondary' align='center'>
@@ -57,8 +58,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-export default () => {
+export default ({ setFlipped }: any) => {
     const classes = useStyles();
+    const history = useHistory();
+    const location = useLocation();
 
     return (
         <div>
@@ -113,7 +116,17 @@ export default () => {
                                         </Typography>
                                     </CardContent>
                                     <CardActions>
-                                        <Button size='small' color='primary'>
+                                        <Button
+                                            size='small'
+                                            color='primary'
+                                            onClick={() => {
+                                                setFlipped(true);
+
+                                                history.push(
+                                                    location.pathname + '/more'
+                                                );
+                                            }}
+                                        >
                                             View
                                         </Button>
                                         <Button size='small' color='primary'>

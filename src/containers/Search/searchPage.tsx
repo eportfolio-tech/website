@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Results from './results';
 import SearchBar from './searchBar';
+import { useSpring, animated as a } from 'react-spring';
+import { useLocation, useHistory } from 'react-router-dom';
+
 const useStyles = makeStyles(() =>
     createStyles({
         root: {
             position: 'absolute',
-            top: '15%',
             width: '100%',
+            height: '100%',
         },
         chip: {
             fontSize: 45,
@@ -33,16 +36,60 @@ const options = ['Tags', 'Names'];
 
 export default () => {
     const classes = useStyles();
+    const location = useLocation();
+    const history = useHistory();
     const [option, setOption] = useState<string | null>(options[0]);
+
+    const [flipped, setFlipped] = useState(location.pathname === '/more');
+    const { transform, opacity }: any = useSpring({
+        opacity: flipped ? 1 : 0,
+        transform: `perspective(600px) rotateX(${flipped ? 180 : 0}deg)`,
+        config: { mass: 5, tension: 500, friction: 80 },
+    });
+
+    const searchStyle: React.CSSProperties = {
+        opacity: opacity.interpolate((o: any) => 1 - o),
+        transform,
+    };
+
+    const moreStyle: React.CSSProperties = {
+        position: 'absolute',
+        bottom: 0,
+        opacity,
+        transform: transform.interpolate((t: any) => `${t} rotateX(180deg)`),
+        background: 'blue',
+        minHeight: '100%',
+        minWidth: '100%',
+    };
 
     return (
         <div className={classes.root}>
-            <SearchBar
-                options={options}
-                option={option}
-                setOption={setOption}
-            />
-            <Results />
+            {flipped ? (
+                <a.div
+                    style={moreStyle}
+                    onClick={() => {
+                        setFlipped(false);
+                        history.push('/search');
+                    }}
+                ></a.div>
+            ) : (
+                <a.div style={searchStyle}>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <SearchBar
+                        options={options}
+                        option={option}
+                        setOption={setOption}
+                    />
+                    <br />
+                    <br />
+                    <Results setFlipped={setFlipped} />
+                </a.div>
+            )}
         </div>
     );
 };
