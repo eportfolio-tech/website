@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             '& > *': {
-                margin: theme.spacing(1),
+                margin: theme.spacing(0),
             },
         },
     })
@@ -61,7 +61,7 @@ export default function ResetPassword() {
     return (
         <div className={classes.root}>
             <Grid container spacing={1}>
-                <Grid item xs={3}>
+                <Grid item md={3} sm={6} xs={12}>
                     <TextField
                         required
                         id='outlined-basic'
@@ -74,7 +74,7 @@ export default function ResetPassword() {
                         Old Password
                     </TextField>
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item md={3} sm={6} xs={12}>
                     <TextField
                         required
                         id='outlined-basic'
@@ -88,7 +88,7 @@ export default function ResetPassword() {
                         New Password
                     </TextField>
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item md={3} sm={6} xs={12}>
                     <TextField
                         required
                         id='outlined-basic'
@@ -107,7 +107,7 @@ export default function ResetPassword() {
                         Repeat New Password
                     </TextField>
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item md={3} sm={6} xs={12}>
                     <Button
                         variant='contained'
                         color='secondary'
