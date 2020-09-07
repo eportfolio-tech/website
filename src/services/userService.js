@@ -4,6 +4,7 @@ export const userService = {
     login,
     signup,
     resetPassword,
+    getUserTags,
     verifyEmail,
 };
 
@@ -57,6 +58,22 @@ async function resetPassword(username, oldPassword, newPassword) {
     return response.data;
 }
 
+async function getUserTags(username) {
+    axios.defaults.headers.common['Authorization'] =
+        'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
+    const response = await axios.get('/users/' + username + '/tags');
+    // console.log(response.data);
+
+    // TODO: map the result data to array of tag names
+    const tags = response.data.reduce((a, { name }) => {
+        a.push(name);
+        return a;
+    }, []);
+
+    // console.log('tags: ', tags);
+
+    return tags;
+}
 async function verifyEmail(token, username) {
     const response = await axios.post('/verification/verify', null, {
         params: {

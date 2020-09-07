@@ -13,7 +13,6 @@ export default () => {
     const [openVerify, setOpenVerify] = useState(
         location.pathname === '/verification/verify'
     );
-    console.log(location.pathname);
 
     const [flipped, setFlipped] = useState(location.pathname === '/search');
     const { transform, opacity }: any = useSpring({

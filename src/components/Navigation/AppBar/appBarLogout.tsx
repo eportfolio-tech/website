@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Button, Typography } from '@material-ui/core';
-import { useLocation, useHistory } from 'react-router-dom';
+import { AppBar, Toolbar, Button, Typography, Link } from '@material-ui/core';
+import { useHistory, useLocation } from 'react-router-dom';
 import withWidth from '@material-ui/core/withWidth';
 import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import SignIn from '../../AuthDialogs/signInDialog';
@@ -107,10 +107,11 @@ export default withWidth()(() => {
                     <Typography
                         variant='h6'
                         noWrap
-                        color='textPrimary'
                         className={classes.toolbarTitle}
                     >
-                        Forty-Two
+                        <Link underline='none' color='textPrimary' href='/'>
+                            Forty-Two
+                        </Link>
                     </Typography>
 
                     <Button
