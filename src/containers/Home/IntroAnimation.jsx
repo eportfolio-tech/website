@@ -5,6 +5,7 @@ import { Parallax, ParallaxLayer } from 'react-spring/renderprops-addons';
 //import SearchIcon from '@material-ui/icons/Search';
 
 import logoImage from '../../assets/logo.svg';
+import { useTheme } from '@material-ui/core';
 
 // Little helpers ...
 /*
@@ -17,12 +18,12 @@ const url = (name, wrap = false) =>
 
 export default ({ toggle }) => {
     let parallax;
+    const theme = useTheme();
     return (
         <div onClick={toggle}>
             <Parallax
                 style={{
-                    background:
-                        'linear-gradient(to top, #16a085 0%, #0d77db 100%',
+                    background: theme.palette.background.default,
                 }}
                 ref={(ref) => (parallax = ref)}
                 pages={2}
@@ -31,16 +32,14 @@ export default ({ toggle }) => {
                     offset={0}
                     speed={1}
                     style={{
-                        background:
-                            'linear-gradient(to top, #0d77db 0%, #16a085 100%',
+                        background: theme.palette.background.default,
                     }}
                 />
                 <ParallaxLayer
                     offset={1}
                     speed={1}
                     style={{
-                        background:
-                            'linear-gradient(to top, #16a085 0%, #0d77db 100%',
+                        background: theme.palette.background.default,
                     }}
                 />
 

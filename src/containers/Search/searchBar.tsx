@@ -87,6 +87,7 @@ export default ({
                                     </InputAdornment>
                                 ),
                             }}
+                            color='secondary'
                             value={name}
                             onChange={(
                                 event: React.ChangeEvent<HTMLInputElement>
@@ -109,6 +110,7 @@ export default ({
                         }}
                         fullWidth
                         variant='outlined'
+                        color='secondary'
                     >
                         {options.map((option) => (
                             <MenuItem key={option} value={option}>
@@ -117,9 +119,9 @@ export default ({
                         ))}
                     </TextField>
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={1}>
                     <Button
-                        color='primary'
+                        color='secondary'
                         className={classes.searchButton}
                         fullWidth
                         variant='contained'
@@ -132,7 +134,7 @@ export default ({
                             handleSearch();
                         }}
                     >
-                        Search
+                        <SearchIcon />
                     </Button>
                 </Grid>
             </Grid>

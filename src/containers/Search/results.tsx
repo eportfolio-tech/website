@@ -32,8 +32,9 @@ export default ({ setFlipped, loading, cards }: IResults) => {
     const classes = useStyles();
 
     const getText = () => {
-        if (cards === undefined) return 'Click search to get your results.';
-        else return `There are ${cards.length} results.`;
+        if (cards === undefined)
+            return 'Click The Search Icon to get your result(s).';
+        else return `There are ${cards.length} results`;
     };
 
     return (

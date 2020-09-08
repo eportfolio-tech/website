@@ -114,7 +114,7 @@ export function Chips({ setChips }: IChips) {
                     <Chip
                         label={option.name}
                         {...getTagProps({ index })}
-                        color='primary'
+                        color='secondary'
                         variant='default'
                         icon={
                             <Typography
@@ -150,6 +150,7 @@ export function Chips({ setChips }: IChips) {
                         }}
                         variant='outlined'
                         size='medium'
+                        color='secondary'
                     />
                 );
             }}

@@ -11,20 +11,20 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import {makeStyles, createStyles, Theme} from '@material-ui/core/styles';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 //Redux
-import {useDispatch} from 'react-redux';
-import {userActions} from '../../store/actions/userActions';
-import {alertActions} from '../../store/actions/alertActions';
+import { useDispatch } from 'react-redux';
+import { userActions } from '../../store/actions/userActions';
+import { alertActions } from '../../store/actions/alertActions';
 //import { alertActions } from "../../store/actions/alertActions";
 
 function Copyright() {
     return (
-        <Typography variant="body2" color="textSecondary" align="center">
+        <Typography variant='body2' color='textSecondary' align='center'>
             {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
+            <Link color='inherit' href='https://material-ui.com/'>
                 Your Website
             </Link>{' '}
             {new Date().getFullYear()}
@@ -74,7 +74,7 @@ export default function SignInSide() {
     const history = useHistory();
     const dispatch = useDispatch();
     const sampleLogIn = () => {
-        const sampleCookie = {user: 'test', token: '123'};
+        const sampleCookie = { user: 'test', token: '123' };
         dispatch(userActions.login('Sample user'));
         dispatch(alertActions.success('Successfully Logged in!'));
         localStorage.setItem('user', JSON.stringify(sampleCookie));
@@ -83,7 +83,7 @@ export default function SignInSide() {
     };
 
     return (
-        <Grid container component="main" className={classes.root}>
+        <Grid container component='main' className={classes.root}>
             <CssBaseline />
             <Grid item xs={false} sm={4} md={7} className={classes.image} />
             <Grid
@@ -93,59 +93,61 @@ export default function SignInSide() {
                 md={5}
                 component={Paper}
                 elevation={6}
-                square>
+                square
+            >
                 <div className={classes.paper}>
                     <Avatar className={classes.avatar}>
                         <LockOutlinedIcon />
                     </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Sign in
+                    <Typography component='h1' variant='h5'>
+                        Login
                     </Typography>
                     <form className={classes.form} noValidate>
                         <TextField
-                            variant="outlined"
-                            margin="normal"
+                            variant='outlined'
+                            margin='normal'
                             required
                             fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
+                            id='email'
+                            label='Email Address'
+                            name='email'
+                            autoComplete='email'
                             autoFocus
                         />
                         <TextField
-                            variant="outlined"
-                            margin="normal"
+                            variant='outlined'
+                            margin='normal'
                             required
                             fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
+                            name='password'
+                            label='Password'
+                            type='password'
+                            id='password'
+                            autoComplete='current-password'
                         />
                         <FormControlLabel
                             control={
-                                <Checkbox value="remember" color="primary" />
+                                <Checkbox value='remember' color='primary' />
                             }
-                            label="Remember me"
+                            label='Remember me'
                         />
                         <Button
                             fullWidth
-                            variant="contained"
-                            color="primary"
+                            variant='contained'
+                            color='primary'
                             className={classes.submit}
-                            onClick={sampleLogIn}>
+                            onClick={sampleLogIn}
+                        >
                             Sign In
                         </Button>
                         <Grid container>
                             <Grid item xs>
-                                <Link href="#" variant="body2">
+                                <Link href='#' variant='body2'>
                                     Forgot password?
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link href='#' variant='body2'>
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>
