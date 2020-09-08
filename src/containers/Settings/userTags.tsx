@@ -102,8 +102,8 @@ export default () => {
             const username = userInfo.username;
 
             // console.log('delete: ', deleteTags);
-            // await userService.deleteUserTags(username, userTags);
-            await userService.updateUserTags(username, deleteTags);
+            // await userService.deleteUserTags(username, deleteTags);
+            await userService.updateUserTags(username, userTags);
             dispatch(alertActions.success('update tags succeed'));
         } catch (error) {
             dispatch(alertActions.error('update tags failed'));
