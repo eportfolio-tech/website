@@ -130,7 +130,6 @@ export default () => {
                     value={userTags}
                     onChange={onChangeHandler}
                     freeSolo
-                    autoSelect
                     getOptionSelected={checkSelect}
                     renderOption={(option, { selected }) => (
                         <React.Fragment>
