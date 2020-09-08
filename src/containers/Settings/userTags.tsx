@@ -42,7 +42,7 @@ export default () => {
     useEffect(() => {
         getAllTags();
         getUserTags();
-    });
+    }, []);
 
     const getUserTags = async () => {
         try {
