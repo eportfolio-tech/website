@@ -5,14 +5,11 @@ import { useTheme } from '@material-ui/core/styles';
 import { useSpring, animated as a } from 'react-spring';
 import SearchPage from '../Search/searchPage';
 import { useHistory, useLocation } from 'react-router-dom';
-import Verify from '../../components/AuthDialogs/verifyDialog';
+
 export default () => {
     const theme = useTheme();
     const history = useHistory();
     const location = useLocation();
-    const [openVerify, setOpenVerify] = useState(
-        location.pathname === '/verification/verify'
-    );
 
     const [flipped, setFlipped] = useState(location.pathname === '/search');
     const { transform, opacity }: any = useSpring({
@@ -41,7 +38,6 @@ export default () => {
                     </a.div>
                 ) : (
                     <a.div>
-                        <Verify open={openVerify} setOpen={setOpenVerify} />
                         <Intro
                             toggle={() => {
                                 setFlipped((state) => !state);

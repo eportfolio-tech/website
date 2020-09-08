@@ -17,6 +17,10 @@ import SettingPage from '../containers/Settings/Settings';
 
 import Explore from '../containers/Explore/explore';
 
+import Verify from '../containers/Verify/verify';
+
+import Recovery from '../containers/Recovery/recovery';
+
 interface IProtectedRoute {
     Component?: any;
     path?: string | string[];
@@ -96,6 +100,16 @@ function App() {
                 <ThemeProvider theme={theme}>
                     <SnackbarProvider maxSnack={5}>
                         <Switch>
+                            <Route
+                                exact
+                                path={'/verification/verify'}
+                                component={Verify}
+                            />
+                            <Route
+                                exact
+                                path={'/authentication/password-recovery'}
+                                component={Recovery}
+                            />
                             <LoggedInRoute
                                 exact
                                 path={'/dashBoard'}

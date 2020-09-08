@@ -9,6 +9,7 @@ export const userService = {
     updateUserTags,
     deleteUserTags,
     verifyEmail,
+    recoveryPassword,
 };
 
 async function login(username, password) {
@@ -100,6 +101,22 @@ async function verifyEmail(token, username) {
             username: username,
         },
     });
+
+    return response.data;
+}
+
+async function recoveryPassword(token, username, password) {
+    const response = await axios.post(
+        '/authentication/password-recovery',
+        null,
+        {
+            params: {
+                token: token,
+                username: username,
+                password: password,
+            },
+        }
+    );
 
     return response.data;
 }
