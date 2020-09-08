@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     getStarted: {
         margin: theme.spacing(1, 20, 1, 1),
         minWidth: '10rem',
-        background: 'linear-gradient(-60deg, #16a085 0%, #0d77db 100%);',
         borderRadius: 10,
         textTransform: 'none',
         fontWeight: 550,
@@ -143,12 +142,13 @@ export default withWidth()(() => {
                     <Button
                         size={'large'}
                         className={classes.getStarted}
-                        color='default'
+                        color='primary'
                         disabled={location.pathname === '/sign-up'}
                         onClick={() => {
                             history.push('/sign-up');
                             setOpenSignUp(true);
                         }}
+                        variant='contained'
                     >
                         Join Us
                     </Button>

@@ -79,7 +79,6 @@ const useStyles = makeStyles((theme: Theme) =>
             margin: theme.spacing(3, 0, 3, 0),
             padding: theme.spacing(1),
 
-            background: 'linear-gradient(-60deg, #16a085 0%, #0d77db 100%);',
             borderRadius: 10,
             textTransform: 'none',
             fontWeight: 550,
@@ -322,15 +321,17 @@ export default (props: { close: () => void }) => {
                                 className={classes.buttonDisabled}
                                 disabled
                                 fullWidth
+                                color='secondary'
                             >
                                 {' '}
-                                Register
+                                Please complete the registered form.
                             </Button>
                         ) : (
                             <Button
                                 variant='contained'
                                 className={classes.button}
                                 onClick={onSignUpHandler}
+                                color='secondary'
                                 disabled={
                                     !userInfo.username ||
                                     !userInfo.firstName ||

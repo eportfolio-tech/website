@@ -27,11 +27,12 @@ const useStyles = makeStyles((theme: Theme) =>
         submit: {
             margin: theme.spacing(3, 0, 3, 0),
             padding: theme.spacing(1),
-            background: 'linear-gradient(-60deg, #16a085 0%, #0d77db 100%);',
+
             borderRadius: 10,
             textTransform: 'none',
             fontWeight: 550,
             fontFamily: 'Arial',
+            color: 'white',
         },
     })
 );
@@ -81,7 +82,7 @@ export default (props: { close: () => void }) => {
                 <Button
                     fullWidth
                     variant='contained'
-                    color='primary'
+                    color='secondary'
                     className={classes.submit}
                     size='large'
                     onClick={onSignUpHandler}

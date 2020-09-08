@@ -8,6 +8,9 @@ import DocumentTitle from 'react-document-title';
 import Layout from '../components/Navigation/layout';
 import { SnackbarProvider } from 'notistack';
 
+import { ThemeProvider } from '@material-ui/core/styles';
+import theme from '../theme/fortyTwo';
+
 import Index from './Home/home';
 
 import SettingPage from '../containers/Settings/Settings';
@@ -89,34 +92,39 @@ function App() {
 
     return (
         <BrowserRouter>
-            <DocumentTitle title='E-Portfolios'>
-                <SnackbarProvider maxSnack={5}>
-                    <Switch>
-                        <LoggedInRoute
-                            exact
-                            path={'/dashBoard'}
-                            Component={DashBoard}
-                        />
-                        <LoggedInRoute
-                            exact
-                            path={'/settings'}
-                            Component={Settings}
-                        />
-                        <LoggedInRoute path={'/explore'} Component={Explore} />
+            <DocumentTitle title='FortyTwo'>
+                <ThemeProvider theme={theme}>
+                    <SnackbarProvider maxSnack={5}>
+                        <Switch>
+                            <LoggedInRoute
+                                exact
+                                path={'/dashBoard'}
+                                Component={DashBoard}
+                            />
+                            <LoggedInRoute
+                                exact
+                                path={'/settings'}
+                                Component={Settings}
+                            />
+                            <LoggedInRoute
+                                path={'/explore'}
+                                Component={Explore}
+                            />
 
-                        <LoggedOutRoute
-                            exact
-                            path={'/sign-in'}
-                            Component={SignIn}
-                        />
-                        {/* <LoggedOutRoute
+                            <LoggedOutRoute
+                                exact
+                                path={'/sign-in'}
+                                Component={SignIn}
+                            />
+                            {/* <LoggedOutRoute
                             exact
                             path={'/sign-up'}
                             Component={SignUp}
                         /> */}
-                        <LoggedOutRoute path={'/'} Component={Index} />
-                    </Switch>
-                </SnackbarProvider>
+                            <LoggedOutRoute path={'/'} Component={Index} />
+                        </Switch>
+                    </SnackbarProvider>
+                </ThemeProvider>
             </DocumentTitle>
         </BrowserRouter>
     );
