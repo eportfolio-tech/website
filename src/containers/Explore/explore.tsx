@@ -6,7 +6,7 @@ import { useSpring, animated as a } from 'react-spring';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useTheme } from '@material-ui/core';
 
-const options = ['Tags', 'Names'];
+const options = ['Names', 'Tags'];
 
 export default () => {
     const [option, setOption] = useState<string | null>(options[0]);

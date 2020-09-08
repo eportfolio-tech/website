@@ -98,6 +98,7 @@ export function Chips({ setChips }: IChips) {
             multiple
             id='size-small-filled-multi'
             size='small'
+            limitTags={5}
             open={open}
             onOpen={() => {
                 setOpen(true);
@@ -134,6 +135,7 @@ export function Chips({ setChips }: IChips) {
                         {...params}
                         InputProps={{
                             ...params.InputProps,
+
                             endAdornment: (
                                 <React.Fragment>
                                     {loading ? (

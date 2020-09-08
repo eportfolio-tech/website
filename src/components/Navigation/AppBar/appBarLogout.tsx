@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Button, Typography, Link } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, Button, Link } from '@material-ui/core';
 import { useHistory, useLocation } from 'react-router-dom';
 import withWidth from '@material-ui/core/withWidth';
 import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import SignIn from '../../AuthDialogs/signInDialog';
 import SignUp from '../../AuthDialogs/signUpDialog';
+import logoImage from '../../../assets/logo.svg';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) => ({
@@ -17,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     toolbarTitle: {
         flexGrow: 1,
-        fontWeight: 550,
+
         marginLeft: theme.spacing(10),
     },
     getStarted: {
@@ -104,15 +105,30 @@ export default withWidth()(() => {
             <SignUp open={openSignUp} setOpen={setOpenSignUp} />
             <AppBar position='fixed' className={classes.appBar}>
                 <Toolbar className={classes.toolbar}>
-                    <Typography
-                        variant='h6'
-                        noWrap
+                    <Link
+                        underline='none'
+                        color='textPrimary'
+                        href='/'
                         className={classes.toolbarTitle}
                     >
-                        <Link underline='none' color='textPrimary' href='/'>
-                            Forty-Two
-                        </Link>
-                    </Typography>
+                        <Button
+                            style={{
+                                textTransform: 'none',
+                            }}
+                        >
+                            <img
+                                className={classes.logo}
+                                src={logoImage}
+                                alt='logo'
+                            />
+                            <Typography
+                                variant='h6'
+                                style={{ fontWeight: 800 }}
+                            >
+                                Forty-Two
+                            </Typography>
+                        </Button>
+                    </Link>
 
                     <Button
                         size={'large'}

@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) =>
             fontWeight: 550,
             fontFamily: 'Arial',
             color: 'white',
+            borderRadius: 10,
         },
     })
 );
@@ -45,7 +46,25 @@ export default ({ option, setOption, options }: ISearchBar) => {
 
     return (
         <Container maxWidth='md'>
-            <Grid container>
+            <Grid container spacing={1}>
+                <Grid item xs={8}>
+                    {option === 'Tags' ? (
+                        <Chips setChips={setChips} />
+                    ) : (
+                        <TextField
+                            variant='outlined'
+                            size='medium'
+                            fullWidth
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position='start'>
+                                        <SearchIcon />
+                                    </InputAdornment>
+                                ),
+                            }}
+                        />
+                    )}
+                </Grid>
                 <Grid item xs={2}>
                     <TextField
                         id='select-search-by'
@@ -58,14 +77,7 @@ export default ({ option, setOption, options }: ISearchBar) => {
                             setOption(event.target.value);
                         }}
                         fullWidth
-                        variant='filled'
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position='start'>
-                                    <SearchIcon />
-                                </InputAdornment>
-                            ),
-                        }}
+                        variant='outlined'
                     >
                         {options.map((option) => (
                             <MenuItem key={option} value={option}>
@@ -73,13 +85,6 @@ export default ({ option, setOption, options }: ISearchBar) => {
                             </MenuItem>
                         ))}
                     </TextField>
-                </Grid>
-                <Grid item xs={8}>
-                    {option === 'Tags' ? (
-                        <Chips setChips={setChips} />
-                    ) : (
-                        <TextField variant='outlined' size='medium' fullWidth />
-                    )}
                 </Grid>
                 <Grid item xs={2}>
                     <Button

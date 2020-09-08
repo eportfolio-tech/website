@@ -32,7 +32,7 @@ const useStyles = makeStyles(() =>
     })
 );
 
-const options = ['Tags', 'Names'];
+const options = ['Names', 'Tags'];
 
 export default () => {
     const classes = useStyles();
