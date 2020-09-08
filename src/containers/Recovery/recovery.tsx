@@ -86,7 +86,12 @@ export default () => {
         <Layout>
             <div className={classes.root}>
                 <Typography variant='h4' align='center'>
-                    <LockOpenIcon style={{ height: '30%', width: '30%' }} />
+                    <LockOpenIcon
+                        style={{
+                            height: '30%',
+                            width: '30%',
+                        }}
+                    />
                     <br />
                     Welcome back, {query.get('username')}.
                 </Typography>

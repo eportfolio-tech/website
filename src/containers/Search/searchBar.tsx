@@ -29,6 +29,8 @@ const useStyles = makeStyles((theme) =>
             fontFamily: 'Arial',
             color: 'white',
             borderRadius: 10,
+            background:
+                'linear-gradient(120deg, #66bb6a 0%, #42a5f5 50%, #f59002 70%);',
         },
     })
 );

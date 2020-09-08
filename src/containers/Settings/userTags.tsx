@@ -143,7 +143,7 @@ export default () => {
     return (
         <Card style={{ height: '100%' }}>
             <CardHeader
-                avatar={<TagIcon />}
+                avatar={<TagIcon style={{ color: '66bb6a' }} />}
                 title={<Typography variant='h6'>Modify Your Tag(s)</Typography>}
                 action={
                     <ButtonGroup

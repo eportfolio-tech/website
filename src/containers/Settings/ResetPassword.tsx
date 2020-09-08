@@ -32,6 +32,10 @@ const useStyles = makeStyles((theme: Theme) =>
         cardTitle: {
             marginTop: theme.spacing(3),
         },
+        cardTitleIcon: {
+            marginTop: theme.spacing(3),
+            color: '#f59002',
+        },
     })
 );
 
@@ -81,7 +85,7 @@ export default function ResetPassword() {
         <div className={classes.root}>
             <Card style={{ height: '100%' }}>
                 <CardHeader
-                    avatar={<KeyIcon className={classes.cardTitle} />}
+                    avatar={<KeyIcon className={classes.cardTitleIcon} />}
                     title={
                         <Typography variant='h6' className={classes.cardTitle}>
                             Reset Your Password
