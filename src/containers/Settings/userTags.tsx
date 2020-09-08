@@ -95,6 +95,13 @@ export default () => {
         }
     };
 
+    const checkSelect = (option: any, value: any) => {
+        if (userTags.some((e) => e.name === option.name)) {
+            return true;
+        }
+        return false;
+    };
+
     const onSubmitHandler = async () => {
         try {
             const userInfo = JSON.parse(localStorage.getItem('user') || '');
@@ -123,6 +130,8 @@ export default () => {
                     value={userTags}
                     onChange={onChangeHandler}
                     freeSolo
+                    autoSelect
+                    getOptionSelected={checkSelect}
                     renderOption={(option, { selected }) => (
                         <React.Fragment>
                             <Checkbox
