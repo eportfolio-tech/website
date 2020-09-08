@@ -33,16 +33,41 @@ const useStyles = makeStyles((theme) =>
     })
 );
 
+const resultCards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
 interface ISearchBar {
     option: string | null;
     setOption: any;
     options: string[];
+    setCards: any;
+    setLoading: any;
 }
 
-export default ({ option, setOption, options }: ISearchBar) => {
+function sleep(delay = 0) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, delay);
+    });
+}
+
+export default ({
+    option,
+    setOption,
+    options,
+    setCards,
+    setLoading,
+}: ISearchBar) => {
     const classes = useStyles();
 
     const [chips, setChips] = useState<string[]>([]);
+    const [name, setName] = useState('');
+
+    const handleSearch = async () => {
+        setLoading(true);
+        setCards(undefined);
+        await sleep(2000);
+        setCards(resultCards);
+        setLoading(false);
+    };
 
     return (
         <Container maxWidth='md'>
@@ -61,6 +86,12 @@ export default ({ option, setOption, options }: ISearchBar) => {
                                         <SearchIcon />
                                     </InputAdornment>
                                 ),
+                            }}
+                            value={name}
+                            onChange={(
+                                event: React.ChangeEvent<HTMLInputElement>
+                            ) => {
+                                setName(event.target.value);
                             }}
                         />
                     )}
@@ -93,7 +124,12 @@ export default ({ option, setOption, options }: ISearchBar) => {
                         fullWidth
                         variant='contained'
                         onClick={() => {
-                            console.log(chips);
+                            if (option === 'Tags') {
+                                console.log(chips);
+                            } else {
+                                console.log(name);
+                            }
+                            handleSearch();
                         }}
                     >
                         Search

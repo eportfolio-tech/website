@@ -86,7 +86,7 @@ export default (props: { close: () => void }) => {
                     size='large'
                     onClick={onSignUpHandler}
                 >
-                    Login In
+                    Login
                 </Button>
             </form>
             <br />

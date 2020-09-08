@@ -1,54 +1,20 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import { Grid, Typography, Container, Grow } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
-import { useHistory, useLocation } from 'react-router-dom';
-function Copyright() {
-    return (
-        <Typography variant='body2' color='textSecondary' align='center'>
-            {'Copyright © '}
-            <Link color='inherit' href='https://material-ui.com/'>
-                Forty-Two Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import Card from './resultCard';
+import LoadingLogo from '../../assets/loadingLogo';
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        icon: {
-            marginRight: theme.spacing(2),
-        },
         heroContent: {
-            backgroundColor: theme.palette.background.paper,
-            padding: theme.spacing(8, 0, 6),
+            backgroundColor: theme.palette.background.default,
         },
-        heroButtons: {
-            marginTop: theme.spacing(4),
-        },
+
         cardGrid: {
             paddingTop: theme.spacing(8),
             paddingBottom: theme.spacing(8),
         },
-        card: {
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-        },
-        cardMedia: {
-            paddingTop: '141.428%', // A4 size
-        },
-        cardContent: {
-            flexGrow: 1,
-        },
+
         footer: {
             backgroundColor: theme.palette.background.paper,
             padding: theme.spacing(6),
@@ -56,97 +22,56 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+interface IResults {
+    setFlipped: any;
+    loading: boolean;
+    cards?: number[];
+}
 
-export default ({ setFlipped }: any) => {
+export default ({ setFlipped, loading, cards }: IResults) => {
     const classes = useStyles();
-    const history = useHistory();
-    const location = useLocation();
+
+    const getText = () => {
+        if (cards === undefined) return 'Click search to get your results.';
+        else return `There are ${cards.length} results.`;
+    };
 
     return (
         <div>
-            <main>
-                {/* Hero unit */}
-                <div className={classes.heroContent}>
-                    <Container maxWidth='sm'>
-                        <Typography
-                            component='h1'
-                            variant='h2'
-                            align='center'
-                            color='textPrimary'
-                            gutterBottom
-                        >
-                            "David Smith" results
-                        </Typography>
+            <div className={classes.heroContent}>
+                <Container maxWidth='sm'>
+                    {!loading ? (
                         <Typography
                             variant='h5'
-                            align='center'
                             color='textSecondary'
                             paragraph
                         >
-                            There are 9 matched results.
+                            {getText()}
                         </Typography>
-                    </Container>
-                </div>
-                <Container className={classes.cardGrid} maxWidth='md'>
-                    {/* End hero unit */}
-                    <Grid container spacing={4}>
-                        {cards.map((card) => (
-                            <Grid item key={card} xs={12} sm={6} md={4}>
-                                <Card className={classes.card}>
-                                    <CardMedia
-                                        className={classes.cardMedia}
-                                        image='https://source.unsplash.com/random'
-                                        title='Image title'
-                                    />
-                                    <CardContent
-                                        className={classes.cardContent}
-                                    >
-                                        <Typography
-                                            gutterBottom
-                                            variant='h5'
-                                            component='h2'
-                                        >
-                                            David Smith
-                                        </Typography>
-                                        <Typography>
-                                            David is a experienced project
-                                            manager. He has worked in Alibaba
-                                            Cloud team for eight years.
-                                        </Typography>
-                                    </CardContent>
-                                    <CardActions>
-                                        <Button
-                                            size='small'
-                                            color='primary'
-                                            onClick={() => {
-                                                setFlipped(true);
-
-                                                history.push(
-                                                    location.pathname + '/more'
-                                                );
-                                            }}
-                                        >
-                                            View
-                                        </Button>
-                                        <Button size='small' color='primary'>
-                                            Like
-                                        </Button>
-                                        <Button size='small' color='primary'>
-                                            Follow
-                                        </Button>
-                                    </CardActions>
-                                </Card>
-                            </Grid>
-                        ))}
-                    </Grid>
+                    ) : (
+                        <Grid container>
+                            <LoadingLogo style={{ width: '80%' }} />
+                        </Grid>
+                    )}
                 </Container>
-            </main>
-            {/* Footer */}
-            <footer className={classes.footer}>
-                <Copyright />
-            </footer>
-            {/* End footer */}
+            </div>
+            <Container className={classes.cardGrid} maxWidth='md'>
+                {/* End hero unit */}
+                <Grid container spacing={4}>
+                    {cards !== undefined
+                        ? cards.map((card) => (
+                              <Grow
+                                  in={cards !== undefined}
+                                  timeout={card * 200}
+                              >
+                                  <Grid item key={card} xs={12} sm={6} md={4}>
+                                      <Card setFlipped={setFlipped}></Card>
+                                  </Grid>
+                              </Grow>
+                          ))
+                        : null}
+                </Grid>
+            </Container>
         </div>
     );
 };

@@ -14,6 +14,9 @@ export default () => {
     const history = useHistory();
     const theme = useTheme();
 
+    const [loading, setLoading] = useState(false);
+    const [cards, setCards] = useState<undefined | number[]>();
+
     const [flipped, setFlipped] = useState(
         location.pathname === '/explore/more'
     );
@@ -55,10 +58,16 @@ export default () => {
                             options={options}
                             option={option}
                             setOption={setOption}
+                            setCards={setCards}
+                            setLoading={setLoading}
                         />
                         <br />
                         <br />
-                        <Results setFlipped={setFlipped} />
+                        <Results
+                            setFlipped={setFlipped}
+                            loading={loading}
+                            cards={cards}
+                        />
                     </a.div>
                 )}
             </div>

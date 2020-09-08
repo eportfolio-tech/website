@@ -40,6 +40,9 @@ export default () => {
     const history = useHistory();
     const [option, setOption] = useState<string | null>(options[0]);
 
+    const [loading, setLoading] = useState(false);
+    const [cards, setCards] = useState<undefined | number[]>();
+
     const [flipped, setFlipped] = useState(location.pathname === '/more');
     const { transform, opacity }: any = useSpring({
         opacity: flipped ? 1 : 0,
@@ -84,10 +87,16 @@ export default () => {
                         options={options}
                         option={option}
                         setOption={setOption}
+                        setCards={setCards}
+                        setLoading={setLoading}
                     />
                     <br />
                     <br />
-                    <Results setFlipped={setFlipped} />
+                    <Results
+                        setFlipped={setFlipped}
+                        loading={loading}
+                        cards={cards}
+                    />
                 </a.div>
             )}
         </div>
