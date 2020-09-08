@@ -2,12 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { userService } from '../../services/userService';
 import { useDispatch } from 'react-redux';
 import { alertActions } from '../../store/actions/alertActions';
-import { Button, Grid, useTheme, TextField } from '@material-ui/core';
+import {
+    Button,
+    Grid,
+    useTheme,
+    TextField,
+    CardContent,
+    Card,
+    CardHeader,
+    Typography,
+    ButtonGroup,
+} from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Checkbox from '@material-ui/core/Checkbox';
 
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import TagIcon from '@material-ui/icons/LocalOffer';
+import PublishIcon from '@material-ui/icons/Publish';
+import RestoreIcon from '@material-ui/icons/Restore';
 
 const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
 const checkedIcon = <CheckBoxIcon fontSize='small' />;
@@ -34,14 +47,19 @@ export default () => {
         try {
             const tags = await userService.getAllTags();
             setOptions(tags);
-        } catch {
-            dispatch(alertActions.error('fetch tags failed'));
+        } catch (error) {
+            dispatch(
+                alertActions.error(
+                    'fetch tags failed: ' + error.response.data.errors
+                )
+            );
         }
     };
 
     useEffect(() => {
         getAllTags();
         getUserTags();
+        // eslint-disable-next-line
     }, []);
 
     const getUserTags = async () => {
@@ -51,9 +69,13 @@ export default () => {
 
             const tags = await userService.getUserTags(username);
             setUserTags(tags);
-            dispatch(alertActions.success('get tags succeed'));
+            dispatch(alertActions.success('get tags succeed.'));
         } catch (error) {
-            dispatch(alertActions.error('get tags failed'));
+            dispatch(
+                alertActions.error(
+                    'get tags failed: ' + error.response.data.errors
+                )
+            );
         }
     };
 
@@ -95,7 +117,7 @@ export default () => {
         }
     };
 
-    const checkSelect = (option: any, value: any) => {
+    const checkSelect = (option: any) => {
         if (userTags.some((e) => e.name === option.name)) {
             return true;
         }
@@ -119,69 +141,76 @@ export default () => {
     };
 
     return (
-        <Grid container justify='space-around' spacing={3}>
-            <Grid item xs={12}>
-                <Autocomplete
-                    multiple
-                    id='checkboxes-tags-demo'
-                    disableCloseOnSelect
-                    options={options}
-                    getOptionLabel={(option: any) => option.name || option}
-                    value={userTags}
-                    onChange={onChangeHandler}
-                    freeSolo
-                    getOptionSelected={checkSelect}
-                    renderOption={(option, { selected }) => (
-                        <React.Fragment>
-                            <Checkbox
-                                icon={icon}
-                                checkedIcon={checkedIcon}
-                                style={{ marginRight: 8 }}
-                                checked={selected}
-                            />
-                            {option.name}
-                        </React.Fragment>
-                    )}
-                    renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            variant='outlined'
-                            label='Select existing tags or create your own'
-                            placeholder='Add...'
+        <Card style={{ height: '100%' }}>
+            <CardHeader
+                avatar={<TagIcon />}
+                title={<Typography variant='h6'>Modify Your Tag(s)</Typography>}
+                action={
+                    <ButtonGroup
+                        orientation='vertical'
+                        variant='outlined'
+                        color='secondary'
+                        style={{
+                            height: '100%',
+                            marginTop: theme.spacing(2),
+                            marginRight: theme.spacing(2),
+                        }}
+                    >
+                        <Button
+                            style={{ textTransform: 'none' }}
+                            onClick={getUserTags}
+                        >
+                            <RestoreIcon />
+                            Refresh
+                        </Button>
+                        <Button
+                            style={{ textTransform: 'none' }}
+                            onClick={onSubmitHandler}
+                        >
+                            <PublishIcon />
+                            Submit
+                        </Button>
+                    </ButtonGroup>
+                }
+            />
+            <CardContent>
+                <Grid container justify='space-around' spacing={3}>
+                    <Grid item xs={12}>
+                        <Autocomplete
+                            multiple
+                            id='checkboxes-tags-demo'
+                            disableCloseOnSelect
+                            options={options}
+                            getOptionLabel={(option: any) =>
+                                option.name || option
+                            }
+                            value={userTags}
+                            onChange={onChangeHandler}
+                            freeSolo
+                            getOptionSelected={checkSelect}
+                            renderOption={(option, { selected }) => (
+                                <React.Fragment>
+                                    <Checkbox
+                                        icon={icon}
+                                        checkedIcon={checkedIcon}
+                                        style={{ marginRight: 8 }}
+                                        checked={selected}
+                                    />
+                                    {option.name}
+                                </React.Fragment>
+                            )}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    variant='outlined'
+                                    label='Select existing tags or create your own'
+                                    placeholder='Add...'
+                                />
+                            )}
                         />
-                    )}
-                />
-            </Grid>
-            <Grid item xs={6}>
-                <Button
-                    variant='contained'
-                    color='primary'
-                    fullWidth
-                    onClick={getUserTags}
-                    style={{
-                        height: '100%',
-                        marginTop: theme.spacing(1),
-                        textTransform: 'none',
-                    }}
-                >
-                    Get your tags
-                </Button>
-            </Grid>
-            <Grid item xs={6}>
-                <Button
-                    variant='contained'
-                    color='secondary'
-                    fullWidth
-                    onClick={onSubmitHandler}
-                    style={{
-                        height: '100%',
-                        marginTop: theme.spacing(1),
-                        textTransform: 'none',
-                    }}
-                >
-                    Submit your tags
-                </Button>
-            </Grid>
-        </Grid>
+                    </Grid>
+                </Grid>
+            </CardContent>
+        </Card>
     );
 };
