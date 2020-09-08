@@ -60,7 +60,7 @@ export default () => {
         bottom: 0,
         opacity,
         transform: transform.interpolate((t: any) => `${t} rotateX(180deg)`),
-        background: 'blue',
+
         minHeight: '100%',
         minWidth: '100%',
     };
@@ -74,7 +74,13 @@ export default () => {
                         setFlipped(false);
                         history.push('/search');
                     }}
-                ></a.div>
+                >
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <h1>Click Anywhere to go back</h1>
+                </a.div>
             ) : (
                 <a.div style={searchStyle}>
                     <br />

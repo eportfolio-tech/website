@@ -1,14 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import {
-    Avatar,
-    AppBar,
-    Toolbar,
-    Button,
-    IconButton,
-    Menu,
-    MenuItem,
-} from '@material-ui/core';
+import { AppBar, Toolbar, Button, IconButton } from '@material-ui/core';
 import clsx from 'clsx';
 import withWidth from '@material-ui/core/withWidth';
 import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
@@ -29,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-        background: theme.palette.background.default,
+        backgroundColor: 'rgba(250,250,250,0.3)',
         boxShadow: 'none',
     },
     appBarShift: {
@@ -70,7 +62,7 @@ export default withWidth()(({ handleDrawerOpen, openDrawer }: AppBarProps) => {
     //const history = useHistory();
     //const location = useLocation();
 
-    const [avatarEL, setAvatarEL] = useState(null);
+    //const [avatarEL, setAvatarEL] = useState(null);
 
     return (
         <div>
@@ -92,7 +84,7 @@ export default withWidth()(({ handleDrawerOpen, openDrawer }: AppBarProps) => {
                         <MenuIcon />
                     </IconButton>
                     <Button></Button>
-
+                    {/*
                     <div className={classes.link}>
                         <Button
                             className={classes.link}
@@ -120,7 +112,7 @@ export default withWidth()(({ handleDrawerOpen, openDrawer }: AppBarProps) => {
                                 Logout
                             </MenuItem>
                         </Menu>
-                    </div>
+                            </div>*/}
                 </Toolbar>
             </AppBar>
         </div>

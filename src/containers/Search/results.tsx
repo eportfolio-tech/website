@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
 
         cardGrid: {
-            paddingTop: theme.spacing(8),
+            paddingTop: theme.spacing(3),
             paddingBottom: theme.spacing(8),
         },
 
@@ -32,28 +32,29 @@ export default ({ setFlipped, loading, cards }: IResults) => {
     const classes = useStyles();
 
     const getText = () => {
+        if (loading) return 'Loading please wait...';
         if (cards === undefined)
             return 'Click The Search Icon to get your result(s).';
-        else return `There are ${cards.length} results`;
+        else return `There are ${cards.length} result(s).`;
     };
 
     return (
         <div>
             <div className={classes.heroContent}>
                 <Container maxWidth='sm'>
-                    {!loading ? (
-                        <Typography
-                            variant='h5'
-                            color='textSecondary'
-                            paragraph
-                        >
-                            {getText()}
-                        </Typography>
-                    ) : (
+                    <Typography
+                        variant='h5'
+                        color='textSecondary'
+                        paragraph
+                        align='center'
+                    >
+                        {getText()}
+                    </Typography>
+                    {loading ? (
                         <Grid container>
                             <LoadingLogo style={{ width: '80%' }} />
                         </Grid>
-                    )}
+                    ) : null}
                 </Container>
             </div>
             <Container className={classes.cardGrid} maxWidth='md'>

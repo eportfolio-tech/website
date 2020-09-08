@@ -85,18 +85,19 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: theme.spacing(0, 1),
             // necessary for content to be below app bar
             ...theme.mixins.toolbar,
+            backgroundColor: 'rgba(250,250,250,0.9)',
         },
         content: {
             flexGrow: 1,
             [theme.breakpoints.up('lg')]: {
-                padding: theme.spacing(10),
+                padding: theme.spacing(13),
             },
             [theme.breakpoints.down('sm')]: {
-                padding: theme.spacing(2),
+                padding: theme.spacing(4),
                 marginTop: '18%',
             },
             [theme.breakpoints.between('sm', 'md')]: {
-                padding: theme.spacing(2),
+                padding: theme.spacing(4),
                 marginTop: '8%',
             },
             maxWidth: '100%',

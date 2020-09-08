@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -7,7 +6,15 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { useHistory, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { IRootState } from '../../index';
+
 import logoImage from '../../assets/logo.svg';
+import FlipToFrontIcon from '@material-ui/icons/FlipToFront';
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import StarsIcon from '@material-ui/icons/Stars';
+import { IconButton, Grid } from '@material-ui/core';
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         icon: {
@@ -34,6 +41,9 @@ export default ({ setFlipped }: any) => {
     const classes = useStyles();
     const history = useHistory();
     const location = useLocation();
+    const loggedIn = useSelector<IRootState, boolean | undefined>(
+        (state) => state.auth.loggedIn
+    );
 
     return (
         <Card className={classes.card}>
@@ -52,22 +62,48 @@ export default ({ setFlipped }: any) => {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button
-                    size='small'
-                    color='primary'
-                    onClick={() => {
-                        setFlipped(true);
-                        history.push(location.pathname + '/more');
-                    }}
-                >
-                    View
-                </Button>
-                <Button size='small' color='primary'>
-                    Like
-                </Button>
-                <Button size='small' color='primary'>
-                    Follow
-                </Button>
+                <Grid container justify='center' spacing={1}>
+                    <Grid item xs={3}>
+                        <IconButton
+                            color='secondary'
+                            onClick={() => {
+                                setFlipped(true);
+                                console.log(location.pathname);
+                                if (location.pathname === '/') {
+                                    history.push('/search/more');
+                                } else {
+                                    history.push(location.pathname + '/more');
+                                }
+                            }}
+                        >
+                            <FlipToFrontIcon />
+                        </IconButton>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <IconButton
+                            style={{ color: '#42a5f5' }}
+                            onClick={() => {
+                                if (!loggedIn) {
+                                    return history.push('/login');
+                                }
+                            }}
+                        >
+                            <ThumbUpAltIcon />
+                        </IconButton>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <IconButton
+                            style={{ color: '#f59002' }}
+                            onClick={() => {
+                                if (!loggedIn) {
+                                    return history.push('/login');
+                                }
+                            }}
+                        >
+                            <StarsIcon />
+                        </IconButton>
+                    </Grid>
+                </Grid>
             </CardActions>
         </Card>
     );

@@ -50,7 +50,7 @@ export default () => {
                             history.push('/explore');
                         }}
                     >
-                        <h1>Hi</h1>
+                        <h1>Click Anywhere to go back</h1>
                     </a.div>
                 ) : (
                     <a.div style={searchStyle}>
