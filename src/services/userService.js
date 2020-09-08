@@ -86,9 +86,10 @@ async function updateUserTags(username, updatedTags) {
 async function deleteUserTags(username, deletedTags) {
     axios.defaults.headers.common['Authorization'] =
         'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
-    const response = await axios.delete('/users/' + username + '/tags', {
-        data: deletedTags,
-    });
+    const response = await axios.post(
+        '/users/' + username + '/deleteTags',
+        deletedTags
+    );
     return response.data;
 }
 

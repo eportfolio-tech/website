@@ -86,7 +86,6 @@ export default () => {
 
         if (reason === 'remove-option') {
             let delTag = details.option;
-            delTag.deleted = true;
             setDeleteTags([...deleteTags, delTag]);
             let userTagsArr = [...userTags];
             let afterDel = userTagsArr.filter((e) => {
@@ -102,8 +101,10 @@ export default () => {
             const username = userInfo.username;
 
             // console.log('delete: ', deleteTags);
-            // await userService.deleteUserTags(username, deleteTags);
+
+            await userService.deleteUserTags(username, deleteTags);
             await userService.updateUserTags(username, userTags);
+
             dispatch(alertActions.success('update tags succeed'));
         } catch (error) {
             dispatch(alertActions.error('update tags failed'));
