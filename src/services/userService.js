@@ -6,6 +6,8 @@ export const userService = {
     resetPassword,
     getAllTags,
     getUserTags,
+    updateUserTags,
+    deleteUserTags,
     verifyEmail,
 };
 
@@ -68,6 +70,25 @@ async function getUserTags(username) {
     axios.defaults.headers.common['Authorization'] =
         'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
     const response = await axios.get('/users/' + username + '/tags');
+    return response.data;
+}
+
+async function updateUserTags(username, updatedTags) {
+    axios.defaults.headers.common['Authorization'] =
+        'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
+    const response = await axios.post(
+        '/users/' + username + '/tags',
+        updatedTags
+    );
+    return response.data;
+}
+
+async function deleteUserTags(username, deletedTags) {
+    axios.defaults.headers.common['Authorization'] =
+        'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
+    const response = await axios.delete('/users/' + username + '/tags', {
+        data: deletedTags,
+    });
     return response.data;
 }
 

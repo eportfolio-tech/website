@@ -13,10 +13,10 @@ const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
 const checkedIcon = <CheckBoxIcon fontSize='small' />;
 
 interface TagType {
-    id: number;
+    id?: number;
     name: string;
     icon?: null | string;
-    deleted: boolean;
+    deleted?: boolean;
     createdBy?: string;
     createdAt?: string;
     updatedOn?: string;
@@ -24,9 +24,11 @@ interface TagType {
 
 export default () => {
     const dispatch = useDispatch();
-    const [options, setOptions] = useState<TagType[]>([]);
-    const [userTags, setUserTags] = useState([]);
     const theme = useTheme();
+
+    const [options, setOptions] = useState<TagType[]>([]);
+    const [userTags, setUserTags] = useState<TagType[]>([]);
+    const [deleteTags, setDeleteTags] = useState<TagType[]>([]); // array of tag object will be deleted
 
     useEffect(() => {
         getAllTags();
@@ -55,8 +57,61 @@ export default () => {
         }
     };
 
+    const onChangeHandler = (
+        event: any,
+        value: any,
+        reason: any,
+        details: any
+    ) => {
+        // console.log('details: ', details);
+        // console.log('reason: ', reason);
+        // console.log('value: ', value);
+
+        if (reason === 'create-option') {
+            const updatedTags = [
+                ...userTags,
+                {
+                    name: details.option,
+                    deleted: false,
+                },
+            ];
+            setUserTags(updatedTags);
+        }
+
+        if (reason === 'select-option') {
+            let addTag = details.option;
+            const updatedTags = [...userTags, addTag];
+            setUserTags(updatedTags);
+        }
+
+        if (reason === 'remove-option') {
+            let delTag = details.option;
+            delTag.deleted = true;
+            setDeleteTags([...deleteTags, delTag]);
+            let userTagsArr = [...userTags];
+            let afterDel = userTagsArr.filter((e) => {
+                return e.name !== delTag.name;
+            });
+            setUserTags(afterDel);
+        }
+    };
+
+    const onSubmitHandler = async () => {
+        try {
+            const userInfo = JSON.parse(localStorage.getItem('user') || '');
+            const username = userInfo.username;
+
+            // console.log('delete: ', deleteTags);
+            // await userService.deleteUserTags(username, userTags);
+            await userService.updateUserTags(username, deleteTags);
+            dispatch(alertActions.success('update tags succeed'));
+        } catch (error) {
+            dispatch(alertActions.error('update tags failed'));
+        }
+    };
+
     return (
-        <Grid container justify='space-around' spacing={2}>
+        <Grid container justify='space-around' spacing={3}>
             <Grid item xs={12}>
                 <Autocomplete
                     multiple
@@ -65,9 +120,7 @@ export default () => {
                     options={options}
                     getOptionLabel={(option: any) => option.name || option}
                     value={userTags}
-                    onChange={(event: any, value: any) => {
-                        setUserTags(value);
-                    }}
+                    onChange={onChangeHandler}
                     freeSolo
                     renderOption={(option, { selected }) => (
                         <React.Fragment>
@@ -110,6 +163,7 @@ export default () => {
                     variant='contained'
                     color='secondary'
                     fullWidth
+                    onClick={onSubmitHandler}
                     style={{
                         height: '100%',
                         marginTop: theme.spacing(1),
