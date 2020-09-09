@@ -21,6 +21,8 @@ import Verify from '../containers/Verify/verify';
 
 import Recovery from '../containers/Recovery/recovery';
 
+import Page from './page';
+
 interface IProtectedRoute {
     Component?: any;
     path?: string | string[];
@@ -90,7 +92,7 @@ function App() {
 
     const Settings = () => (
         <Layout>
-            <SettingPage />
+            <Page />
         </Layout>
     );
 
