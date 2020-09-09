@@ -21,7 +21,7 @@ import Verify from '../containers/Verify/verify';
 
 import Recovery from '../containers/Recovery/recovery';
 
-import Page from './page';
+import Editor from './Settings/Editor';
 
 interface IProtectedRoute {
     Component?: any;
@@ -86,7 +86,7 @@ const LoggedOutRoute = ({ Component, exact, path }: IProtectedRoute) => {
 function App() {
     const DashBoard = () => (
         <Layout>
-            <Page />
+            <Editor />
         </Layout>
     );
 

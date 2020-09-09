@@ -68,7 +68,7 @@ export default (props: { close: () => void }) => {
             </Typography>
             <form className={classes.form}>
                 <TextField
-                    label='user name'
+                    label='Username'
                     setState={setUserName}
                     required={true}
                 />

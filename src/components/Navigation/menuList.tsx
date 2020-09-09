@@ -75,7 +75,7 @@ export default withWidth()(({ handleRouting }: IMenuListProps) => {
                         <ListItemIcon className={classes.icon}>
                             <SearchIcon />
                         </ListItemIcon>
-                        <ListItemText primary='explore' />
+                        <ListItemText primary='Explore' />
                     </ListItem>
                 </Grow>
             </List>
