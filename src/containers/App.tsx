@@ -86,13 +86,13 @@ const LoggedOutRoute = ({ Component, exact, path }: IProtectedRoute) => {
 function App() {
     const DashBoard = () => (
         <Layout>
-            <h1>Welcome </h1>
+            <Page />
         </Layout>
     );
 
     const Settings = () => (
         <Layout>
-            <Page />
+            <SettingPage />
         </Layout>
     );
 
