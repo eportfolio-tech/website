@@ -22,6 +22,7 @@ import Verify from '../containers/Verify/verify';
 import Recovery from '../containers/Recovery/recovery';
 
 import Editor from './Settings/Editor';
+import SignUp from './SignUp/SignUp';
 
 interface IProtectedRoute {
     Component?: any;
@@ -132,11 +133,11 @@ function App() {
                                 path={'/sign-in'}
                                 Component={SignIn}
                             />
-                            {/* <LoggedOutRoute
-                            exact
-                            path={'/sign-up'}
-                            Component={SignUp}
-                        /> */}
+                            <LoggedOutRoute
+                                exact
+                                path={'/sign-up'}
+                                Component={SignUp}
+                            />
                             <LoggedOutRoute path={'/'} Component={Index} />
                         </Switch>
                     </SnackbarProvider>
