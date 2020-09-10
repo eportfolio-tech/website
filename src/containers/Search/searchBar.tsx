@@ -10,6 +10,11 @@ import {
 } from '@material-ui/core';
 import { Chips } from './chips';
 import { Search as SearchIcon } from '@material-ui/icons';
+import { userService } from '../../services/userService';
+
+import { useDispatch } from 'react-redux';
+import { alertActions } from '../../store/actions/alertActions';
+
 const useStyles = makeStyles((theme) =>
     createStyles({
         chip: {
@@ -32,8 +37,21 @@ const useStyles = makeStyles((theme) =>
         },
     })
 );
-
-const resultCards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+/*
+const resultCards = [
+    {
+        id: 413,
+        title: 'test',
+        username: 'test',
+        userId: 0,
+        content: 'lynch',
+        description: 'string',
+        visibility: 'PUBLIC',
+        deleted: false,
+        createdAt: '2020-09-09T17:40:30.000+00:00',
+        updatedOn: '2020-09-09T17:40:30.000+00:00',
+    },
+];*/
 
 interface ISearchBar {
     option: string | null;
@@ -57,16 +75,26 @@ export default ({
     setLoading,
 }: ISearchBar) => {
     const classes = useStyles();
+    const dispatch = useDispatch();
 
     const [chips, setChips] = useState<string[]>([]);
     const [name, setName] = useState('');
 
     const handleSearch = async () => {
-        setLoading(true);
-        setCards(undefined);
-        await sleep(2000);
-        setCards(resultCards);
-        setLoading(false);
+        try {
+            setLoading(true);
+            setCards(undefined);
+
+            const results = await userService.search(name, 0, 100);
+
+            await sleep(2000);
+
+            setCards(results.content);
+            setLoading(false);
+        } catch (error) {
+            dispatch(alertActions.error(error.response.data.errors));
+            setLoading(false);
+        }
     };
 
     return (

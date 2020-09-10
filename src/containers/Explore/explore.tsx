@@ -5,6 +5,7 @@ import Layout from '../../components/Navigation/layout';
 import { useSpring, animated as a } from 'react-spring';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useTheme } from '@material-ui/core';
+import IContent from '../Search/IContent';
 
 const options = ['Names', 'Tags'];
 
@@ -15,7 +16,7 @@ export default () => {
     const theme = useTheme();
 
     const [loading, setLoading] = useState(false);
-    const [cards, setCards] = useState<undefined | number[]>();
+    const [cards, setCards] = useState<undefined | IContent[]>();
 
     const [flipped, setFlipped] = useState(
         location.pathname === '/explore/more'

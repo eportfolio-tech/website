@@ -3,6 +3,7 @@ import { Grid, Typography, Container, Grow } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Card from './resultCard';
 import LoadingLogo from '../../assets/loadingLogo';
+import IContent from './IContent';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
 interface IResults {
     setFlipped: any;
     loading: boolean;
-    cards?: number[];
+    cards?: IContent[];
 }
 
 export default ({ setFlipped, loading, cards }: IResults) => {
@@ -33,8 +34,7 @@ export default ({ setFlipped, loading, cards }: IResults) => {
 
     const getText = () => {
         if (loading) return 'Loading...';
-        if (cards === undefined)
-            return 'click search icon to start search';
+        if (cards === undefined) return 'click search icon to start search';
         else return `There are ${cards.length} result(s).`;
     };
 
@@ -59,15 +59,18 @@ export default ({ setFlipped, loading, cards }: IResults) => {
             </div>
             <Container className={classes.cardGrid} maxWidth='md'>
                 {/* End hero unit */}
-                <Grid container spacing={4}>
+                <Grid container spacing={4} justify='center'>
                     {cards !== undefined
-                        ? cards.map((card) => (
+                        ? cards.map((card: IContent, index: number) => (
                               <Grow
                                   in={cards !== undefined}
-                                  timeout={card * 200}
+                                  timeout={index * 200}
                               >
-                                  <Grid item key={card} xs={12} sm={6} md={4}>
-                                      <Card setFlipped={setFlipped}></Card>
+                                  <Grid item key={index} xs={12} sm={6} md={4}>
+                                      <Card
+                                          content={card}
+                                          setFlipped={setFlipped}
+                                      ></Card>
                                   </Grid>
                               </Grow>
                           ))

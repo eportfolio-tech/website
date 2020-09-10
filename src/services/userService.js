@@ -11,6 +11,7 @@ export const userService = {
     verifyEmail,
     recoveryPassword,
     getRecoveryLink,
+    search,
 };
 
 async function login(username, password) {
@@ -132,6 +133,19 @@ async function getRecoveryLink(email) {
             },
         }
     );
+
+    return response.data;
+}
+
+async function search(query, page, size) {
+    console.log(query + page + size);
+    const response = await axios.get('/portfolio/search', {
+        params: {
+            query: query,
+            page: page,
+            size: size,
+        },
+    });
 
     return response.data;
 }

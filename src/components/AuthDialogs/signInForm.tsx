@@ -10,7 +10,7 @@ import TextField from './textField';
 import { useDispatch } from 'react-redux';
 import { userActions } from '../../store/actions/userActions';
 import { alertActions } from '../../store/actions/alertActions';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 // Extension Styles
 const useStyles = makeStyles((theme: Theme) =>
@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default (props: { close: () => void }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const history = useHistory();
 
     // const [signinFailed, setSigninFailed] = useState(false);
     const [userName, setUserName] = useState('');
@@ -93,11 +94,15 @@ export default (props: { close: () => void }) => {
                 </Button>
                 <Grid container>
                     <Grid item xs={12}>
-                        <Link to='/forget-password'>
-                            <Button fullWidth style={{ textTransform: 'none' }}>
-                                Forgot password?
-                            </Button>
-                        </Link>
+                        <Button
+                            fullWidth
+                            style={{ textTransform: 'none' }}
+                            onClick={() => {
+                                history.push('/forget-password');
+                            }}
+                        >
+                            Forgot password?
+                        </Button>
                     </Grid>
                 </Grid>
             </form>

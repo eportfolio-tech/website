@@ -4,6 +4,7 @@ import Results from './results';
 import SearchBar from './searchBar';
 import { useSpring, animated as a } from 'react-spring';
 import { useLocation, useHistory } from 'react-router-dom';
+import IContent from './IContent';
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -41,7 +42,7 @@ export default () => {
     const [option, setOption] = useState<string | null>(options[0]);
 
     const [loading, setLoading] = useState(false);
-    const [cards, setCards] = useState<undefined | number[]>();
+    const [cards, setCards] = useState<undefined | IContent[]>();
 
     const [flipped, setFlipped] = useState(location.pathname === '/more');
     const { transform, opacity }: any = useSpring({

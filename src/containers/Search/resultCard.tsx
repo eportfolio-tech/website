@@ -8,7 +8,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { IRootState } from '../../index';
-
+import IContent from './IContent';
 import logoImage from '../../assets/logo.svg';
 import FlipToFrontIcon from '@material-ui/icons/FlipToFront';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
@@ -37,7 +37,12 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-export default ({ setFlipped }: any) => {
+interface IResultCard {
+    content: IContent;
+    setFlipped: any;
+}
+
+export default ({ content, setFlipped }: IResultCard) => {
     const classes = useStyles();
     const history = useHistory();
     const location = useLocation();
@@ -54,12 +59,9 @@ export default ({ setFlipped }: any) => {
             />
             <CardContent className={classes.cardContent}>
                 <Typography gutterBottom variant='h5' component='h2'>
-                    David Smith
+                    {content.username}
                 </Typography>
-                <Typography>
-                    David is a experienced project manager. He has worked in
-                    Alibaba Cloud team for eight years.
-                </Typography>
+                <Typography>{content.content}</Typography>
             </CardContent>
             <CardActions>
                 <Grid container justify='center' spacing={1}>
