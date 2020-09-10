@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
@@ -10,7 +9,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
-import { useHistory } from 'react-router-dom';
 //Redux
 import { useDispatch } from 'react-redux';
 import { userActions } from '../../store/actions/userActions';
@@ -351,6 +349,13 @@ export default function SignUp() {
                             </Button>
                         )}
                     </div>
+                    <Grid container justify='flex-end'>
+                        <Grid item>
+                            <Link href='/sign-in' variant='body2'>
+                                Already have an account? Sign in
+                            </Link>
+                        </Grid>
+                    </Grid>
                 </div>
             </Paper>
         </main>

@@ -9,8 +9,6 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-
-import { useHistory } from 'react-router-dom';
 //Redux
 import { useDispatch } from 'react-redux';
 import { userActions } from '../../store/actions/userActions';
@@ -54,7 +52,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function SignInSide() {
     const classes = useStyles();
-    const history = useHistory();
     const dispatch = useDispatch();
 
     // const [signinFailed, setSigninFailed] = useState(false);
