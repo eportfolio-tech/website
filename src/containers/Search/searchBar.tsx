@@ -87,7 +87,7 @@ export default ({
 
             const results = await userService.search(name, 0, 100);
 
-            await sleep(2000);
+            await sleep(500);
 
             setCards(results.content);
             setLoading(false);
