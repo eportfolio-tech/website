@@ -133,11 +133,11 @@ function App() {
                                 path={'/sign-in'}
                                 Component={SignIn}
                             />
-                            <LoggedOutRoute
+                            {/* <LoggedOutRoute
                                 exact
                                 path={'/sign-up'}
                                 Component={SignUp}
-                            />
+                            /> */}
                             <LoggedOutRoute path={'/'} Component={Index} />
                         </Switch>
                     </SnackbarProvider>
