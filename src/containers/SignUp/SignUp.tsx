@@ -1,30 +1,21 @@
 import React, { useState } from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
+import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Link from '@material-ui/core/Link';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { userService } from '../../services/userService';
-import { TextField, Grid, MenuItem } from '@material-ui/core';
-import PhoneInput from 'react-phone-input-2';
-import 'react-phone-input-2/lib/material.css';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
+//Redux
 import { useDispatch } from 'react-redux';
 import { userActions } from '../../store/actions/userActions';
 import { alertActions } from '../../store/actions/alertActions';
-
-/*
-function Copyright() {
-	return (
-		<Typography variant="body2" color="textSecondary" align="center">
-			{"Copyright © "}
-			<Link color="inherit" href="https://dev.eportfolio.tech/">
-				COMP30022
-			</Link>{" "}
-			{new Date().getFullYear()}
-			{"."}
-		</Typography>
-	);
-}*/
+import { userService } from '../../services/userService';
+import { MenuItem } from '@material-ui/core';
+import PhoneInput from 'react-phone-input-2';
 
 const titles = [
     {
@@ -65,11 +56,14 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         paper: {
-            marginBottom: theme.spacing(1),
-            [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-                marginBottom: theme.spacing(1),
-                padding: theme.spacing(2),
-            },
+            marginTop: theme.spacing(8),
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+        },
+        avatar: {
+            margin: theme.spacing(1),
+            backgroundColor: theme.palette.secondary.main,
         },
         buttons: {
             display: 'flex',
@@ -94,10 +88,13 @@ const useStyles = makeStyles((theme: Theme) =>
             fontWeight: 550,
             fontFamily: 'Arial',
         },
+        signup: {
+            margin: theme.spacing(1, 0, 4, 0),
+        },
     })
 );
 
-export default (props: { close: () => void }) => {
+export default function SignUp() {
     const classes = useStyles();
     const dispatch = useDispatch();
     const [, setSignupFailed] = useState(false);
@@ -142,7 +139,6 @@ export default (props: { close: () => void }) => {
             );
             dispatch(userActions.login(user_payload));
             dispatch(alertActions.success('sign up succeed'));
-            props.close();
         } catch (error) {
             const err_msg = error.response.data.errors[0].split(',');
             err_msg.forEach((err: any) => {
@@ -154,12 +150,17 @@ export default (props: { close: () => void }) => {
 
     return (
         <main className={classes.layout}>
-            <Paper className={classes.paper} elevation={0}>
-                <div>
-                    <Typography variant='h6' gutterBottom>
-                        Enter Details
-                    </Typography>
-                    <Grid container spacing={4}>
+            <Paper elevation={0}>
+                <div className={classes.paper}>
+                    <Avatar className={classes.avatar}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <div className={classes.signup}>
+                        <Typography component='h1' variant='h5'>
+                            Sign up
+                        </Typography>
+                    </div>
+                    <Grid container spacing={5}>
                         <Grid item xs={12} md={6}>
                             <TextField
                                 id='outlined-select-currency'
@@ -241,7 +242,7 @@ export default (props: { close: () => void }) => {
                                 required
                                 id='password'
                                 name='password'
-                                label='Password (8 or more characters with upper and lower letters, numbers)'
+                                label='Password (with minimum eight characters)'
                                 fullWidth
                                 autoComplete='Password'
                                 onChange={(event) =>
@@ -257,7 +258,7 @@ export default (props: { close: () => void }) => {
                                 required
                                 id='repassword'
                                 name='repassword'
-                                label='Please re-enter your password'
+                                label='Please Re-Enter your Password'
                                 fullWidth
                                 autoComplete='Re-Enter Password'
                                 type='password'
@@ -324,7 +325,7 @@ export default (props: { close: () => void }) => {
                                 color='secondary'
                             >
                                 {' '}
-                                Please complete sign up form.
+                                Please complete the registered form.
                             </Button>
                         ) : (
                             <Button
@@ -344,12 +345,19 @@ export default (props: { close: () => void }) => {
                                 }
                                 fullWidth
                             >
-                                Sign up
+                                Register
                             </Button>
                         )}
                     </div>
+                    <Grid container justify='flex-end'>
+                        <Grid item>
+                            <Link href='/sign-in' variant='body2'>
+                                Already have an account? Sign in
+                            </Link>
+                        </Grid>
+                    </Grid>
                 </div>
             </Paper>
         </main>
     );
-};
+}

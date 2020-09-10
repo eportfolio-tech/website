@@ -123,9 +123,15 @@ async function recoveryPassword(token, username, password) {
 }
 
 async function getRecoveryLink(email) {
-    const response = await axios.post('/', null, {
-        params: {},
-    });
+    const response = await axios.post(
+        '/authentication/send-recovery-link',
+        null,
+        {
+            params: {
+                email: email,
+            },
+        }
+    );
 
     return response.data;
 }

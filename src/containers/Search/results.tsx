@@ -32,9 +32,9 @@ export default ({ setFlipped, loading, cards }: IResults) => {
     const classes = useStyles();
 
     const getText = () => {
-        if (loading) return 'Loading please wait...';
+        if (loading) return 'Loading...';
         if (cards === undefined)
-            return 'Click The Search Icon to get your result(s).';
+            return 'click search icon to start search';
         else return `There are ${cards.length} result(s).`;
     };
 

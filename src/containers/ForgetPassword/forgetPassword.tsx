@@ -60,7 +60,6 @@ export default () => {
     const onRecoveryHandler = async () => {
         try {
             await userService.getRecoveryLink(email);
-
             history.push('/login');
             dispatch(alertActions.success('Email already sent.'));
         } catch (error) {

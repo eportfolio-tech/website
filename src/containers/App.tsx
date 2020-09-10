@@ -21,6 +21,9 @@ import Verify from '../containers/Verify/verify';
 
 import Recovery from '../containers/Recovery/recovery';
 
+import Editor from './Settings/Editor';
+//import SignUp from './SignUp/SignUp';
+
 import ForgetPassword from '../containers/ForgetPassword/forgetPassword';
 
 interface IProtectedRoute {
@@ -86,7 +89,7 @@ const LoggedOutRoute = ({ Component, exact, path }: IProtectedRoute) => {
 function App() {
     const DashBoard = () => (
         <Layout>
-            <h1>Welcome </h1>
+            <Editor />
         </Layout>
     );
 
@@ -138,10 +141,10 @@ function App() {
                                 Component={SignIn}
                             />
                             {/* <LoggedOutRoute
-                            exact
-                            path={'/sign-up'}
-                            Component={SignUp}
-                        /> */}
+                                exact
+                                path={'/sign-up'}
+                                Component={SignUp}
+                            /> */}
                             <LoggedOutRoute path={'/'} Component={Index} />
                         </Switch>
                     </SnackbarProvider>

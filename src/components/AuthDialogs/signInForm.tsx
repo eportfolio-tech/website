@@ -48,16 +48,16 @@ export default (props: { close: () => void }) => {
     // const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState('');
 
-    const onSignUpHandler = async () => {
+    const onSignInHandler = async () => {
         try {
             const user = await userService.login(userName, userPassword);
             dispatch(userActions.login(user));
-            dispatch(alertActions.success('log in succeed'));
+            dispatch(alertActions.success('sign in succeed'));
             props.close();
         } catch (error) {
             dispatch(
                 alertActions.error(
-                    'log in failed: ' + error.response.data.errors
+                    'sign in failed: ' + error.response.data.errors
                 )
             );
         }
@@ -70,7 +70,7 @@ export default (props: { close: () => void }) => {
             </Typography>
             <form className={classes.form}>
                 <TextField
-                    label='user name'
+                    label='Username'
                     setState={setUserName}
                     required={true}
                 />
@@ -87,9 +87,9 @@ export default (props: { close: () => void }) => {
                     color='secondary'
                     className={classes.submit}
                     size='large'
-                    onClick={onSignUpHandler}
+                    onClick={onSignInHandler}
                 >
-                    Login
+                    Sign in
                 </Button>
                 <Grid container>
                     <Grid item xs={12}>
