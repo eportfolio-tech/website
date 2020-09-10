@@ -21,6 +21,8 @@ import Verify from '../containers/Verify/verify';
 
 import Recovery from '../containers/Recovery/recovery';
 
+import ForgetPassword from '../containers/ForgetPassword/forgetPassword';
+
 interface IProtectedRoute {
     Component?: any;
     path?: string | string[];
@@ -109,6 +111,11 @@ function App() {
                                 exact
                                 path={'/authentication/password-recovery'}
                                 component={Recovery}
+                            />
+                            <Route
+                                exact
+                                path={'/forget-password'}
+                                component={ForgetPassword}
                             />
                             <LoggedInRoute
                                 exact

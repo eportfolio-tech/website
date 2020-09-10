@@ -3,12 +3,14 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { Grid } from '@material-ui/core';
 import { userService } from '../../services/userService';
 import TextField from './textField';
 
 import { useDispatch } from 'react-redux';
 import { userActions } from '../../store/actions/userActions';
 import { alertActions } from '../../store/actions/alertActions';
+import { Link } from 'react-router-dom';
 
 // Extension Styles
 const useStyles = makeStyles((theme: Theme) =>
@@ -89,6 +91,15 @@ export default (props: { close: () => void }) => {
                 >
                     Login
                 </Button>
+                <Grid container>
+                    <Grid item xs={12}>
+                        <Link to='/forget-password'>
+                            <Button fullWidth style={{ textTransform: 'none' }}>
+                                Forgot password?
+                            </Button>
+                        </Link>
+                    </Grid>
+                </Grid>
             </form>
             <br />
             <br />

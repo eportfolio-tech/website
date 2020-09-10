@@ -10,6 +10,7 @@ export const userService = {
     deleteUserTags,
     verifyEmail,
     recoveryPassword,
+    getRecoveryLink,
 };
 
 async function login(username, password) {
@@ -117,6 +118,14 @@ async function recoveryPassword(token, username, password) {
             },
         }
     );
+
+    return response.data;
+}
+
+async function getRecoveryLink(email) {
+    const response = await axios.post('/', null, {
+        params: {},
+    });
 
     return response.data;
 }

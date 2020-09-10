@@ -8,13 +8,13 @@ import {
     TextField,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { userService } from '../../services/userService';
 
 import { useDispatch } from 'react-redux';
 import { alertActions } from '../../store/actions/alertActions';
 import Layout from '../../components/Navigation/layout';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
+import LockOpenIcon from '@material-ui/icons/Lock';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -43,21 +43,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function useQuery() {
-    return new URLSearchParams(useLocation().search);
-}
-
 /***
  * Login dialog
  */
 export default () => {
     const classes = useStyles();
-    const query = useQuery();
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const [password, setPassword] = useState('');
-    const [repeatPassword, setRepeatPassword] = useState('');
+    const [email, setEmail] = useState('');
 
     //const { setLoginEl, openLogin, setOpenLogin } = useContext(AuthApi);
 
@@ -65,54 +59,32 @@ export default () => {
 
     const onRecoveryHandler = async () => {
         try {
-            await userService.recoveryPassword(
-                query.get('token'),
-                query.get('username'),
-                password
-            );
+            await userService.getRecoveryLink(email);
 
             history.push('/login');
-            dispatch(alertActions.success('Your password has been recovered.'));
+            dispatch(alertActions.success('Email already sent.'));
         } catch (error) {
             dispatch(alertActions.error(error.response.data.errors));
         }
     };
 
-    const checkPassword = () => {
-        if (password.length === 0) {
-            // to not display error when empty
-            return true;
-        }
-        if (password.length < 8) {
-            return false;
-        }
-        if (/\s/.test(password)) {
-            return false;
-        }
-        return (
-            /[a-z]/.test(password) &&
-            /[A-Z]/.test(password) &&
-            /\d/.test(password)
-        );
-    };
-
     return (
         <Layout>
             <div className={classes.root}>
-                <Typography variant='h4' align='center'>
+                <Typography variant='h5' align='center'>
                     <LockOpenIcon
                         style={{
-                            height: '20%',
-                            width: '20%',
+                            height: '25%',
+                            width: '25%',
                         }}
                     />
                     <br />
-                    Welcome back, {query.get('username')}.
+                    Enter your email to recover your password.
                 </Typography>
 
                 <Grid container justify='center'>
                     <Paper elevation={0} className={classes.paper}>
-                        <Container maxWidth='sm'>
+                        <Container>
                             <br />
                             <br />
                             <Grid container spacing={2}>
@@ -120,39 +92,20 @@ export default () => {
                                     <TextField
                                         required
                                         id='outlined-basic'
-                                        label='New Password (with minimum eight characters)'
+                                        label='Email'
                                         variant='outlined'
-                                        type='password'
                                         onChange={(event) =>
-                                            setPassword(event.target.value)
+                                            setEmail(event.target.value)
                                         }
                                         fullWidth
                                     >
-                                        New Password
+                                        Please enter your email.
                                     </TextField>
                                 </Grid>
+
                                 <Grid item xs={12}>
-                                    <TextField
-                                        required
-                                        id='outlined-basic'
-                                        label='Repeat Password'
-                                        variant='outlined'
-                                        type='password'
-                                        onChange={(event) =>
-                                            setRepeatPassword(
-                                                event.target.value
-                                            )
-                                        }
-                                        error={
-                                            password !== repeatPassword &&
-                                            repeatPassword.length > 0
-                                        }
-                                        fullWidth
-                                    >
-                                        Repeat Password
-                                    </TextField>
-                                </Grid>
-                                <Grid item xs={12}>
+                                    <br />
+
                                     <Button
                                         fullWidth
                                         variant='contained'
@@ -160,15 +113,8 @@ export default () => {
                                         className={classes.submit}
                                         size='large'
                                         onClick={onRecoveryHandler}
-                                        disabled={
-                                            !(
-                                                checkPassword() &&
-                                                password === repeatPassword &&
-                                                repeatPassword.length > 0
-                                            )
-                                        }
                                     >
-                                        Click to reset your password.
+                                        Send recovery link.
                                     </Button>
                                 </Grid>
                             </Grid>
