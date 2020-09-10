@@ -32,7 +32,7 @@ const useStyles = makeStyles(() =>
     })
 );
 
-const options = ['Names', 'Tags'];
+const options = ['Name', 'Tag'];
 
 export default () => {
     const classes = useStyles();
@@ -79,7 +79,7 @@ export default () => {
                     <br />
                     <br />
                     <br />
-                    <h1>Click Anywhere to go back</h1>
+                    <h1>Click anywhere to go back</h1>
                 </a.div>
             ) : (
                 <a.div style={searchStyle}>

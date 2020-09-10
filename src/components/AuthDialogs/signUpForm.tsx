@@ -241,7 +241,7 @@ export default (props: { close: () => void }) => {
                                 required
                                 id='password'
                                 name='password'
-                                label='Password (with minimum eight characters)'
+                                label='Password (8 or more characters with upper and lower letters, numbers)'
                                 fullWidth
                                 autoComplete='Password'
                                 onChange={(event) =>
@@ -257,7 +257,7 @@ export default (props: { close: () => void }) => {
                                 required
                                 id='repassword'
                                 name='repassword'
-                                label='Please Re-Enter your Password'
+                                label='Please re-enter your password'
                                 fullWidth
                                 autoComplete='Re-Enter Password'
                                 type='password'
@@ -324,7 +324,7 @@ export default (props: { close: () => void }) => {
                                 color='secondary'
                             >
                                 {' '}
-                                Please complete the registered form.
+                                Please complete sign up form.
                             </Button>
                         ) : (
                             <Button
@@ -344,7 +344,7 @@ export default (props: { close: () => void }) => {
                                 }
                                 fullWidth
                             >
-                                Register
+                                Sign up
                             </Button>
                         )}
                     </div>

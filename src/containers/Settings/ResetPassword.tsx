@@ -144,7 +144,7 @@ export default function ResetPassword() {
                             <TextField
                                 required
                                 id='outlined-basic'
-                                label='Repeat New Password'
+                                label='Re-enter New Password'
                                 variant='outlined'
                                 type='password'
                                 onChange={(event) =>

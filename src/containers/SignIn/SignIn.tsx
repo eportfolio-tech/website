@@ -100,7 +100,7 @@ export default function SignInSide() {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component='h1' variant='h5'>
-                        Login
+                        Sign in
                     </Typography>
                     <form className={classes.form} noValidate>
                         <TextField

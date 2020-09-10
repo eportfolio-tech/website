@@ -203,7 +203,7 @@ export default () => {
                                 <TextField
                                     {...params}
                                     variant='outlined'
-                                    label='Select existing tags or create your own'
+                                    label='Select from existing tags or create your own'
                                     placeholder='Add...'
                                 />
                             )}

@@ -50,12 +50,12 @@ export default (props: { close: () => void }) => {
         try {
             const user = await userService.login(userName, userPassword);
             dispatch(userActions.login(user));
-            dispatch(alertActions.success('log in succeed'));
+            dispatch(alertActions.success('sign in succeed'));
             props.close();
         } catch (error) {
             dispatch(
                 alertActions.error(
-                    'log in failed: ' + error.response.data.errors
+                    'sign in failed: ' + error.response.data.errors
                 )
             );
         }
@@ -87,7 +87,7 @@ export default (props: { close: () => void }) => {
                     size='large'
                     onClick={onSignUpHandler}
                 >
-                    Login
+                    Sign in
                 </Button>
             </form>
             <br />
