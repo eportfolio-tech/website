@@ -1,13 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
@@ -18,20 +15,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { userActions } from '../../store/actions/userActions';
 import { alertActions } from '../../store/actions/alertActions';
-//import { alertActions } from "../../store/actions/alertActions";
-
-function Copyright() {
-    return (
-        <Typography variant='body2' color='textSecondary' align='center'>
-            {'Copyright © '}
-            <Link color='inherit' href='https://material-ui.com/'>
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import { userService } from '../../services/userService';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -39,13 +23,13 @@ const useStyles = makeStyles((theme: Theme) =>
             height: '100vh',
         },
         image: {
-            backgroundImage: 'url(https://source.unsplash.com/random)',
+            backgroundImage: 'url(/logo.svg)',
             backgroundRepeat: 'no-repeat',
             backgroundColor:
                 theme.palette.type === 'light'
                     ? theme.palette.grey[50]
                     : theme.palette.grey[900],
-            backgroundSize: 'cover',
+            backgroundSize: 'auto',
             backgroundPosition: 'center',
         },
         paper: {
@@ -70,16 +54,26 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function SignInSide() {
     const classes = useStyles();
-
     const history = useHistory();
     const dispatch = useDispatch();
-    const sampleLogIn = () => {
-        const sampleCookie = { user: 'test', token: '123' };
-        dispatch(userActions.login('Sample user'));
-        dispatch(alertActions.success('Successfully Logged in!'));
-        localStorage.setItem('user', JSON.stringify(sampleCookie));
 
-        history.push('/dashboard');
+    // const [signinFailed, setSigninFailed] = useState(false);
+    const [userName, setUserName] = useState('');
+    // const [userEmail, setUserEmail] = useState("");
+    const [userPassword, setUserPassword] = useState('');
+
+    const onSignInHandler = async () => {
+        try {
+            const user = await userService.login(userName, userPassword);
+            dispatch(userActions.login(user));
+            dispatch(alertActions.success('log in succeed'));
+        } catch (error) {
+            dispatch(
+                alertActions.error(
+                    'log in failed: ' + error.response.data.errors
+                )
+            );
+        }
     };
 
     return (
@@ -106,12 +100,15 @@ export default function SignInSide() {
                         <TextField
                             variant='outlined'
                             margin='normal'
-                            required
+                            onChange={(event) => {
+                                setUserName(event.target.value);
+                            }}
+                            required={true}
                             fullWidth
-                            id='email'
-                            label='Email Address'
-                            name='email'
-                            autoComplete='email'
+                            id='username'
+                            label='Username'
+                            name='username'
+                            autoComplete='username'
                             autoFocus
                         />
                         <TextField
@@ -119,24 +116,21 @@ export default function SignInSide() {
                             margin='normal'
                             required
                             fullWidth
+                            onChange={(event) => {
+                                setUserPassword(event.target.value);
+                            }}
                             name='password'
                             label='Password'
                             type='password'
                             id='password'
                             autoComplete='current-password'
                         />
-                        <FormControlLabel
-                            control={
-                                <Checkbox value='remember' color='primary' />
-                            }
-                            label='Remember me'
-                        />
                         <Button
                             fullWidth
                             variant='contained'
                             color='primary'
                             className={classes.submit}
-                            onClick={sampleLogIn}
+                            onClick={onSignInHandler}
                         >
                             Sign In
                         </Button>
@@ -147,14 +141,11 @@ export default function SignInSide() {
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href='#' variant='body2'>
+                                <Link href='/sign-up' variant='body2'>
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>
                         </Grid>
-                        <Box mt={5}>
-                            <Copyright />
-                        </Box>
                     </form>
                 </div>
             </Grid>

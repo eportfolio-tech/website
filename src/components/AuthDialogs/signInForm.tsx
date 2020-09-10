@@ -46,7 +46,7 @@ export default (props: { close: () => void }) => {
     // const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState('');
 
-    const onSignUpHandler = async () => {
+    const onSignInHandler = async () => {
         try {
             const user = await userService.login(userName, userPassword);
             dispatch(userActions.login(user));
@@ -85,7 +85,7 @@ export default (props: { close: () => void }) => {
                     color='secondary'
                     className={classes.submit}
                     size='large'
-                    onClick={onSignUpHandler}
+                    onClick={onSignInHandler}
                 >
                     Login
                 </Button>
