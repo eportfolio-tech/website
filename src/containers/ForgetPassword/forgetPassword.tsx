@@ -61,7 +61,7 @@ export default () => {
         try {
             await userService.getRecoveryLink(email);
             history.push('/login');
-            dispatch(alertActions.success('Email already sent.'));
+            dispatch(alertActions.success('Email sent.'));
         } catch (error) {
             dispatch(alertActions.error(error.response.data.errors));
         }
