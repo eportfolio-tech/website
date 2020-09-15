@@ -14,7 +14,7 @@ import PublishIcon from '@material-ui/icons/Publish';
 
 import {useDispatch} from 'react-redux';
 import {authService} from '../../utils/authService';
-import {alertActions} from '../../store/actions/AlertActions';
+import {alertActions} from '../../store/actions/alertActions';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

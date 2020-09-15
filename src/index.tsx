@@ -9,9 +9,9 @@ import {Provider} from 'react-redux';
 import {createLogger} from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 
-import {authenticationReducer, IAuthState} from './store/reducers/AuthReducers';
-import {alertReducer, IAlertState} from './store/reducers/AlertReducers';
-import {userReducer, IUserState} from './store/reducers/UserReducers';
+import {authenticationReducer, IAuthState} from './store/reducers/authReducers';
+import {alertReducer, IAlertState} from './store/reducers/alertReducers';
+import {userReducer, IUserState} from './store/reducers/userReducers';
 
 const loggerMiddleware = createLogger();
 

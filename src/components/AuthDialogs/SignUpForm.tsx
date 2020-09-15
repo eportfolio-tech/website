@@ -12,8 +12,8 @@ import {makeStyles, createStyles, Theme} from '@material-ui/core/styles';
 
 import {authService} from '../../utils/authService';
 import {useDispatch} from 'react-redux';
-import {userActions} from '../../store/actions/UserActions';
-import {alertActions} from '../../store/actions/AlertActions';
+import {userActions} from '../../store/actions/userActions';
+import {alertActions} from '../../store/actions/alertActions';
 
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/material.css';

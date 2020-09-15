@@ -13,7 +13,7 @@ import {Search as SearchIcon} from '@material-ui/icons';
 
 import {useDispatch} from 'react-redux';
 import {userService} from '../../utils/userService';
-import {alertActions} from '../../store/actions/AlertActions';
+import {alertActions} from '../../store/actions/alertActions';
 
 import {Chips} from './Chips';
 

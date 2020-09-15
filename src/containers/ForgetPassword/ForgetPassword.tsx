@@ -14,7 +14,7 @@ import LockOpenIcon from '@material-ui/icons/Lock';
 
 import {useDispatch} from 'react-redux';
 import {authService} from '../../utils/authService';
-import {alertActions} from '../../store/actions/AlertActions';
+import {alertActions} from '../../store/actions/alertActions';
 
 import Layout from '../../components/AppBar/Layout';
 

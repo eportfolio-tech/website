@@ -5,7 +5,7 @@ import {useLocation, useHistory} from 'react-router-dom';
 import {authService} from '../../utils/authService';
 
 import {useDispatch} from 'react-redux';
-import {alertActions} from '../../store/actions/AlertActions';
+import {alertActions} from '../../store/actions/alertActions';
 import Layout from '../../components/AppBar/Layout';
 
 import EmailIcon from '@material-ui/icons/Drafts';

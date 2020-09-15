@@ -5,7 +5,7 @@ import BraftEditor from 'braft-editor';
 import Button from '@material-ui/core/Button';
 
 import {useDispatch} from 'react-redux';
-import {alertActions} from '../../store/actions/AlertActions';
+import {alertActions} from '../../store/actions/alertActions';
 
 // declare global {
 //     interface Window {

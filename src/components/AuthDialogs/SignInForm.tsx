@@ -7,8 +7,8 @@ import {makeStyles, createStyles, Theme} from '@material-ui/core/styles';
 import TextField from '../TextField';
 
 import {authService} from '../../utils/authService';
-import {userActions} from '../../store/actions/UserActions';
-import {alertActions} from '../../store/actions/AlertActions';
+import {userActions} from '../../store/actions/userActions';
+import {alertActions} from '../../store/actions/alertActions';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

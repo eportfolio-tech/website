@@ -26,7 +26,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import CancelIcon from '@material-ui/icons/Cancel';
 
 import {useSelector, useDispatch} from 'react-redux';
-import {alertActions} from '../../store/actions/AlertActions';
+import {alertActions} from '../../store/actions/alertActions';
 import {IRootState} from '../../index';
 import {useSnackbar} from 'notistack';
 import clsx from 'clsx';

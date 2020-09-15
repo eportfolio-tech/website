@@ -1,4 +1,4 @@
-import {alertConstants} from '../constants/AlertConstants';
+import {alertConstants} from '../constants/alertConstants';
 
 export interface IAlertState {
     type?: string;

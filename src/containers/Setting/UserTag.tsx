@@ -20,7 +20,7 @@ import RestoreIcon from '@material-ui/icons/Restore';
 
 import {useDispatch} from 'react-redux';
 import {userService} from '../../utils/userService';
-import {alertActions} from '../../store/actions/AlertActions';
+import {alertActions} from '../../store/actions/alertActions';
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
