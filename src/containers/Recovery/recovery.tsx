@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
+import {useLocation, useHistory} from 'react-router-dom';
 import {
     Grid,
     Button,
@@ -7,14 +8,14 @@ import {
     Typography,
     TextField,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import { useLocation, useHistory } from 'react-router-dom';
-import { userService } from '../../services/userService';
-
-import { useDispatch } from 'react-redux';
-import { alertActions } from '../../store/actions/alertActions';
-import Layout from '../../components/Navigation/layout';
+import {makeStyles} from '@material-ui/core/styles';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
+
+import {useDispatch} from 'react-redux';
+import {authService} from '../../utils/authService';
+import {alertActions} from '../../store/actions/AlertActions';
+
+import Layout from '../../components/AppBar/Layout';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,18 +24,10 @@ const useStyles = makeStyles((theme) => ({
         top: '50%',
         transform: 'translate(-50%, -50%)',
     },
-    close: {
-        marginTop: theme.spacing(1),
-    },
-    cancel: {
-        marginTop: theme.spacing(1.4, 1),
-    },
     paper: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-
-
         background: theme.palette.background.default,
     },
     submit: {
@@ -61,12 +54,11 @@ export default () => {
     const [repeatPassword, setRepeatPassword] = useState('');
 
     //const { setLoginEl, openLogin, setOpenLogin } = useContext(AuthApi);
-
     //const [open, setOpen] = useState(false);
 
     const onRecoveryHandler = async () => {
         try {
-            await userService.recoveryPassword(
+            await authService.recoveryPassword(
                 query.get('token'),
                 query.get('username'),
                 password
@@ -75,7 +67,9 @@ export default () => {
             history.push('/login');
             dispatch(alertActions.success('Your password has been recovered.'));
         } catch (error) {
-            dispatch(alertActions.error(error.response.data.errors));
+            dispatch(
+                alertActions.error(Object.values(error.response.data.data))
+            );
         }
     };
 
@@ -100,7 +94,7 @@ export default () => {
     return (
         <Layout>
             <div className={classes.root}>
-                <Typography variant='h4' align='center'>
+                <Typography variant="h4" align="center">
                     <LockOpenIcon
                         style={{
                             height: '20%',
@@ -111,19 +105,19 @@ export default () => {
                     Welcome back, {query.get('username')}.
                 </Typography>
 
-                <Grid container justify='center'>
+                <Grid container justify="center">
                     <Paper elevation={0} className={classes.paper}>
-                        <Container maxWidth='sm'>
+                        <Container maxWidth="sm">
                             <br />
                             <br />
                             <Grid container spacing={2}>
                                 <Grid item xs={12}>
                                     <TextField
                                         required
-                                        id='outlined-basic'
-                                        label='New Password (with minimum eight characters)'
-                                        variant='outlined'
-                                        type='password'
+                                        id="outlined-basic"
+                                        label="New Password (with minimum eight characters)"
+                                        variant="outlined"
+                                        type="password"
                                         onChange={(event) =>
                                             setPassword(event.target.value)
                                         }
@@ -135,10 +129,10 @@ export default () => {
                                 <Grid item xs={12}>
                                     <TextField
                                         required
-                                        id='outlined-basic'
-                                        label='Repeat Password'
-                                        variant='outlined'
-                                        type='password'
+                                        id="outlined-basic"
+                                        label="Repeat Password"
+                                        variant="outlined"
+                                        type="password"
                                         onChange={(event) =>
                                             setRepeatPassword(
                                                 event.target.value
@@ -156,10 +150,10 @@ export default () => {
                                 <Grid item xs={12}>
                                     <Button
                                         fullWidth
-                                        variant='contained'
-                                        color='secondary'
+                                        variant="contained"
+                                        color="secondary"
                                         className={classes.submit}
-                                        size='large'
+                                        size="large"
                                         onClick={onRecoveryHandler}
                                         disabled={
                                             !(

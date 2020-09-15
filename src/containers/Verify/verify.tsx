@@ -1,12 +1,12 @@
 import React from 'react';
-import { Grid, Button, Paper, Container, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import { useLocation, useHistory } from 'react-router-dom';
-import { userService } from '../../services/userService';
+import {Grid, Button, Paper, Container, Typography} from '@material-ui/core';
+import {makeStyles} from '@material-ui/core/styles';
+import {useLocation, useHistory} from 'react-router-dom';
+import {authService} from '../../utils/authService';
 
-import { useDispatch } from 'react-redux';
-import { alertActions } from '../../store/actions/alertActions';
-import Layout from '../../components/Navigation/layout';
+import {useDispatch} from 'react-redux';
+import {alertActions} from '../../store/actions/AlertActions';
+import Layout from '../../components/AppBar/Layout';
 
 import EmailIcon from '@material-ui/icons/Drafts';
 
@@ -56,7 +56,7 @@ export default () => {
 
     const onVerifyHandler = async () => {
         try {
-            await userService.verifyEmail(
+            await authService.verifyEmail(
                 query.get('token'),
                 query.get('username')
             );
@@ -68,30 +68,32 @@ export default () => {
                 )
             );
         } catch (error) {
-            dispatch(alertActions.error(error.response.data.errors));
+            dispatch(
+                alertActions.error(Object.values(error.response.data.data))
+            );
         }
     };
 
     return (
         <Layout>
             <div className={classes.root}>
-                <Typography variant='h4' align='center'>
-                    <EmailIcon style={{ height: '30%', width: '30%' }} />
+                <Typography variant="h4" align="center">
+                    <EmailIcon style={{height: '30%', width: '30%'}} />
                     <br />
                     Welcome, {query.get('username')}.
                 </Typography>
 
-                <Grid container justify='center'>
+                <Grid container justify="center">
                     <Paper elevation={0} className={classes.paper}>
                         <Container>
                             <br />
                             <br />
                             <Button
                                 fullWidth
-                                variant='contained'
-                                color='secondary'
+                                variant="contained"
+                                color="secondary"
                                 className={classes.submit}
-                                size='large'
+                                size="large"
                                 onClick={onVerifyHandler}
                             >
                                 Click to verify your email.

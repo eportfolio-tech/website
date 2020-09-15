@@ -1,4 +1,6 @@
 import React from 'react';
+import {useLocation, useHistory} from 'react-router-dom';
+
 import {
     Grid,
     Dialog,
@@ -8,23 +10,16 @@ import {
     Container,
     Typography,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import { useLocation, useHistory } from 'react-router-dom';
-import { userService } from '../../services/userService';
+import {makeStyles} from '@material-ui/core/styles';
 
-import { useDispatch } from 'react-redux';
-import { alertActions } from '../../store/actions/alertActions';
+import {useDispatch} from 'react-redux';
+import {authService} from '../../utils/authService';
+import {alertActions} from '../../store/actions/AlertActions';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         margin: 'auto',
         width: theme.spacing(55),
-    },
-    close: {
-        marginTop: theme.spacing(1),
-    },
-    cancel: {
-        marginTop: theme.spacing(1.4, 1),
     },
     paper: {
         display: 'flex',
@@ -54,19 +49,18 @@ function useQuery() {
 /***
  * Login dialog
  */
-export default ({ open, setOpen }: IVerify) => {
+export default ({open, setOpen}: IVerify) => {
     const classes = useStyles();
-    const query = useQuery();
     const dispatch = useDispatch();
     const history = useHistory();
+    const query = useQuery();
 
     //const { setLoginEl, openLogin, setOpenLogin } = useContext(AuthApi);
-
     //const [open, setOpen] = useState(false);
 
     const onVerifyHandler = async () => {
         try {
-            await userService.verifyEmail(
+            await authService.verifyEmail(
                 query.get('token'),
                 query.get('username')
             );
@@ -79,31 +73,33 @@ export default ({ open, setOpen }: IVerify) => {
                 )
             );
         } catch (error) {
-            dispatch(alertActions.error(error.response.data.errors));
+            dispatch(
+                alertActions.error(Object.values(error.response.data.data))
+            );
         }
     };
 
     return (
         <Dialog
-            aria-labelledby='customized-dialog-title'
+            aria-labelledby="customized-dialog-title"
             open={open}
             className={classes.root}
         >
             <DialogTitle>
-                <Typography variant='h5' align='center'>
+                <Typography variant="h5" align="center">
                     Welcome, {query.get('username')}.
                 </Typography>
             </DialogTitle>
 
-            <Grid container justify='center'>
+            <Grid container justify="center">
                 <Paper elevation={0} className={classes.paper}>
                     <Container>
                         <Button
                             fullWidth
-                            variant='contained'
-                            color='primary'
+                            variant="contained"
+                            color="primary"
                             className={classes.submit}
-                            size='large'
+                            size="large"
                             onClick={onVerifyHandler}
                         >
                             Click to verify your email.

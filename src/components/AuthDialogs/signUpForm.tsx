@@ -1,30 +1,22 @@
-import React, { useState } from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import { userService } from '../../services/userService';
-import { TextField, Grid, MenuItem } from '@material-ui/core';
+import React, {useState} from 'react';
+
+import {
+    TextField,
+    Grid,
+    MenuItem,
+    Typography,
+    Button,
+    Paper,
+} from '@material-ui/core';
+import {makeStyles, createStyles, Theme} from '@material-ui/core/styles';
+
+import {authService} from '../../utils/authService';
+import {useDispatch} from 'react-redux';
+import {userActions} from '../../store/actions/UserActions';
+import {alertActions} from '../../store/actions/AlertActions';
+
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/material.css';
-
-import { useDispatch } from 'react-redux';
-import { userActions } from '../../store/actions/userActions';
-import { alertActions } from '../../store/actions/alertActions';
-
-/*
-function Copyright() {
-	return (
-		<Typography variant="body2" color="textSecondary" align="center">
-			{"Copyright © "}
-			<Link color="inherit" href="https://dev.eportfolio.tech/">
-				COMP30022
-			</Link>{" "}
-			{new Date().getFullYear()}
-			{"."}
-		</Typography>
-	);
-}*/
 
 const titles = [
     {
@@ -51,9 +43,6 @@ const titles = [
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        appBar: {
-            position: 'relative',
-        },
         layout: {
             width: 'auto',
             marginLeft: theme.spacing(2),
@@ -97,10 +86,9 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-export default (props: { close: () => void }) => {
+export default (props: {close: () => void}) => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const [, setSignupFailed] = useState(false);
     const [userInfo, setUserInfo] = useState<any | null>({
         password: '',
         title: '',
@@ -112,7 +100,6 @@ export default (props: { close: () => void }) => {
             [key]: value,
         };
         setUserInfo(newUserInfo);
-        setSignupFailed(true);
     };
 
     const checkPassword = () => {
@@ -135,8 +122,8 @@ export default (props: { close: () => void }) => {
 
     const onSignUpHandler = async () => {
         try {
-            await userService.signup(userInfo);
-            const user_payload = await userService.login(
+            await authService.signup(userInfo);
+            const user_payload = await authService.login(
                 userInfo.username,
                 userInfo.password
             );
@@ -144,11 +131,12 @@ export default (props: { close: () => void }) => {
             dispatch(alertActions.success('sign up succeed'));
             props.close();
         } catch (error) {
-            const err_msg = error.response.data.errors[0].split(',');
-            err_msg.forEach((err: any) => {
-                dispatch(alertActions.clear());
-                dispatch(alertActions.error('sign up failed: ' + err));
-            });
+            console.log(error.response);
+            dispatch(
+                alertActions.error(
+                    'sign up failed: ' + Object.values(error.response.data.data)
+                )
+            );
         }
     };
 
@@ -156,21 +144,21 @@ export default (props: { close: () => void }) => {
         <main className={classes.layout}>
             <Paper className={classes.paper} elevation={0}>
                 <div>
-                    <Typography variant='h6' gutterBottom>
+                    <Typography variant="h6" gutterBottom>
                         Enter Details
                     </Typography>
                     <Grid container spacing={4}>
                         <Grid item xs={12} md={6}>
                             <TextField
-                                id='outlined-select-currency'
+                                id="outlined-select-currency"
                                 value={userInfo.title}
                                 select
-                                label='Select Title'
+                                label="Select Title"
                                 fullWidth
                                 onChange={(event) =>
                                     handleInput('title', event.target.value)
                                 }
-                                variant='outlined'
+                                variant="outlined"
                             >
                                 {titles.map((option) => (
                                     <MenuItem
@@ -184,8 +172,8 @@ export default (props: { close: () => void }) => {
                         </Grid>
                         <Grid item xs={12} md={6}>
                             <TextField
-                                id='username'
-                                label='Username'
+                                id="username"
+                                label="Username"
                                 fullWidth
                                 required
                                 defaultValue={userInfo.username}
@@ -197,11 +185,11 @@ export default (props: { close: () => void }) => {
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 required
-                                id='firstName'
-                                name='firstName'
-                                label='First name'
+                                id="firstName"
+                                name="firstName"
+                                label="First name"
                                 fullWidth
-                                autoComplete='given-name'
+                                autoComplete="given-name"
                                 defaultValue={userInfo.firstName}
                                 onChange={(event) =>
                                     handleInput('firstName', event.target.value)
@@ -211,11 +199,11 @@ export default (props: { close: () => void }) => {
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 required
-                                id='lastName'
-                                name='lastName'
-                                label='Last name'
+                                id="lastName"
+                                name="lastName"
+                                label="Last name"
                                 fullWidth
-                                autoComplete='family-name'
+                                autoComplete="family-name"
                                 defaultValue={userInfo.lastName}
                                 onChange={(event) =>
                                     handleInput('lastName', event.target.value)
@@ -225,11 +213,11 @@ export default (props: { close: () => void }) => {
                         <Grid item xs={12}>
                             <TextField
                                 required
-                                id='email'
-                                name='email'
-                                label='Email Address'
+                                id="email"
+                                name="email"
+                                label="Email Address"
                                 fullWidth
-                                autoComplete='Email Address'
+                                autoComplete="Email Address"
                                 defaultValue={userInfo.email}
                                 onChange={(event) =>
                                     handleInput('email', event.target.value)
@@ -239,28 +227,28 @@ export default (props: { close: () => void }) => {
                         <Grid item xs={12}>
                             <TextField
                                 required
-                                id='password'
-                                name='password'
-                                label='Password (8 or more characters with upper and lower letters, numbers)'
+                                id="password"
+                                name="password"
+                                label="Password (8 or more characters with upper and lower letters, numbers)"
                                 fullWidth
-                                autoComplete='Password'
+                                autoComplete="Password"
                                 onChange={(event) =>
                                     handleInput('password', event.target.value)
                                 }
                                 error={!checkPassword()}
                                 defaultValue={userInfo.password}
-                                type='password'
+                                type="password"
                             />
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
                                 required
-                                id='repassword'
-                                name='repassword'
-                                label='Please re-enter your password'
+                                id="repassword"
+                                name="repassword"
+                                label="Please re-enter your password"
                                 fullWidth
-                                autoComplete='Re-Enter Password'
-                                type='password'
+                                autoComplete="Re-Enter Password"
+                                type="password"
                                 onChange={(event) =>
                                     handleInput(
                                         'repassword',
@@ -274,7 +262,6 @@ export default (props: { close: () => void }) => {
                                 }
                             />
                         </Grid>
-
                         <Grid item xs={12}>
                             <PhoneInput
                                 country={'au'}
@@ -288,24 +275,6 @@ export default (props: { close: () => void }) => {
                                 }}
                             />
                         </Grid>
-
-                        {/* <Grid item xs={12}>
-              <TextField
-                id="role"
-                select
-                fullWidth
-                label="Which role can best describe you?"
-                onChange={this.props.handle("role")}
-                value={this.props.info.role}
-                variant="outlined"
-              >
-                {this.roles.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Grid> */}
                     </Grid>
                     <div className={classes.buttons}>
                         {!userInfo.username ||
@@ -317,21 +286,21 @@ export default (props: { close: () => void }) => {
                         userInfo.password !== userInfo.repassword ||
                         !checkPassword() ? (
                             <Button
-                                variant='contained'
+                                variant="contained"
                                 className={classes.buttonDisabled}
                                 disabled
                                 fullWidth
-                                color='secondary'
+                                color="secondary"
                             >
                                 {' '}
                                 Please complete sign up form.
                             </Button>
                         ) : (
                             <Button
-                                variant='contained'
+                                variant="contained"
                                 className={classes.button}
                                 onClick={onSignUpHandler}
-                                color='secondary'
+                                color="secondary"
                                 disabled={
                                     !userInfo.username ||
                                     !userInfo.firstName ||

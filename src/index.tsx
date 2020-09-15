@@ -1,27 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
-import {createStore, applyMiddleware, compose} from 'redux';
 
+import {createStore, applyMiddleware, compose} from 'redux';
 import {combineReducers} from 'redux';
-import {
-    authenticationReducer,
-    IAuthState,
-} from './store/reducers/authenticationReducer';
-import {subjectReducer, ISubjectState} from './store/reducers/subjectReducer';
-import {alertReducer, IAlertState} from './store/reducers/alertReducer';
-import {userReducer, IUserState} from './store/reducers/userReducer';
 import {Provider} from 'react-redux';
-import thunkMiddleware from 'redux-thunk';
 import {createLogger} from 'redux-logger';
+import thunkMiddleware from 'redux-thunk';
+
+import {authenticationReducer, IAuthState} from './store/reducers/AuthReducers';
+import {alertReducer, IAlertState} from './store/reducers/AlertReducers';
+import {userReducer, IUserState} from './store/reducers/UserReducers';
+
 const loggerMiddleware = createLogger();
 
 export interface IRootState {
     alert: IAlertState;
     auth: IAuthState;
-    subject: ISubjectState;
     user: IUserState;
 }
 
@@ -37,7 +33,6 @@ const store = createStore<IRootState, any, any, any>(
     combineReducers({
         alert: alertReducer,
         auth: authenticationReducer,
-        subject: subjectReducer,
         user: userReducer,
     }),
     composeEnhancers(applyMiddleware(thunkMiddleware, loggerMiddleware))

@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import Results from '../Search/results';
-import SearchBar from '../Search/searchBar';
-import Layout from '../../components/Navigation/layout';
-import { useSpring, animated as a } from 'react-spring';
-import { useLocation, useHistory } from 'react-router-dom';
-import { useTheme } from '@material-ui/core';
-import IContent from '../Search/IContent';
+import React, {useState} from 'react';
+import {useLocation, useHistory} from 'react-router-dom';
+import {useSpring, animated as a} from 'react-spring';
+
+import {useTheme} from '@material-ui/core';
+
+import Results from '../../components/Search/Results';
+import SearchBar from '../../components/Search/SearchBar';
+import IContent from '../../components/Search/IContent';
+import Layout from '../../components/AppBar/Layout';
 
 const options = ['Names', 'Tags'];
 
@@ -21,10 +23,10 @@ export default () => {
     const [flipped, setFlipped] = useState(
         location.pathname === '/explore/more'
     );
-    const { transform, opacity }: any = useSpring({
+    const {transform, opacity}: any = useSpring({
         opacity: flipped ? 1 : 0,
         transform: `perspective(600px) rotateX(${flipped ? 180 : 0}deg)`,
-        config: { mass: 5, tension: 500, friction: 80 },
+        config: {mass: 5, tension: 500, friction: 80},
     });
 
     const searchStyle: React.CSSProperties = {

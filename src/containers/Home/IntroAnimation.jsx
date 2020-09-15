@@ -1,11 +1,11 @@
 import React from 'react';
-import { Parallax, ParallaxLayer } from 'react-spring/renderprops-addons';
+import {Parallax, ParallaxLayer} from 'react-spring/renderprops-addons';
+import {useTheme} from '@material-ui/core';
 
 //import { IconButton, Typography, Button } from '@material-ui/core';
 //import SearchIcon from '@material-ui/icons/Search';
 
 import logoImage from '../../assets/logo.svg';
-import { useTheme } from '@material-ui/core';
 
 // Little helpers ...
 /*
@@ -16,7 +16,7 @@ const url = (name, wrap = false) =>
         wrap ? ')' : ''
     }`;*/
 
-export default ({ toggle }) => {
+export default ({toggle}) => {
     let parallax;
     const theme = useTheme();
     return (
@@ -46,18 +46,18 @@ export default ({ toggle }) => {
                 <ParallaxLayer
                     offset={0.3}
                     speed={-0.3}
-                    style={{ pointerEvents: 'none' }}
+                    style={{pointerEvents: 'none'}}
                 >
                     <img
-                        alt='satellite4'
+                        alt="satellite4"
                         src={logoImage}
-                        style={{ width: '15%', marginLeft: '70%' }}
+                        style={{width: '15%', marginLeft: '70%'}}
                     />
                 </ParallaxLayer>
 
-                <ParallaxLayer offset={0} speed={0.8} style={{ opacity: 0.1 }}>
+                <ParallaxLayer offset={0} speed={0.8} style={{opacity: 0.1}}>
                     <img
-                        alt='cloud'
+                        alt="cloud"
                         src={logoImage}
                         style={{
                             display: 'block',
@@ -66,7 +66,7 @@ export default ({ toggle }) => {
                         }}
                     />
                     <img
-                        alt='cloud'
+                        alt="cloud"
                         src={logoImage}
                         style={{
                             display: 'block',
@@ -76,13 +76,9 @@ export default ({ toggle }) => {
                     />
                 </ParallaxLayer>
 
-                <ParallaxLayer
-                    offset={0.75}
-                    speed={0.5}
-                    style={{ opacity: 0.1 }}
-                >
+                <ParallaxLayer offset={0.75} speed={0.5} style={{opacity: 0.1}}>
                     <img
-                        alt='cloud'
+                        alt="cloud"
                         src={logoImage}
                         style={{
                             display: 'block',
@@ -91,7 +87,7 @@ export default ({ toggle }) => {
                         }}
                     />
                     <img
-                        alt='cloud'
+                        alt="cloud"
                         src={logoImage}
                         style={{
                             display: 'block',
@@ -101,9 +97,9 @@ export default ({ toggle }) => {
                     />
                 </ParallaxLayer>
 
-                <ParallaxLayer offset={0} speed={0.2} style={{ opacity: 0.2 }}>
+                <ParallaxLayer offset={0} speed={0.2} style={{opacity: 0.2}}>
                     <img
-                        alt='cloud'
+                        alt="cloud"
                         src={logoImage}
                         style={{
                             display: 'block',
@@ -112,7 +108,7 @@ export default ({ toggle }) => {
                         }}
                     />
                     <img
-                        alt='cloud'
+                        alt="cloud"
                         src={logoImage}
                         style={{
                             display: 'block',
@@ -121,7 +117,7 @@ export default ({ toggle }) => {
                         }}
                     />
                     <img
-                        alt='cloud'
+                        alt="cloud"
                         src={logoImage}
                         style={{
                             display: 'block',
@@ -131,13 +127,9 @@ export default ({ toggle }) => {
                     />
                 </ParallaxLayer>
 
-                <ParallaxLayer
-                    offset={0.6}
-                    speed={-0.1}
-                    style={{ opacity: 0.4 }}
-                >
+                <ParallaxLayer offset={0.6} speed={-0.1} style={{opacity: 0.4}}>
                     <img
-                        alt='cloud'
+                        alt="cloud"
                         src={logoImage}
                         style={{
                             display: 'block',
@@ -146,7 +138,7 @@ export default ({ toggle }) => {
                         }}
                     />
                     <img
-                        alt='cloud'
+                        alt="cloud"
                         src={logoImage}
                         style={{
                             display: 'block',
@@ -155,7 +147,7 @@ export default ({ toggle }) => {
                         }}
                     />
                     <img
-                        alt='cloud'
+                        alt="cloud"
                         src={logoImage}
                         style={{
                             display: 'block',
@@ -165,13 +157,9 @@ export default ({ toggle }) => {
                     />
                 </ParallaxLayer>
 
-                <ParallaxLayer
-                    offset={1.6}
-                    speed={0.4}
-                    style={{ opacity: 0.6 }}
-                >
+                <ParallaxLayer offset={1.6} speed={0.4} style={{opacity: 0.6}}>
                     <img
-                        alt='cloud'
+                        alt="cloud"
                         src={logoImage}
                         style={{
                             display: 'block',
@@ -180,7 +168,7 @@ export default ({ toggle }) => {
                         }}
                     />
                     <img
-                        alt='cloud'
+                        alt="cloud"
                         src={logoImage}
                         style={{
                             display: 'block',
@@ -189,7 +177,7 @@ export default ({ toggle }) => {
                         }}
                     />
                     <img
-                        alt='cloud'
+                        alt="cloud"
                         src={logoImage}
                         style={{
                             display: 'block',
@@ -209,7 +197,7 @@ export default ({ toggle }) => {
                         pointerEvents: 'none',
                     }}
                 >
-                    <img alt='earth' src={logoImage} style={{ width: '60%' }} />
+                    <img alt="earth" src={logoImage} style={{width: '60%'}} />
                 </ParallaxLayer>
 
                 <ParallaxLayer
@@ -249,7 +237,7 @@ export default ({ toggle }) => {
                         justifyContent: 'center',
                     }}
                 >
-                    <img alt='bash' src={logoImage} style={{ width: '30%' }} />
+                    <img alt="bash" src={logoImage} style={{width: '30%'}} />
                 </ParallaxLayer>
 
                 <ParallaxLayer
@@ -263,9 +251,9 @@ export default ({ toggle }) => {
                     onClick={() => parallax.scrollTo(0)}
                 >
                     <img
-                        alt='clients-main'
+                        alt="clients-main"
                         src={logoImage}
-                        style={{ width: '30%' }}
+                        style={{width: '30%'}}
                     />
                 </ParallaxLayer>
                 {/*

@@ -1,0 +1,153 @@
+import React from 'react';
+import './LandingLogo.css';
+
+/***
+ * Login dialog
+ */
+export default ({style, className}: any) => {
+    return (
+        <div style={style} className={className}>
+            <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+                <g>
+                    <title>background</title>
+                    <g display="none">
+                        <rect
+                            width="100%"
+                            height="100%"
+                            fill="url(#gridpattern)"
+                            stroke-width="0"
+                        />
+                    </g>
+                </g>
+                <g>
+                    <title>Layer 1</title>
+                    <rect
+                        x="225.59"
+                        y="120.75"
+                        width="120"
+                        height="120"
+                        fill="#fff"
+                        stroke="#000"
+                        stroke-width="1.5"
+                    />
+                    <rect
+                        x="-335"
+                        y="79.453"
+                        width="0"
+                        height="1"
+                        fill="#fff"
+                        stroke="#000"
+                        stroke-width="1.5"
+                    />
+                    <rect
+                        x="367.93"
+                        y="121.07"
+                        width="120"
+                        height="120"
+                        fill="#fff"
+                        fill-opacity="null"
+                        stroke="#000"
+                        stroke-opacity="null"
+                        stroke-width="1.5"
+                    />
+                    <rect
+                        x="224.29"
+                        y="261.38"
+                        width="120"
+                        height="120"
+                        fill="#fff"
+                        fill-opacity="null"
+                        stroke="#000"
+                        stroke-opacity="null"
+                        stroke-width="1.5"
+                    />
+                    <rect
+                        x="367.01"
+                        y="260.56"
+                        width="120"
+                        height="120"
+                        fill="#fff"
+                        fill-opacity="null"
+                        stroke="#000"
+                        stroke-opacity="null"
+                        stroke-width="1.5"
+                    />
+                    <rect
+                        id="svg_1"
+                        x="223.64"
+                        y="398.35"
+                        width="120"
+                        height="120"
+                        fill="#fff"
+                        fill-opacity="null"
+                        stroke="#000"
+                        stroke-opacity="null"
+                        stroke-width="1.5"
+                    />
+                    <rect
+                        x="507.46"
+                        y="259.86"
+                        width="120"
+                        height="120"
+                        fill="#fff"
+                        fill-opacity="null"
+                        stroke="#000"
+                        stroke-opacity="null"
+                        stroke-width="1.5"
+                    />
+                    <rect
+                        x="366.84"
+                        y="398.22"
+                        width="120"
+                        height="120"
+                        fill="#fff"
+                        fill-opacity="null"
+                        stroke="#000"
+                        stroke-opacity="null"
+                        stroke-width="1.5"
+                    />
+                    <rect
+                        x="508.72"
+                        y="397.02"
+                        width="120"
+                        height="120"
+                        fill="#fff"
+                        fill-opacity="null"
+                        stroke="#000"
+                        stroke-opacity="null"
+                        stroke-width="1.5"
+                    />
+                    <rect
+                        id="svg_13"
+                        transform="rotate(14.753 625.92 132.65)"
+                        x="525.92"
+                        y="32.648"
+                        width="200"
+                        height="200"
+                        stroke="#000"
+                        stroke-opacity="null"
+                        stroke-width="1.5"
+                    />
+                    <line
+                        transform="rotate(3.7657 450.11 325.11)"
+                        x1="156.26"
+                        x2="743.96"
+                        y1="521.97"
+                        y2="128.25"
+                        fill="none"
+                        fill-opacity="null"
+                        stroke="#000"
+                        stroke-linecap="null"
+                        stroke-linejoin="null"
+                        stroke-opacity="null"
+                        stroke-width="2"
+                    />
+                </g>
+                <g>
+                    <title>background</title>
+                    <rect x="-1" y="-1" width="802" height="602" fill="none" />
+                </g>
+            </svg>
+        </div>
+    );
+};

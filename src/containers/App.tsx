@@ -1,30 +1,23 @@
 import React from 'react';
-import SignIn from '../containers/SignIn/SignIn';
-import { useSelector } from 'react-redux';
-import { IRootState } from '../index';
-
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
+import {ThemeProvider} from '@material-ui/core/styles';
+import {useSelector} from 'react-redux';
+import {IRootState} from '../index';
 import DocumentTitle from 'react-document-title';
-import Layout from '../components/Navigation/layout';
-import { SnackbarProvider } from 'notistack';
+import {SnackbarProvider} from 'notistack';
 
-import { ThemeProvider } from '@material-ui/core/styles';
+import Layout from '../components/AppBar/Layout';
 import theme from '../theme/fortyTwo';
 
-import Index from './Home/home';
-
-import SettingPage from '../containers/Settings/Settings';
-
-import Explore from '../containers/Explore/explore';
-
-import Verify from '../containers/Verify/verify';
-
-import Recovery from '../containers/Recovery/recovery';
-
-import Editor from './Settings/Editor';
-//import SignUp from './SignUp/SignUp';
-
-import ForgetPassword from '../containers/ForgetPassword/forgetPassword';
+import {
+    Explore,
+    ForgetPassword,
+    Home,
+    Recovery,
+    Verify,
+    Editor,
+    Setting,
+} from '.';
 
 interface IProtectedRoute {
     Component?: any;
@@ -32,7 +25,7 @@ interface IProtectedRoute {
     exact?: boolean;
 }
 
-const LoggedInRoute = ({ Component, exact, path }: IProtectedRoute) => {
+const LoggedInRoute = ({Component, exact, path}: IProtectedRoute) => {
     const isAuthenticated = useSelector<IRootState, boolean | undefined>(
         (state) => state.auth.loggedIn
     );
@@ -59,7 +52,7 @@ const LoggedInRoute = ({ Component, exact, path }: IProtectedRoute) => {
     );
 };
 
-const LoggedOutRoute = ({ Component, exact, path }: IProtectedRoute) => {
+const LoggedOutRoute = ({Component, exact, path}: IProtectedRoute) => {
     const isAuthenticated = useSelector<IRootState, boolean | undefined>(
         (state) => state.auth.loggedIn
     );
@@ -88,20 +81,22 @@ const LoggedOutRoute = ({ Component, exact, path }: IProtectedRoute) => {
 
 function App() {
     const DashBoard = () => (
-        <Layout>
-            <Editor />
-        </Layout>
+        <div>
+            <Layout>
+                <Editor />
+            </Layout>
+        </div>
     );
 
     const Settings = () => (
         <Layout>
-            <SettingPage />
+            <Setting />
         </Layout>
     );
 
     return (
         <BrowserRouter>
-            <DocumentTitle title='FortyTwo'>
+            <DocumentTitle title="FortyTwo">
                 <ThemeProvider theme={theme}>
                     <SnackbarProvider maxSnack={5}>
                         <Switch>
@@ -134,18 +129,7 @@ function App() {
                                 path={'/explore'}
                                 Component={Explore}
                             />
-
-                            <LoggedOutRoute
-                                exact
-                                path={'/sign-in'}
-                                Component={SignIn}
-                            />
-                            {/* <LoggedOutRoute
-                                exact
-                                path={'/sign-up'}
-                                Component={SignUp}
-                            /> */}
-                            <LoggedOutRoute path={'/'} Component={Index} />
+                            <LoggedOutRoute path={'/'} Component={Home} />
                         </Switch>
                     </SnackbarProvider>
                 </ThemeProvider>

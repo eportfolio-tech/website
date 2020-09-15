@@ -1,4 +1,6 @@
 import React from 'react';
+import {useHistory} from 'react-router-dom';
+
 import {
     Grid,
     Dialog,
@@ -6,11 +8,10 @@ import {
     DialogTitle,
     Typography,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import SignUpForm from './signUpForm';
-//import { AuthApi } from "./../Methods";
-import { Close } from '@material-ui/icons';
-import { useHistory } from 'react-router-dom';
+import {makeStyles} from '@material-ui/core/styles';
+import {Close} from '@material-ui/icons';
+
+import SignUpForm from './SignUpForm';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,11 +34,11 @@ interface ISignUp {
 /***
  * Login dialog
  */
-export default ({ open, setOpen }: ISignUp) => {
+export default ({open, setOpen}: ISignUp) => {
     const classes = useStyles();
     const history = useHistory();
-    //const { setLoginEl, openLogin, setOpenLogin } = useContext(AuthApi);
 
+    //const { setLoginEl, openLogin, setOpenLogin } = useContext(AuthApi);
     //const [open, setOpen] = useState(false);
 
     const closeSignUpWindow = () => {
@@ -49,24 +50,24 @@ export default ({ open, setOpen }: ISignUp) => {
     return (
         <Dialog
             onClose={closeSignUpWindow}
-            aria-labelledby='customized-dialog-title'
+            aria-labelledby="customized-dialog-title"
             open={open}
             className={classes.root}
         >
             <DialogTitle>
-                <Grid container justify='space-between'>
+                <Grid container justify="space-between">
                     <Grid item xs={3}>
                         <Typography
                             className={classes.title}
-                            component='h1'
-                            variant='h4'
-                            align='center'
+                            component="h1"
+                            variant="h4"
+                            align="center"
                         >
                             Sign Up
                         </Typography>
                     </Grid>
                     <Grid item xs={2}>
-                        <Grid container justify='flex-end'>
+                        <Grid container justify="flex-end">
                             <IconButton
                                 className={classes.cancel}
                                 onClick={closeSignUpWindow}

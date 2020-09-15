@@ -1,18 +1,15 @@
-import React, { useState } from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import { Grid } from '@material-ui/core';
-import { userService } from '../../services/userService';
-import TextField from './textField';
+import React, {useState} from 'react';
+import {useHistory} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
 
-import { useDispatch } from 'react-redux';
-import { userActions } from '../../store/actions/userActions';
-import { alertActions } from '../../store/actions/alertActions';
-import { useHistory } from 'react-router-dom';
+import {Grid, Paper, Button, Typography} from '@material-ui/core';
+import {makeStyles, createStyles, Theme} from '@material-ui/core/styles';
+import TextField from '../TextField';
 
-// Extension Styles
+import {authService} from '../../utils/authService';
+import {userActions} from '../../store/actions/UserActions';
+import {alertActions} from '../../store/actions/AlertActions';
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         paper: {
@@ -22,14 +19,12 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '90%',
             height: '90%',
         },
-
         form: {
             marginTop: theme.spacing(3),
         },
         submit: {
             margin: theme.spacing(3, 0, 3, 0),
             padding: theme.spacing(1),
-
             borderRadius: 10,
             textTransform: 'none',
             fontWeight: 550,
@@ -39,11 +34,10 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-export default (props: { close: () => void }) => {
+export default (props: {close: () => void}) => {
     const classes = useStyles();
-    const dispatch = useDispatch();
     const history = useHistory();
-
+    const dispatch = useDispatch();
     // const [signinFailed, setSigninFailed] = useState(false);
     const [userName, setUserName] = useState('');
     // const [userEmail, setUserEmail] = useState("");
@@ -51,14 +45,14 @@ export default (props: { close: () => void }) => {
 
     const onSignInHandler = async () => {
         try {
-            const user = await userService.login(userName, userPassword);
+            const user = await authService.login(userName, userPassword);
             dispatch(userActions.login(user));
             dispatch(alertActions.success('sign in succeed'));
             props.close();
         } catch (error) {
             dispatch(
                 alertActions.error(
-                    'sign in failed: ' + error.response.data.errors
+                    'sign in failed: ' + Object.values(error.response.data.data)
                 )
             );
         }
@@ -66,28 +60,27 @@ export default (props: { close: () => void }) => {
 
     return (
         <Paper elevation={0} className={classes.paper}>
-            <Typography variant='h4' align='center'>
+            <Typography variant="h4" align="center">
                 Welcome Back.
             </Typography>
             <form className={classes.form}>
                 <TextField
-                    label='Username'
+                    label="Username"
                     setState={setUserName}
                     required={true}
                 />
                 <TextField
-                    label='Password'
+                    label="Password"
                     setState={setUserPassword}
                     required={true}
                     type={'password'}
                 />
-
                 <Button
                     fullWidth
-                    variant='contained'
-                    color='secondary'
+                    variant="contained"
+                    color="secondary"
                     className={classes.submit}
-                    size='large'
+                    size="large"
                     onClick={onSignInHandler}
                 >
                     Sign in
@@ -96,7 +89,7 @@ export default (props: { close: () => void }) => {
                     <Grid item xs={12}>
                         <Button
                             fullWidth
-                            style={{ textTransform: 'none' }}
+                            style={{textTransform: 'none'}}
                             onClick={() => {
                                 history.push('/forget-password');
                             }}
