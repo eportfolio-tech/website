@@ -3,7 +3,7 @@ import {Provider} from 'react-redux';
 import {mount, configure} from 'enzyme';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import SignInForm from '../components/AuthDialogs';
+import SignInForm from '.';
 import Adapter from 'enzyme-adapter-react-16';
 import {TextField, Button} from '@material-ui/core';
 
