@@ -3,7 +3,7 @@ import {Provider} from 'react-redux';
 import {mount, configure} from 'enzyme';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import SignUp from '../components/AuthDialogs/SignUpForm';
+import SignUpForm from '../components/AuthDialogs/SignUpForm';
 import Adapter from 'enzyme-adapter-react-16';
 import {TextField, Button} from '@material-ui/core';
 import PhoneInput from 'react-phone-input-2';
@@ -15,7 +15,7 @@ describe('Login tests', () => {
     const store = mockStore({});
     const wrapper = mount(
         <Provider store={store}>
-            <SignUp />
+            <SignUpForm />
         </Provider>
     );
     it('should have signup button', () => {
