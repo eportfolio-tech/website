@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+package-lock.json
 
 # testing
 /coverage
@@ -23,4 +24,7 @@ yarn-debug.log*
 yarn-error.log*
 
 front.iml
+
+# ide
 /.idea
+/.vscode
