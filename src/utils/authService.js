@@ -10,11 +10,9 @@ export const authService = {
 };
 
 async function login(username, password) {
-    const response = await axios.post('/authentication/login', null, {
-        params: {
-            username: username,
-            password: password,
-        },
+    const response = await axios.post('/authentication/login', {
+        username: username,
+        password: password,
     });
     const user = {
         username: response.data.data.user.username,
