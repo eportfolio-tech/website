@@ -29,8 +29,10 @@ export default (props: any) => {
 
     useEffect(() => {
         setComponentMounted(true);
-        const saved = JSON.parse(localStorage.getItem('design') || '');
-        loadTemplate(saved);
+        const saved = JSON.parse(localStorage.getItem('design') || '{}');
+        if (saved.body !== undefined) {
+            loadTemplate(saved);
+        }
     }, [editor, isEditorLoaded, isComponentMounted]);
 
     const exportHtml = () => {
@@ -52,9 +54,11 @@ export default (props: any) => {
         // emailEditorRef.current.editor.loadDesign(templateJson);
         console.log('isEditorLoaded: ', isEditorLoaded);
         console.log('isComponentMounted: ', isComponentMounted);
-        const saved = JSON.parse(localStorage.getItem('design') || '');
+        const saved = JSON.parse(localStorage.getItem('design')||'{}');
         setEditorLoaded(true);
-        loadTemplate(saved);
+        if (saved.body !== undefined) {
+            loadTemplate(saved);
+        }
     };
 
     const loadTemplate = (saved: any) => {
