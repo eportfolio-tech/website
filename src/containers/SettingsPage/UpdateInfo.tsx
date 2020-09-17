@@ -85,7 +85,7 @@ export default function UpdateProfile() {
                     avatar={<UpdateIcon className={classes.cardTitleIcon} />}
                     title={
                         <Typography variant="h6" className={classes.cardTitle}>
-                            Update your details
+                            Update Your Details
                         </Typography>
                     }
                     action={
@@ -134,19 +134,23 @@ export default function UpdateProfile() {
                         <Grid item xs={12}>
                             <TextField
                                 id="firstName"
-                                label="First name"
+                                label="First Name"
+                                variant="outlined"
                                 fullWidth
                                 value={userInfo.firstName || ''}
                                 onChange={(event) =>
                                     handleInput('firstName', event.target.value)
                                 }
-                            />
+                            >
+                                First Name
+                            </TextField>
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
                                 id="lastName"
                                 name="lastName"
-                                label="Last name"
+                                label="Last Name"
+                                variant="outlined"
                                 fullWidth
                                 autoComplete="family-name"
                                 value={userInfo.lastName || ''}
@@ -160,6 +164,7 @@ export default function UpdateProfile() {
                                 id="email"
                                 name="email"
                                 label="Email Address"
+                                variant="outlined"
                                 fullWidth
                                 autoComplete="Email Address"
                                 value={userInfo.email || ''}
