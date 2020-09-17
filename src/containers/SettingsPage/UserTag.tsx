@@ -64,7 +64,7 @@ export default () => {
     const getUserTags = async () => {
         try {
             const userInfo = JSON.parse(localStorage.getItem('user') || '');
-            const username = userInfo.username;
+            const username = userInfo.user.username;
 
             const tags = await userService.getUserTags(username);
             setUserTags(tags.tag);
