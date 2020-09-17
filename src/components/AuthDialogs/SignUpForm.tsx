@@ -102,15 +102,15 @@ export default (props: {close: () => void}) => {
     const onSignUpHandler = async () => {
         try {
             await authService.signup(userInfo);
-            const user_payload = await authService.login(
+            const user = await authService.login(
                 userInfo.username,
                 userInfo.password
             );
-            dispatch(userActions.login(user_payload));
+            dispatch(userActions.login(user));
             dispatch(alertActions.success('sign up succeed'));
             props.close();
         } catch (error) {
-            console.log(error.response);
+            // console.log(error.resp`onse);
             dispatch(
                 alertActions.error(
                     'sign up failed: ' + Object.values(error.response.data.data)

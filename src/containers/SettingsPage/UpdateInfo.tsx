@@ -48,14 +48,14 @@ export default function UpdateProfile() {
 
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem('user') || '');
-        const username = userInfo.username;
+        const username = userInfo.user.username;
         authService
             .getInfo(username)
             .then((data) => {
                 setUserInfo(data.user);
             })
             .catch((error) => {
-                dispatch(alertActions.error('get info failed: ') + error);
+                dispatch(alertActions.error('get info failed'));
             });
     }, [dispatch]);
 
@@ -70,11 +70,11 @@ export default function UpdateProfile() {
     const onUpdateHandler = async () => {
         try {
             const userInfo = JSON.parse(localStorage.getItem('user') || '');
-            const username = userInfo.username;
+            const username = userInfo.user.username;
             await authService.updateInfo(username, userInfo);
             dispatch(alertActions.success('update succeed'));
         } catch (error) {
-            dispatch(alertActions.error('update failed: ' + error));
+            dispatch(alertActions.error('update failed'));
         }
     };
 

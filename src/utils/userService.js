@@ -41,7 +41,6 @@ async function deleteUserTags(username, deletedTags) {
 }
 
 async function search(query, page, size) {
-    // console.log(query + page + size);
     const response = await axios.get('/portfolio/search', {
         params: {
             query: query,
@@ -49,6 +48,5 @@ async function search(query, page, size) {
             size: size,
         },
     });
-
     return response.data.data;
 }

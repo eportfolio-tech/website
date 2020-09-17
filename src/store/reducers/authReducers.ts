@@ -10,7 +10,7 @@ const initialState = JSON.parse(
     localStorage.getItem('user') ||
         '{"loggedIn":false, "user": null, "token": null}'
 );
-if (initialState.loggedIn === undefined) initialState.loggedIn = true;
+if (initialState.loggedIn === undefined) initialState.loggedIn = false;
 
 export function authenticationReducer(
     state: IAuthState = initialState,

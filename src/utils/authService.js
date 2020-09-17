@@ -1,6 +1,7 @@
 import axios from './axios';
 
 export const authService = {
+    getUser,
     login,
     signup,
     resetPassword,
@@ -11,18 +12,29 @@ export const authService = {
     getInfo,
 };
 
+async function getUser(username, token) {
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+    const response = await axios.get('/users/' + username);
+    return response.data.data;
+}
+
 async function login(username, password) {
+    axios.defaults.headers.common['Authorization'] = null;
     const response = await axios.post('/authentication/login', {
         username: username,
         password: password,
     });
-    const user = {
-        username: response.data.data.user.username,
-        email: response.data.data.user.email,
-    };
     const token = response.headers['x-jwt-token'];
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem(
+        'user',
+        JSON.stringify({
+            loggedIn: true,
+            user: response.data.data.user,
+            token: token,
+        })
+    );
     localStorage.setItem('token', JSON.stringify(token));
+    response.data.data['token'] = token;
     return response.data.data;
 }
 
@@ -36,13 +48,6 @@ async function signup(userInfo) {
         title: userInfo.title,
         phone: userInfo.phone,
     });
-    const user = {
-        username: response.data.data.username,
-        email: response.data.data.email,
-    };
-    const token = response.headers['x-jwt-token'];
-    localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('token', JSON.stringify(token));
     return response.data.data;
 }
 
