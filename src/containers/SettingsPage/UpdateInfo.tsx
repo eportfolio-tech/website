@@ -135,18 +135,22 @@ export default function UpdateProfile() {
                             <TextField
                                 id="firstName"
                                 label="First Name"
+                                variant="outlined"
                                 fullWidth
                                 value={userInfo.firstName || ''}
                                 onChange={(event) =>
                                     handleInput('firstName', event.target.value)
                                 }
-                            />
+                            >
+                                First Name
+                            </TextField>
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
                                 id="lastName"
                                 name="lastName"
                                 label="Last Name"
+                                variant="outlined"
                                 fullWidth
                                 autoComplete="family-name"
                                 value={userInfo.lastName || ''}
@@ -160,6 +164,7 @@ export default function UpdateProfile() {
                                 id="email"
                                 name="email"
                                 label="Email Address"
+                                variant="outlined"
                                 fullWidth
                                 autoComplete="Email Address"
                                 value={userInfo.email || ''}
