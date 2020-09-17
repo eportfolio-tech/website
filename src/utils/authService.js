@@ -7,6 +7,8 @@ export const authService = {
     recoveryPassword,
     verifyEmail,
     getRecoveryLink,
+    updateInfo,
+    getInfo,
 };
 
 async function login(username, password) {
@@ -95,5 +97,26 @@ async function getRecoveryLink(email) {
         }
     );
 
+    return response.data.data;
+}
+
+async function updateInfo(username, userInfo) {
+    axios.defaults.headers.common['Authorization'] =
+        'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
+    const response = await axios.patch('/users/' + username, {
+        // avatarUrl: 'string',
+        email: userInfo.email,
+        firstName: userInfo.firstName,
+        lastName: userInfo.lastName,
+        phone: userInfo.phone,
+        title: userInfo.title,
+    });
+    return response.data.data;
+}
+
+async function getInfo(username) {
+    axios.defaults.headers.common['Authorization'] =
+        'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
+    const response = await axios.get('/users/' + username, null);
     return response.data.data;
 }

@@ -18,28 +18,7 @@ import {alertActions} from '../../store/actions/alertActions';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/material.css';
 
-const titles = [
-    {
-        value: 'Mr.',
-        label: 'Mr.',
-    },
-    {
-        value: 'Mrs.',
-        label: 'Mrs.',
-    },
-    {
-        value: 'Ms.',
-        label: 'Ms.',
-    },
-    {
-        value: 'Miss',
-        label: 'Miss',
-    },
-    {
-        value: 'Dr.',
-        label: 'Dr.',
-    },
-];
+import {titles} from '../../constants/titles';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
