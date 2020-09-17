@@ -111,6 +111,7 @@ export default function UpdateProfile() {
                     <Grid container spacing={1}>
                         <Grid item xs={12}>
                             <TextField
+                                required
                                 id="outlined-select-currency"
                                 value={userInfo.title || ''}
                                 select
@@ -133,6 +134,7 @@ export default function UpdateProfile() {
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
+                                required
                                 id="firstName"
                                 label="First Name"
                                 variant="outlined"
@@ -147,6 +149,7 @@ export default function UpdateProfile() {
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
+                                required
                                 id="lastName"
                                 name="lastName"
                                 label="Last Name"
@@ -161,6 +164,7 @@ export default function UpdateProfile() {
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
+                                required
                                 id="email"
                                 name="email"
                                 label="Email Address"

@@ -143,9 +143,10 @@ export default () => {
                 avatar={<TagIcon style={{color: '66bb6a'}} />}
                 title={<Typography variant="h6">Modify Your Tag(s)</Typography>}
                 action={
+
                     <ButtonGroup
                         orientation="vertical"
-                        variant="outlined"
+                        variant="contained"
                         color="secondary"
                         style={{
                             height: '100%',
