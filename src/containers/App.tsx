@@ -9,7 +9,6 @@ import {SnackbarProvider} from 'notistack';
 import Layout from '../components/AppBar/Layout';
 import theme from '../theme/fortyTwo';
 
-import {authService} from '../utils/authService';
 import {useDispatch} from 'react-redux';
 import {userActions} from '../store/actions/userActions';
 
@@ -22,6 +21,8 @@ import {
     Editor,
     Setting,
 } from '.';
+
+import JwtDecode from 'jwt-decode';
 
 interface IProtectedRoute {
     Component?: any;
@@ -86,20 +87,16 @@ const LoggedOutRoute = ({Component, exact, path}: IProtectedRoute) => {
 function App() {
     const dispatch = useDispatch();
     // check if stored token is still valid
-    const user = useSelector<any>((state) => state.auth.user);
     const token = useSelector<any>((state) => state.auth.token);
-    if (user !== null) {
-        authService
-            .getUser((user as any).username, token)
-            .then(() => {})
-            .catch(() => {
-                // if the stored token is expired log out
-                dispatch(userActions.logout());
-            });
-    } else {
-        // remove stroage if no user
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
+    if (token !== null) {
+        const jwt = JwtDecode(token as any);
+        const current_time = Date.now() / 1000;
+        if ((jwt as any).exp < current_time) {
+            /* expired */
+            dispatch(userActions.logout());
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+        }
     }
 
     const DashBoard = () => (
