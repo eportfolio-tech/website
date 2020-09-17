@@ -85,7 +85,7 @@ export default function UpdateProfile() {
                     avatar={<UpdateIcon className={classes.cardTitleIcon} />}
                     title={
                         <Typography variant="h6" className={classes.cardTitle}>
-                            Update your details
+                            Update Your Details
                         </Typography>
                     }
                     action={
@@ -134,7 +134,7 @@ export default function UpdateProfile() {
                         <Grid item xs={12}>
                             <TextField
                                 id="firstName"
-                                label="First name"
+                                label="First Name"
                                 fullWidth
                                 value={userInfo.firstName || ''}
                                 onChange={(event) =>
@@ -146,7 +146,7 @@ export default function UpdateProfile() {
                             <TextField
                                 id="lastName"
                                 name="lastName"
-                                label="Last name"
+                                label="Last Name"
                                 fullWidth
                                 autoComplete="family-name"
                                 value={userInfo.lastName || ''}
