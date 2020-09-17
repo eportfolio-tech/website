@@ -33,6 +33,7 @@
         "material-ui-chip-input": "^2.0.0-beta.2",
         "material-ui-icons": "^1.0.0-beta.36",
         "notistack": "^1.0.0",
+        "prismjs": "^1.21.0",
         "react": "^16.13.1",
         "react-document-title": "^2.0.3",
         "react-dom": "^16.13.1",
