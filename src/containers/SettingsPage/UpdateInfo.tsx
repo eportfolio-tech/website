@@ -71,7 +71,7 @@ export default function UpdateProfile() {
         try {
             const userInfo = JSON.parse(localStorage.getItem('user') || '');
             const username = userInfo.user.username;
-            await authService.updateInfo(username, userInfo);
+            await authService.updateInfo(username, userInfo.user);
             dispatch(alertActions.success('update succeed'));
         } catch (error) {
             dispatch(alertActions.error('update failed'));

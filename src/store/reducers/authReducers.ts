@@ -41,6 +41,12 @@ export function authenticationReducer(
                 user: null,
                 token: null,
             };
+        case userConstants.UPDATE_SUCCESS:
+            return {
+                loggedIn: true,
+                user: action.payload.user,
+                token: action.payload.token,
+            };
         default:
             return state;
     }
