@@ -1,23 +1,24 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {makeStyles, createStyles, Theme} from '@material-ui/core/styles';
 import {
     Avatar,
     Button,
-    ButtonGroup,
     Card,
     CardContent,
     CardHeader,
-    Grid,
-    TextField,
     Typography,
+    Fab,
 } from '@material-ui/core';
-import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import FaceIcon from '@material-ui/icons/Face';
+
 import {useDispatch, useSelector} from 'react-redux';
 import {IRootState} from '../../index';
-import {userService} from '../../utils/userService';
 import {alertActions} from '../../store/actions/alertActions';
-import FaceIcon from '@material-ui/icons/Face';
+import {userActions} from '../../store/actions/userActions';
+
+import {userService} from '../../utils/userService';
+import {authService} from '../../utils/authService';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -40,30 +41,54 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function UpdateAvatar() {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const user = useSelector<IRootState>((state) => state.auth.user);
+    const auth = useSelector<IRootState>((state) => state.auth);
+    const user = (auth as any).user;
 
     const [avatar, setAvatar] = useState<File | null>(null);
-    const [avatarUrl, setAvatarUrl] = useState<string>((user as any).avatarUrl);
+    const [avatarUrl, setAvatarUrl] = useState<string>(user.avatarUrl);
+    const isFirstRun = useRef(true);
 
-    const onFileChange = (event: any) => {
+    useEffect(() => {
+        if (isFirstRun.current) {
+            isFirstRun.current = false;
+            return;
+        }
+        onUpload();
+    }, [avatar]);
+
+    const onFileChange = async (event: any) => {
         setAvatar(event.target.files[0]);
-        console.log(avatar);
     };
 
     const onUpload = async () => {
         try {
-            const res = await userService.uploadFile(
-                (user as any).username,
-                avatar
-            );
+            const res = await userService.uploadFile(user.username, avatar);
             setAvatarUrl(res.URI);
-            dispatch(alertActions.success('upload avatar succeed'));
         } catch (error) {
             dispatch(
                 alertActions.error(
-                    'upload failed: ' + Object.values(error.response.data.data)
+                    'set avatar failed: ' +
+                        Object.values(error.response.data.data)
                 )
             );
+        }
+    };
+
+    const onSaveHandler = async () => {
+        user.avatarUrl = avatarUrl;
+        try {
+            await authService.updateInfo(user.username, user);
+            (auth as any).user = user;
+            dispatch(userActions.update(auth));
+            dispatch(alertActions.success('set avatar succeed'));
+        } catch (error) {
+            dispatch(
+                alertActions.error(
+                    'set avatar failed: ' +
+                        Object.values(error.response.data.data)
+                )
+            );
+            // console.log('error', error);
         }
     };
 
@@ -113,7 +138,7 @@ export default function UpdateAvatar() {
                             color="secondary"
                             variant="contained"
                             component="span"
-                            onClick={onUpload}
+                            onClick={onSaveHandler}
                         >
                             Save
                         </Button>
