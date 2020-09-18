@@ -106,7 +106,7 @@ export default function UpdateAvatar() {
                 <CardContent>
                     <div>
                         <Avatar
-                            alt="Remy Sharp"
+                            alt={user.username.toUpperCase()}
                             src={avatarUrl}
                             className={classes.large}
                         />
