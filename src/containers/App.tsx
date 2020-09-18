@@ -87,9 +87,11 @@ const LoggedOutRoute = ({Component, exact, path}: IProtectedRoute) => {
 function App() {
     const dispatch = useDispatch();
     // check if stored token is still valid
-    const token = useSelector<any>((state) => state.auth.token);
-    if (token !== null) {
-        const jwt = JwtDecode(token as any);
+    const token = useSelector<IRootState, string | null | undefined>(
+        (state) => state.auth.token
+    );
+    if (token !== null && token !== undefined) {
+        const jwt = JwtDecode(token);
         const current_time = Date.now() / 1000;
         if ((jwt as any).exp < current_time) {
             /* expired */
