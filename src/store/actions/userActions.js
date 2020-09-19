@@ -3,6 +3,7 @@ import {userConstants} from '../constants/userConstants';
 export const userActions = {
     login,
     logout,
+    update,
 };
 
 function login(payload) {
@@ -11,4 +12,8 @@ function login(payload) {
 
 function logout() {
     return {type: userConstants.LOGOUT};
+}
+
+function update(payload) {
+    return {type: userConstants.UPDATE_SUCCESS, payload};
 }

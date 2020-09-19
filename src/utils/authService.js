@@ -109,13 +109,21 @@ async function updateInfo(username, userInfo) {
     axios.defaults.headers.common['Authorization'] =
         'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
     const response = await axios.patch('/users/' + username, {
-        // avatarUrl: 'string',
+        avatarUrl: userInfo.avatarUrl,
         email: userInfo.email,
         firstName: userInfo.firstName,
         lastName: userInfo.lastName,
         phone: userInfo.phone,
         title: userInfo.title,
     });
+    localStorage.setItem(
+        'user',
+        JSON.stringify({
+            loggedIn: true,
+            user: response.data.data.user,
+            token: localStorage.getItem('token'),
+        })
+    );
     return response.data.data;
 }
 
