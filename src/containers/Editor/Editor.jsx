@@ -6,6 +6,8 @@ import {createEditor} from 'slate';
 // Import the Slate components and React plugin.
 import {Slate, Editable, withReact} from 'slate-react';
 
+import {Button} from '@material-ui/core';
+
 export default () => {
     const editor = useMemo(() => withReact(createEditor()), []);
     // Update the initial content to be pulled from Local Storage if it exists.
@@ -18,17 +20,30 @@ export default () => {
         ]
     );
 
+    const onSaveHandler = () => {
+        const content = JSON.stringify(value);
+        localStorage.setItem('content', content);
+    };
+
     return (
-        <Slate
-            editor={editor}
-            value={value}
-            onChange={(value) => {
-                setValue(value);
-                const content = JSON.stringify(value);
-                localStorage.setItem('content', content);
-            }}
-        >
-            <Editable />
-        </Slate>
+        <div>
+            <Slate
+                editor={editor}
+                value={value}
+                onChange={(value) => {
+                    setValue(value);
+                }}
+            >
+                <Editable />
+            </Slate>
+            <Button
+                variant="contained"
+                color="secondary"
+                size="large"
+                onClick={onSaveHandler}
+            >
+                Save
+            </Button>
+        </div>
     );
 };
