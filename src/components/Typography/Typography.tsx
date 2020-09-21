@@ -1,58 +1,102 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {withStyles, Theme} from '@material-ui/core/styles';
+import React, {ReactChildren} from 'react';
+import {
+    withStyles,
+    Theme,
+    createStyles,
+    makeStyles,
+} from '@material-ui/core/styles';
 import {capitalize} from '@material-ui/core/utils';
 import MuiTypography from '@material-ui/core/Typography';
+import {AnyMxRecord} from 'dns';
 
-const styles = (theme: Theme) => ({
-    markedH2Center: {
-        height: 4,
-        width: 73,
-        display: 'block',
-        margin: `${theme.spacing(1)}px auto 0`,
-        backgroundColor: theme.palette.secondary.main,
-    },
-    markedH3Center: {
-        height: 4,
-        width: 55,
-        display: 'block',
-        margin: `${theme.spacing(1)}px auto 0`,
-        backgroundColor: theme.palette.secondary.main,
-    },
-    markedH4Center: {
-        height: 4,
-        width: 55,
-        display: 'block',
-        margin: `${theme.spacing(1)}px auto 0`,
-        backgroundColor: theme.palette.secondary.main,
-    },
-    markedH6Left: {
-        height: 2,
-        width: 28,
-        display: 'block',
-        marginTop: theme.spacing(0.5),
-        background: 'currentColor',
-    },
-});
+const useStyles: any = makeStyles((theme: Theme) =>
+    createStyles({
+        markedH2Center: {
+            height: 4,
+            width: 73,
+            display: 'block',
+            margin: `${theme.spacing(1)}px auto 0`,
+            backgroundColor: theme.palette.secondary.main,
+        },
+        markedH3Center: {
+            height: 4,
+            width: 55,
+            display: 'block',
+            margin: `${theme.spacing(1)}px auto 0`,
+            backgroundColor: theme.palette.secondary.main,
+        },
+        markedH4Center: {
+            height: 4,
+            width: 55,
+            display: 'block',
+            margin: `${theme.spacing(1)}px auto 0`,
+            backgroundColor: theme.palette.secondary.main,
+        },
+        markedH6Left: {
+            height: 2,
+            width: 28,
+            display: 'block',
+            marginTop: theme.spacing(0.5),
+            background: 'currentColor',
+        },
+    })
+);
 
-const variantMapping = {
-    h1: 'h1',
-    h2: 'h1',
-    h3: 'h1',
-    h4: 'h1',
-    h5: 'h3',
-    h6: 'h2',
-    subtitle1: 'h3',
-};
+interface ITypography {
+    children?: any;
+    marked?: string;
+    variant:
+        | 'inherit'
+        | 'button'
+        | 'overline'
+        | 'caption'
+        | 'h1'
+        | 'h2'
+        | 'h3'
+        | 'h4'
+        | 'h5'
+        | 'h6'
+        | 'subtitle1'
+        | 'subtitle2'
+        | 'body1'
+        | 'body2'
+        | 'srOnly';
+    align?: 'center' | 'left' | 'right' | 'inherit' | 'justify';
+    color?:
+        | 'inherit'
+        | 'initial'
+        | 'primary'
+        | 'secondary'
+        | 'textPrimary'
+        | 'textSecondary'
+        | 'error';
+    component?: any;
+    className?: any;
+    gutterBottom?: boolean;
+}
 
-function Typography(props: any) {
-    const {children, classes, marked = false, variant, ...other} = props;
+function Typography(props: ITypography) {
+    const {
+        children,
+        marked,
+        variant,
+        align,
+        color,
+        component,
+        className,
+        gutterBottom,
+    } = props;
+
+    const classes = useStyles();
 
     return (
         <MuiTypography
-            variantMapping={variantMapping}
             variant={variant}
-            {...other}
+            align={align}
+            color={color}
+            component={component}
+            className={className}
+            gutterBottom={gutterBottom}
         >
             {children}
             {marked ? (
@@ -68,11 +112,4 @@ function Typography(props: any) {
     );
 }
 
-Typography.propTypes = {
-    children: PropTypes.node,
-    classes: PropTypes.object.isRequired,
-    marked: PropTypes.oneOf([false, 'center', 'left']),
-    variant: PropTypes.string,
-};
-
-export default withStyles(styles)(Typography);
+export default Typography;
