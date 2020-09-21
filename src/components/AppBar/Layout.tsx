@@ -168,8 +168,8 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
             enqueueSnackbar(alert.message, {
                 variant: alert.type,
                 anchorOrigin: {
-                    vertical: 'top',
-                    horizontal: 'center',
+                    vertical: 'bottom',
+                    horizontal: 'right',
                 },
                 action,
             });
