@@ -10,7 +10,7 @@ import Recovery from './Recovery/Recovery';
 
 import Verify from './Verify/Verify';
 
-import Editor from './Editor/RichTextEditor';
+import Editor from './Editor/Editor';
 
 import Setting from './SettingsPage/SettingsPage';
 
