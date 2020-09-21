@@ -12,6 +12,7 @@ import theme from '../theme/fortyTwo';
 import {useDispatch} from 'react-redux';
 import {userActions} from '../store/actions/userActions';
 
+
 import {
     Explore,
     ForgetPassword,
@@ -20,6 +21,8 @@ import {
     Verify,
     Editor,
     Setting,
+    HomePage,
+    ProfilePage,
 } from '.';
 
 import JwtDecode from 'jwt-decode';
@@ -121,6 +124,16 @@ function App() {
                 <ThemeProvider theme={theme}>
                     <SnackbarProvider maxSnack={5}>
                         <Switch>
+                            <Route
+                                exact
+                                path={'/homepage'}
+                                component={HomePage}
+                            />
+                            <Route
+                                exact
+                                path={'/profile'}
+                                component={ProfilePage}
+                            />
                             <Route
                                 exact
                                 path={'/verification/verify'}

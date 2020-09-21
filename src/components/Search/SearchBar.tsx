@@ -4,7 +4,6 @@ import {createStyles, makeStyles} from '@material-ui/core/styles';
 import {
     Container,
     Grid,
-    TextField,
     MenuItem,
     Button,
     InputAdornment,
@@ -14,6 +13,7 @@ import {Search as SearchIcon} from '@material-ui/icons';
 import {useDispatch} from 'react-redux';
 import {userService} from '../../utils/userService';
 import {alertActions} from '../../store/actions/alertActions';
+import TextField from '../TextField';
 
 import {Chips} from './Chips';
 

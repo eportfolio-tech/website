@@ -11,7 +11,7 @@ import {Breakpoint} from '@material-ui/core/styles/createBreakpoints';
 import MenuIcon from '@material-ui/icons/Menu';
 import clsx from 'clsx';
 
-const drawerWidth = 240;
+const drawerWidth = 400;
 const useStyles = makeStyles((theme: Theme) => ({
     logo: {
         maxHeight: '3rem',
