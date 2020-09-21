@@ -1,12 +1,17 @@
 // Import React dependencies.
-import React, {useEffect, useMemo, useState} from 'react';
-// Import the Slate editor factory.
-import {createEditor} from 'slate';
+import React, {useMemo, useState, useCallback} from 'react';
 
 // Import the Slate components and React plugin.
 import {Slate, Editable, withReact} from 'slate-react';
+import {createEditor} from 'slate';
 
 import {Button} from '@material-ui/core';
+
+import {DefaultElement} from './Elements/DefaultElement';
+import {CodeElement} from './Elements/CodeElement';
+import {Leaf} from './Leaf/Leaf';
+
+import {CustomEditor} from './CustomEditor';
 
 export default () => {
     const editor = useMemo(() => withReact(createEditor()), []);
@@ -25,6 +30,19 @@ export default () => {
         localStorage.setItem('content', content);
     };
 
+    const renderElement = useCallback((props) => {
+        switch (props.element.type) {
+            case 'code':
+                return <CodeElement {...props} />;
+            default:
+                return <DefaultElement {...props} />;
+        }
+    }, []);
+
+    const renderLeaf = useCallback((props) => {
+        return <Leaf {...props} />;
+    }, []);
+
     return (
         <div>
             <Slate
@@ -34,7 +52,48 @@ export default () => {
                     setValue(value);
                 }}
             >
-                <Editable />
+                <div>
+                    <button
+                        onMouseDown={(event) => {
+                            event.preventDefault();
+                            CustomEditor.toggleBoldMark(editor);
+                        }}
+                    >
+                        Bold
+                    </button>
+                    <button
+                        onMouseDown={(event) => {
+                            event.preventDefault();
+                            CustomEditor.toggleCodeBlock(editor);
+                        }}
+                    >
+                        Code Block
+                    </button>
+                </div>
+                <Editable
+                    editor={editor}
+                    renderElement={renderElement}
+                    renderLeaf={renderLeaf}
+                    onKeyDown={(event) => {
+                        if (!event.ctrlKey) {
+                            return;
+                        }
+
+                        switch (event.key) {
+                            case '`': {
+                                event.preventDefault();
+                                CustomEditor.toggleCodeBlock(editor);
+                                break;
+                            }
+
+                            case 'b': {
+                                event.preventDefault();
+                                CustomEditor.toggleBoldMark(editor);
+                                break;
+                            }
+                        }
+                    }}
+                />
             </Slate>
             <Button
                 variant="contained"
