@@ -5,18 +5,6 @@ import Link from '@material-ui/core/Link';
 import Container from '@material-ui/core/Container';
 import {Typography} from '@material-ui/core';
 
-function Copyright() {
-    return (
-        <React.Fragment>
-            {'© '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-        </React.Fragment>
-    );
-}
-
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',

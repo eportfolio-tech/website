@@ -1,13 +1,7 @@
-import React, {ReactChildren} from 'react';
-import {
-    withStyles,
-    Theme,
-    createStyles,
-    makeStyles,
-} from '@material-ui/core/styles';
+import React from 'react';
+import {Theme, createStyles, makeStyles} from '@material-ui/core/styles';
 import {capitalize} from '@material-ui/core/utils';
 import MuiTypography from '@material-ui/core/Typography';
-import {AnyMxRecord} from 'dns';
 
 const useStyles: any = makeStyles((theme: Theme) =>
     createStyles({

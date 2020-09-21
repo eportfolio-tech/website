@@ -60,15 +60,11 @@ const useStyles: any = makeStyles((theme: Theme) =>
 
 function ProductCTA() {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
+    const [, setOpen] = React.useState(false);
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
         setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
     };
 
     return (
