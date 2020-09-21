@@ -2,8 +2,8 @@ import {userConstants} from '../constants/userConstants';
 
 export interface IAuthState {
     loggedIn: boolean | undefined;
-    user?: String | null;
-    token?: String | null;
+    user?: string | null;
+    token?: string | null;
 }
 
 const initialState = JSON.parse(

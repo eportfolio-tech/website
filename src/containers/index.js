@@ -16,6 +16,8 @@ import Setting from './SettingsPage/SettingsPage';
 
 import SearchPage from '../components/Search/SearchPage';
 
+import HomePage from '../components/Homepage/Home';
+
 export {
     Explore,
     ForgetPassword,
@@ -25,4 +27,5 @@ export {
     Editor,
     Setting,
     SearchPage,
+    HomePage,
 };
