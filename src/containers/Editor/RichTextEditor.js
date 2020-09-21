@@ -4,7 +4,15 @@ import {Editable, withReact, useSlate, Slate} from 'slate-react';
 import {Editor, Transforms, createEditor, Node} from 'slate';
 import {withHistory} from 'slate-history';
 
-import {Button, Icon, Toolbar} from './Components/Components';
+import {Button, Icon, Toolbar} from './components';
+
+import FormatBoldIcon from '@material-ui/icons/FormatBold';
+import FormatItalicIcon from '@material-ui/icons/FormatItalic';
+import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined';
+import CodeIcon from '@material-ui/icons/Code';
+import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
+import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
+import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 
 const HOTKEYS = {
     'mod+b': 'bold',
@@ -28,12 +36,12 @@ const RichTextExample = () => {
             onChange={(value) => setValue(value)}
         >
             <Toolbar>
+                <BlockButton format="heading-one" icon="looks_one" />
+                <BlockButton format="heading-two" icon="looks_two" />
                 <MarkButton format="bold" icon="format_bold" />
                 <MarkButton format="italic" icon="format_italic" />
                 <MarkButton format="underline" icon="format_underlined" />
                 <MarkButton format="code" icon="code" />
-                <BlockButton format="heading-one" icon="looks_one" />
-                <BlockButton format="heading-two" icon="looks_two" />
                 <BlockButton format="block-quote" icon="format_quote" />
                 <BlockButton
                     format="numbered-list"
@@ -155,7 +163,7 @@ const BlockButton = ({format, icon}) => {
                 toggleBlock(editor, format);
             }}
         >
-            <Icon>{icon}</Icon>
+            <Icon>{renderButton(format)}</Icon>
         </Button>
     );
 };
@@ -170,9 +178,35 @@ const MarkButton = ({format, icon}) => {
                 toggleMark(editor, format);
             }}
         >
-            <Icon>{icon}</Icon>
+            <Icon>{renderButton(format)}</Icon>
         </Button>
     );
+};
+
+const renderButton = (format) => {
+    console.log(format);
+    switch (format) {
+        case 'bold':
+            return <FormatBoldIcon fontSize="small" />;
+        case 'italic':
+            return <FormatItalicIcon fontSize="small" />;
+        case 'underline':
+            return <FormatUnderlinedIcon fontSize="small" />;
+        case 'code':
+            return <CodeIcon fontSize="small" />;
+        case 'numbered-list':
+            return <FormatListNumberedIcon fontSize="small" />;
+        case 'bulleted-list':
+            return <FormatListBulletedIcon fontSize="small" />;
+        case 'block-quote':
+            return <FormatQuoteIcon fontSize="small" />;
+        case 'heading-one':
+            return <span>H1</span>;
+        case 'heading-two':
+            return <span>H2</span>;
+        default:
+            return <span></span>;
+    }
 };
 
 const initialValue = [
