@@ -18,6 +18,8 @@ import SearchPage from '../components/Search/SearchPage';
 
 import HomePage from '../components/Homepage/Home';
 
+import ProfilePage from '../components/ProfilePage/ProfilePage';
+
 export {
     Explore,
     ForgetPassword,
@@ -28,4 +30,5 @@ export {
     Setting,
     SearchPage,
     HomePage,
+    ProfilePage
 };

@@ -4,7 +4,6 @@ import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import Container from '@material-ui/core/Container';
 import Typography from '../Typography/Typography';
-import TextField from '../TextField';
 
 function Copyright() {
   return (
@@ -61,48 +60,41 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LANGUAGES = [
-  {
-    code: 'en-US',
-    name: 'English',
-  },
-  {
-    code: 'fr-FR',
-    name: 'Français',
-  },
-];
-
 export default function AppFooter() {
   const classes = useStyles();
 
   return (
-    <Typography component="footer" className={classes.root}>
-      <Container className={classes.container}>
-        <Grid container spacing={5}>
-          <Grid item xs={6} sm={4} md={3}>
-            <Grid
-              container
-              direction="column"
-              justify="flex-end"
-              className={classes.iconsWrapper}
-              spacing={2}
-            >
-              <Grid item className={classes.icons}>
-                <a href="https://material-ui.com/" className={classes.icon}>
-                  <img src="/static/themes/onepirate/appFooterFacebook.png" alt="Facebook" />
-                </a>
-                <a href="https://twitter.com/MaterialUI" className={classes.icon}>
-                  <img src="/static/themes/onepirate/appFooterTwitter.png" alt="Twitter" />
-                </a>
-              </Grid>
-              <Grid item>
-                <Copyright />
+      <Typography component="footer" className={classes.root}>
+        <Container className={classes.container}>
+          <Grid container spacing={5}>
+            <Grid item xs={6} sm={4} md={3}>
+              <Grid
+                  container
+                  direction="column"
+                  justify="flex-end"
+                  className={classes.iconsWrapper}
+                  spacing={2}
+              >
+                <Typography variant="h6" marked="left" gutterBottom>
+                  Third-Party Login
+                </Typography>
+                <Grid item className={classes.icons}>
+                  <a href="https://material-ui.com/" className={classes.icon}>
+                    <img src="https://comp30002.blob.core.windows.net/image/appFooterFacebook.png" alt="Facebook" />
+                  </a>
+                  <a href="https://twitter.com/MaterialUI" className={classes.icon}>
+                    <img src="https://comp30002.blob.core.windows.net/image/appFooterTwitter.png" alt="Twitter" />
+                  </a>
+                  <p>
+                    Coming Soon
+                  </p>
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
+
           <Grid item xs={6} sm={4} md={2}>
             <Typography variant="h6" marked="left" gutterBottom>
-              Legal
+              Helpful Link
             </Typography>
             <ul className={classes.list}>
               <li className={classes.listItem}>
@@ -113,44 +105,19 @@ export default function AppFooter() {
               </li>
             </ul>
           </Grid>
-          <Grid item xs={6} sm={8} md={4}>
+
+          <Grid item xs={6} sm={4} md={2}>
             <Typography variant="h6" marked="left" gutterBottom>
-              Language
+              About Us
             </Typography>
-            <TextField
-              select
-              SelectProps={{
-                native: true,
-              }}
-              className={classes.language}
-            >
-              {LANGUAGES.map((language) => (
-                <option value={language.code} key={language.code}>
-                  {language.name}
-                </option>
-              ))}
-            </TextField>
-          </Grid>
-          <Grid item>
-            <Typography variant="caption">
-              {'Icons made by '}
-              <Link href="https://www.freepik.com" rel="sponsored" title="Freepik">
-                Freepik
-              </Link>
-              {' from '}
-              <Link href="https://www.flaticon.com" rel="sponsored" title="Flaticon">
-                www.flaticon.com
-              </Link>
-              {' is licensed by '}
-              <Link
-                href="https://creativecommons.org/licenses/by/3.0/"
-                title="Creative Commons BY 3.0"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                CC 3.0 BY
-              </Link>
-            </Typography>
+            <ul className={classes.list}>
+              <li className={classes.listItem}>
+                <Link href="/premium-themes/onepirate/terms/">What is Forty-Two</Link>
+              </li>
+              <li className={classes.listItem}>
+                <Link href="/premium-themes/onepirate/privacy/">Careers</Link>
+              </li>
+            </ul>
           </Grid>
         </Grid>
       </Container>

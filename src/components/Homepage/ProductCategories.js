@@ -89,56 +89,56 @@ function ProductCategories(props) {
   const images = [
     {
       url:
-        'https://images.unsplash.com/photo-1534081333815-ae5019106622?auto=format&fit=crop&w=400&q=80',
-      title: 'Snorkeling',
+        'https://comp30002.blob.core.windows.net/image/cs.jpg',
+      title: 'Computer Science',
       width: '40%',
     },
     {
       url:
-        'https://images.unsplash.com/photo-1531299204812-e6d44d9a185c?auto=format&fit=crop&w=400&q=80',
-      title: 'Massage',
+          'https://comp30002.blob.core.windows.net/image/science.png',
+      title: 'Science',
       width: '20%',
     },
     {
       url:
-        'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=400&q=80',
-      title: 'Hiking',
+        'https://comp30002.blob.core.windows.net/image/Architecture.jpg',
+      title: 'Architecture',
       width: '40%',
     },
     {
       url:
-        'https://images.unsplash.com/photo-1453747063559-36695c8771bd?auto=format&fit=crop&w=400&q=80',
-      title: 'Tour',
+        'https://comp30002.blob.core.windows.net/image/arts.jpg',
+      title: 'Arts',
       width: '38%',
     },
     {
       url:
-        'https://images.unsplash.com/photo-1523309996740-d5315f9cc28b?auto=format&fit=crop&w=400&q=80',
-      title: 'Gastronomy',
+        'https://comp30002.blob.core.windows.net/image/fine.jpg',
+      title: 'Fine Arts',
       width: '38%',
     },
     {
       url:
-        'https://images.unsplash.com/photo-1534452203293-494d7ddbf7e0?auto=format&fit=crop&w=400&q=80',
-      title: 'Shopping',
+        'https://comp30002.blob.core.windows.net/image/law.jpg',
+      title: 'Law',
       width: '24%',
     },
     {
       url:
-        'https://images.unsplash.com/photo-1506941433945-99a2aa4bd50a?auto=format&fit=crop&w=400&q=80',
-      title: 'Walking',
+        'https://comp30002.blob.core.windows.net/image/commence.jpg',
+      title: 'Business',
       width: '40%',
     },
     {
       url:
-        'https://images.unsplash.com/photo-1533727937480-da3a97967e95?auto=format&fit=crop&w=400&q=80',
-      title: 'Fitness',
+        'https://comp30002.blob.core.windows.net/image/education.jpg',
+      title: 'Education',
       width: '20%',
     },
     {
       url:
-        'https://images.unsplash.com/photo-1518136247453-74e7b5265980?auto=format&fit=crop&w=400&q=80',
-      title: 'Reading',
+        'https://comp30002.blob.core.windows.net/image/health.jpg',
+      title: 'Health',
       width: '40%',
     },
   ];
@@ -146,7 +146,7 @@ function ProductCategories(props) {
   return (
     <Container className={classes.root} component="section">
       <Typography variant="h4" marked="center" align="center" component="h2">
-        For all tastes and all desires
+        Discover E-Portfolios by Tags
       </Typography>
       <div className={classes.images}>
         {images.map((image) => (

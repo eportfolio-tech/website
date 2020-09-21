@@ -44,7 +44,9 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function UpdateProfile() {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const [userInfo, setUserInfo] = useState<any | null>({firstName: ''});
+    const [userInfo, setUserInfo] = useState<any | null>({});
+
+    const [oldUserInfo, setOldUserInfo] = useState<any | null>({});
 
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem('user') || '');
@@ -57,6 +59,7 @@ export default function UpdateProfile() {
             .catch((error) => {
                 dispatch(alertActions.error('get info failed'));
             });
+        setOldUserInfo(userInfo.user);
     }, [dispatch]);
 
     const handleInput = (key: any, value: any) => {
@@ -71,11 +74,18 @@ export default function UpdateProfile() {
         try {
             const userInfo = JSON.parse(localStorage.getItem('user') || '');
             const username = userInfo.user.username;
-            await authService.updateInfo(username, userInfo);
+            await authService.updateInfo(username, userInfo.user);
             dispatch(alertActions.success('update succeed'));
         } catch (error) {
             dispatch(alertActions.error('update failed'));
         }
+    };
+
+    const isModified = () => {
+        if (JSON.stringify(userInfo) === JSON.stringify(oldUserInfo)) {
+            return false;
+        }
+        return true;
     };
 
     return (
@@ -98,7 +108,8 @@ export default function UpdateProfile() {
                                 !userInfo.title ||
                                 !userInfo.firstName ||
                                 !userInfo.lastName ||
-                                !userInfo.email
+                                !userInfo.email ||
+                                !isModified()
                             }
                         >
                             <PublishIcon />

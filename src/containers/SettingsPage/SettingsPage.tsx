@@ -5,6 +5,7 @@ import {makeStyles, createStyles, Theme} from '@material-ui/core/styles';
 import ResetPassword from './ResetPassword';
 import UserTags from './UserTag';
 import UpdateInfo from './UpdateInfo';
+import UpdateAvatar from './UpdateAvatar';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -28,6 +29,9 @@ export default () => {
                 </Grid>
                 <Grid item md={6} xs={12}>
                     <UpdateInfo />
+                </Grid>
+                <Grid item md={6} xs={12}>
+                    <UpdateAvatar />
                 </Grid>
             </Grid>
         </div>

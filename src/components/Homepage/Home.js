@@ -8,18 +8,17 @@ import ProductHero from '../Homepage/ProductHero';
 import ProductValues from '../Homepage/ProductValues';
 import ProductHowItWorks from '../Homepage/ProductHowItWorks';
 import ProductCTA from '../Homepage/ProductCTA';
-import AppAppBar from '../AppBar/Layout';
+import AppBar from '../AppBar/Layout';
 
 function Index() {
   return (
     <React.Fragment>
-      <AppAppBar />
+      <AppBar />
       <ProductHero />
-      <ProductValues />
+      {/*<ProductValues />*/}
       <ProductCategories />
       <ProductHowItWorks />
       <ProductCTA />
-      <ProductSmokingHero />
       <AppFooter />
     </React.Fragment>
   );

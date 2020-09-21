@@ -6,7 +6,7 @@ import Typography from '../Typography/Typography';
 import ProductHeroLayout from '../Homepage/ProductHeroLayout';
 
 const backgroundImage =
-  'https://images.unsplash.com/photo-1534854638093-bada1813ca19?auto=format&fit=crop&w=1400&q=80';
+  "https://comp30002.blob.core.windows.net/image/career.jpg";
 
 const styles = (theme) => ({
   background: {
@@ -37,10 +37,10 @@ function ProductHero(props) {
       {/* Increase the network loading priority of the background image. */}
       <img style={{ display: 'none' }} src={backgroundImage} alt="increase priority" />
       <Typography color="inherit" align="center" variant="h2" marked="center">
-        Upgrade your Sundays
+        Search E-Portfolio
       </Typography>
       <Typography color="inherit" align="center" variant="h5" className={classes.h5}>
-        Enjoy secret offers up to -70% off the best luxury hotels every Sunday.
+        假装有个search bar
       </Typography>
       <Button
         color="secondary"
@@ -50,11 +50,8 @@ function ProductHero(props) {
         component="a"
         //href="/premium-themes/onepirate/sign-up/"
       >
-        Register
+        Search
       </Button>
-      <Typography variant="body2" color="inherit" className={classes.more}>
-        Discover the experience
-      </Typography>
     </ProductHeroLayout>
   );
 }

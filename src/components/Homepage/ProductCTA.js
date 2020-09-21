@@ -11,7 +11,7 @@ import Button from '../Button/Button';
 const styles = (theme) => ({
   root: {
     marginTop: theme.spacing(10),
-    marginBottom: 0,
+    marginBottom: theme.spacing(10),
     display: 'flex',
   },
   cardWrapper: {
@@ -77,10 +77,10 @@ function ProductCTA(props) {
           <div className={classes.card}>
             <form onSubmit={handleSubmit} className={classes.cardContent}>
               <Typography variant="h2" component="h2" gutterBottom>
-                Receive offers
+                Subscribe Us
               </Typography>
               <Typography variant="h5">
-                Taste the holidays of the everyday close to home.
+                Receive Weekly Most Popular E-Portfolios
               </Typography>
               <TextField noBorder className={classes.textField} placeholder="Your email" />
               <Button type="submit" color="primary" variant="contained" className={classes.button}>

@@ -66,59 +66,45 @@ function ProductHowItWorks(props) {
           How it works
         </Typography>
         <div>
-          <Grid container spacing={5}>
+          <Grid container spacing={3}>
             <Grid item xs={12} md={4}>
               <div className={classes.item}>
-                <div className={classes.number}>1.</div>
                 <img
-                  //src="/static/themes/onepirate/productHowItWorks1.svg"
+                  src="https://comp30002.blob.core.windows.net/image/view.png"
                   alt="suitcase"
                   className={classes.image}
                 />
                 <Typography variant="h5" align="center">
-                  Appointment every Wednesday 9am.
+                  View popular e-portfolios.
                 </Typography>
               </div>
             </Grid>
             <Grid item xs={12} md={4}>
               <div className={classes.item}>
-                <div className={classes.number}>2.</div>
                 <img
-                  //src="/static/themes/onepirate/productHowItWorks2.svg"
+                  src="https://comp30002.blob.core.windows.net/image/w.png"
                   alt="graph"
                   className={classes.image}
                 />
                 <Typography variant="h5" align="center">
-                  First come, first served. Our offers are in limited quantities, so be quick.
+                  Create your own e-portfolio. Show yourself to the world.
                 </Typography>
               </div>
             </Grid>
             <Grid item xs={12} md={4}>
               <div className={classes.item}>
-                <div className={classes.number}>3.</div>
                 <img
-                  //src="/static/themes/onepirate/productHowItWorks3.svg"
+                  src="https://comp30002.blob.core.windows.net/image/like.png"
                   alt="clock"
                   className={classes.image}
                 />
                 <Typography variant="h5" align="center">
-                  {'New offers every week. New experiences, new surprises. '}
-                  {'Your Sundays will no longer be alike.'}
+                  Like and comment your favourite e-portfolios. Click and share with your friends.
                 </Typography>
               </div>
             </Grid>
           </Grid>
         </div>
-        <Button
-          color="secondary"
-          size="large"
-          variant="contained"
-          className={classes.button}
-          component="a"
-          //href="/premium-themes/onepirate/sign-up/"
-        >
-          Something
-        </Button>
       </Container>
     </section>
   );

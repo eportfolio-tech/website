@@ -12,6 +12,7 @@ import theme from '../theme/fortyTwo';
 import {useDispatch} from 'react-redux';
 import {userActions} from '../store/actions/userActions';
 
+
 import {
     Explore,
     ForgetPassword,
@@ -20,10 +21,11 @@ import {
     Verify,
     Editor,
     Setting,
-    HomePage
+    HomePage,
+    ProfilePage,
 } from '.';
 
-import JwtDecode from "jwt-decode";
+import JwtDecode from 'jwt-decode';
 
 interface IProtectedRoute {
     Component?: any;
@@ -124,8 +126,13 @@ function App() {
                         <Switch>
                             <Route
                                 exact
-                                path={'/home'}
+                                path={'/homepage'}
                                 component={HomePage}
+                            />
+                            <Route
+                                exact
+                                path={'/profile'}
+                                component={ProfilePage}
                             />
                             <Route
                                 exact
