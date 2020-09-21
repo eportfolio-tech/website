@@ -7,13 +7,14 @@ import {
     MenuItem,
     Button,
     InputAdornment,
+    useTheme,
 } from '@material-ui/core';
 import {Search as SearchIcon} from '@material-ui/icons';
 
 import {useDispatch} from 'react-redux';
 import {userService} from '../../utils/userService';
 import {alertActions} from '../../store/actions/alertActions';
-import TextField from '../TextField';
+import {TextField} from '@material-ui/core';
 
 import {Chips} from './Chips';
 
@@ -59,8 +60,8 @@ interface ISearchBar {
     option: string | null;
     setOption: any;
     options: string[];
-    setCards: any;
-    setLoading: any;
+    setCards?: any;
+    setLoading?: any;
 }
 
 function sleep(delay = 0) {
@@ -78,7 +79,7 @@ export default ({
 }: ISearchBar) => {
     const classes = useStyles();
     const dispatch = useDispatch();
-
+    const theme = useTheme();
     const [chips, setChips] = useState<string[]>([]);
     const [name, setName] = useState('');
 
@@ -120,6 +121,9 @@ export default ({
                                 ),
                             }}
                             color="secondary"
+                            style={{
+                                background: theme.palette.background.default,
+                            }}
                             value={name}
                             onChange={(
                                 event: React.ChangeEvent<HTMLInputElement>
@@ -133,12 +137,14 @@ export default ({
                     <TextField
                         id="select-search-by"
                         select
-                        label="Search By"
                         value={option}
                         onChange={(
                             event: React.ChangeEvent<HTMLInputElement>
                         ) => {
                             setOption(event.target.value);
+                        }}
+                        style={{
+                            background: theme.palette.background.default,
                         }}
                         fullWidth
                         variant="outlined"
