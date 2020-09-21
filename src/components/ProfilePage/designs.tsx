@@ -1,6 +1,6 @@
-import { container, title } from "../ProfilePage/kit";
+import { container, title } from "./kit";
 
-import imagesStyle from "../ProfilePage/imagesStyles";
+import imagesStyle from "./imagesStyles";
 
 const profilePageStyle = {
   container,

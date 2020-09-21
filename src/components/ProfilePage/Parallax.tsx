@@ -1,5 +1,6 @@
 import React from "react";
 // nodejs library that concatenates classes
+// @ts-ignore
 import classNames from "classnames";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
@@ -7,11 +8,12 @@ import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 
 // core components
-import styles from "../ProfilePage/parallaxStyle";
+import styles from "./parallaxStyle";
 
+// @ts-ignore
 const useStyles = makeStyles(styles);
 
-export default function Parallax(props) {
+export default function Parallax(props: { filter: any; className: any; children: any; style: any; image: any; small: any; }) {
   let windowScrollTop;
   if (window.innerWidth >= 768) {
     windowScrollTop = window.pageYOffset / 3;
@@ -32,7 +34,7 @@ export default function Parallax(props) {
     };
   });
   const resetTransform = () => {
-    var windowScrollTop = window.pageYOffset / 3;
+    const windowScrollTop = window.pageYOffset / 3;
     setTransform("translate3d(0," + windowScrollTop + "px,0)");
   };
   const { filter, className, children, style, image, small } = props;
