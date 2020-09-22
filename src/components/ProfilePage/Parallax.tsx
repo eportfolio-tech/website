@@ -58,7 +58,7 @@ export default function Parallax(props: {
     windowScrollTop = 0;
   }
   const [transform, setTransform] = React.useState(
-    "translate3d(0," + windowScrollTop + "px,0)"
+      "translate3d(0," + windowScrollTop + "px,0)"
   );
   React.useEffect(() => {
     if (window.innerWidth >= 768) {
@@ -83,16 +83,16 @@ export default function Parallax(props: {
     [className]: className !== undefined
   });
   return (
-    <div
-      className={parallaxClasses}
-      style={{
-        ...style,
-        backgroundImage: "url(" + image + ")",
-        transform: transform
-      }}
-    >
-      {children}
-    </div>
+      <div
+          className={parallaxClasses}
+          style={{
+            ...style,
+            backgroundImage: "url(" + image + ")",
+            transform: transform
+          }}
+      >
+        {children}
+      </div>
   );
 }
 
