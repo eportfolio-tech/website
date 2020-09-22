@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) =>
             fontWeight: 550,
             fontFamily: 'Arial',
             color: 'white',
-            borderRadius: 4,
+            borderRadius: 10,
         },
     })
 );
@@ -91,13 +91,14 @@ export default ({
             const results = await userService.search(name, 0, 100);
 
             await sleep(500);
-
+            console.log(results);
             setCards(results.content);
             setLoading(false);
         } catch (error) {
             dispatch(
                 alertActions.error(Object.values(error.response.data.data))
             );
+
             setLoading(false);
         }
     };
@@ -123,7 +124,7 @@ export default ({
                             color="secondary"
                             style={{
                                 background: theme.palette.background.default,
-                                borderRadius: 4,
+                                borderRadius: 10,
                             }}
                             value={name}
                             onChange={(
@@ -146,7 +147,7 @@ export default ({
                         }}
                         style={{
                             background: theme.palette.background.default,
-                            borderRadius: 4,
+                            borderRadius: 10,
                         }}
                         fullWidth
                         variant="outlined"

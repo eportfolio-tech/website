@@ -149,6 +149,21 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
         setOpen(false);
     };
 
+    const getAnchorOrigin = (type: any): any => {
+        switch (type) {
+            case 'success':
+                return {
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                };
+
+            default:
+                return {
+                    vertical: 'top',
+                    horizontal: 'center',
+                };
+        }
+    };
     // using alert bar.
     useEffect(() => {
         // customized closed button in snackbar
@@ -167,10 +182,7 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
         if (alert.type) {
             enqueueSnackbar(alert.message, {
                 variant: alert.type,
-                anchorOrigin: {
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                },
+                anchorOrigin: getAnchorOrigin(alert.type),
                 action,
             });
             dispatch(alertActions.clear());

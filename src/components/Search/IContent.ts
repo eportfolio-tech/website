@@ -3,10 +3,12 @@ export default interface IContent {
     title: string;
     username: string;
     userId: number;
-    content: string;
+    content: any;
     description: string;
     visibility?: 'PUBLIC' | 'PRIVATE';
     deleted?: boolean;
-    createdAt?: string;
+    createdDate?: Date;
+    updatedDate?: Date;
+
     updatedOn?: string;
 }

@@ -4,9 +4,8 @@ import classNames from 'classnames';
 // @material-ui/core components
 import {makeStyles, createStyles} from '@material-ui/core/styles';
 // @material-ui/icons
-// core components
-import AppBar from '../Navigation/AppBar/AppBarLogout';
-import Footer from '../Footer/AppFooter';
+// core component
+
 import Parallax from './Parallax';
 import Button from '../Button/Button';
 import {ButtonGroup} from '@material-ui/core';
@@ -73,7 +72,6 @@ export default function ProfilePage(props: {[x: string]: any}) {
 
     return (
         <div>
-            <AppBar />
             <Parallax
                 small
                 filter
@@ -110,7 +108,6 @@ export default function ProfilePage(props: {[x: string]: any}) {
                     <Button>Share</Button>
                 </ButtonGroup>
             </div>
-            <Footer />
         </div>
     );
 }

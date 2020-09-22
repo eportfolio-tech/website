@@ -2,22 +2,18 @@ import React from 'react';
 import {useHistory, useLocation} from 'react-router-dom';
 import {
     Card,
-    CardActions,
     CardContent,
     CardMedia,
     Typography,
-    IconButton,
-    Grid,
+    CardActionArea,
+    Hidden,
 } from '@material-ui/core';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
-import FlipToFrontIcon from '@material-ui/icons/FlipToFront';
-import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
-import StarsIcon from '@material-ui/icons/Stars';
 
 import IContent from './IContent';
 
-import {useSelector} from 'react-redux';
-import {IRootState} from '../../index';
+//import {useSelector} from 'react-redux';
+//import {IRootState} from '../../index';
 
 import logoImage from '../../assets/logo.svg';
 
@@ -27,15 +23,13 @@ const useStyles = makeStyles((theme: Theme) =>
             marginRight: theme.spacing(2),
         },
         card: {
-            height: '100%',
             display: 'flex',
-            flexDirection: 'column',
+        },
+        cardDetails: {
+            flex: 1,
         },
         cardMedia: {
-            paddingTop: '141.428%', // A4 size
-        },
-        cardContent: {
-            flexGrow: 1,
+            width: 160,
         },
     })
 );
@@ -49,22 +43,60 @@ export default ({content, setFlipped}: IResultCard) => {
     const classes = useStyles();
     const history = useHistory();
     const location = useLocation();
-    const loggedIn = useSelector<IRootState, boolean | undefined>(
-        (state) => state.auth.loggedIn
-    );
 
     return (
-        <Card className={classes.card}>
-            <CardMedia
-                className={classes.cardMedia}
-                image={logoImage}
-                title="Image title"
-            />
+        <CardActionArea
+            component="a"
+            href="#"
+            onClick={() => {
+                setFlipped(true);
+                // console.log(location.pathname);
+                if (location.pathname === '/') {
+                    history.push('/search/more');
+                } else {
+                    history.push(location.pathname + '/more');
+                }
+            }}
+        >
+            <Card className={classes.card}>
+                <div className={classes.cardDetails}>
+                    <CardContent>
+                        <Typography component="h2" variant="h5">
+                            {content.title}
+                        </Typography>
+                        <Typography variant="subtitle1" color="textSecondary">
+                            {content.username}
+                        </Typography>
+
+                        <Typography variant="subtitle1" paragraph>
+                            {content.description}
+                        </Typography>
+                        <Typography
+                            variant="subtitle1"
+                            style={{color: '#16a2e0'}}
+                        >
+                            Continue reading...
+                        </Typography>
+                    </CardContent>
+                </div>
+                <Hidden xsDown>
+                    <CardMedia
+                        className={classes.cardMedia}
+                        image={logoImage}
+                        title={'?'}
+                    />
+                </Hidden>
+            </Card>
+        </CardActionArea>
+    );
+};
+
+/*         <Card className={classes.card}>
             <CardContent className={classes.cardContent}>
                 <Typography gutterBottom variant="h5" component="h2">
                     {content.username}
                 </Typography>
-                <Typography>{content.content}</Typography>
+                <Typography>{content.description}</Typography>
             </CardContent>
             <CardActions>
                 <Grid container justify="center" spacing={1}>
@@ -110,6 +142,4 @@ export default ({content, setFlipped}: IResultCard) => {
                     </Grid>
                 </Grid>
             </CardActions>
-        </Card>
-    );
-};
+        </Card> */

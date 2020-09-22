@@ -8,6 +8,7 @@ import Results from '../../components/Search/Results';
 import SearchBar from '../../components/Search/SearchBar';
 import IContent from '../../components/Search/IContent';
 import Layout from '../../components/Navigation';
+import Profile from '../../components/ProfilePage/ProfilePage';
 
 const options = ['Names', 'Tags'];
 
@@ -21,8 +22,9 @@ export default () => {
     const [cards, setCards] = useState<undefined | IContent[]>();
 
     const [flipped, setFlipped] = useState(
-        location.pathname === '/explore/more'
+        location.pathname === '/search/more'
     );
+
     const {transform, opacity}: any = useSpring({
         opacity: flipped ? 1 : 0,
         transform: `perspective(600px) rotateX(${flipped ? 180 : 0}deg)`,
@@ -50,10 +52,10 @@ export default () => {
                         style={moreStyle}
                         onClick={() => {
                             setFlipped(false);
-                            history.push('/explore');
+                            history.push('/search');
                         }}
                     >
-                        <h1>Click Anywhere to go back</h1>
+                        <Profile />
                     </a.div>
                 ) : (
                     <a.div style={searchStyle}>

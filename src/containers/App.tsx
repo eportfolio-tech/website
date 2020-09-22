@@ -13,7 +13,7 @@ import {useDispatch} from 'react-redux';
 import {userActions} from '../store/actions/userActions';
 
 import {
-    Explore,
+    Search,
     ForgetPassword,
     Recovery,
     Verify,
@@ -122,6 +122,7 @@ function App() {
                 <ThemeProvider theme={theme}>
                     <SnackbarProvider maxSnack={5}>
                         <Switch>
+                            <Route path={'/search'} component={Search} />
                             <Route
                                 exact
                                 path={'/profile'}
@@ -151,10 +152,6 @@ function App() {
                                 exact
                                 path={'/settings'}
                                 Component={Settings}
-                            />
-                            <LoggedInRoute
-                                path={'/explore'}
-                                Component={Explore}
                             />
                             <LoggedOutRoute path={'/'} Component={HomePage} />
                         </Switch>

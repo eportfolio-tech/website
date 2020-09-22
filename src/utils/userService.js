@@ -42,7 +42,11 @@ async function deleteUserTags(username, deletedTags) {
 }
 
 async function search(query, page, size) {
-    const response = await axios.get('/portfolio/search', {
+    if (localStorage.getItem('token')) {
+        axios.defaults.headers.common['Authorization'] =
+            'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
+    }
+    const response = await axios.get('/portfolios/search', {
         params: {
             query: query,
             page: page,

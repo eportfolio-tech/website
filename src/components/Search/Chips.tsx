@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         root: {
             background: theme.palette.background.default,
-            borderRadius: 4,
+            borderRadius: 10,
         },
     })
 );

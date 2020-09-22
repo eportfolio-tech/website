@@ -61,7 +61,7 @@ export default ({setFlipped, loading, cards}: IResults) => {
                                   in={cards !== undefined}
                                   timeout={index * 200}
                               >
-                                  <Grid item key={index} xs={12} sm={6} md={4}>
+                                  <Grid item key={index} xs={12} sm={6}>
                                       <Card
                                           content={card}
                                           setFlipped={setFlipped}

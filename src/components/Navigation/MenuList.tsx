@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
             marginLeft: theme.spacing(1),
         },
         item: {
-            borderRadius: 50,
+            borderRadius: 10,
         },
     })
 );
@@ -62,14 +62,14 @@ export default withWidth()(({handleRouting}: IMenuListProps) => {
 
                 <ListItem
                     button
-                    onClick={() => handleRouting('explore')}
-                    selected={path === '/explore'}
+                    onClick={() => handleRouting('search')}
+                    selected={path === '/search'}
                     className={classes.item}
                 >
                     <ListItemIcon className={classes.icon}>
                         <SearchIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Explore" />
+                    <ListItemText primary="Search" />
                 </ListItem>
             </List>
 

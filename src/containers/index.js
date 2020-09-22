@@ -1,6 +1,6 @@
 // Explore all container siblings
 
-import Explore from './Explore/Explore';
+import Search from './Search';
 
 import ForgetPassword from './ForgetPassword/ForgetPassword';
 
@@ -21,7 +21,7 @@ import HomePage from '../components/Homepage';
 import ProfilePage from '../components/ProfilePage/ProfilePage';
 
 export {
-    Explore,
+    Search,
     ForgetPassword,
     Home,
     Recovery,
