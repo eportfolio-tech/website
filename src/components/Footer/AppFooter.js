@@ -8,12 +8,14 @@ import {Typography} from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-        backgroundColor: theme.palette.secondary.light,
+        background: 'linear-gradient(100deg, #91ffde 0%, #13a87c 100%)',
+        alignItems: 'center',
     },
     container: {
         marginTop: theme.spacing(8),
         marginBottom: theme.spacing(8),
         display: 'flex',
+        alignItems: 'center',
     },
     iconsWrapper: {
         height: 120,
@@ -42,10 +44,6 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: theme.spacing(0.5),
         paddingBottom: theme.spacing(0.5),
     },
-    language: {
-        marginTop: theme.spacing(1),
-        width: 150,
-    },
 }));
 
 export default function AppFooter() {
@@ -54,7 +52,7 @@ export default function AppFooter() {
     return (
         <Typography component="footer" className={classes.root}>
             <Container className={classes.container}>
-                <Grid container spacing={5}>
+                <Grid container justify="center">
                     <Grid item xs={6} sm={4} md={3}>
                         <Grid
                             container

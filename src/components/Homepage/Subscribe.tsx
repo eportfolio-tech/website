@@ -82,10 +82,11 @@ function ProductCTA() {
                                 gutterBottom
                                 marked="center"
                             >
-                                Subscribe Us
+                                Contact Us
                             </Typography>
                             <Typography variant="h5">
-                                Receive Weekly Most Popular E-Portfolios
+                                If you have any questions, please leave your
+                                email address here.
                             </Typography>
                             <TextField
                                 noBorder
@@ -98,7 +99,7 @@ function ProductCTA() {
                                 variant="contained"
                                 className={classes.button}
                             >
-                                Keep me updated
+                                Get in Touch
                             </Button>
                         </form>
                     </div>

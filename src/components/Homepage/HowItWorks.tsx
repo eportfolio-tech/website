@@ -75,25 +75,25 @@ export default function HowItWorks() {
                         <Grid item xs={12} md={4}>
                             <div className={classes.item}>
                                 <img
-                                    src="https://comp30002.blob.core.windows.net/image/view.png"
+                                    src="https://comp30002.blob.core.windows.net/image/w.png"
                                     alt="suitcase"
                                     className={classes.image}
                                 />
                                 <Typography variant="h5" align="center">
-                                    View popular e-portfolios.
+                                    Create your own e-portfolio. Show yourself
+                                    to the world.
                                 </Typography>
                             </div>
                         </Grid>
                         <Grid item xs={12} md={4}>
                             <div className={classes.item}>
                                 <img
-                                    src="https://comp30002.blob.core.windows.net/image/w.png"
+                                    src="https://comp30002.blob.core.windows.net/image/view.png"
                                     alt="graph"
                                     className={classes.image}
                                 />
                                 <Typography variant="h5" align="center">
-                                    Create your own e-portfolio. Show yourself
-                                    to the world.
+                                    View popular e-portfolios.
                                 </Typography>
                             </div>
                         </Grid>
