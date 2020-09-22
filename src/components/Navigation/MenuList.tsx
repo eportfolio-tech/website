@@ -40,6 +40,7 @@ export default withWidth()(({handleRouting}: IMenuListProps) => {
 
     const logOut = () => {
         localStorage.removeItem('user');
+        localStorage.removeItem('token');
         window.location.reload(false);
     };
     const path = location.pathname;
