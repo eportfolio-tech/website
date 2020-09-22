@@ -9,22 +9,20 @@ import {alertActions} from '../../store/actions/alertActions';
 import {pageService} from '../../utils/pageService';
 
 import MyHTML from './MyHtml';
+import AlertDialog from './AlertDialog';
 
 export default () => {
     const dispatch = useDispatch();
 
-    const [portfolio, setPortfolio] = useState(null);
+    const [portfolio, setPortfolio] = useState();
     const [editorState, setEditorState] = useState(
         BraftEditor.createEditorState(null)
     );
-    const [html, setHtml] = useState(null);
 
+    const [html, setHtml] = useState(null);
     const [showHtml, setShowHtml] = useState(false);
 
     useEffect(() => {
-        const raw = localStorage.getItem('raw');
-        setEditorState(BraftEditor.createEditorState(raw));
-
         const userInfo = JSON.parse(localStorage.getItem('user') || '');
         const username = userInfo.user.username;
 
@@ -32,25 +30,21 @@ export default () => {
         pageService
             .getPortfolio(username)
             .then((data) => {
-                (async () => {
-                    const result = await pageService.getPortfolio(username);
-                    setPortfolio(result.portfolio);
-                })();
-                console.log('portfolio: ', portfolio);
+                setPortfolio(data.portfolio);
+                setEditorState(
+                    BraftEditor.createEditorState(
+                        data.portfolio.content.jsonPayload
+                    )
+                );
             })
             .catch((error) => {
-                console.log(error.response.status);
+                console.log(error);
+                setPortfolio(null);
             });
     }, []);
 
     const handleChange = (editorState) => {
         setEditorState(editorState);
-    };
-
-    const onSaveHandler = () => {
-        const rawJSON = editorState.toRAW(true);
-        localStorage.setItem('raw', JSON.stringify(rawJSON));
-        dispatch(alertActions.success('Save succeed'));
     };
 
     const onSaveHandlerRemote = async () => {
@@ -73,42 +67,45 @@ export default () => {
 
     return (
         <div>
-            <BraftEditor
-                value={editorState}
-                onChange={handleChange}
-                language="en"
-            />
-            <Button
-                variant="contained"
-                color="secondary"
-                onClick={onSaveHandler}
-            >
-                Save to local
-            </Button>
-            <br />
-            <br />
-            <Button
-                variant="contained"
-                color="secondary"
-                onClick={onSaveHandlerRemote}
-            >
-                Save to remote
-            </Button>
-            <br />
-            <br />
-            <Button variant="contained" color="secondary" onClick={renderHTML}>
-                show preview
-            </Button>
-            <br />
-            <br />
-            {showHtml ? (
+            {portfolio === null ? (
                 <div>
-                    <div>
-                        <h3>Your portfolio preview</h3>
-                    </div>
-                    <MyHTML html={html} />
+                    <AlertDialog />
                 </div>
-            ) : null}
+            ) : (
+                <div>
+                    <BraftEditor
+                        value={editorState}
+                        onChange={handleChange}
+                        language="en"
+                    />
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={onSaveHandlerRemote}
+                    >
+                        Save to remote
+                    </Button>
+                    <br />
+                    <br />
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={renderHTML}
+                    >
+                        show preview
+                    </Button>
+                    <br />
+                    <br />
+                    {showHtml ? (
+                        <div>
+                            <div>
+                                <h3>Your portfolio preview</h3>
+                            </div>
+                            <MyHTML html={html} />
+                        </div>
+                    ) : null}
+                </div>
+            )}
         </div>
     );
 };
