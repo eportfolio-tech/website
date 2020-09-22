@@ -8,9 +8,11 @@ import {
     CardHeader,
     Typography,
     Fab,
+    Grid,
 } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
+import AddIcon from '@material-ui/icons/Edit';
 import FaceIcon from '@material-ui/icons/Face';
+import PublishIcon from '@material-ui/icons/Publish';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {IRootState} from '../../index';
@@ -22,18 +24,21 @@ import {authService} from '../../utils/authService';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        root: {
-            display: 'flex',
-            '& > *': {
-                margin: theme.spacing(1),
-            },
-        },
         large: {
-            width: theme.spacing(10),
-            height: theme.spacing(10),
+            width: theme.spacing(20),
+            height: theme.spacing(20),
+            margin: 'auto',
         },
-        cardTitle: {
+
+        saveButton: {
             marginTop: theme.spacing(3),
+            height: '100%',
+            marginRight: theme.spacing(2),
+            textTransform: 'none',
+        },
+        cardTitleIcon: {
+            marginTop: theme.spacing(3),
+            color: '#f59002',
         },
     })
 );
@@ -93,58 +98,63 @@ export default function UpdateAvatar() {
     };
 
     return (
-        <div className={classes.root}>
-            <Card style={{height: '100%'}}>
-                <CardHeader
-                    avatar={<FaceIcon />}
-                    title={
-                        <Typography variant="h6" className={classes.cardTitle}>
-                            Change your profile image
-                        </Typography>
-                    }
-                />
-                <CardContent>
-                    <div>
+        <Card style={{width: '100%', height: '100%'}}>
+            <CardHeader
+                avatar={<FaceIcon />}
+                title={
+                    <Typography variant="h6">
+                        Change your profile image
+                    </Typography>
+                }
+                action={
+                    <Button
+                        className={classes.saveButton}
+                        color="secondary"
+                        variant="contained"
+                        component="span"
+                        onClick={onSaveHandler}
+                    >
+                        <PublishIcon />
+                        Update
+                    </Button>
+                }
+            />
+            <CardContent>
+                <Grid container spacing={3}>
+                    <Grid item xs={12}>
                         <Avatar
                             alt={user.username.toUpperCase()}
                             src={avatarUrl}
                             className={classes.large}
-                        />
-                    </div>
-                    <br />
-                    <div>
-                        <label htmlFor="upload-photo">
-                            <input
-                                style={{display: 'none'}}
-                                id="upload-photo"
-                                name="upload-photo"
-                                type="file"
-                                accept=".png,.jpg"
-                                onChange={onFileChange}
-                            />
-                            <Fab
-                                color="primary"
-                                size="small"
-                                component="span"
-                                aria-label="add"
+                        ></Avatar>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Grid container alignItems="center">
+                            <label
+                                htmlFor="upload-photo"
+                                style={{margin: 'auto'}}
                             >
-                                <AddIcon />
-                            </Fab>
-                        </label>
-                    </div>
-                    <br />
-                    <div>
-                        <Button
-                            color="secondary"
-                            variant="contained"
-                            component="span"
-                            onClick={onSaveHandler}
-                        >
-                            Save
-                        </Button>
-                    </div>
-                </CardContent>
-            </Card>
-        </div>
+                                <input
+                                    style={{display: 'none'}}
+                                    id="upload-photo"
+                                    name="upload-photo"
+                                    type="file"
+                                    accept=".png,.jpg"
+                                    onChange={onFileChange}
+                                />
+                                <Fab
+                                    size="large"
+                                    component="span"
+                                    aria-label="add"
+                                >
+                                    <AddIcon />
+                                </Fab>
+                            </label>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </CardContent>
+        </Card>
     );
 }

@@ -12,7 +12,7 @@ import Verify from './Verify/Verify';
 
 import Editor from './Editor/Editor';
 
-import Setting from './SettingsPage/SettingsPage';
+import Setting from './SettingsPage';
 
 import SearchPage from '../components/Search/SearchPage';
 

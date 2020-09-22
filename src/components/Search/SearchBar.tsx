@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) =>
             fontWeight: 550,
             fontFamily: 'Arial',
             color: 'white',
-            borderRadius: 10,
+            borderRadius: 4,
         },
     })
 );
@@ -123,6 +123,7 @@ export default ({
                             color="secondary"
                             style={{
                                 background: theme.palette.background.default,
+                                borderRadius: 4,
                             }}
                             value={name}
                             onChange={(
@@ -145,6 +146,7 @@ export default ({
                         }}
                         style={{
                             background: theme.palette.background.default,
+                            borderRadius: 4,
                         }}
                         fullWidth
                         variant="outlined"
