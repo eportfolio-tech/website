@@ -32,7 +32,7 @@ const useStyles: any = makeStyles((theme: Theme) =>
     })
 );
 
-const options = ['Name', 'Tag'];
+const options = ['Name', 'Tags'];
 
 function ProductHero() {
     const classes = useStyles();
@@ -56,6 +56,7 @@ function ProductHero() {
             </Typography>
             <br />
             <br />
+
             <SearchBar
                 setOption={setOption}
                 option={option}

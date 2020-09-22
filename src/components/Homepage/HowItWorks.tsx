@@ -51,7 +51,7 @@ const useStyles: any = makeStyles((theme: Theme) =>
     })
 );
 
-function ProductHowItWorks() {
+export default function HowItWorks() {
     const classes = useStyles();
 
     return (
@@ -63,12 +63,12 @@ function ProductHowItWorks() {
                     alt="curvy lines"
                 />
                 <Typography
-                    variant="h3"
+                    variant="h4"
                     marked="center"
                     className={classes.title}
                     component="h2"
                 >
-                    How it works
+                    HOW IT WORKS
                 </Typography>
                 <div>
                     <Grid container spacing={3}>
@@ -117,5 +117,3 @@ function ProductHowItWorks() {
         </section>
     );
 }
-
-export default ProductHowItWorks;
