@@ -1,10 +1,16 @@
 import React, {useEffect, useState} from 'react';
 
-import {Typography, TextField, Chip, CircularProgress} from '@material-ui/core';
+import {
+    Typography,
+    TextField,
+    Chip,
+    CircularProgress,
+    Theme,
+} from '@material-ui/core';
 import {createStyles, makeStyles} from '@material-ui/core/styles';
 import {Autocomplete} from '@material-ui/lab';
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         chip: {
             fontWeight: 'bold',
@@ -14,6 +20,9 @@ const useStyles = makeStyles(() =>
         icon: {
             width: '1.2em',
             height: '1.2em',
+        },
+        root: {
+            background: theme.palette.background.default,
         },
     })
 );
@@ -95,6 +104,7 @@ export function Chips({setChips}: IChips) {
 
     return (
         <Autocomplete
+            className={classes.root}
             multiple
             id="size-small-filled-multi"
             size="small"

@@ -1,25 +1,70 @@
 import React from 'react';
 // nodejs library that concatenates classes
-
 import classNames from 'classnames';
 // @material-ui/core components
-import {makeStyles} from '@material-ui/core/styles';
+import {makeStyles, createStyles} from '@material-ui/core/styles';
 // @material-ui/icons
 // core components
 import AppBar from '../AppBar/AppBarLogout';
 import Footer from '../Footer/AppFooter';
 import Parallax from './Parallax';
 import Button from '../Button/Button';
-
-import styles from './designs';
-import {ButtonGroup, IconButton} from '@material-ui/core';
+import {ButtonGroup} from '@material-ui/core';
 
 // @ts-ignore
-const useStyles = makeStyles(styles);
+const useStyles: any = makeStyles((theme: Theme) =>
+    createStyles({
+        profile: {
+            textAlign: 'center',
+            '& img': {
+                maxWidth: '160px',
+                width: '100%',
+                margin: '0 auto',
+                transform: 'translate3d(0, -50%, 0)',
+            },
+        },
+        description: {
+            margin: '1.071rem auto 0',
+            maxWidth: '600px',
+            color: '#999',
+            textAlign: 'center',
+        },
+        name: {
+            marginTop: '-80px',
+        },
+        imgFluid: {
+            maxWidth: '100%',
+            height: 'auto',
+        },
+        imgRoundedCircle: {
+            borderRadius: '50% !important',
+        },
+        imgRaised: {
+            boxShadow:
+                '0 5px 15px -8px rgba(0, 0, 0, 0.24), 0 8px 10px -5px rgba(0, 0, 0, 0.2)',
+        },
+        title: {
+            color: '#3C4858',
+            margin: '1.75rem 0 0.875rem',
+            textDecoration: 'none',
+            fontWeight: 700,
+            fontFamily: `"Roboto Slab", "Times New Roman", serif`,
+            display: 'inline-block',
+            position: 'relative',
+            marginTop: '30px',
+            minHeight: '32px',
+        },
+        social: {
+            align: 'centre',
+            margin: 'auto',
+            textAlign: 'center',
+            marginBottom: '500px',
+        },
+    })
+);
 
 export default function ProfilePage(props: {[x: string]: any}) {
     const classes = useStyles();
-    const {...rest} = props;
     const imageClasses = classNames(
         classes.imgRaised,
         classes.imgRoundedCircle,
