@@ -15,7 +15,6 @@ import {userActions} from '../store/actions/userActions';
 import {
     Explore,
     ForgetPassword,
-    Home,
     Recovery,
     Verify,
     Editor,

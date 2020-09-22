@@ -8,7 +8,6 @@ import {
     ListItem,
     ListItemIcon,
     ListItemText,
-    Grow,
 } from '@material-ui/core';
 
 import EditIcon from '@material-ui/icons/Edit';
@@ -36,7 +35,7 @@ interface IMenuListProps {
  */
 export default withWidth()(({handleRouting}: IMenuListProps) => {
     const classes = useStyles();
-    const loadingRoute = false;
+    //const loadingRoute = false;
     const location = useLocation();
 
     const logOut = () => {
