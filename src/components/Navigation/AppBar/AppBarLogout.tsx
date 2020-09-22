@@ -11,8 +11,11 @@ import {
 } from '@material-ui/core';
 import {makeStyles, Theme} from '@material-ui/core/styles';
 
-import {SignInDialog as SignIn, SignUpDialog as SignUp} from '../AuthDialogs';
-import logoImage from '../../assets/logo.svg';
+import {
+    SignInDialog as SignIn,
+    SignUpDialog as SignUp,
+} from '../../AuthDialogs';
+import logoImage from '../../../assets/logo.svg';
 
 const useStyles = makeStyles((theme: Theme) => ({
     logo: {

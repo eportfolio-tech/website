@@ -123,16 +123,14 @@ export default () => {
     const onSubmitHandler = async () => {
         try {
             const userInfo = JSON.parse(localStorage.getItem('user') || '');
-            const username = userInfo.username;
-
-            // console.log('delete: ', deleteTags);
+            const username = userInfo.user.username;
 
             await userService.deleteUserTags(username, deleteTags);
             await userService.updateUserTags(username, userTags);
 
             dispatch(alertActions.success('update tags succeed'));
         } catch (error) {
-            console.log(error.response);
+            // console.log(error.response);
             dispatch(alertActions.error('update tags failed'));
         }
     };

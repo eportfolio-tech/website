@@ -7,7 +7,7 @@ import {useTheme} from '@material-ui/core';
 import Results from '../../components/Search/Results';
 import SearchBar from '../../components/Search/SearchBar';
 import IContent from '../../components/Search/IContent';
-import Layout from '../../components/AppBar/Layout';
+import Layout from '../../components/Navigation';
 
 const options = ['Names', 'Tags'];
 

@@ -6,6 +6,7 @@ export const userService = {
     updateUserTags,
     deleteUserTags,
     search,
+    uploadFile,
 };
 
 async function getAllTags() {
@@ -46,6 +47,20 @@ async function search(query, page, size) {
             query: query,
             page: page,
             size: size,
+        },
+    });
+    return response.data.data;
+}
+
+async function uploadFile(username, file) {
+    const formData = new FormData();
+    formData.append('multipartFile', file);
+    formData.append('username', username);
+    axios.defaults.headers.common['Authorization'] =
+        'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
+    const response = await axios.post('/blobs/' + username, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
         },
     });
     return response.data.data;

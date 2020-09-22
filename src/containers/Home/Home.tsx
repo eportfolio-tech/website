@@ -5,7 +5,7 @@ import {useSpring, animated as a} from 'react-spring';
 import {useTheme} from '@material-ui/core/styles';
 
 import Intro from './IntroAnimation.jsx';
-import Layout from '../../components/AppBar/Layout';
+import Layout from '../../components/Navigation';
 import SearchPage from '../../components/Search/SearchPage';
 
 export default () => {

@@ -31,10 +31,10 @@ import {IRootState} from '../../index';
 import {useSnackbar} from 'notistack';
 import clsx from 'clsx';
 
-import AppBarLogin from './AppBarLogin';
-import AppBarLogout from './AppBarLogout';
-import Loading from '../Navigation/Loading';
-import MenuList from '../Navigation/MenuList';
+import AppBarLogin from './AppBar/AppBarLogin';
+import AppBarLogout from './AppBar/AppBarLogout';
+import Loading from './Loading';
+import MenuList from './MenuList';
 
 const drawerWidth = 240;
 
@@ -168,8 +168,8 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
             enqueueSnackbar(alert.message, {
                 variant: alert.type,
                 anchorOrigin: {
-                    vertical: 'top',
-                    horizontal: 'center',
+                    vertical: 'bottom',
+                    horizontal: 'right',
                 },
                 action,
             });

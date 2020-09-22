@@ -2,8 +2,8 @@ import {userConstants} from '../constants/userConstants';
 
 export interface IAuthState {
     loggedIn: boolean | undefined;
-    user?: String | null;
-    token?: String | null;
+    user?: string | null;
+    token?: string | null;
 }
 
 const initialState = JSON.parse(
@@ -40,6 +40,12 @@ export function authenticationReducer(
                 loggedIn: false,
                 user: null,
                 token: null,
+            };
+        case userConstants.UPDATE_SUCCESS:
+            return {
+                loggedIn: true,
+                user: action.payload.user,
+                token: action.payload.token,
             };
         default:
             return state;

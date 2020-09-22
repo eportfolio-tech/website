@@ -16,7 +16,7 @@ import {useDispatch} from 'react-redux';
 import {authService} from '../../utils/authService';
 import {alertActions} from '../../store/actions/alertActions';
 
-import Layout from '../../components/AppBar/Layout';
+import Layout from '../../components/Navigation';
 
 const useStyles = makeStyles((theme) => ({
     root: {

@@ -6,7 +6,7 @@ import {authService} from '../../utils/authService';
 
 import {useDispatch} from 'react-redux';
 import {alertActions} from '../../store/actions/alertActions';
-import Layout from '../../components/AppBar/Layout';
+import Layout from '../../components/Navigation';
 
 import EmailIcon from '@material-ui/icons/Drafts';
 

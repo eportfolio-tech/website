@@ -6,22 +6,24 @@ import {IRootState} from '../index';
 import DocumentTitle from 'react-document-title';
 import {SnackbarProvider} from 'notistack';
 
-import Layout from '../components/AppBar/Layout';
+import Layout from '../components/Navigation';
 import theme from '../theme/fortyTwo';
 
-import {authService} from '../utils/authService';
 import {useDispatch} from 'react-redux';
 import {userActions} from '../store/actions/userActions';
 
 import {
     Explore,
     ForgetPassword,
-    Home,
     Recovery,
     Verify,
     Editor,
     Setting,
+    HomePage,
+    ProfilePage,
 } from '.';
+
+import JwtDecode from 'jwt-decode';
 
 interface IProtectedRoute {
     Component?: any;
@@ -73,7 +75,7 @@ const LoggedOutRoute = ({Component, exact, path}: IProtectedRoute) => {
                     return (
                         <Redirect
                             to={{
-                                pathname: '/dashboard',
+                                pathname: '/settings',
                             }}
                         />
                     );
@@ -86,23 +88,21 @@ const LoggedOutRoute = ({Component, exact, path}: IProtectedRoute) => {
 function App() {
     const dispatch = useDispatch();
     // check if stored token is still valid
-    const user = useSelector<any>((state) => state.auth.user);
-    const token = useSelector<any>((state) => state.auth.token);
-    if (user !== null) {
-        authService
-            .getUser((user as any).username, token)
-            .then(() => {})
-            .catch(() => {
-                // if the stored token is expired log out
-                dispatch(userActions.logout());
-            });
-    } else {
-        // remove stroage if no user
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
+    const token = useSelector<IRootState, string | null | undefined>(
+        (state) => state.auth.token
+    );
+    if (token !== null && token !== undefined) {
+        const jwt = JwtDecode(token);
+        const current_time = Date.now() / 1000;
+        if ((jwt as any).exp < current_time) {
+            /* expired */
+            dispatch(userActions.logout());
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+        }
     }
 
-    const DashBoard = () => (
+    const EditorBoard = () => (
         <div>
             <Layout>
                 <Editor />
@@ -124,6 +124,11 @@ function App() {
                         <Switch>
                             <Route
                                 exact
+                                path={'/profile'}
+                                component={ProfilePage}
+                            />
+                            <Route
+                                exact
                                 path={'/verification/verify'}
                                 component={Verify}
                             />
@@ -139,8 +144,8 @@ function App() {
                             />
                             <LoggedInRoute
                                 exact
-                                path={'/dashBoard'}
-                                Component={DashBoard}
+                                path={'/editor'}
+                                Component={EditorBoard}
                             />
                             <LoggedInRoute
                                 exact
@@ -151,7 +156,7 @@ function App() {
                                 path={'/explore'}
                                 Component={Explore}
                             />
-                            <LoggedOutRoute path={'/'} Component={Home} />
+                            <LoggedOutRoute path={'/'} Component={HomePage} />
                         </Switch>
                     </SnackbarProvider>
                 </ThemeProvider>
