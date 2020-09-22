@@ -8,7 +8,7 @@ import 'braft-editor/dist/output.css';
 const useStyles = makeStyles({
     root: {
         width: 420,
-        height: 594,
+        minHeight: 594,
         textAlign: 'center',
     },
 });
