@@ -8,13 +8,18 @@ import {useDispatch} from 'react-redux';
 import {alertActions} from '../../store/actions/alertActions';
 import {pageService} from '../../utils/pageService';
 
+import MyHTML from './MyHtml';
+
 export default () => {
     const dispatch = useDispatch();
 
-    const [portfolio, setPortfolio] = useState();
+    const [portfolio, setPortfolio] = useState(null);
     const [editorState, setEditorState] = useState(
         BraftEditor.createEditorState(null)
     );
+    const [html, setHtml] = useState(null);
+
+    const [showHtml, setShowHtml] = useState(false);
 
     useEffect(() => {
         const raw = localStorage.getItem('raw');
@@ -38,7 +43,7 @@ export default () => {
             });
     }, []);
 
-    const handleChange = (editorState: any) => {
+    const handleChange = (editorState) => {
         setEditorState(editorState);
     };
 
@@ -58,6 +63,12 @@ export default () => {
         } catch (error) {
             dispatch(alertActions.error('Put data failed'));
         }
+    };
+
+    const renderHTML = () => {
+        const htmlString = editorState.toHTML();
+        setHtml(htmlString);
+        setShowHtml(true);
     };
 
     return (
@@ -83,6 +94,14 @@ export default () => {
             >
                 Save to remote
             </Button>
+            <br />
+            <br />
+            <Button variant="contained" color="secondary" onClick={renderHTML}>
+                Render HTML (test)
+            </Button>
+            <br />
+            <br />
+            {showHtml ? <MyHTML html={html} /> : null}
         </div>
     );
 };
