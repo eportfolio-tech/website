@@ -97,11 +97,18 @@ export default () => {
             <br />
             <br />
             <Button variant="contained" color="secondary" onClick={renderHTML}>
-                Render HTML (test)
+                show preview
             </Button>
             <br />
             <br />
-            {showHtml ? <MyHTML html={html} /> : null}
+            {showHtml ? (
+                <div>
+                    <div>
+                        <h3>Your portfolio preview</h3>
+                    </div>
+                    <MyHTML html={html} />
+                </div>
+            ) : null}
         </div>
     );
 };
