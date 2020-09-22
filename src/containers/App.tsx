@@ -6,12 +6,11 @@ import {IRootState} from '../index';
 import DocumentTitle from 'react-document-title';
 import {SnackbarProvider} from 'notistack';
 
-import Layout from '../components/AppBar/Layout';
+import Layout from '../components/Navigation';
 import theme from '../theme/fortyTwo';
 
 import {useDispatch} from 'react-redux';
 import {userActions} from '../store/actions/userActions';
-
 
 import {
     Explore,
@@ -77,7 +76,7 @@ const LoggedOutRoute = ({Component, exact, path}: IProtectedRoute) => {
                     return (
                         <Redirect
                             to={{
-                                pathname: '/dashboard',
+                                pathname: '/settings',
                             }}
                         />
                     );
@@ -104,7 +103,7 @@ function App() {
         }
     }
 
-    const DashBoard = () => (
+    const EditorBoard = () => (
         <div>
             <Layout>
                 <Editor />
@@ -124,11 +123,6 @@ function App() {
                 <ThemeProvider theme={theme}>
                     <SnackbarProvider maxSnack={5}>
                         <Switch>
-                            <Route
-                                exact
-                                path={'/homepage'}
-                                component={HomePage}
-                            />
                             <Route
                                 exact
                                 path={'/profile'}
@@ -151,8 +145,8 @@ function App() {
                             />
                             <LoggedInRoute
                                 exact
-                                path={'/dashBoard'}
-                                Component={DashBoard}
+                                path={'/editor'}
+                                Component={EditorBoard}
                             />
                             <LoggedInRoute
                                 exact
@@ -163,7 +157,7 @@ function App() {
                                 path={'/explore'}
                                 Component={Explore}
                             />
-                            <LoggedOutRoute path={'/'} Component={Home} />
+                            <LoggedOutRoute path={'/'} Component={HomePage} />
                         </Switch>
                     </SnackbarProvider>
                 </ThemeProvider>

@@ -11,7 +11,7 @@ import {
     Grow,
 } from '@material-ui/core';
 
-import DashboardIcon from '@material-ui/icons/Dashboard';
+import EditIcon from '@material-ui/icons/Edit';
 import SettingsIcon from '@material-ui/icons/Settings';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import SearchIcon from '@material-ui/icons/Search';
@@ -48,56 +48,50 @@ export default withWidth()(({handleRouting}: IMenuListProps) => {
     return (
         <div>
             <List>
-                <Grow in={!loadingRoute} timeout={500}>
-                    <ListItem
-                        button
-                        onClick={() => handleRouting('dashboard')}
-                        selected={path === '/dashboard'}
-                        className={classes.item}
-                    >
-                        <ListItemIcon className={classes.icon}>
-                            <DashboardIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Dashboard" />
-                    </ListItem>
-                </Grow>
-                <Grow in={!loadingRoute} timeout={700}>
-                    <ListItem
-                        button
-                        onClick={() => handleRouting('explore')}
-                        selected={path === '/explore'}
-                        className={classes.item}
-                    >
-                        <ListItemIcon className={classes.icon}>
-                            <SearchIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Explore" />
-                    </ListItem>
-                </Grow>
+                <ListItem
+                    button
+                    onClick={() => handleRouting('editor')}
+                    selected={path === '/editor'}
+                    className={classes.item}
+                >
+                    <ListItemIcon className={classes.icon}>
+                        <EditIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Editor" />
+                </ListItem>
+
+                <ListItem
+                    button
+                    onClick={() => handleRouting('explore')}
+                    selected={path === '/explore'}
+                    className={classes.item}
+                >
+                    <ListItemIcon className={classes.icon}>
+                        <SearchIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Explore" />
+                </ListItem>
             </List>
 
             <List>
-                <Grow in={!loadingRoute} timeout={1100}>
-                    <ListItem
-                        button
-                        onClick={() => handleRouting('settings')}
-                        selected={path === '/settings'}
-                        className={classes.item}
-                    >
-                        <ListItemIcon className={classes.icon}>
-                            <SettingsIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Settings" />
-                    </ListItem>
-                </Grow>
-                <Grow in={!loadingRoute} timeout={1300}>
-                    <ListItem button onClick={logOut} className={classes.item}>
-                        <ListItemIcon className={classes.icon}>
-                            <PowerSettingsNewIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Logout" />
-                    </ListItem>
-                </Grow>
+                <ListItem
+                    button
+                    onClick={() => handleRouting('settings')}
+                    selected={path === '/settings'}
+                    className={classes.item}
+                >
+                    <ListItemIcon className={classes.icon}>
+                        <SettingsIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Settings" />
+                </ListItem>
+
+                <ListItem button onClick={logOut} className={classes.item}>
+                    <ListItemIcon className={classes.icon}>
+                        <PowerSettingsNewIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Logout" />
+                </ListItem>
             </List>
         </div>
     );

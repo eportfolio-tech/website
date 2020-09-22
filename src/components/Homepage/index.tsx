@@ -6,12 +6,12 @@ import AppFooter from '../Footer/AppFooter';
 import Search from './Search';
 import HowItWorks from './HowItWorks';
 import Subscribe from './Subscribe';
-import Layout from '../AppBar/Layout';
+import Layout from '../Navigation';
 
 function Index() {
     return (
         <div>
-            <Layout>
+            <Layout noPadding>
                 <div>
                     <Search />
                     {/*<ProductValues />*/}

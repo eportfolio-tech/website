@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import {makeStyles, createStyles} from '@material-ui/core/styles';
 // @material-ui/icons
 // core components
-import AppBar from '../AppBar/AppBarLogout';
+import AppBar from '../Navigation/AppBar/AppBarLogout';
 import Footer from '../Footer/AppFooter';
 import Parallax from './Parallax';
 import Button from '../Button/Button';

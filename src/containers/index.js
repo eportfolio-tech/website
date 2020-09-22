@@ -16,7 +16,7 @@ import Setting from './SettingsPage/SettingsPage';
 
 import SearchPage from '../components/Search/SearchPage';
 
-import HomePage from '../components/Homepage/Home';
+import HomePage from '../components/Homepage';
 
 import ProfilePage from '../components/ProfilePage/ProfilePage';
 
@@ -30,5 +30,5 @@ export {
     Setting,
     SearchPage,
     HomePage,
-    ProfilePage
+    ProfilePage,
 };
