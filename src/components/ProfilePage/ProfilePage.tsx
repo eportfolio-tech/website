@@ -23,13 +23,10 @@ export default function ProfilePage(props: { [x: string]: any; }) {
     classes.imgRoundedCircle,
     classes.imgFluid
   );
-  const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
   return <div>
     <AppBar/>
     <Parallax small filter image="https://comp30002.blob.core.windows.net/image/viewB.jpg"/>
     <div className={classNames(classes.main, classes.mainRaised)}>
-      <div>
-        <div className={classes.container}>
               <div className={classes.profile}>
                 <div>
                   <img src="https://comp30002.blob.core.windows.net/image/profile.png" alt="..."
@@ -48,8 +45,6 @@ export default function ProfilePage(props: { [x: string]: any; }) {
               feel with a solid groove structure.{" "}
             </p>
           </div>
-        </div>
-      </div>
     </div>
     <Footer/>
   </div>;

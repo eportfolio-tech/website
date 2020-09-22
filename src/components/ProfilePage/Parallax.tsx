@@ -1,19 +1,56 @@
-import React from "react";
+import React from 'react';
 // nodejs library that concatenates classes
 // @ts-ignore
-import classNames from "classnames";
+import classNames from 'classnames';
 // nodejs library to set properties for components
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles';
 
-// core components
-import styles from "./parallaxStyle";
-
+const styles = {
+  parallax: {
+    height: "90vh",
+    maxHeight: "1000px",
+    overflow: "hidden",
+    position: "relative",
+    backgroundPosition: "center center",
+    backgroundSize: "cover",
+    margin: "0",
+    padding: "0",
+    border: "0",
+    display: "flex",
+    alignItems: "center"
+  },
+  filter: {
+    "&:before": {
+      background: "rgba(0, 0, 0, 0.5)"
+    },
+    "&:after,&:before": {
+      position: "absolute",
+      zIndex: "1",
+      width: "100%",
+      height: "100%",
+      display: "block",
+      left: "0",
+      top: "0",
+      content: "''"
+    }
+  },
+  small: {
+    height: "380px"
+  }
+};
 // @ts-ignore
 const useStyles = makeStyles(styles);
 
-export default function Parallax(props: { filter: any; className: any; children: any; style: any; image: any; small: any; }) {
+export default function Parallax(props: {
+  filter: any;
+  className: any;
+  children: any;
+  style: any;
+  image: any;
+  small: any;
+}) {
   let windowScrollTop;
   if (window.innerWidth >= 768) {
     windowScrollTop = window.pageYOffset / 3;

@@ -1,9 +1,5 @@
-import { container, title } from "./kit";
-
-import imagesStyle from "./imagesStyles";
-
+// @ts-ignore
 const profilePageStyle = {
-  container,
   profile: {
     textAlign: "center",
     "& img": {
@@ -22,7 +18,17 @@ const profilePageStyle = {
   name: {
     marginTop: "-80px"
   },
-  ...imagesStyle,
+  imgFluid: {
+    maxWidth: "100%",
+    height: "auto"
+  },
+  imgRoundedCircle: {
+    borderRadius: "50% !important"
+  },
+  imgRaised: {
+    boxShadow:
+        "0 5px 15px -8px rgba(0, 0, 0, 0.24), 0 8px 10px -5px rgba(0, 0, 0, 0.2)"
+  },
   main: {
     background: "#FFFFFF",
     position: "relative",
@@ -35,27 +41,15 @@ const profilePageStyle = {
       "0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)"
   },
   title: {
-    ...title,
+    color: "#3C4858",
+    margin: "1.75rem 0 0.875rem",
+    textDecoration: "none",
+    fontWeight: "700",
+    fontFamily: `"Roboto Slab", "Times New Roman", serif`,
     display: "inline-block",
     position: "relative",
     marginTop: "30px",
     minHeight: "32px",
-    textDecoration: "none"
-  },
-  socials: {
-    marginTop: "0",
-    width: "100%",
-    transform: "none",
-    left: "0",
-    top: "0",
-    height: "100%",
-    lineHeight: "41px",
-    fontSize: "20px",
-    color: "#999"
-  },
-  navWrapper: {
-    margin: "20px auto 50px auto",
-    textAlign: "center"
   }
 };
 
