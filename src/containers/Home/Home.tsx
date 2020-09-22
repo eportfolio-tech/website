@@ -6,7 +6,6 @@ import {useTheme} from '@material-ui/core/styles';
 
 import Intro from './IntroAnimation.jsx';
 import Layout from '../../components/Navigation';
-import SearchPage from '../../components/Search/SearchPage';
 
 export default () => {
     const theme = useTheme();
@@ -36,9 +35,7 @@ export default () => {
                             minHeight: '100%',
                             minWidth: '100%',
                         }}
-                    >
-                        <SearchPage />
-                    </a.div>
+                    ></a.div>
                 ) : (
                     <a.div>
                         <Intro

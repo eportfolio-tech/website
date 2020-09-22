@@ -14,8 +14,6 @@ import Editor from './Editor/Editor';
 
 import Setting from './SettingsPage';
 
-import SearchPage from '../components/Search/SearchPage';
-
 import HomePage from '../components/Homepage';
 
 import ProfilePage from '../components/ProfilePage/ProfilePage';
@@ -28,7 +26,6 @@ export {
     Verify,
     Editor,
     Setting,
-    SearchPage,
     HomePage,
     ProfilePage,
 };

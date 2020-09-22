@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Set config defaults when creating the instance
-const dev = false;
+const dev = true;
 const testEnvironment = 'https://haswell.eportfolio.tech/';
 const devEnvironment = 'https://api.eportfolio.tech/';
 

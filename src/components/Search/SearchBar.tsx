@@ -11,14 +11,13 @@ import {
 } from '@material-ui/core';
 import {Search as SearchIcon} from '@material-ui/icons';
 
-import {useDispatch} from 'react-redux';
-import {userService} from '../../utils/userService';
-import {alertActions} from '../../store/actions/alertActions';
+import {useLocation, useHistory} from 'react-router-dom';
+
 import {TextField} from '@material-ui/core';
 
 import {Chips} from './Chips';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         chip: {
             fontSize: 45,
@@ -56,6 +55,10 @@ const resultCards = [
     },
 ];*/
 
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+}
+
 interface ISearchBar {
     option: string | null;
     setOption: any;
@@ -64,26 +67,19 @@ interface ISearchBar {
     setLoading?: any;
 }
 
-function sleep(delay = 0) {
-    return new Promise((resolve) => {
-        setTimeout(resolve, delay);
-    });
-}
-
-export default ({
-    option,
-    setOption,
-    options,
-    setCards,
-    setLoading,
-}: ISearchBar) => {
+export default ({option, setOption, options}: ISearchBar) => {
     const classes = useStyles();
-    const dispatch = useDispatch();
+    const query = useQuery();
     const theme = useTheme();
-    const [chips, setChips] = useState<string[]>([]);
-    const [name, setName] = useState('');
+    const history = useHistory();
 
-    const handleSearch = async () => {
+    const [chips, setChips] = useState([]);
+    const [name, setName] = useState(query.get('query'));
+
+    const handleSearch = () => {
+        history.push('/search?query=' + name);
+    };
+    /*async () => {
         try {
             setLoading(true);
             setCards(undefined);
@@ -101,7 +97,7 @@ export default ({
 
             setLoading(false);
         }
-    };
+    };*/
 
     return (
         <Container maxWidth="md">
