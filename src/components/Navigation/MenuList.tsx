@@ -62,6 +62,17 @@ export default withWidth()(({handleRouting}: IMenuListProps) => {
                 </ListItem>
                 <ListItem
                     button
+                    onClick={() => handleRouting('search')}
+                    selected={path === '/search'}
+                    className={classes.item}
+                >
+                    <ListItemIcon className={classes.icon}>
+                        <SearchIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Explore" />
+                </ListItem>
+                <ListItem
+                    button
                     onClick={() => handleRouting('editor')}
                     selected={path === '/editor'}
                     className={classes.item}
@@ -70,18 +81,6 @@ export default withWidth()(({handleRouting}: IMenuListProps) => {
                         <EditIcon />
                     </ListItemIcon>
                     <ListItemText primary="Editor" />
-                </ListItem>
-
-                <ListItem
-                    button
-                    onClick={() => handleRouting('search')}
-                    selected={path === '/search'}
-                    className={classes.item}
-                >
-                    <ListItemIcon className={classes.icon}>
-                        <SearchIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Search" />
                 </ListItem>
             </List>
 

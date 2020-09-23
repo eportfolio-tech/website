@@ -12,6 +12,7 @@ import SearchBar from '../../components/Search/SearchBar';
 import IContent from '../../components/Search/IContent';
 import Layout from '../../components/Navigation';
 import Profile from '../../components/ProfilePage/ProfilePage';
+import Feed from "../../components/Feed/Feed";
 
 function sleep(delay = 0) {
     return new Promise((resolve) => {
@@ -115,6 +116,7 @@ export default () => {
                         />
                     </a.div>
                 )}
+                <Feed />
             </div>
         </Layout>
     );
