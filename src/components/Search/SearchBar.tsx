@@ -3,39 +3,44 @@ import React, {useState} from 'react';
 import {createStyles, makeStyles} from '@material-ui/core/styles';
 import {
     Container,
-    Grid,
-    MenuItem,
-    Button,
+    Divider,
+    IconButton,
     InputAdornment,
-    useTheme,
+    Paper,
+    Theme,
+    InputBase,
+    Tooltip,
+    Typography,
 } from '@material-ui/core';
 import {Search as SearchIcon} from '@material-ui/icons';
 
-import {useLocation, useHistory} from 'react-router-dom';
-
-import {TextField} from '@material-ui/core';
+import TextFieldsIcon from '@material-ui/icons/TextFields';
+import TagIcon from '@material-ui/icons/LocalOffer';
+import MenuIcon from '@material-ui/icons/Menu';
+import {useLocation} from 'react-router-dom';
 
 import {Chips} from './Chips';
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        chip: {
-            fontSize: 45,
-            fontWeight: 'bold',
-            borderRadius: 40,
-            height: '100%',
+        input: {
+            marginLeft: theme.spacing(1),
+            flex: 1,
         },
-        icon: {
-            width: '1em',
-            height: '1em',
+        iconButton: {
+            padding: 10,
         },
-        searchButton: {
-            height: '100%',
-            textTransform: 'none',
-            fontWeight: 550,
-            fontFamily: 'Arial',
-            color: 'white',
-            borderRadius: 10,
+        divider: {
+            height: 28,
+            margin: 4,
+        },
+
+        root: {
+            background: theme.palette.background.default,
+            display: 'flex',
+            alignItems: 'center',
+            padding: '0px 4px',
+            maxHeight: '51px',
         },
     })
 );
@@ -67,18 +72,13 @@ interface ISearchBar {
     setLoading?: any;
 }
 
-export default ({option, setOption, options}: ISearchBar) => {
+export default ({option, setOption}: ISearchBar) => {
     const classes = useStyles();
     const query = useQuery();
-    const theme = useTheme();
-    const history = useHistory();
 
-    const [chips, setChips] = useState([]);
+    const [, setChips] = useState([]);
     const [name, setName] = useState(query.get('query'));
 
-    const handleSearch = () => {
-        history.push('/search?query=' + name);
-    };
     /*async () => {
         try {
             setLoading(true);
@@ -101,80 +101,75 @@ export default ({option, setOption, options}: ISearchBar) => {
 
     return (
         <Container maxWidth="md">
-            <Grid container spacing={1} justify="center">
-                <Grid item xs={8}>
+            <form action={'/search'}>
+                <Paper className={classes.root}>
+                    {option === 'Tags' ? (
+                        <TagIcon fontSize="large" />
+                    ) : (
+                        <TextFieldsIcon fontSize="large" />
+                    )}
+
                     {option === 'Tags' ? (
                         <Chips setChips={setChips} />
                     ) : (
-                        <TextField
-                            variant="outlined"
-                            size="medium"
+                        <InputBase
                             fullWidth
-                            InputProps={{
+                            inputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
                                         <SearchIcon />
                                     </InputAdornment>
                                 ),
                             }}
-                            color="secondary"
-                            style={{
-                                background: theme.palette.background.default,
-                                borderRadius: 10,
-                            }}
+                            className={classes.input}
+                            placeholder="Search E-Portfolio"
                             value={name}
                             onChange={(
                                 event: React.ChangeEvent<HTMLInputElement>
                             ) => {
                                 setName(event.target.value);
                             }}
+                            style={{width: '100%'}}
+                            name="query"
                         />
                     )}
-                </Grid>
-                <Grid item xs={2}>
-                    <TextField
-                        id="select-search-by"
-                        select
-                        value={option}
-                        onChange={(
-                            event: React.ChangeEvent<HTMLInputElement>
-                        ) => {
-                            setOption(event.target.value);
-                        }}
-                        style={{
-                            background: theme.palette.background.default,
-                            borderRadius: 10,
-                        }}
-                        fullWidth
-                        variant="outlined"
+
+                    <IconButton
                         color="secondary"
-                    >
-                        {options.map((option) => (
-                            <MenuItem key={option} value={option}>
-                                {option}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                </Grid>
-                <Grid item xs={1}>
-                    <Button
-                        color="secondary"
-                        className={classes.searchButton}
-                        fullWidth
-                        variant="contained"
-                        onClick={() => {
-                            if (option === 'Tags') {
-                                console.log(chips);
-                            } else {
-                                console.log(name);
-                            }
-                            handleSearch();
-                        }}
+                        className={classes.iconButton}
+                        type="submit"
                     >
                         <SearchIcon fontSize="large" />
-                    </Button>
-                </Grid>
-            </Grid>
+                    </IconButton>
+                    <Divider
+                        className={classes.divider}
+                        orientation="vertical"
+                    />
+
+                    <Tooltip
+                        title={
+                            <Typography variant="body1">
+                                {'switch to ' +
+                                    (option === 'Tags' ? 'Text' : 'Tags')}
+                            </Typography>
+                        }
+                    >
+                        <IconButton
+                            className={classes.iconButton}
+                            aria-label="directions"
+                            onClick={() => {
+                                if (option === 'Tags') {
+                                    setOption('Names');
+                                } else {
+                                    setOption('Tags');
+                                }
+                            }}
+                        >
+                            <MenuIcon fontSize="large" />
+                        </IconButton>
+                    </Tooltip>
+                </Paper>
+            </form>
         </Container>
     );
 };

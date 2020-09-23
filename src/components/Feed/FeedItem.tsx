@@ -56,11 +56,14 @@ export default function FeedItem({image}: any) {
                 }
                 title="Renlord"
             />
-            <CardMedia
-                className={classes.media}
-                image={image}
-                title="Paella dish"
-            />
+            {image ? (
+                <CardMedia
+                    className={classes.media}
+                    image={image}
+                    title="Paella dish"
+                />
+            ) : null}
+
             <CardContent>
                 <Typography variant="body2" color="textSecondary" component="p">
                     Algorithm are fun!

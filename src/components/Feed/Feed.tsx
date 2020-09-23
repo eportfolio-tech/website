@@ -16,12 +16,17 @@ const useStyles = makeStyles(() =>
 );
 
 const urls = [
+    null,
+    null,
     'https://source.unsplash.com/collection/190727',
     'https://source.unsplash.com/collection/190726',
+    null,
     'https://source.unsplash.com/collection/190725',
     'https://source.unsplash.com/collection/200727',
+    null,
     'https://source.unsplash.com/collection/190723',
     'https://source.unsplash.com/collection/200726',
+    null,
     'https://source.unsplash.com/collection/210725',
     'https://source.unsplash.com/collection/210726',
 ];
@@ -31,9 +36,9 @@ function Feed() {
 
     return (
         <div className={classes.feed}>
-            <Grid container spacing={2}>
+            <Grid container justify="center" spacing={2}>
                 {urls.map((image) => (
-                    <Grid item xs={6}>
+                    <Grid item xs={10}>
                         <ListItem>
                             <StyledFeedItem image={image} />
                         </ListItem>

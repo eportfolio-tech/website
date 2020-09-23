@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
         root: {
             background: theme.palette.background.default,
             borderRadius: 10,
+            width: '90%',
         },
     })
 );
@@ -159,9 +160,9 @@ export function Chips({setChips}: IChips) {
                                 </React.Fragment>
                             ),
                         }}
-                        variant="outlined"
-                        size="medium"
-                        color="secondary"
+                        fullWidth
+                        multiline
+                        rows={2}
                     />
                 );
             }}
