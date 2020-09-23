@@ -1,4 +1,4 @@
-// Explore all container siblings
+// Search all container siblings
 
 import Search from './Search';
 
