@@ -51,7 +51,7 @@ export default () => {
                 setEditorState(
                     BraftEditor.createEditorState(
                         data.portfolio.content !== null
-                            ? data.portfolio.content.jsonPayload
+                            ? data.portfolio.content
                             : null
                     )
                 );

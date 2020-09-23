@@ -44,8 +44,6 @@ async function getContent(username) {
 async function putContent(username, data) {
     axios.defaults.headers.common['Authorization'] =
         'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
-    const response = await axios.put('/portfolios/' + username + '/content', {
-        jsonPayload: data,
-    });
+    const response = await axios.put('/portfolios/' + username + '/content', data);
     return response.data.data;
 }
