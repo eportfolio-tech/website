@@ -91,6 +91,15 @@ export default (props: {close: () => void}) => {
                             fullWidth
                             style={{textTransform: 'none'}}
                             onClick={() => {
+                                history.push('/sign-up');
+                            }}
+                        >
+                            Sign up
+                        </Button>
+                        <Button
+                            fullWidth
+                            style={{textTransform: 'none'}}
+                            onClick={() => {
                                 history.push('/forget-password');
                             }}
                         >
