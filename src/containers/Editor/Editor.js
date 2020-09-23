@@ -162,7 +162,7 @@ export default () => {
                     <Button
                         variant="contained"
                         color="primary"
-                        size="large"
+                        size="medium"
                         className={classes.button}
                         onClick={onSaveHandlerRemote}
                         startIcon={<SaveIcon />}
