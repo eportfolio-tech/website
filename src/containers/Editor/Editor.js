@@ -7,6 +7,7 @@ import {Container, Grid} from '@material-ui/core';
 
 import {useDispatch} from 'react-redux';
 import {alertActions} from '../../store/actions/alertActions';
+import {userService} from '../../utils/userService';
 import {pageService} from '../../utils/pageService';
 import Paper from '@material-ui/core/Paper';
 import Icon from '@material-ui/core/Icon';
@@ -77,10 +78,63 @@ export default () => {
         }
     };
 
+    const onUpload = async (file) => {
+        try {
+            const userInfo = JSON.parse(localStorage.getItem('user') || '');
+            const username = userInfo.user.username;
+
+            const response = await userService.uploadFile(username, file);
+            dispatch(alertActions.success('Save succeed'));
+            return response;
+        } catch (error) {
+            dispatch(alertActions.error('Save failed'));
+        }
+    };
+
     const renderHTML = () => {
         const htmlString = editorState.toHTML();
         setHtml(htmlString);
         setShowHtml(true);
+    };
+
+    const myUploadFn = async (param) => {
+        const successFn = (response) => {
+            // console.log(response);
+            // 假设服务端直接返回文件上传后的地址
+            // 上传成功后调用param.success并传入上传后的文件地址
+            param.success({
+                url: response.URI,
+                meta: {
+                    // id: 'xxx',
+                    // title: 'xxx',
+                    // alt: 'xxx',
+                    loop: true, // 指定音视频是否循环播放
+                    autoPlay: true, // 指定音视频是否自动播放
+                    controls: true, // 指定音视频是否显示控制栏
+                    poster: 'http://xxx/xx.png', // 指定视频播放器的封面
+                },
+            });
+        };
+
+        const errorFn = (response) => {
+            // 上传发生错误时调用param.error
+            param.error({
+                msg: 'unable to upload.',
+            });
+        };
+
+        try {
+            const response = await onUpload(param.file);
+            successFn(response);
+        } catch (error) {
+            errorFn(error);
+        }
+
+        // const progressFn = (event) => {
+        //     // 上传进度发生变化时调用param.progress
+
+        //     param.progress((event.loaded / event.total) * 100);
+        // };
     };
 
     return (
@@ -130,6 +184,7 @@ export default () => {
                         value={editorState}
                         onChange={handleChange}
                         language="en"
+                        media={{uploadFn: myUploadFn}}
                     />
                 </div>
             )}
