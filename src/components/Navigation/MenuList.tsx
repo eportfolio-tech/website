@@ -14,6 +14,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import SettingsIcon from '@material-ui/icons/Settings';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import SearchIcon from '@material-ui/icons/Search';
+import HomeIcon from '@material-ui/icons/Home';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -48,6 +49,17 @@ export default withWidth()(({handleRouting}: IMenuListProps) => {
     return (
         <div>
             <List>
+                <ListItem
+                    button
+                    onClick={() => handleRouting('')}
+                    selected={path === '/'}
+                    className={classes.item}
+                >
+                    <ListItemIcon className={classes.icon}>
+                        <HomeIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Home" />
+                </ListItem>
                 <ListItem
                     button
                     onClick={() => handleRouting('editor')}

@@ -153,7 +153,7 @@ function App() {
                                 path={'/settings'}
                                 Component={Settings}
                             />
-                            <LoggedOutRoute path={'/'} Component={HomePage} />
+                            <Route path={'/'} component={HomePage} />
                         </Switch>
                     </SnackbarProvider>
                 </ThemeProvider>
