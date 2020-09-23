@@ -3,15 +3,31 @@ import React, {useState, useEffect} from 'react';
 import BraftEditor from 'braft-editor';
 
 import Button from '@material-ui/core/Button';
+import {Grid} from "@material-ui/core";
 
 import {useDispatch} from 'react-redux';
 import {alertActions} from '../../store/actions/alertActions';
 import {pageService} from '../../utils/pageService';
-
+import Paper from "@material-ui/core/Paper";
+import Icon from '@material-ui/core/Icon';
 import MyHTML from './MyHtml';
 import AlertDialog from './AlertDialog';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import DeleteIcon from '@material-ui/icons/Delete';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
+import SaveIcon from '@material-ui/icons/Save';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+
+const useStyles = makeStyles((theme) => ({
+    button: {
+        margin: theme.spacing(1),
+    },
+}));
 
 export default () => {
+    const classes = useStyles();
+
     const dispatch = useDispatch();
 
     const [portfolio, setPortfolio] = useState();
@@ -69,7 +85,37 @@ export default () => {
     };
 
     return (
-        <div>
+        <Paper>
+            <Grid container
+                  direction={"row"}
+                  spacing={1}
+                  justify={"flex-end"}
+                  alignItems={"flex-start"}>
+                <Grid item>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        size="medium"
+                        className={classes.button}
+                        onClick={onSaveHandlerRemote}
+                        startIcon={<SaveIcon />}
+                    >
+                        Save
+                    </Button>
+                </Grid>
+                <Grid item>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        size="medium"
+                        className={classes.button}
+                        onClick={renderHTML}
+                        startIcon={<VisibilityIcon />}
+                    >
+                        Preview
+                    </Button>
+                </Grid>
+            </Grid>
             {portfolio === null ? (
                 <div>
                     <AlertDialog />
@@ -81,24 +127,6 @@ export default () => {
                         onChange={handleChange}
                         language="en"
                     />
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        onClick={onSaveHandlerRemote}
-                    >
-                        Save to remote
-                    </Button>
-                    <br />
-                    <br />
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        onClick={renderHTML}
-                    >
-                        show preview
-                    </Button>
-                    <br />
-                    <br />
                     {showHtml ? (
                         <div>
                             <div>
@@ -109,6 +137,6 @@ export default () => {
                     ) : null}
                 </div>
             )}
-        </div>
+        </Paper>
     );
 };
