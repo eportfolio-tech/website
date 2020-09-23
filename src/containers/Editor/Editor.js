@@ -30,10 +30,13 @@ export default () => {
         pageService
             .getPortfolio(username)
             .then((data) => {
+                // console.log('portfolio: ', data.portfolio);
                 setPortfolio(data.portfolio);
                 setEditorState(
                     BraftEditor.createEditorState(
-                        data.portfolio.content.jsonPayload
+                        data.portfolio.content !== null
+                            ? data.portfolio.content.jsonPayload
+                            : null
                     )
                 );
             })
