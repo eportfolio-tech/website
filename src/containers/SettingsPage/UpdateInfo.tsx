@@ -1,23 +1,14 @@
-import React, {useState, useEffect} from 'react';
-import {makeStyles, createStyles, Theme} from '@material-ui/core/styles';
-import {
-    TextField,
-    Grid,
-    CardContent,
-    Card,
-    CardHeader,
-    Typography,
-    Button,
-    MenuItem,
-} from '@material-ui/core';
+import React, {useEffect, useState} from 'react';
+import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
+import {Button, Card, CardContent, CardHeader, Grid, MenuItem, TextField, Typography} from '@material-ui/core';
 import UpdateIcon from '@material-ui/icons/Update';
-import PublishIcon from '@material-ui/icons/Publish';
 
 import {useDispatch} from 'react-redux';
 import {authService} from '../../utils/authService';
 import {alertActions} from '../../store/actions/alertActions';
 
 import {titles} from '../../constants/titles';
+import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -28,7 +19,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         resetButton: {
             marginTop: theme.spacing(3),
-            height: '100%',
             marginRight: theme.spacing(2),
             textTransform: 'none',
         },
@@ -92,31 +82,14 @@ export default function UpdateProfile() {
         <div className={classes.root}>
             <Card style={{height: '100%'}}>
                 <CardHeader
-                    avatar={<UpdateIcon className={classes.cardTitleIcon} />}
+                    avatar={<UpdateIcon className={classes.cardTitleIcon}/>}
                     title={
-                        <Typography variant="h6" className={classes.cardTitle}>
-                            Update Your Details
+                        <Typography variant="h5" className={classes.cardTitle}>
+                            Personal info
                         </Typography>
                     }
-                    action={
-                        <Button
-                            variant="contained"
-                            color="secondary"
-                            onClick={onUpdateHandler}
-                            className={classes.resetButton}
-                            disabled={
-                                !userInfo.title ||
-                                !userInfo.firstName ||
-                                !userInfo.lastName ||
-                                !userInfo.email ||
-                                !isModified()
-                            }
-                        >
-                            <PublishIcon />
-                            Update
-                        </Button>
-                    }
                 />
+                <Divider/>
 
                 <CardContent>
                     <Grid container spacing={1}>
@@ -187,6 +160,22 @@ export default function UpdateProfile() {
                                     handleInput('email', event.target.value)
                                 }
                             />
+                        </Grid>
+                        <Grid item>
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                onClick={onUpdateHandler}
+                                className={classes.resetButton}
+                                disabled={
+                                    !userInfo.title ||
+                                    !userInfo.firstName ||
+                                    !userInfo.lastName ||
+                                    !userInfo.email ||
+                                    !isModified()
+                                }
+                            > Update
+                            </Button>
                         </Grid>
                     </Grid>
                 </CardContent>

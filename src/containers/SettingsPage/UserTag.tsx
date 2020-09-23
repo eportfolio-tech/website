@@ -1,15 +1,15 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Button,
-    Grid,
-    useTheme,
-    TextField,
-    CardContent,
-    Card,
-    CardHeader,
-    Typography,
     ButtonGroup,
+    Card,
+    CardContent,
+    CardHeader,
     Checkbox,
+    Grid,
+    TextField,
+    Typography,
+    useTheme,
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
@@ -21,9 +21,12 @@ import RestoreIcon from '@material-ui/icons/Restore';
 import {useDispatch} from 'react-redux';
 import {userService} from '../../utils/userService';
 import {alertActions} from '../../store/actions/alertActions';
+import Divider from '@material-ui/core/Divider';
+import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 
-const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
-const checkedIcon = <CheckBoxIcon fontSize="small" />;
+const icon = <CheckBoxOutlineBlankIcon fontSize="small"/>;
+const checkedIcon = <CheckBoxIcon fontSize="small"/>;
+
 interface TagType {
     id?: number;
     name: string;
@@ -34,7 +37,29 @@ interface TagType {
     updatedOn?: string;
 }
 
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        root: {
+            '& > *': {
+                margin: theme.spacing(0),
+            },
+        },
+        resetButton: {
+            marginTop: theme.spacing(3),
+            marginRight: theme.spacing(2),
+            textTransform: 'none',
+        },
+        cardTitle: {
+            marginTop: theme.spacing(3),
+        },
+        cardTitleIcon: {
+            marginTop: theme.spacing(3),
+        },
+    }),
+);
+
 export default () => {
+    const classes = useStyles();
     const dispatch = useDispatch();
     const theme = useTheme();
 
@@ -138,36 +163,10 @@ export default () => {
     return (
         <Card style={{height: '100%'}}>
             <CardHeader
-                avatar={<TagIcon style={{color: '66bb6a'}} />}
-                title={<Typography variant="h6">Modify Your Tag(s)</Typography>}
-                action={
-                    <ButtonGroup
-                        orientation="vertical"
-                        variant="contained"
-                        color="secondary"
-                        style={{
-                            height: '100%',
-                            marginTop: theme.spacing(2),
-                            marginRight: theme.spacing(2),
-                        }}
-                    >
-                        <Button
-                            style={{textTransform: 'none'}}
-                            onClick={getUserTags}
-                        >
-                            <RestoreIcon />
-                            Refresh
-                        </Button>
-                        <Button
-                            style={{textTransform: 'none'}}
-                            onClick={onSubmitHandler}
-                        >
-                            <PublishIcon />
-                            Submit
-                        </Button>
-                    </ButtonGroup>
-                }
+                avatar={<TagIcon className={classes.cardTitleIcon}/>}
+                title={<Typography className={classes.cardTitle} variant="h5">Tags</Typography>}
             />
+            <Divider/>
             <CardContent>
                 <Grid container justify="space-around" spacing={3}>
                     <Grid item xs={12}>
@@ -203,6 +202,32 @@ export default () => {
                                 />
                             )}
                         />
+                    </Grid>
+                    <Grid item>
+                        <ButtonGroup
+                            orientation="horizontal"
+                            variant="contained"
+                            color="secondary"
+                            style={{
+                                marginTop: theme.spacing(2),
+                                marginRight: theme.spacing(2),
+                            }}
+                        >
+                            <Button
+                                style={{textTransform: 'none'}}
+                                onClick={getUserTags}
+                            >
+                                <RestoreIcon/>
+                                Refresh
+                            </Button>
+                            <Button
+                                style={{textTransform: 'none'}}
+                                onClick={onSubmitHandler}
+                            >
+                                <PublishIcon/>
+                                Submit
+                            </Button>
+                        </ButtonGroup>
                     </Grid>
                 </Grid>
             </CardContent>

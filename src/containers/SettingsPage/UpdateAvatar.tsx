@@ -1,15 +1,6 @@
-import React, {useEffect, useState, useRef} from 'react';
-import {makeStyles, createStyles, Theme} from '@material-ui/core/styles';
-import {
-    Avatar,
-    Button,
-    Card,
-    CardContent,
-    CardHeader,
-    Typography,
-    Fab,
-    Grid,
-} from '@material-ui/core';
+import React, {useEffect, useRef, useState} from 'react';
+import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
+import {Avatar, Button, Card, CardContent, CardHeader, Fab, Grid, Typography} from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Edit';
 import FaceIcon from '@material-ui/icons/Face';
 import PublishIcon from '@material-ui/icons/Publish';
@@ -21,6 +12,7 @@ import {userActions} from '../../store/actions/userActions';
 
 import {userService} from '../../utils/userService';
 import {authService} from '../../utils/authService';
+import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -30,15 +22,24 @@ const useStyles = makeStyles((theme: Theme) =>
             margin: 'auto',
         },
 
+        root: {
+            '& > *': {
+                margin: theme.spacing(0),
+            },
+        },
+
         saveButton: {
             marginTop: theme.spacing(3),
-            height: '100%',
+            // height: '100%',
             marginRight: theme.spacing(2),
             textTransform: 'none',
         },
         cardTitleIcon: {
             marginTop: theme.spacing(3),
             color: '#f59002',
+        },
+        cardTitle: {
+            marginTop: theme.spacing(3),
         },
     })
 );
@@ -98,63 +99,66 @@ export default function UpdateAvatar() {
     };
 
     return (
-        <Card style={{width: '100%', height: '100%'}}>
-            <CardHeader
-                avatar={<FaceIcon />}
-                title={
-                    <Typography variant="h6">
-                        Change your profile image
-                    </Typography>
-                }
-                action={
-                    <Button
-                        className={classes.saveButton}
-                        color="secondary"
-                        variant="contained"
-                        component="span"
-                        onClick={onSaveHandler}
-                    >
-                        <PublishIcon />
-                        Update
-                    </Button>
-                }
-            />
-            <CardContent>
-                <Grid container spacing={3}>
-                    <Grid item xs={12}>
-                        <Avatar
-                            alt={user.username.toUpperCase()}
-                            src={avatarUrl}
-                            className={classes.large}
-                        ></Avatar>
-                    </Grid>
+        <div className={classes.root}>
+            <Card style={{height: '100%'}}>
+                <CardHeader
+                    avatar={<FaceIcon className={classes.cardTitleIcon}/>}
+                    title={
+                        <Typography variant="h5" className={classes.cardTitle}>
+                            Profile Image
+                        </Typography>
+                    }
+                />
+                <Divider/>
+                <CardContent>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12}>
+                            <Avatar
+                                alt={user.username.toUpperCase()}
+                                src={avatarUrl}
+                                className={classes.large}
+                            />
+                        </Grid>
 
-                    <Grid item xs={12}>
-                        <Grid container alignItems="center">
-                            <label
-                                htmlFor="upload-photo"
-                                style={{margin: 'auto'}}
-                            >
-                                <input
-                                    style={{display: 'none'}}
-                                    id="upload-photo"
-                                    name="upload-photo"
-                                    type="file"
-                                    accept=".png,.jpg"
-                                    onChange={onFileChange}
-                                />
-                                <Fab
-                                    size="large"
-                                    component="span"
-                                    aria-label="add"
+                        <Grid item xs={12}>
+                            <Grid container alignItems="center">
+                                <label
+                                    htmlFor="upload-photo"
+                                    style={{margin: 'auto'}}
                                 >
-                                    <AddIcon />
-                                </Fab>
-                            </label>
+                                    <input
+                                        style={{display: 'none'}}
+                                        id="upload-photo"
+                                        name="upload-photo"
+                                        type="file"
+                                        accept=".png,.jpg"
+                                        onChange={onFileChange}
+                                    />
+                                    <Fab
+                                        size="large"
+                                        component="span"
+                                        aria-label="add"
+                                    >
+                                        <AddIcon/>
+                                    </Fab>
+                                </label>
+                            </Grid>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Button
+                                className={classes.saveButton}
+                                color="secondary"
+                                variant="contained"
+                                component="span"
+                                onClick={onSaveHandler}
+                            >
+                                <PublishIcon/>
+                                Update
+                            </Button>
                         </Grid>
                     </Grid>
-                </Grid>
-            </CardContent>
-        </Card>
+                </CardContent>
+            </Card>
+        </div>
     );
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import {makeStyles, createStyles, Theme} from '@material-ui/core/styles';
+import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 
 import ResetPassword from './ResetPassword';
 import UserTags from './UserTag';
@@ -21,17 +21,17 @@ export default () => {
     return (
         <div className={classes.root}>
             <Grid container spacing={3}>
-                <Grid item md={6} xs={12}>
-                    <ResetPassword />
+                <Grid item xs={12} md={6}>
+                    <UpdateInfo/>
                 </Grid>
-                <Grid item md={6} xs={12}>
-                    <UserTags />
+                <Grid item xs={6}>
+                    <UserTags/>
                 </Grid>
-                <Grid item md={6} xs={12}>
-                    <UpdateInfo />
+                <Grid item xs={12} md={12}>
+                    <ResetPassword/>
                 </Grid>
-                <Grid item md={6} xs={12}>
-                    <UpdateAvatar />
+                <Grid item xs={6}>
+                    <UpdateAvatar/>
                 </Grid>
             </Grid>
         </div>

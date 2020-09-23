@@ -1,20 +1,12 @@
 import React, {useState} from 'react';
-import {makeStyles, createStyles, Theme} from '@material-ui/core/styles';
-import {
-    TextField,
-    Grid,
-    CardContent,
-    Card,
-    CardHeader,
-    Typography,
-    Button,
-} from '@material-ui/core';
+import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
+import {Button, Card, CardContent, CardHeader, Grid, TextField, Typography} from '@material-ui/core';
 import KeyIcon from '@material-ui/icons/VpnKey';
-import PublishIcon from '@material-ui/icons/Publish';
 
 import {useDispatch} from 'react-redux';
 import {authService} from '../../utils/authService';
 import {alertActions} from '../../store/actions/alertActions';
+import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -25,8 +17,8 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         resetButton: {
             marginTop: theme.spacing(3),
-            height: '100%',
             marginRight: theme.spacing(2),
+            marginDown: theme.spacing(3),
             textTransform: 'none',
         },
         cardTitle: {
@@ -86,27 +78,14 @@ export default function ResetPassword() {
         <div className={classes.root}>
             <Card style={{height: '100%'}}>
                 <CardHeader
-                    avatar={<KeyIcon className={classes.cardTitleIcon} />}
+                    avatar={<KeyIcon className={classes.cardTitleIcon}/>}
                     title={
-                        <Typography variant="h6" className={classes.cardTitle}>
-                            Reset Your Password
+                        <Typography variant="h5" className={classes.cardTitle}>
+                            Password
                         </Typography>
                     }
-                    action={
-                        <Button
-                            variant="contained"
-                            color="secondary"
-                            disabled={
-                                !oldPassword || !newPassword || !repeatPassword
-                            }
-                            onClick={onResetHandler}
-                            className={classes.resetButton}
-                        >
-                            <PublishIcon />
-                            Reset
-                        </Button>
-                    }
                 />
+                <Divider/>
 
                 <CardContent>
                     <Grid container spacing={1}>
@@ -124,6 +103,12 @@ export default function ResetPassword() {
                             >
                                 Old Password
                             </TextField>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Typography variant={'subtitle2'}>
+                                Use at least 8 characters. Don’t use a password from another site or something too
+                                obvious like your pet’s name.
+                            </Typography>
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
@@ -145,9 +130,9 @@ export default function ResetPassword() {
                             <TextField
                                 required
                                 id="outlined-basic"
-                                label="Re-enter New Password"
                                 variant="outlined"
                                 type="password"
+                                label="Confirm new password"
                                 onChange={(event) =>
                                     setRepeatPassword(event.target.value)
                                 }
@@ -159,6 +144,18 @@ export default function ResetPassword() {
                             >
                                 Repeat New Password
                             </TextField>
+                        </Grid>
+                        <Grid item>
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                disabled={
+                                    !oldPassword || !newPassword || !repeatPassword
+                                }
+                                onClick={onResetHandler}
+                                className={classes.resetButton}
+                            > Change Password
+                            </Button>
                         </Grid>
                     </Grid>
                 </CardContent>
