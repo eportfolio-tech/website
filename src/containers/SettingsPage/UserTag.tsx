@@ -68,7 +68,7 @@ export default () => {
 
             const tags = await userService.getUserTags(username);
             setUserTags(tags.tag);
-            dispatch(alertActions.success('get tags succeed.'));
+            // dispatch(alertActions.success('get tags succeed.'));
         } catch (error) {
             dispatch(
                 alertActions.error(
