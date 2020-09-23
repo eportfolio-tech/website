@@ -1,9 +1,9 @@
 import React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import {makeStyles, createStyles, Theme} from '@material-ui/core/styles';
 import Popover from '@material-ui/core/Popover';
 import Button from '@material-ui/core/Button';
-import MyHTML from "../../containers/Editor/MyHtml";
-import VisibilityIcon from "@material-ui/icons/Visibility";
+import MyHTML from '../../containers/Editor/MyHtml';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -11,17 +11,19 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: theme.spacing(2),
         },
         button: {
-            margin: theme.spacing(1),
+            width: 150,
         },
         popover: {
-            width: '100%'
-        }
-    }),
+            width: '100%',
+        },
+    })
 );
 
-export default function PreviewPopOver(props: { render: () => void; html: any; }) {
+export default function PreviewPopOver(props: {render: () => void; html: any}) {
     const classes = useStyles();
-    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
+        null
+    );
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         props.render();
@@ -67,4 +69,4 @@ export default function PreviewPopOver(props: { render: () => void; html: any; }
             </Popover>
         </div>
     );
-};
+}
