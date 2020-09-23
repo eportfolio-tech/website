@@ -19,7 +19,7 @@ import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
 import SaveIcon from '@material-ui/icons/Save';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import TextField from '@material-ui/core/TextField';
-
+import PreviewPopOver from "../../components/Preview/PreviewPopOver";
 const useStyles = makeStyles((theme) => ({
     button: {
         margin: theme.spacing(1),
@@ -117,17 +117,8 @@ export default () => {
                         Save
                     </Button>
                 </Grid>
-                <Grid item xs={1}>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        size="medium"
-                        className={classes.button}
-                        onClick={renderHTML}
-                        startIcon={<VisibilityIcon />}
-                    >
-                        Preview
-                    </Button>
+                <Grid item>
+                    <PreviewPopOver render={renderHTML} html={html} />
                 </Grid>
             </Grid>
             {portfolio === null ? (
@@ -141,14 +132,6 @@ export default () => {
                         onChange={handleChange}
                         language="en"
                     />
-                    {showHtml ? (
-                        <div>
-                            <div>
-                                <h3>Your portfolio preview</h3>
-                            </div>
-                            <MyHTML html={html} />
-                        </div>
-                    ) : null}
                 </div>
             )}
         </Paper>
