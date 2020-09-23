@@ -19,7 +19,7 @@ import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
 import SaveIcon from '@material-ui/icons/Save';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import TextField from '@material-ui/core/TextField';
-
+import PreviewPopOver from '../../components/Preview/PreviewPopOver';
 const useStyles = makeStyles((theme) => ({
     button: {},
 }));
@@ -85,68 +85,54 @@ export default () => {
 
     return (
         <Paper>
-            <Container>
-                <TextField
-                    id="standard-full-width"
-                    label="Title"
-                    placeholder="My Portfolio"
-                    fullWidth
-                    margin="normal"
-                    variant="outlined"
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                />
-                <Grid container spacing={2} justify="flex-end">
-                    <Grid item xs={2}>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            size="medium"
-                            className={classes.button}
-                            onClick={onSaveHandlerRemote}
-                            startIcon={<SaveIcon />}
-                            fullWidth
-                        >
-                            Save
-                        </Button>
-                    </Grid>
-                    <Grid item xs={2}>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            size="medium"
-                            className={classes.button}
-                            onClick={renderHTML}
-                            startIcon={<VisibilityIcon />}
-                            fullWidth
-                        >
-                            Preview
-                        </Button>
-                    </Grid>
+            <TextField
+                id="standard-full-width"
+                label="Title"
+                style={{margin: 5}}
+                placeholder="My Portfolio"
+                fullWidth
+                margin="normal"
+                variant="outlined"
+                InputLabelProps={{
+                    shrink: true,
+                }}
+            />
+            <Grid
+                container
+                direction={'row'}
+                spacing={1}
+                justify={'flex-end'}
+                alignItems={'flex-start'}
+            >
+                <Grid item>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        size="medium"
+                        className={classes.button}
+                        onClick={onSaveHandlerRemote}
+                        startIcon={<SaveIcon />}
+                    >
+                        Save
+                    </Button>
                 </Grid>
-                {portfolio === null ? (
-                    <div>
-                        <AlertDialog />
-                    </div>
-                ) : (
-                    <div>
-                        <BraftEditor
-                            value={editorState}
-                            onChange={handleChange}
-                            language="en"
-                        />
-                        {showHtml ? (
-                            <div>
-                                <div>
-                                    <h3>Your portfolio preview</h3>
-                                </div>
-                                <MyHTML html={html} />
-                            </div>
-                        ) : null}
-                    </div>
-                )}
-            </Container>
+                <Grid item>
+                    <PreviewPopOver render={renderHTML} html={html} />
+                </Grid>
+            </Grid>
+            {portfolio === null ? (
+                <div>
+                    <AlertDialog />
+                </div>
+            ) : (
+                <div>
+                    <BraftEditor
+                        value={editorState}
+                        onChange={handleChange}
+                        language="en"
+                    />
+                </div>
+            )}
         </Paper>
     );
 };
