@@ -1,11 +1,11 @@
 import React from 'react';
 import {Provider} from 'react-redux';
-import {mount, configure} from 'enzyme';
+import {configure, mount} from 'enzyme';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import SignInForm from '../components/AuthDialogs/SignInForm';
 import Adapter from 'enzyme-adapter-react-16';
-import {TextField, Button} from '@material-ui/core';
+import {Button, TextField} from '@material-ui/core';
 
 configure({adapter: new Adapter()});
 const mockStore = configureMockStore([thunk]);
@@ -18,7 +18,7 @@ describe('Login tests', () => {
         </Provider>
     );
     it('should have login button and forget password button', () => {
-        expect(wrapper.find(Button).length).toEqual(2);
+        expect(wrapper.find(Button).length).toEqual(3);
     });
 
     it('should render the form', () => {
