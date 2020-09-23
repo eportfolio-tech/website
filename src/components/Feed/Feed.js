@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import StyledFeedItem from "./FeedItem"
 import {createStyles, makeStyles, Theme, withStyles} from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import Container from "@material-ui/core/Container";
-import {Typography} from "@material-ui/core";
+import Paper from "@material-ui/core/Paper";
+import ListItem from "@material-ui/core/ListItem";
+import List from "@material-ui/core/List";
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -25,9 +25,20 @@ function Feed() {
 
     return (
         <div className={classes.feed}>
-            <StyledFeedItem onClick={() => placeHolder}/>
-            <StyledFeedItem onClick={() => placeHolder}/>
-            <StyledFeedItem onClick={() => placeHolder}/>
+            <Paper>
+                <List>
+                    <ListItem>
+                        <StyledFeedItem onClick={() => placeHolder}/>
+                    </ListItem>
+                    <ListItem>
+                        <StyledFeedItem onClick={() => placeHolder}/>
+                    </ListItem>
+                    <ListItem>
+                        <StyledFeedItem onClick={() => placeHolder}/>
+                    </ListItem>
+                </List>
+
+            </Paper>
         </div>
     )
 }
