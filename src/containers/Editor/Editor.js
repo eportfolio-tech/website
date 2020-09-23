@@ -21,7 +21,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import TextField from '@material-ui/core/TextField';
 import PreviewPopOver from '../../components/Preview/PreviewPopOver';
 const useStyles = makeStyles((theme) => ({
-    button: {},
+    button: {width: 150},
 }));
 
 export default () => {
@@ -108,7 +108,7 @@ export default () => {
                     <Button
                         variant="contained"
                         color="primary"
-                        size="medium"
+                        size="large"
                         className={classes.button}
                         onClick={onSaveHandlerRemote}
                         startIcon={<SaveIcon />}
