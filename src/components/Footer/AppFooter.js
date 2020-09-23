@@ -66,7 +66,7 @@ export default function AppFooter() {
                             </Typography>
                             <Grid item className={classes.icons}>
                                 <a
-                                    href="https://material-ui.com/"
+                                    href="https://facebook.com/login"
                                     className={classes.icon}
                                 >
                                     <img
@@ -75,7 +75,7 @@ export default function AppFooter() {
                                     />
                                 </a>
                                 <a
-                                    href="https://twitter.com/MaterialUI"
+                                    href="https://twitter.com/login"
                                     className={classes.icon}
                                 >
                                     <img
@@ -94,12 +94,10 @@ export default function AppFooter() {
                         </Typography>
                         <ul className={classes.list}>
                             <li className={classes.listItem}>
-                                <Link href="/premium-themes/onepirate/terms/">
-                                    Terms
-                                </Link>
+                                <Link href="https://www.google.com">Terms</Link>
                             </li>
                             <li className={classes.listItem}>
-                                <Link href="/premium-themes/onepirate/privacy/">
+                                <Link href="https://www.google.com">
                                     Privacy
                                 </Link>
                             </li>
@@ -112,12 +110,12 @@ export default function AppFooter() {
                         </Typography>
                         <ul className={classes.list}>
                             <li className={classes.listItem}>
-                                <Link href="/premium-themes/onepirate/terms/">
+                                <Link href="https://www.google.com">
                                     What is Forty-Two
                                 </Link>
                             </li>
                             <li className={classes.listItem}>
-                                <Link href="/premium-themes/onepirate/privacy/">
+                                <Link href="https://www.google.com">
                                     Careers
                                 </Link>
                             </li>

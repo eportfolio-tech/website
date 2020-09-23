@@ -5,6 +5,7 @@ import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import Card from './ResultCard';
 import LoadingLogo from '../LandingLogo';
 import IContent from './IContent';
+import Footer from '../Footer/AppFooter';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -72,6 +73,7 @@ export default ({setFlipped, loading, cards}: IResults) => {
                         : null}
                 </Grid>
             </Container>
+            <Footer />
         </div>
     );
 };

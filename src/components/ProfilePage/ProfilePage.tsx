@@ -4,12 +4,16 @@ import classNames from 'classnames';
 // @material-ui/core components
 import {makeStyles, createStyles} from '@material-ui/core/styles';
 // @material-ui/icons
-// core component
-
+// core components
+import AppBar from '../Navigation/AppBar/AppBarLogout';
+import Footer from '../Footer/AppFooter';
 import Parallax from './Parallax';
+import Button from '../Button/Button';
+import {ButtonGroup} from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
+import CommentOutlinedIcon from '@material-ui/icons/CommentOutlined';
 import {Grid} from '@material-ui/core';
 
 // @ts-ignore
@@ -58,7 +62,7 @@ const useStyles: any = makeStyles((theme: Theme) =>
         social: {
             margin: 'auto',
             textAlign: 'center',
-            marginBottom: '500px',
+            marginBottom: '50px',
         },
     })
 );
@@ -71,20 +75,28 @@ export default function ProfilePage(props: {[x: string]: any}) {
         classes.imgFluid
     );
 
-    return (
-        <div>
-            <Parallax
-                small
-                filter
-                image="https://comp30002.blob.core.windows.net/image/viewB.jpg"
-            />
-            <div className={classes.profile}>
-                <div>
-                    <img
-                        src="https://comp30002.blob.core.windows.net/image/profile.png"
-                        alt="..."
-                        className={imageClasses}
-                    />
+    // @ts-ignore
+    let div = (
+        <>
+            <div>
+                <AppBar />
+                <Parallax
+                    small
+                    filter
+                    image="https://comp30002.blob.core.windows.net/image/viewB.jpg"
+                />
+                <div className={classes.profile}>
+                    <div>
+                        <img
+                            src="https://comp30002.blob.core.windows.net/image/profile.png"
+                            alt="..."
+                            className={imageClasses}
+                        />
+                    </div>
+                    <div className={classes.name}>
+                        <h1 className={classes.title}>David Smith</h1>
+                        <h2>(Title)</h2>
+                    </div>
                 </div>
                 <div className={classes.description}>
                     <p>
@@ -104,18 +116,39 @@ export default function ProfilePage(props: {[x: string]: any}) {
                         justify="center"
                     >
                         <Grid item>
-                            <Fab color="primary" aria-label="share">
-                                <ShareIcon />
-                            </Fab>
-                        </Grid>
-                        <Grid item>
                             <Fab color="primary" aria-label="like">
                                 <FavoriteIcon />
                             </Fab>
                         </Grid>
+                        <Grid item>
+                            <Fab color="primary" aria-label="share">
+                                <ShareIcon />
+                            </Fab>
+                        </Grid>
                     </Grid>
                 </div>
+                <div>
+                    <Grid
+                        container
+                        className={classes.social}
+                        alignContent="center"
+                        spacing={2}
+                        justify="center"
+                    >
+                        <Grid item>
+                            <Button
+                                color="primary"
+                                aria-label="comment"
+                                variant="contained"
+                            >
+                                <CommentOutlinedIcon />
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </div>
+                <Footer />
             </div>
-        </div>
+        </>
     );
+    return div;
 }
