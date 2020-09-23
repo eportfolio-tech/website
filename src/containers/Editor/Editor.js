@@ -18,6 +18,7 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
 import SaveIcon from '@material-ui/icons/Save';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -86,12 +87,25 @@ export default () => {
 
     return (
         <Paper>
+            <TextField
+                id="standard-full-width"
+                label="Title"
+                style={{ margin: 5 }}
+                placeholder="My Portfolio"
+                fullWidth
+                margin="normal"
+                variant="outlined"
+                InputLabelProps={{
+                    shrink: true,
+                }}
+            />
             <Grid container
                   direction={"row"}
                   spacing={1}
                   justify={"flex-end"}
                   alignItems={"flex-start"}>
-                <Grid item>
+
+                <Grid item >
                     <Button
                         variant="contained"
                         color="primary"
@@ -103,7 +117,7 @@ export default () => {
                         Save
                     </Button>
                 </Grid>
-                <Grid item>
+                <Grid item xs={1}>
                     <Button
                         variant="contained"
                         color="primary"
