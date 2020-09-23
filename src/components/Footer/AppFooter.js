@@ -53,40 +53,40 @@ export default function AppFooter() {
         <Typography component="footer" className={classes.root}>
             <Container className={classes.container}>
                 <Grid container justify="center">
-                    <Grid item xs={6} sm={4} md={3}>
-                        <Grid
-                            container
-                            direction="column"
-                            justify="flex-end"
-                            className={classes.iconsWrapper}
-                            spacing={2}
-                        >
-                            <Typography variant="h6" marked="left" gutterBottom>
-                                Third-Party Login
-                            </Typography>
-                            <Grid item className={classes.icons}>
-                                <a
-                                    href="https://facebook.com/login"
-                                    className={classes.icon}
-                                >
-                                    <img
-                                        src="https://comp30002.blob.core.windows.net/image/appFooterFacebook.png"
-                                        alt="Facebook"
-                                    />
-                                </a>
-                                <a
-                                    href="https://twitter.com/login"
-                                    className={classes.icon}
-                                >
-                                    <img
-                                        src="https://comp30002.blob.core.windows.net/image/appFooterTwitter.png"
-                                        alt="Twitter"
-                                    />
-                                </a>
-                                <p>Coming Soon</p>
-                            </Grid>
-                        </Grid>
-                    </Grid>
+                    {/*<Grid item xs={6} sm={4} md={3}>*/}
+                    {/*    <Grid*/}
+                    {/*        container*/}
+                    {/*        direction="column"*/}
+                    {/*        justify="flex-end"*/}
+                    {/*        className={classes.iconsWrapper}*/}
+                    {/*        spacing={2}*/}
+                    {/*    >*/}
+                    {/*        <Typography variant="h6" marked="left" gutterBottom>*/}
+                    {/*            Third-Party Login*/}
+                    {/*        </Typography>*/}
+                    {/*        <Grid item className={classes.icons}>*/}
+                    {/*            <a*/}
+                    {/*                href="https://facebook.com/login"*/}
+                    {/*                className={classes.icon}*/}
+                    {/*            >*/}
+                    {/*                <img*/}
+                    {/*                    src="https://comp30002.blob.core.windows.net/image/appFooterFacebook.png"*/}
+                    {/*                    alt="Facebook"*/}
+                    {/*                />*/}
+                    {/*            </a>*/}
+                    {/*            <a*/}
+                    {/*                href="https://twitter.com/login"*/}
+                    {/*                className={classes.icon}*/}
+                    {/*            >*/}
+                    {/*                <img*/}
+                    {/*                    src="https://comp30002.blob.core.windows.net/image/appFooterTwitter.png"*/}
+                    {/*                    alt="Twitter"*/}
+                    {/*                />*/}
+                    {/*            </a>*/}
+                    {/*            <p>Coming Soon</p>*/}
+                    {/*        </Grid>*/}
+                    {/*    </Grid>*/}
+                    {/*</Grid>*/}
 
                     <Grid item xs={6} sm={4} md={2}>
                         <Typography variant="h6" marked="left" gutterBottom>
