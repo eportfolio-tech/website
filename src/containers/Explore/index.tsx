@@ -7,8 +7,6 @@ import {useTheme} from '@material-ui/core';
 import {userService} from '../../utils/userService';
 import {alertActions} from '../../store/actions/alertActions';
 
-import Results from '../../components/Search/Results';
-import SearchBar from '../../components/Search/SearchBar';
 import IContent from '../../components/Search/IContent';
 import Layout from '../../components/Navigation';
 import Profile from '../../components/ProfilePage/ProfilePage';
@@ -23,18 +21,15 @@ function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
 
-const options = ['Names', 'Tags'];
-
 export default () => {
-    const [option, setOption] = useState<string | null>(options[0]);
     const location = useLocation();
     const history = useHistory();
     const theme = useTheme();
     const dispatch = useDispatch();
     const query = useQuery();
 
-    const [loading, setLoading] = useState(false);
-    const [cards, setCards] = useState<undefined | IContent[]>();
+    const [, setLoading] = useState(false);
+    const [, setCards] = useState<undefined | IContent[]>();
 
     const [flipped, setFlipped] = useState(
         location.pathname === '/search/more'
