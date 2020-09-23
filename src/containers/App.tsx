@@ -12,6 +12,8 @@ import theme from '../theme/fortyTwo';
 import {useDispatch} from 'react-redux';
 import {userActions} from '../store/actions/userActions';
 
+import Explore from '../containers/Explore';
+
 import {
     Search,
     ForgetPassword,
@@ -147,6 +149,10 @@ function App() {
                                 exact
                                 path={'/editor'}
                                 Component={EditorBoard}
+                            />
+                            <LoggedInRoute
+                                path={'/explore'}
+                                Component={Explore}
                             />
                             <LoggedInRoute
                                 exact

@@ -8,7 +8,7 @@ const useStyles: any = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             display: 'flex',
-            background: 'linear-gradient(120deg, #91ffde 0%, #13a87c 100%)',
+            background: '#bcffeb',
             overflow: 'hidden',
         },
         container: {

@@ -15,6 +15,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import SearchIcon from '@material-ui/icons/Search';
 import HomeIcon from '@material-ui/icons/Home';
+import ExploreIcon from '@material-ui/icons/Explore';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -62,6 +63,17 @@ export default withWidth()(({handleRouting}: IMenuListProps) => {
                 </ListItem>
                 <ListItem
                     button
+                    onClick={() => handleRouting('explore')}
+                    selected={path === '/explore'}
+                    className={classes.item}
+                >
+                    <ListItemIcon className={classes.icon}>
+                        <ExploreIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Explore" />
+                </ListItem>
+                <ListItem
+                    button
                     onClick={() => handleRouting('search')}
                     selected={path === '/search'}
                     className={classes.item}
@@ -69,7 +81,7 @@ export default withWidth()(({handleRouting}: IMenuListProps) => {
                     <ListItemIcon className={classes.icon}>
                         <SearchIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Explore" />
+                    <ListItemText primary="Search" />
                 </ListItem>
                 <ListItem
                     button

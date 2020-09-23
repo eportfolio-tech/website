@@ -100,20 +100,7 @@ export default () => {
                     </a.div>
                 ) : (
                     <a.div style={searchStyle}>
-                        <SearchBar
-                            options={options}
-                            option={option}
-                            setOption={setOption}
-                            setCards={setCards}
-                            setLoading={setLoading}
-                        />
-                        <br />
-                        <br />
-                        <Results
-                            setFlipped={setFlipped}
-                            loading={loading}
-                            cards={cards}
-                        />
+                        <Feed />
                     </a.div>
                 )}
             </div>

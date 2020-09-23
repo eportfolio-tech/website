@@ -8,7 +8,7 @@ import {Typography} from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-        background: 'linear-gradient(100deg, #91ffde 0%, #13a87c 100%)',
+        background: '#0ed69a',
         alignItems: 'center',
     },
     container: {
