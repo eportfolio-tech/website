@@ -123,7 +123,7 @@ export default ({option, setOption}: ISearchBar) => {
                             }}
                             className={classes.input}
                             placeholder="Search E-Portfolio"
-                            value={name}
+                            value={name || ''}
                             onChange={(
                                 event: React.ChangeEvent<HTMLInputElement>
                             ) => {
