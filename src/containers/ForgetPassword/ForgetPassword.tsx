@@ -58,7 +58,7 @@ export default () => {
             history.push('/login');
             dispatch(alertActions.success('Email sent.'));
         } catch (error) {
-            dispatch(alertActions.error(error.response.data.errors));
+            dispatch(alertActions.error(error.response.data.message));
         }
     };
 
