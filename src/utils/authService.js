@@ -14,7 +14,7 @@ export const authService = {
 
 async function getUser(username, token) {
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-    const response = await axios.get('/users/' + username);
+    const response = await axios.get(`/users/${username}`);
     return response.data.data;
 }
 
@@ -54,13 +54,10 @@ async function signup(userInfo) {
 async function resetPassword(username, oldPassword, newPassword) {
     axios.defaults.headers.common['Authorization'] =
         'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
-    const response = await axios.post(
-        '/users/' + username + '/password-reset',
-        {
-            newPassword: newPassword,
-            oldPassword: oldPassword,
-        }
-    );
+    const response = await axios.post(`/users/${username}/password-reset`, {
+        newPassword: newPassword,
+        oldPassword: oldPassword,
+    });
     return response.data.data;
 }
 
@@ -108,7 +105,7 @@ async function getRecoveryLink(email) {
 async function updateInfo(username, userInfo) {
     axios.defaults.headers.common['Authorization'] =
         'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
-    const response = await axios.patch('/users/' + username, {
+    const response = await axios.patch(`/users/${username}`, {
         avatarUrl: userInfo.avatarUrl,
         email: userInfo.email,
         firstName: userInfo.firstName,
@@ -130,6 +127,6 @@ async function updateInfo(username, userInfo) {
 async function getInfo(username) {
     axios.defaults.headers.common['Authorization'] =
         'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
-    const response = await axios.get('/users/' + username, null);
+    const response = await axios.get(`/users/${username}`, null);
     return response.data.data;
 }
