@@ -6,7 +6,7 @@ const devEnvironment = 'https://api.eportfolio.tech/';
 const localEnvironment = 'http://localhost:8090'
 
 var instance = axios.create({
-    baseURL: devEnvironment
+    baseURL: localEnvironment,
 });
 
 // const user = JSON.parse(localStorage.getItem('user'));
