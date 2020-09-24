@@ -9,27 +9,28 @@ export const userService = {
     uploadFile,
 };
 
-if ('token' in localStorage) {
-    axios.defaults.headers.common['Authorization'] =
-        'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
-}
-
 async function getAllTags() {
     const response = await axios.get('/tags/');
     return response.data.data;
 }
 
 async function getUserTags(username) {
+    axios.defaults.headers.common['Authorization'] =
+        'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
     const response = await axios.get(`/users/${username}/tags`);
     return response.data.data;
 }
 
 async function updateUserTags(username, updatedTags) {
+    axios.defaults.headers.common['Authorization'] =
+        'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
     const response = await axios.post(`/users/$username}/tags`, updatedTags);
     return response.data.data;
 }
 
 async function deleteUserTags(username, deletedTags) {
+    axios.defaults.headers.common['Authorization'] =
+        'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
     const response = await axios.post(
         `/users/${username}/deleteTags`,
         deletedTags
@@ -38,6 +39,8 @@ async function deleteUserTags(username, deletedTags) {
 }
 
 async function search(query, page, size) {
+    axios.defaults.headers.common['Authorization'] =
+        'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
     const response = await axios.get('/portfolios/search', {
         params: {
             query: query,
@@ -49,6 +52,8 @@ async function search(query, page, size) {
 }
 
 async function uploadFile(username, file) {
+    axios.defaults.headers.common['Authorization'] =
+        'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
     const formData = new FormData();
     formData.append('multipartFile', file);
     formData.append('username', username);
