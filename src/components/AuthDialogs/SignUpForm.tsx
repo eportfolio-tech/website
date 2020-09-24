@@ -18,8 +18,6 @@ import {alertActions} from '../../store/actions/alertActions';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/material.css';
 
-import {titles} from '../../constants/titles';
-
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         layout: {
@@ -129,24 +127,17 @@ export default (props: {close: () => void}) => {
                     <Grid container spacing={4}>
                         <Grid item xs={12} md={6}>
                             <TextField
-                                id="outlined-select-currency"
-                                value={userInfo.title}
-                                select
-                                label="Select Title"
+                                required
+                                id="title"
+                                label="Title"
+                                variant="outlined"
                                 fullWidth
+                                value={userInfo.title || ''}
                                 onChange={(event) =>
                                     handleInput('title', event.target.value)
                                 }
-                                variant="outlined"
                             >
-                                {titles.map((option) => (
-                                    <MenuItem
-                                        key={option.value}
-                                        value={option.value}
-                                    >
-                                        {option.label}
-                                    </MenuItem>
-                                ))}
+                                Title
                             </TextField>
                         </Grid>
                         <Grid item xs={12} md={6}>
