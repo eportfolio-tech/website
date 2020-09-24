@@ -24,7 +24,7 @@ async function getUserTags(username) {
 async function updateUserTags(username, updatedTags) {
     axios.defaults.headers.common['Authorization'] =
         'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
-    const response = await axios.post(`/users/$username}/tags`, updatedTags);
+    const response = await axios.post(`/users/${username}/tags`, updatedTags);
     return response.data.data;
 }
 
