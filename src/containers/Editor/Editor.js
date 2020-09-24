@@ -38,6 +38,8 @@ export default () => {
     const [html, setHtml] = useState(null);
     const [showHtml, setShowHtml] = useState(false);
 
+    const [title, setTitle] = useState(null);
+
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem('user') || '');
         const username = userInfo.user.username;
@@ -55,6 +57,7 @@ export default () => {
                             : null
                     )
                 );
+                setTitle(data.portfolio.title);
             })
             .catch((error) => {
                 console.log(error);
@@ -72,6 +75,9 @@ export default () => {
             const userInfo = JSON.parse(localStorage.getItem('user') || '');
             const username = userInfo.user.username;
             await pageService.putContent(username, rawJSON);
+            await pageService.updatePortfolio(username, {
+                title: title,
+            });
             dispatch(alertActions.success('Save succeed'));
         } catch (error) {
             dispatch(alertActions.error('Put data failed'));
@@ -147,6 +153,10 @@ export default () => {
                 fullWidth
                 margin="normal"
                 variant="outlined"
+                value={title || ''}
+                onChange={(event) => {
+                    setTitle(event.target.value);
+                }}
                 InputLabelProps={{
                     shrink: true,
                 }}

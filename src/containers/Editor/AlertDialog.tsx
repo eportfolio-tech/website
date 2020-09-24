@@ -36,8 +36,8 @@ export default function AlertDialog() {
         const username = userInfo.user.username;
         try {
             await pageService.createPortfolio(username, {
-                description: 'string',
-                title: 'string',
+                description: null,
+                title: null,
                 visibility: 'PUBLIC',
             });
             await delay(2000);
