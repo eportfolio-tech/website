@@ -9,43 +9,35 @@ export const userService = {
     uploadFile,
 };
 
+if ('token' in localStorage) {
+    axios.defaults.headers.common['Authorization'] =
+        'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
+}
+
 async function getAllTags() {
     const response = await axios.get('/tags/');
     return response.data.data;
 }
 
 async function getUserTags(username) {
-    axios.defaults.headers.common['Authorization'] =
-        'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
-    const response = await axios.get('/users/' + username + '/tags');
+    const response = await axios.get(`/users/${username}/tags`);
     return response.data.data;
 }
 
 async function updateUserTags(username, updatedTags) {
-    axios.defaults.headers.common['Authorization'] =
-        'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
-    const response = await axios.post(
-        '/users/' + username + '/tags',
-        updatedTags
-    );
+    const response = await axios.post(`/users/$username}/tags`, updatedTags);
     return response.data.data;
 }
 
 async function deleteUserTags(username, deletedTags) {
-    axios.defaults.headers.common['Authorization'] =
-        'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
     const response = await axios.post(
-        '/users/' + username + '/deleteTags',
+        `/users/${username}/deleteTags`,
         deletedTags
     );
     return response.data.data;
 }
 
 async function search(query, page, size) {
-    if (localStorage.getItem('token')) {
-        axios.defaults.headers.common['Authorization'] =
-            'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
-    }
     const response = await axios.get('/portfolios/search', {
         params: {
             query: query,
@@ -60,9 +52,7 @@ async function uploadFile(username, file) {
     const formData = new FormData();
     formData.append('multipartFile', file);
     formData.append('username', username);
-    axios.defaults.headers.common['Authorization'] =
-        'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
-    const response = await axios.post('/blobs/' + username, formData, {
+    const response = await axios.post(`/blobs/${username}`, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
