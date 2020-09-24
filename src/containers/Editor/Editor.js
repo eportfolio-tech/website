@@ -144,15 +144,14 @@ export default () => {
     };
 
     return (
-        <Paper>
+        <Paper elevation={3}>
             <TextField
                 id="standard-full-width"
                 label="Title"
-                style={{margin: 5}}
+                style={{width: '70%', marginLeft: 10}}
                 placeholder="My Portfolio"
-                fullWidth
                 margin="normal"
-                variant="outlined"
+                variant="standard"
                 value={title || ''}
                 onChange={(event) => {
                     setTitle(event.target.value);
@@ -176,11 +175,12 @@ export default () => {
                         className={classes.button}
                         onClick={onSaveHandlerRemote}
                         startIcon={<SaveIcon />}
+                        style={{marginRight: 10}}
                     >
                         Save
                     </Button>
                 </Grid>
-                <Grid item>
+                <Grid item style={{marginRight: 10}}>
                     <PreviewPopOver render={renderHTML} html={html} />
                 </Grid>
             </Grid>
