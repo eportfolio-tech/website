@@ -39,7 +39,7 @@ const useStyles: any = makeStyles((theme: Theme) =>
         },
         imgFluid: {
             maxWidth: '100%',
-            height: 'auto',
+            height: '160px',
         },
         imgRoundedCircle: {
             borderRadius: '50% !important',
@@ -72,13 +72,15 @@ export default function ProfilePage(props: {[x: string]: any}) {
     const imageClasses = classNames(
         classes.imgRaised,
         classes.imgRoundedCircle,
-        classes.imgFluid,
+        classes.imgFluid
     );
 
     const [portfolio, setPortfolio] = useState({
         firstName: 'David',
         lastName: 'Smith',
         avatarUrl: 'https://comp30002.blob.core.windows.net/image/viewB.jpg',
+        title: 'Full stack developer',
+        description: 'I am handsome.',
     });
 
     useEffect(() => {
@@ -113,17 +115,14 @@ export default function ProfilePage(props: {[x: string]: any}) {
                     />
                 </div>
                 <div className={classes.name}>
-                    <h1 className={classes.title}>{`${portfolio.firstName} ${portfolio.lastName}`}</h1>
-                    <h2>(Title)</h2>
+                    <h1
+                        className={classes.title}
+                    >{`${portfolio.firstName} ${portfolio.lastName}`}</h1>
+                    <h2>{portfolio.title}</h2>
                 </div>
             </div>
             <div className={classes.description}>
-                <p>
-                    An artist of considerable range, Chet Faker — the name taken
-                    by Melbourne-raised, Brooklyn-based Nick Murphy — writes,
-                    performs and records all of his own music, giving it a warm,
-                    intimate feel with a solid groove structure.{' '}
-                </p>
+                <p>{portfolio.description}</p>
             </div>
             <div>
                 <Grid

@@ -22,16 +22,16 @@ export default () => {
         <div className={classes.root}>
             <Grid container spacing={3}>
                 <Grid item xs={12} md={6}>
-                    <UpdateInfo/>
+                    <UpdateInfo />
                 </Grid>
                 <Grid item xs={6}>
-                    <UserTags/>
+                    <UserTags />
                 </Grid>
                 <Grid item xs={12} md={12}>
-                    <ResetPassword/>
+                    <ResetPassword />
                 </Grid>
                 <Grid item xs={6}>
-                    <UpdateAvatar/>
+                    <UpdateAvatar />
                 </Grid>
             </Grid>
         </div>

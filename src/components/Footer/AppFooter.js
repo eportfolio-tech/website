@@ -10,6 +10,8 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         background: '#0ed69a',
         alignItems: 'center',
+        //minHeight: '100vh',
+        minHeight: '100%',
     },
     container: {
         marginTop: theme.spacing(8),
