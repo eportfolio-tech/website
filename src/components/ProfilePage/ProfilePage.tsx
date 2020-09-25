@@ -39,7 +39,7 @@ const useStyles: any = makeStyles((theme: Theme) =>
         },
         imgFluid: {
             maxWidth: '100%',
-            height: 'auto',
+            height: '160px',
         },
         imgRoundedCircle: {
             borderRadius: '50% !important',
