@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         drawer: {
             width: drawerWidth,
-            flexShrink: 0,
+
             whiteSpace: 'nowrap',
         },
         drawerOpen: {
@@ -67,8 +67,13 @@ const useStyles = makeStyles((theme: Theme) =>
             width: theme.spacing(7) + 1,
             [theme.breakpoints.up('md')]: {
                 width: theme.spacing(9) + 1,
+                position: 'fixed',
+                backgroundColor: 'rgba(250,250,250,0)',
+                zIndex: 1,
+                top: 0,
+                left: 0,
             },
-            background: theme.palette.background.default,
+            //backgroundColor: 'rgba(250,250,250,0)',
             border: 'none',
         },
         toolbar: {
@@ -78,7 +83,7 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: theme.spacing(0, 1),
             // necessary for content to be below app bar
             ...theme.mixins.toolbar,
-            backgroundColor: 'rgba(250,250,250,0.9)',
+            backgroundColor: 'transparent',
         },
         content: {
             flexGrow: 1,
@@ -86,11 +91,11 @@ const useStyles = makeStyles((theme: Theme) =>
                 padding: theme.spacing(13),
             },
             [theme.breakpoints.down('sm')]: {
-                padding: theme.spacing(4),
+                //padding: theme.spacing(4),
                 marginTop: '18%',
             },
             [theme.breakpoints.between('sm', 'md')]: {
-                padding: theme.spacing(4),
+                //padding: theme.spacing(4),
                 marginTop: '8%',
             },
             maxWidth: '100%',

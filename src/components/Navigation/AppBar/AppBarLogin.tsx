@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-        backgroundColor: 'rgba(250,250,250,0)',
+        backgroundColor: 'transparent',
         boxShadow: 'none',
     },
     appBarShift: {
