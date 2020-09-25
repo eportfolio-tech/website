@@ -1,5 +1,5 @@
 import React from 'react';
-import {useHistory, useLocation} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import {
     Card,
     CardActionArea,
@@ -41,7 +41,6 @@ interface IResultCard {
 export default ({content, setFlipped}: IResultCard) => {
     const classes = useStyles();
     const history = useHistory();
-    const location = useLocation();
 
     return (
         <CardActionArea

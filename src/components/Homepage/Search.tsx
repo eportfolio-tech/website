@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Theme, makeStyles, createStyles} from '@material-ui/core/styles';
 
 import Typography from '../Typography/Typography';
@@ -32,11 +32,8 @@ const useStyles: any = makeStyles((theme: Theme) =>
     })
 );
 
-const options = ['Name', 'Tags'];
-
 function ProductHero() {
     const classes = useStyles();
-    const [option, setOption] = useState<string | null>(options[0]);
 
     return (
         <ProductHeroLayout backgroundClassName={classes.background}>
@@ -57,11 +54,7 @@ function ProductHero() {
             <br />
             <br />
 
-            <SearchBar
-                setOption={setOption}
-                option={option}
-                options={options}
-            />
+            <SearchBar />
         </ProductHeroLayout>
     );
 }

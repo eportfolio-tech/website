@@ -22,10 +22,7 @@ function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
 
-const options = ['Names', 'Tags'];
-
 export default () => {
-    const [option, setOption] = useState<string | null>(options[0]);
     const location = useLocation();
     const history = useHistory();
     const theme = useTheme();
@@ -99,13 +96,7 @@ export default () => {
                     </a.div>
                 ) : (
                     <a.div style={searchStyle}>
-                        <SearchBar
-                            options={options}
-                            option={option}
-                            setOption={setOption}
-                            setCards={setCards}
-                            setLoading={setLoading}
-                        />
+                        <SearchBar />
                         <br />
                         <br />
                         <Results

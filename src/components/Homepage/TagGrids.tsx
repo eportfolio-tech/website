@@ -3,6 +3,7 @@ import {Theme, makeStyles, createStyles} from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Container from '@material-ui/core/Container';
 import Typography from '../Typography/Typography';
+import {useHistory} from 'react-router-dom';
 
 const useStyles: any = makeStyles((theme: Theme) =>
     createStyles({
@@ -84,57 +85,57 @@ const useStyles: any = makeStyles((theme: Theme) =>
     })
 );
 
+const sampleTags = [
+    {
+        url: 'https://comp30002.blob.core.windows.net/image/cs.jpg',
+        title: 'Computer Science',
+        width: '40%',
+    },
+    {
+        url: 'https://comp30002.blob.core.windows.net/image/science.png',
+        title: 'Science',
+        width: '20%',
+    },
+    {
+        url: 'https://comp30002.blob.core.windows.net/image/Architecture.jpg',
+        title: 'Architecture',
+        width: '40%',
+    },
+    {
+        url: 'https://comp30002.blob.core.windows.net/image/arts.jpg',
+        title: 'Arts',
+        width: '38%',
+    },
+    {
+        url: 'https://comp30002.blob.core.windows.net/image/fine.jpg',
+        title: 'Fine Arts',
+        width: '38%',
+    },
+    {
+        url: 'https://comp30002.blob.core.windows.net/image/law.jpg',
+        title: 'Law',
+        width: '24%',
+    },
+    {
+        url: 'https://comp30002.blob.core.windows.net/image/commence.jpg',
+        title: 'Business',
+        width: '40%',
+    },
+    {
+        url: 'https://comp30002.blob.core.windows.net/image/education.jpg',
+        title: 'Education',
+        width: '20%',
+    },
+    {
+        url: 'https://comp30002.blob.core.windows.net/image/health.jpg',
+        title: 'Health',
+        width: '40%',
+    },
+];
+
 function ProductCategories() {
     const classes = useStyles();
-
-    const images = [
-        {
-            url: 'https://comp30002.blob.core.windows.net/image/cs.jpg',
-            title: 'Computer Science',
-            width: '40%',
-        },
-        {
-            url: 'https://comp30002.blob.core.windows.net/image/science.png',
-            title: 'Science',
-            width: '20%',
-        },
-        {
-            url:
-                'https://comp30002.blob.core.windows.net/image/Architecture.jpg',
-            title: 'Architecture',
-            width: '40%',
-        },
-        {
-            url: 'https://comp30002.blob.core.windows.net/image/arts.jpg',
-            title: 'Arts',
-            width: '38%',
-        },
-        {
-            url: 'https://comp30002.blob.core.windows.net/image/fine.jpg',
-            title: 'Fine Arts',
-            width: '38%',
-        },
-        {
-            url: 'https://comp30002.blob.core.windows.net/image/law.jpg',
-            title: 'Law',
-            width: '24%',
-        },
-        {
-            url: 'https://comp30002.blob.core.windows.net/image/commence.jpg',
-            title: 'Business',
-            width: '40%',
-        },
-        {
-            url: 'https://comp30002.blob.core.windows.net/image/education.jpg',
-            title: 'Education',
-            width: '20%',
-        },
-        {
-            url: 'https://comp30002.blob.core.windows.net/image/health.jpg',
-            title: 'Health',
-            width: '40%',
-        },
-    ];
+    const history = useHistory();
 
     return (
         <Container className={classes.root} component="section">
@@ -147,18 +148,21 @@ function ProductCategories() {
                 Discover E-Portfolios by Tags
             </Typography>
             <div className={classes.images}>
-                {images.map((image) => (
+                {sampleTags.map((tag) => (
                     <ButtonBase
-                        key={image.title}
+                        key={tag.title}
                         className={classes.imageWrapper}
                         style={{
-                            width: image.width,
+                            width: tag.width,
+                        }}
+                        onClick={() => {
+                            history.push('/search?query=' + tag.title);
                         }}
                     >
                         <div
                             className={classes.imageSrc}
                             style={{
-                                backgroundImage: `url(${image.url})`,
+                                backgroundImage: `url(${tag.url})`,
                             }}
                         />
                         <div className={classes.imageBackdrop} />
@@ -169,7 +173,7 @@ function ProductCategories() {
                                 color="inherit"
                                 className={classes.imageTitle}
                             >
-                                {image.title}
+                                {tag.title}
                                 <div className={classes.imageMarked} />
                             </Typography>
                         </div>

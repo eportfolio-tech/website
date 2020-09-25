@@ -1,22 +1,12 @@
 import React, {useEffect, useState} from 'react';
 
-import {
-    Typography,
-    TextField,
-    Chip,
-    CircularProgress,
-    Theme,
-} from '@material-ui/core';
+import {TextField, CircularProgress, Theme} from '@material-ui/core';
 import {createStyles, makeStyles} from '@material-ui/core/styles';
 import {Autocomplete} from '@material-ui/lab';
+import TagType from './TagType';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        chip: {
-            fontWeight: 'bold',
-            borderRadius: 40,
-            height: '100%',
-        },
         icon: {
             width: '1.2em',
             height: '1.2em',
@@ -24,23 +14,14 @@ const useStyles = makeStyles((theme: Theme) =>
         root: {
             background: theme.palette.background.default,
             borderRadius: 10,
-            width: '90%',
+            width: '95%',
         },
     })
 );
 
-interface IChips {
-    setChips: any;
-}
-
-interface TagType {
-    id: number;
-    name: string;
-    icon?: null | string;
-    deleted: boolean;
-    createdBy?: string;
-    createdAt?: string;
-    updatedOn?: string;
+interface ITagInput {
+    setInput: any;
+    style?: any;
 }
 
 function sleep(delay = 0) {
@@ -49,7 +30,7 @@ function sleep(delay = 0) {
     });
 }
 
-export function Chips({setChips}: IChips) {
+export default ({setInput, style}: ITagInput) => {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const [options, setOptions] = useState<TagType[]>([]);
@@ -106,12 +87,12 @@ export function Chips({setChips}: IChips) {
 
     return (
         <Autocomplete
+            fullWidth
             className={classes.root}
-            multiple
             id="size-small-filled-multi"
             size="small"
-            limitTags={5}
             open={open}
+            style={style}
             onOpen={() => {
                 setOpen(true);
             }}
@@ -121,33 +102,15 @@ export function Chips({setChips}: IChips) {
             options={options}
             getOptionSelected={(option, value) => option.name === value.name}
             getOptionLabel={(option) => option.name}
-            renderTags={(value: any, getTagProps: any) =>
-                value.map((option: TagType, index: number) => (
-                    <Chip
-                        label={option.name}
-                        {...getTagProps({index})}
-                        color="secondary"
-                        variant="default"
-                        icon={
-                            <Typography
-                                variant="h6"
-                                style={{fontWeight: 'bold'}}
-                            >
-                                #
-                            </Typography>
-                        }
-                        className={classes.chip}
-                    />
-                ))
+            onChange={(event: any, value: TagType | null) =>
+                setInput(value?.name)
             }
-            onChange={(event: any, value: TagType[]) => setChips(value)}
             renderInput={(params) => {
                 return (
                     <TextField
                         {...params}
                         InputProps={{
                             ...params.InputProps,
-
                             endAdornment: (
                                 <React.Fragment>
                                     {loading ? (
@@ -160,12 +123,11 @@ export function Chips({setChips}: IChips) {
                                 </React.Fragment>
                             ),
                         }}
-                        fullWidth
-                        multiline
-                        rows={2}
+                        margin="none"
+                        variant="outlined"
                     />
                 );
             }}
         />
     );
-}
+};
