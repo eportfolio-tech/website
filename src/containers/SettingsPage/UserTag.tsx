@@ -24,8 +24,8 @@ import {alertActions} from '../../store/actions/alertActions';
 import Divider from '@material-ui/core/Divider';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 
-const icon = <CheckBoxOutlineBlankIcon fontSize="small"/>;
-const checkedIcon = <CheckBoxIcon fontSize="small"/>;
+const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 interface TagType {
     id?: number;
@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme: Theme) =>
         cardTitleIcon: {
             marginTop: theme.spacing(3),
         },
-    }),
+    })
 );
 
 export default () => {
@@ -163,10 +163,14 @@ export default () => {
     return (
         <Card style={{height: '100%'}}>
             <CardHeader
-                avatar={<TagIcon className={classes.cardTitleIcon}/>}
-                title={<Typography className={classes.cardTitle} variant="h5">Tags</Typography>}
+                avatar={<TagIcon className={classes.cardTitleIcon} />}
+                title={
+                    <Typography className={classes.cardTitle} variant="h5">
+                        Tags
+                    </Typography>
+                }
             />
-            <Divider/>
+            <Divider />
             <CardContent>
                 <Grid container justify="space-around" spacing={3}>
                     <Grid item xs={12}>
@@ -217,14 +221,14 @@ export default () => {
                                 style={{textTransform: 'none'}}
                                 onClick={getUserTags}
                             >
-                                <RestoreIcon/>
+                                <RestoreIcon />
                                 Refresh
                             </Button>
                             <Button
                                 style={{textTransform: 'none'}}
                                 onClick={onSubmitHandler}
                             >
-                                <PublishIcon/>
+                                <PublishIcon />
                                 Submit
                             </Button>
                         </ButtonGroup>

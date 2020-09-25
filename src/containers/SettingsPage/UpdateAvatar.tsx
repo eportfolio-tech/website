@@ -1,6 +1,15 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
-import {Avatar, Button, Card, CardContent, CardHeader, Fab, Grid, Typography} from '@material-ui/core';
+import {
+    Avatar,
+    Button,
+    Card,
+    CardContent,
+    CardHeader,
+    Fab,
+    Grid,
+    Typography,
+} from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Edit';
 import FaceIcon from '@material-ui/icons/Face';
 import PublishIcon from '@material-ui/icons/Publish';
@@ -102,14 +111,14 @@ export default function UpdateAvatar() {
         <div className={classes.root}>
             <Card style={{height: '100%'}}>
                 <CardHeader
-                    avatar={<FaceIcon className={classes.cardTitleIcon}/>}
+                    avatar={<FaceIcon className={classes.cardTitleIcon} />}
                     title={
                         <Typography variant="h5" className={classes.cardTitle}>
                             Profile Image
                         </Typography>
                     }
                 />
-                <Divider/>
+                <Divider />
                 <CardContent>
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
@@ -139,7 +148,7 @@ export default function UpdateAvatar() {
                                         component="span"
                                         aria-label="add"
                                     >
-                                        <AddIcon/>
+                                        <AddIcon />
                                     </Fab>
                                 </label>
                             </Grid>
@@ -152,8 +161,8 @@ export default function UpdateAvatar() {
                                 component="span"
                                 onClick={onSaveHandler}
                             >
-                                <PublishIcon/>
-                                Update
+                                <PublishIcon />
+                                Upload
                             </Button>
                         </Grid>
                     </Grid>

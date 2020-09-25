@@ -1,6 +1,13 @@
 import React from 'react';
 import {useHistory, useLocation} from 'react-router-dom';
-import {Card, CardActionArea, CardContent, CardMedia, Hidden, Typography} from '@material-ui/core';
+import {
+    Card,
+    CardActionArea,
+    CardContent,
+    CardMedia,
+    Hidden,
+    Typography,
+} from '@material-ui/core';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 
 import IContent from './IContent';
@@ -35,7 +42,6 @@ export default ({content, setFlipped}: IResultCard) => {
     const classes = useStyles();
     const history = useHistory();
     const location = useLocation();
-
 
     return (
         <CardActionArea
