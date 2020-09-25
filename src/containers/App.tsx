@@ -125,7 +125,6 @@ function App() {
                                 path={'/forget-password'}
                                 component={ForgetPassword}
                             />
-
                             <LoggedInRoute
                                 exact
                                 path={'/editor'}
@@ -141,7 +140,12 @@ function App() {
                                 Component={Settings}
                             />
                             <Route exact path={'/'} component={HomePage} />
-                            <Route path={'/'} component={NotFound} />
+                            <Route
+                                exact
+                                path={'/notfound'}
+                                component={NotFound}
+                            />
+                            <Redirect push to="/notfound" />
                         </Switch>
                     </SnackbarProvider>
                 </ThemeProvider>
