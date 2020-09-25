@@ -144,7 +144,8 @@ function App() {
                                 path={'/settings'}
                                 Component={Settings}
                             />
-                            <Route path={'/'} component={HomePage} />
+                            <Route exact path={'/'} component={HomePage} />
+                            <Redirect to={'/notfound'} />
                         </Switch>
                     </SnackbarProvider>
                 </ThemeProvider>
