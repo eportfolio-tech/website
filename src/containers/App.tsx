@@ -1,20 +1,26 @@
 import React from 'react';
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import {ThemeProvider} from '@material-ui/core/styles';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {IRootState} from '../index';
 import DocumentTitle from 'react-document-title';
 import {SnackbarProvider} from 'notistack';
 
 import Layout from '../components/Navigation';
 import theme from '../theme/fortyTwo';
-import {userActions} from '../store/actions/userActions';
 
 import Explore from '../containers/Explore';
 
-import {Editor, ForgetPassword, HomePage, ProfilePage, Recovery, Search, Setting, Verify} from '.';
-
-import JwtDecode from 'jwt-decode';
+import {
+    Editor,
+    ForgetPassword,
+    HomePage,
+    ProfilePage,
+    Recovery,
+    Search,
+    Setting,
+    Verify,
+} from '.';
 
 interface IProtectedRoute {
     Component?: any;
@@ -77,22 +83,6 @@ const LoggedOutRoute = ({Component, exact, path}: IProtectedRoute) => {
 };
 
 function App() {
-    const dispatch = useDispatch();
-    // check if stored token is still valid
-    const token = useSelector<IRootState, string | null | undefined>(
-        (state) => state.auth.token
-    );
-    if (token !== null && token !== undefined) {
-        const jwt = JwtDecode(token);
-        const current_time = Date.now() / 1000;
-        if ((jwt as any).exp < current_time) {
-            /* expired */
-            dispatch(userActions.logout());
-            localStorage.removeItem('token');
-            localStorage.removeItem('user');
-        }
-    }
-
     const EditorBoard = () => (
         <div>
             <Layout>
