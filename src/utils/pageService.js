@@ -10,8 +10,8 @@ export const pageService = {
 };
 
 async function getPortfolio(username) {
-    axios.defaults.headers.common['Authorization'] =
-        'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
+    // axios.defaults.headers.common['Authorization'] =
+    //     'Bearer ' + localStorage.getItem('token').replace(/['"]+/g, '');
     const response = await axios.get(`/portfolios/${username}`);
     return response.data.data;
 }

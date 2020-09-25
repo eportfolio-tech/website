@@ -1,29 +1,18 @@
 import React from 'react';
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import {ThemeProvider} from '@material-ui/core/styles';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {IRootState} from '../index';
 import DocumentTitle from 'react-document-title';
 import {SnackbarProvider} from 'notistack';
 
 import Layout from '../components/Navigation';
 import theme from '../theme/fortyTwo';
-
-import {useDispatch} from 'react-redux';
 import {userActions} from '../store/actions/userActions';
 
 import Explore from '../containers/Explore';
 
-import {
-    Search,
-    ForgetPassword,
-    Recovery,
-    Verify,
-    Editor,
-    Setting,
-    HomePage,
-    ProfilePage,
-} from '.';
+import {Editor, ForgetPassword, HomePage, ProfilePage, Recovery, Search, Setting, Verify} from '.';
 
 import JwtDecode from 'jwt-decode';
 
@@ -127,7 +116,7 @@ function App() {
                             <Route path={'/search'} component={Search} />
                             <Route
                                 exact
-                                path={'/profile'}
+                                path={'/portfolios/:username'}
                                 component={ProfilePage}
                             />
                             <Route

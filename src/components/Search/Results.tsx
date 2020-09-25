@@ -1,8 +1,8 @@
 import React from 'react';
-import {Grid, Typography, Container, Grow} from '@material-ui/core';
+import {Container, Grid, Grow, Typography} from '@material-ui/core';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 
-import Card from './ResultCard';
+import ResultCard from './ResultCard';
 import LoadingLogo from '../LandingLogo';
 import IContent from './IContent';
 
@@ -62,10 +62,10 @@ export default ({setFlipped, loading, cards}: IResults) => {
                                   timeout={index * 200}
                               >
                                   <Grid item key={index} xs={12} sm={6}>
-                                      <Card
+                                      <ResultCard
                                           content={card}
                                           setFlipped={setFlipped}
-                                      ></Card>
+                                      ></ResultCard>
                                   </Grid>
                               </Grow>
                           ))

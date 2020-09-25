@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 // nodejs library that concatenates classes
 import classNames from 'classnames';
 // @material-ui/core components
-import {makeStyles, createStyles} from '@material-ui/core/styles';
+import {createStyles, makeStyles} from '@material-ui/core/styles';
 // @material-ui/icons
 // core components
 import Footer from '../Footer/AppFooter';
@@ -14,6 +14,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import CommentOutlinedIcon from '@material-ui/icons/CommentOutlined';
 import {Grid} from '@material-ui/core';
+import {pageService} from '../../utils/pageService';
 
 // @ts-ignore
 const useStyles: any = makeStyles((theme: Theme) =>
@@ -71,8 +72,29 @@ export default function ProfilePage(props: {[x: string]: any}) {
     const imageClasses = classNames(
         classes.imgRaised,
         classes.imgRoundedCircle,
-        classes.imgFluid
+        classes.imgFluid,
     );
+
+    const [portfolio, setPortfolio] = useState({
+        firstName: 'David',
+        lastName: 'Smith',
+        avatarUrl: 'https://comp30002.blob.core.windows.net/image/viewB.jpg',
+    });
+
+    useEffect(() => {
+        const username = props.match.params.username;
+
+        // Check if user has a portfolio
+        pageService
+            .getPortfolio(username)
+            .then((data) => {
+                // console.log('portfolio: ', data.portfolio);
+                setPortfolio(data.portfolio);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
 
     // @ts-ignore
     return (
@@ -85,13 +107,13 @@ export default function ProfilePage(props: {[x: string]: any}) {
             <div className={classes.profile}>
                 <div>
                     <img
-                        src="https://comp30002.blob.core.windows.net/image/profile.png"
+                        src={portfolio.avatarUrl}
                         alt="..."
                         className={imageClasses}
                     />
                 </div>
                 <div className={classes.name}>
-                    <h1 className={classes.title}>David Smith</h1>
+                    <h1 className={classes.title}>{`${portfolio.firstName} ${portfolio.lastName}`}</h1>
                     <h2>(Title)</h2>
                 </div>
             </div>

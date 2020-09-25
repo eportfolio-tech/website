@@ -1,21 +1,13 @@
 import React from 'react';
 import {useHistory, useLocation} from 'react-router-dom';
-import {
-    Card,
-    CardContent,
-    CardMedia,
-    Typography,
-    CardActionArea,
-    Hidden,
-} from '@material-ui/core';
+import {Card, CardActionArea, CardContent, CardMedia, Hidden, Typography} from '@material-ui/core';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 
 import IContent from './IContent';
+import logoImage from '../../assets/logo.svg';
 
 //import {useSelector} from 'react-redux';
 //import {IRootState} from '../../index';
-
-import logoImage from '../../assets/logo.svg';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -44,18 +36,21 @@ export default ({content, setFlipped}: IResultCard) => {
     const history = useHistory();
     const location = useLocation();
 
+
     return (
         <CardActionArea
             component="a"
             href="#"
             onClick={() => {
+                console.log(content);
                 setFlipped(true);
                 // console.log(location.pathname);
-                if (location.pathname === '/') {
-                    history.push('/search/more');
-                } else {
-                    history.push(location.pathname + '/more');
-                }
+                // if (location.pathname === '/') {
+                //     history.push('/search/more');
+                // } else {
+                //     history.push(location.pathname + '/more');
+                // }
+                history.push('/portfolios/' + content.username);
             }}
         >
             <Card className={classes.card}>
