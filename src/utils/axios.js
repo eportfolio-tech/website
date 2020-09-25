@@ -14,18 +14,18 @@ instance.interceptors.request.use(
     (config) => {
         // check how long the token is left
         const token = localStorage.getItem('token');
-        console.log(token);
+        // console.log(token);
         if (token !== null && token !== undefined) {
             const jwt = JwtDecode(token);
             const current_time = Date.now() / 1000;
-            if (jwt.exp < current_time) {
-                /* expired */
-                // TODO: renew token
-                // localStorage.removeItem('token');
-                // localStorage.removeItem('user');
+            // console.log(jwt.exp - current_time);
+            if (jwt.exp - current_time > 0 && jwt.exp - current_time < 5) {
+                instance.post('/authentication/renew').then((data) => {
+                    console.log(data);
+                });
             }
             // Set auth header
-            axios.defaults.headers.common['Authorization'] =
+            config.headers.common['Authorization'] =
                 'Bearer ' + token.replace(/['"]+/g, '');
         }
         return config;
