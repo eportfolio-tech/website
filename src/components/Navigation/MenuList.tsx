@@ -8,6 +8,8 @@ import {
     ListItem,
     ListItemIcon,
     ListItemText,
+    Tooltip,
+    Typography,
 } from '@material-ui/core';
 
 import EditIcon from '@material-ui/icons/Edit';
@@ -30,12 +32,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface IMenuListProps {
     handleRouting: any;
+    open?: any;
 }
 
 /***
  * The layout of the application once login in.
  */
-export default withWidth()(({handleRouting}: IMenuListProps) => {
+export default withWidth()(({handleRouting, open}: IMenuListProps) => {
     const classes = useStyles();
     //const loadingRoute = false;
     const location = useLocation();
@@ -50,71 +53,120 @@ export default withWidth()(({handleRouting}: IMenuListProps) => {
     return (
         <div>
             <List>
-                <ListItem
-                    button
-                    onClick={() => handleRouting('')}
-                    selected={path === '/'}
-                    className={classes.item}
+                <Tooltip
+                    arrow
+                    title={<Typography variant="body1">{'Home'}</Typography>}
+                    placement="right"
+                    disableHoverListener={open}
+                    interactive
                 >
-                    <ListItemIcon className={classes.icon}>
-                        <HomeIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Home" />
-                </ListItem>
-                <ListItem
-                    button
-                    onClick={() => handleRouting('explore')}
-                    selected={path === '/explore'}
-                    className={classes.item}
+                    <ListItem
+                        button
+                        onClick={() => handleRouting('')}
+                        selected={path === '/'}
+                        className={classes.item}
+                    >
+                        <ListItemIcon className={classes.icon}>
+                            <HomeIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Home" />
+                    </ListItem>
+                </Tooltip>
+                <Tooltip
+                    arrow
+                    title={<Typography variant="body1">{'Explore'}</Typography>}
+                    placement="right"
+                    disableHoverListener={open}
+                    interactive
                 >
-                    <ListItemIcon className={classes.icon}>
-                        <ExploreIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Explore" />
-                </ListItem>
-                <ListItem
-                    button
-                    onClick={() => handleRouting('search')}
-                    selected={path === '/search'}
-                    className={classes.item}
+                    <ListItem
+                        button
+                        onClick={() => handleRouting('explore')}
+                        selected={path === '/explore'}
+                        className={classes.item}
+                    >
+                        <ListItemIcon className={classes.icon}>
+                            <ExploreIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Explore" />
+                    </ListItem>
+                </Tooltip>
+                <Tooltip
+                    arrow
+                    title={<Typography variant="body1">{'Search'}</Typography>}
+                    placement="right"
+                    disableHoverListener={open}
+                    interactive
                 >
-                    <ListItemIcon className={classes.icon}>
-                        <SearchIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Search" />
-                </ListItem>
-                <ListItem
-                    button
-                    onClick={() => handleRouting('editor')}
-                    selected={path === '/editor'}
-                    className={classes.item}
+                    <ListItem
+                        button
+                        onClick={() => handleRouting('search')}
+                        selected={path === '/search'}
+                        className={classes.item}
+                    >
+                        <ListItemIcon className={classes.icon}>
+                            <SearchIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Search" />
+                    </ListItem>
+                </Tooltip>
+                <Tooltip
+                    arrow
+                    title={<Typography variant="body1">{'Editor'}</Typography>}
+                    placement="right"
+                    disableHoverListener={open}
+                    interactive
                 >
-                    <ListItemIcon className={classes.icon}>
-                        <EditIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Editor" />
-                </ListItem>
+                    <ListItem
+                        button
+                        onClick={() => handleRouting('editor')}
+                        selected={path === '/editor'}
+                        className={classes.item}
+                    >
+                        <ListItemIcon className={classes.icon}>
+                            <EditIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Editor" />
+                    </ListItem>
+                </Tooltip>
             </List>
 
             <List>
-                <ListItem
-                    button
-                    onClick={() => handleRouting('settings')}
-                    selected={path === '/settings'}
-                    className={classes.item}
+                <Tooltip
+                    arrow
+                    title={
+                        <Typography variant="body1">{'Settings'}</Typography>
+                    }
+                    placement="right"
+                    disableHoverListener={open}
+                    interactive
                 >
-                    <ListItemIcon className={classes.icon}>
-                        <SettingsIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Settings" />
-                </ListItem>
-
-                <ListItem button onClick={logOut} className={classes.item}>
-                    <ListItemIcon className={classes.icon}>
-                        <PowerSettingsNewIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Logout" />
-                </ListItem>
+                    <ListItem
+                        button
+                        onClick={() => handleRouting('settings')}
+                        selected={path === '/settings'}
+                        className={classes.item}
+                    >
+                        <ListItemIcon className={classes.icon}>
+                            <SettingsIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Settings" />
+                    </ListItem>
+                </Tooltip>
+                <Tooltip
+                    arrow
+                    title={<Typography variant="body1">{'Logout'}</Typography>}
+                    placement="right"
+                    disableHoverListener={open}
+                    interactive
+                >
+                    <ListItem button onClick={logOut} className={classes.item}>
+                        <ListItemIcon className={classes.icon}>
+                            <PowerSettingsNewIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Logout" />
+                    </ListItem>
+                </Tooltip>
             </List>
         </div>
     );

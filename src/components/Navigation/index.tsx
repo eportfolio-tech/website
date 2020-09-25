@@ -132,7 +132,7 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
     const {enqueueSnackbar, closeSnackbar} = useSnackbar();
 
     const loadingRoute = false;
-    const [open, setOpen] = useState(largeScreen);
+    const [open, setOpen] = useState(false);
     const handleRouting = (newRoute: String) => {
         history.push('/' + newRoute);
     };
@@ -227,17 +227,22 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
                     onClose={getDrawlerOnClose}
                 >
                     <div className={classes.toolbar}>
-                        <IconButton onClick={handleDrawerClose}>
-                            {theme.direction === 'rtl' ? (
-                                <ChevronRightIcon />
-                            ) : (
-                                <RemoveIcon />
-                            )}
-                        </IconButton>
+                        {largeScreen ? null : (
+                            <IconButton onClick={handleDrawerClose}>
+                                {theme.direction === 'rtl' ? (
+                                    <ChevronRightIcon />
+                                ) : (
+                                    <RemoveIcon />
+                                )}
+                            </IconButton>
+                        )}
                     </div>
                     {loadingRoute ? null : (
                         <div>
-                            <MenuList handleRouting={handleRouting} />
+                            <MenuList
+                                open={open}
+                                handleRouting={handleRouting}
+                            />
                         </div>
                     )}
                 </Drawer>

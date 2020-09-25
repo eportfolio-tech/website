@@ -165,6 +165,7 @@ export default () => {
                                 <Grid item xs={5}>
                                     <Grid container justify="center">
                                         <Tooltip
+                                            arrow
                                             title={
                                                 <Typography variant="body1">
                                                     {'switch to ' +
