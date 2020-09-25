@@ -15,6 +15,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import CommentOutlinedIcon from '@material-ui/icons/CommentOutlined';
 import {Grid} from '@material-ui/core';
 import {pageService} from '../../utils/pageService';
+import Layout from '../Navigation';
 
 // @ts-ignore
 const useStyles: any = makeStyles((theme: Theme) =>
@@ -101,68 +102,72 @@ export default function ProfilePage(props: {[x: string]: any}) {
     // @ts-ignore
     return (
         <div>
-            <Parallax
-                small
-                filter
-                image="https://comp30002.blob.core.windows.net/image/viewB.jpg"
-            />
-            <div className={classes.profile}>
+            <Layout>
                 <div>
-                    <img
-                        src={portfolio.avatarUrl}
-                        alt="..."
-                        className={imageClasses}
+                    <Parallax
+                        small
+                        filter
+                        image="https://comp30002.blob.core.windows.net/image/viewB.jpg"
                     />
-                </div>
-                <div className={classes.name}>
-                    <h1
-                        className={classes.title}
-                    >{`${portfolio.firstName} ${portfolio.lastName}`}</h1>
-                    <h2>{portfolio.title}</h2>
-                </div>
-            </div>
-            <div className={classes.description}>
-                <p>{portfolio.description}</p>
-            </div>
-            <div>
-                <Grid
-                    container
-                    className={classes.social}
-                    alignContent="center"
-                    spacing={2}
-                    justify="center"
-                >
-                    <Grid item>
-                        <Fab color="primary" aria-label="like">
-                            <FavoriteIcon />
-                        </Fab>
-                    </Grid>
-                    <Grid item>
-                        <Fab color="primary" aria-label="share">
-                            <ShareIcon />
-                        </Fab>
-                    </Grid>
-                </Grid>
-            </div>
-            <div>
-                <Grid
-                    container
-                    className={classes.social}
-                    alignContent="center"
-                    spacing={2}
-                    justify="center"
-                >
-                    <Grid item>
-                        <Button
-                            color="primary"
-                            aria-label="comment"
-                            variant="contained"
+                    <div className={classes.profile}>
+                        <div>
+                            <img
+                                src={portfolio.avatarUrl}
+                                alt="..."
+                                className={imageClasses}
+                            />
+                        </div>
+                        <div className={classes.name}>
+                            <h1
+                                className={classes.title}
+                            >{`${portfolio.firstName} ${portfolio.lastName}`}</h1>
+                            <h2>{portfolio.title}</h2>
+                        </div>
+                    </div>
+                    <div className={classes.description}>
+                        <p>{portfolio.description}</p>
+                    </div>
+                    <div>
+                        <Grid
+                            container
+                            className={classes.social}
+                            alignContent="center"
+                            spacing={2}
+                            justify="center"
                         >
-                            <CommentOutlinedIcon />
-                        </Button>
-                    </Grid>
-                </Grid>
-            </div>
+                            <Grid item>
+                                <Fab color="primary" aria-label="like">
+                                    <FavoriteIcon />
+                                </Fab>
+                            </Grid>
+                            <Grid item>
+                                <Fab color="primary" aria-label="share">
+                                    <ShareIcon />
+                                </Fab>
+                            </Grid>
+                        </Grid>
+                    </div>
+                    <div>
+                        <Grid
+                            container
+                            className={classes.social}
+                            alignContent="center"
+                            spacing={2}
+                            justify="center"
+                        >
+                            <Grid item>
+                                <Button
+                                    color="primary"
+                                    aria-label="comment"
+                                    variant="contained"
+                                >
+                                    <CommentOutlinedIcon />
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </div>
+                </div>
+            </Layout>
             <Footer />
         </div>
     );

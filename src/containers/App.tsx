@@ -20,6 +20,7 @@ import {
     Search,
     Setting,
     Verify,
+    NotFound,
 } from '.';
 
 interface IProtectedRoute {
@@ -124,6 +125,11 @@ function App() {
                                 path={'/forget-password'}
                                 component={ForgetPassword}
                             />
+                            <Route
+                                exact
+                                path={'/notfound'}
+                                component={NotFound}
+                            />
                             <LoggedInRoute
                                 exact
                                 path={'/editor'}
@@ -138,7 +144,8 @@ function App() {
                                 path={'/settings'}
                                 Component={Settings}
                             />
-                            <Route path={'/'} component={HomePage} />
+                            <Route exact path={'/'} component={HomePage} />
+                            <Redirect to={'/notfound'} />
                         </Switch>
                     </SnackbarProvider>
                 </ThemeProvider>
