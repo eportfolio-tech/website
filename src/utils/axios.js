@@ -6,7 +6,7 @@ const devEnvironment = 'https://api.eportfolio.tech/';
 const localEnvironment = 'http://localhost:8090';
 
 const instance = axios.create({
-    baseURL: testEnvironment,
+    baseURL: devEnvironment,
 });
 
 instance.interceptors.request.use(
