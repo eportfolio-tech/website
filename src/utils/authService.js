@@ -16,7 +16,8 @@ async function login(username, password) {
         username: username,
         password: password,
     });
-    const token = response.headers['x-jwt-token'];
+    const token = response.data.data['access-token'];
+    const retoken = response.data.data['refresh-token'];
     localStorage.setItem(
         'user',
         JSON.stringify({
@@ -26,7 +27,7 @@ async function login(username, password) {
         })
     );
     localStorage.setItem('token', JSON.stringify(token));
-    response.data.data['token'] = token;
+    localStorage.setItem('retoken', JSON.stringify(retoken));
     return response.data.data;
 }
 
