@@ -56,6 +56,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+}
+
 /***
  * The App Bar at the top.
  */
@@ -63,25 +67,24 @@ export default withWidth()(() => {
     const classes = useStyles();
     const location = useLocation();
     const history = useHistory();
+    const query = useQuery();
 
     //const [avatarEL, setAvatarEL] = useState(null);
-    const [openLogin, setOpenLogin] = useState(location.pathname === '/login');
-    const [openSignUp, setOpenSignUp] = useState(
-        location.pathname === '/sign-up'
-    );
+    const [openLogin, setOpenLogin] = useState(query.get('login'));
+    const [openSignUp, setOpenSignUp] = useState(query.get('sign-up'));
 
     useEffect(() => {
-        if (location.pathname === '/login') {
-            setOpenLogin(true);
-        } else if (location.pathname === '/sign-up') {
-            setOpenSignUp(true);
+        if (query.get('login')) {
+            setOpenLogin('true');
+        } else if (query.get('sign-up')) {
+            setOpenSignUp('true');
         }
     }, [location.pathname]);
 
     return (
         <div>
-            <SignIn open={openLogin} setOpen={setOpenLogin} />
-            <SignUp open={openSignUp} setOpen={setOpenSignUp} />
+            <SignIn open={openLogin == 'true'} setOpen={setOpenLogin} />
+            <SignUp open={openSignUp == 'true'} setOpen={setOpenSignUp} />
             <AppBar position="fixed" className={classes.appBar}>
                 <Toolbar className={classes.toolbar}>
                     <Link
@@ -109,8 +112,8 @@ export default withWidth()(() => {
                         size={'large'}
                         className={classes.signIn}
                         onClick={() => {
-                            history.push('/login');
-                            setOpenLogin(true);
+                            history.push('/?login=true');
+                            setOpenLogin('true');
                         }}
                     >
                         Sign In
@@ -119,10 +122,9 @@ export default withWidth()(() => {
                         size={'large'}
                         className={classes.getStarted}
                         color="primary"
-                        disabled={location.pathname === '/sign-up'}
                         onClick={() => {
-                            history.push('/sign-up');
-                            setOpenSignUp(true);
+                            history.push('/?sign-up=true');
+                            setOpenSignUp('true');
                         }}
                         variant="contained"
                     >
