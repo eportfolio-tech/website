@@ -20,6 +20,7 @@ import {
     Search,
     Setting,
     Verify,
+    NotFound,
 } from '.';
 
 interface IProtectedRoute {
@@ -123,6 +124,11 @@ function App() {
                                 exact
                                 path={'/forget-password'}
                                 component={ForgetPassword}
+                            />
+                            <Route
+                                exact
+                                path={'/notfound'}
+                                component={NotFound}
                             />
                             <LoggedInRoute
                                 exact

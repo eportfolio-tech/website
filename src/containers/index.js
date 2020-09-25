@@ -18,6 +18,8 @@ import HomePage from '../components/Homepage';
 
 import ProfilePage from '../components/ProfilePage/ProfilePage';
 
+import NotFound from '../components/NotFoundPage/NotFoundPage';
+
 export {
     Search,
     ForgetPassword,
@@ -28,4 +30,5 @@ export {
     Setting,
     HomePage,
     ProfilePage,
+    NotFound,
 };
