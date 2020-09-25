@@ -6,7 +6,6 @@ import {
     CardContent,
     CardHeader,
     Grid,
-    MenuItem,
     TextField,
     Typography,
 } from '@material-ui/core';
