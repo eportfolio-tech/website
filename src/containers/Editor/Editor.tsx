@@ -178,6 +178,8 @@ export default () => {
                         open={openPreview}
                         setOpen={setOpenPreview}
                         html={html}
+                        title={title}
+                        description={description}
                     />
 
                     <Grid container spacing={4}>

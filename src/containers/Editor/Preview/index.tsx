@@ -42,6 +42,21 @@ const useStyles = makeStyles((theme: Theme) =>
         root: {
             display: 'flex',
         },
+        profile: {
+            textAlign: 'center',
+            '& img': {
+                maxWidth: '160px',
+                width: '100%',
+            },
+            marginTop: theme.spacing(10),
+        },
+        description: {
+            margin: '1.071rem auto 0',
+            maxWidth: '600px',
+            color: '#999',
+            textAlign: 'center',
+        },
+        name: {},
     })
 );
 
@@ -52,12 +67,20 @@ const Transition = React.forwardRef(function Transition(
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog({open, setOpen, html}: any) {
+export default function FullScreenDialog({
+    open,
+    setOpen,
+    html,
+    title,
+    description,
+}: any) {
     const classes = useStyles();
+    const userInfo = JSON.parse(localStorage.getItem('user') || '').user;
 
     const handleClose = () => {
         setOpen(false);
     };
+    console.log(userInfo);
 
     return (
         <Dialog
@@ -83,6 +106,22 @@ export default function FullScreenDialog({open, setOpen, html}: any) {
                 </Toolbar>
             </AppBar>
             <div className={classes.content}>
+                <div className={classes.profile}>
+                    <div>
+                        <img src={userInfo.avatarUrl} alt="..." />
+                    </div>
+                    <div className={classes.name}>
+                        <h1
+                            className={classes.title}
+                        >{`${userInfo.firstName} ${userInfo.lastName}`}</h1>
+                        <h2>{title}</h2>
+                    </div>
+                </div>
+                <div className={classes.description}>
+                    <p>{description}</p>
+                </div>
+                <br />
+                <br />
                 <MyHTML html={html} />
             </div>
         </Dialog>
