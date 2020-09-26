@@ -1,16 +1,11 @@
 import React, {useEffect, useState} from 'react';
-// nodejs library that concatenates classes
-//import classNames from 'classnames';
-// @material-ui/core components
 import {createStyles, makeStyles} from '@material-ui/core/styles';
-// @material-ui/icons
-// core components
 import Footer from '../../components/Footer/AppFooter';
-//import Parallax from './Parallax';
 
 import {pageService} from '../../utils/pageService';
 import Layout from '../../components/Navigation';
 import Actions from './Actions';
+import ReviewCard from '../../components/Review/ReviewCard';
 
 // @ts-ignore
 const useStyles: any = makeStyles((theme: Theme) =>
@@ -66,6 +61,8 @@ export default function ProfilePage({match, history}: any) {
 
     const [commented, setCommented] = useState(0);
 
+    const [comments, setComments] = useState();
+
     const [portfolio, setPortfolio] = useState({
         firstName: 'David',
         lastName: 'Smith',
@@ -88,6 +85,33 @@ export default function ProfilePage({match, history}: any) {
             });
     }, []);
 
+    useEffect(() => {
+        const username = match.params.username;
+        pageService
+            .getComments(username)
+            .then((data) => {
+                setComments(data['user-comment']);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
+
+    let commentComponents = null;
+    // @ts-ignore
+    // TODO: Fix @ts-ignore
+    if (comments != null && comments.length > 0) {
+        // TODO: Fix @ts-ignore
+        // @ts-ignore
+        commentComponents = comments.map(c => (
+            <ReviewCard
+                author={c.username}
+                content={c.comment}
+                date={c.createdDate}
+                avatar={c.avatar}/>
+        ));
+    }
+    // TODO: Fix @ts-ignore
     // @ts-ignore
     return (
         <div>
@@ -119,6 +143,7 @@ export default function ProfilePage({match, history}: any) {
                     <div className={classes.description}>
                         <p>{portfolio.description}</p>
                     </div>
+                    {commentComponents}
                 </div>
             </Layout>
             <Footer />

@@ -7,10 +7,16 @@ export const pageService = {
     updatePortfolio,
     getContent,
     putContent,
+    getComments,
 };
 
 async function getPortfolio(username) {
     const response = await axios.get(`/portfolios/${username}`);
+    return response.data.data;
+}
+
+async function getComments(username) {
+    const response = await axios.get(`/portfolios/${username}/comments`);
     return response.data.data;
 }
 

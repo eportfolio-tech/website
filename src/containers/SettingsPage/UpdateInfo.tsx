@@ -1,14 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
-import {
-    Button,
-    Card,
-    CardContent,
-    CardHeader,
-    Grid,
-    TextField,
-    Typography,
-} from '@material-ui/core';
+import {Button, Card, CardContent, CardHeader, Grid, TextField, Typography} from '@material-ui/core';
 import UpdateIcon from '@material-ui/icons/Update';
 
 import {useDispatch} from 'react-redux';
@@ -77,10 +69,7 @@ export default function UpdateProfile() {
     };
 
     const isModified = () => {
-        if (JSON.stringify(userInfo) === JSON.stringify(oldUserInfo)) {
-            return false;
-        }
-        return true;
+        return JSON.stringify(userInfo) !== JSON.stringify(oldUserInfo);
     };
 
     return (
