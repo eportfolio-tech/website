@@ -5,13 +5,14 @@ import BraftEditor from 'braft-editor';
 import Button from '@material-ui/core/Button';
 import {Grid} from '@material-ui/core';
 
-import {useDispatch} from 'react-redux';
-import {alertActions} from '../../store/actions/alertActions';
 import {userService} from '../../utils/userService';
 import {pageService} from '../../utils/pageService';
 import Paper from '@material-ui/core/Paper';
 
-import AlertDialog from './AlertDialog';
+import {alertActions} from '../../store/actions/alertActions';
+import {useDispatch} from 'react-redux';
+
+import AlertDialog from './Template/TemplateDialog';
 import {makeStyles} from '@material-ui/core/styles';
 
 import SaveIcon from '@material-ui/icons/Save';
@@ -27,10 +28,11 @@ export default () => {
 
     const dispatch = useDispatch();
 
-    const [portfolio, setPortfolio] = useState();
+    const [portfolio, setPortfolio] = useState<any>();
     const [editorState, setEditorState] = useState(
         BraftEditor.createEditorState(null)
     );
+    const [openTemplate, setOpenTemplate] = useState(false);
 
     const [html, setHtml] = useState(null);
     // const [showHtml, setShowHtml] = useState(false);
@@ -47,6 +49,7 @@ export default () => {
             .then((data) => {
                 // console.log('portfolio: ', data.portfolio);
                 setPortfolio(data.portfolio);
+
                 setEditorState(
                     BraftEditor.createEditorState(
                         data.portfolio.content !== null
@@ -57,12 +60,21 @@ export default () => {
                 setTitle(data.portfolio.title);
             })
             .catch((error) => {
-                console.log(error);
+                console.log(error.response);
                 setPortfolio(null);
+                if (error.response.status === 404) {
+                    setOpenTemplate(true);
+                } else {
+                    dispatch(
+                        alertActions.error(
+                            Object.values(error.response.data.data)
+                        )
+                    );
+                }
             });
-    }, []);
+    }, [alertActions.success]);
 
-    const handleChange = (editorState) => {
+    const handleChange = (editorState: any) => {
         setEditorState(editorState);
     };
 
@@ -81,7 +93,7 @@ export default () => {
         }
     };
 
-    const onUpload = async (file) => {
+    const onUpload = async (file: any) => {
         try {
             const userInfo = JSON.parse(localStorage.getItem('user') || '');
             const username = userInfo.user.username;
@@ -100,8 +112,8 @@ export default () => {
         // setShowHtml(true);
     };
 
-    const myUploadFn = async (param) => {
-        const successFn = (response) => {
+    const myUploadFn = async (param: any) => {
+        const successFn = (response: any) => {
             // console.log(response);
             // 假设服务端直接返回文件上传后的地址
             // 上传成功后调用param.success并传入上传后的文件地址
@@ -119,7 +131,7 @@ export default () => {
             });
         };
 
-        const errorFn = (response) => {
+        const errorFn = (response: any) => {
             // 上传发生错误时调用param.error
             param.error({
                 msg: 'unable to upload.',
@@ -140,53 +152,60 @@ export default () => {
         // };
     };
 
+    if (!editorState) {
+        return null;
+    }
+
     return (
         <Paper elevation={3}>
-            <TextField
-                id="standard-full-width"
-                label="Title"
-                style={{width: '70%', marginLeft: 10}}
-                placeholder="My Portfolio"
-                margin="normal"
-                variant="standard"
-                value={title || ''}
-                onChange={(event) => {
-                    setTitle(event.target.value);
-                }}
-                InputLabelProps={{
-                    shrink: true,
-                }}
-            />
-            <Grid
-                container
-                direction={'row'}
-                spacing={1}
-                justify={'flex-end'}
-                alignItems={'flex-start'}
-            >
-                <Grid item>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        size="medium"
-                        className={classes.button}
-                        onClick={onSaveHandlerRemote}
-                        startIcon={<SaveIcon />}
-                        style={{marginRight: 10}}
+            <div>
+                <AlertDialog
+                    open={openTemplate}
+                    setOpen={setOpenTemplate}
+                    portfolio={portfolio}
+                />
+            </div>
+            {!portfolio ? null : (
+                <div>
+                    <TextField
+                        id="standard-full-width"
+                        label="Title"
+                        style={{width: '70%', marginLeft: 10}}
+                        placeholder="My Portfolio"
+                        margin="normal"
+                        variant="standard"
+                        value={title || ''}
+                        onChange={(event: any) => {
+                            setTitle(event.target.value);
+                        }}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                    />
+                    <Grid
+                        container
+                        direction={'row'}
+                        spacing={1}
+                        justify={'flex-end'}
+                        alignItems={'flex-start'}
                     >
-                        Save
-                    </Button>
-                </Grid>
-                <Grid item style={{marginRight: 10}}>
-                    <PreviewPopOver render={renderHTML} html={html} />
-                </Grid>
-            </Grid>
-            {portfolio === null ? (
-                <div>
-                    <AlertDialog />
-                </div>
-            ) : (
-                <div>
+                        <Grid item>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                size="medium"
+                                className={classes.button}
+                                onClick={onSaveHandlerRemote}
+                                startIcon={<SaveIcon />}
+                                style={{marginRight: 10}}
+                            >
+                                Save
+                            </Button>
+                        </Grid>
+                        <Grid item style={{marginRight: 10}}>
+                            <PreviewPopOver render={renderHTML} html={html} />
+                        </Grid>
+                    </Grid>
                     <BraftEditor
                         value={editorState}
                         onChange={handleChange}
