@@ -48,7 +48,7 @@ export default function SimpleListMenu() {
                 <Grid item xs={6}>
                     <Typography
                         style={{marginTop: 20}}
-                        align="right"
+                        align="center"
                         variant="body1"
                     >
                         Chosen Template :

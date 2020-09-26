@@ -6,6 +6,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import PrintIcon from '@material-ui/icons/Print';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import FormatPaintIcon from '@material-ui/icons/FormatPaint';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -35,6 +36,7 @@ export default function SpeedDials({
     handleSave,
     handlePreview,
     handlePrint,
+    handleTemplate,
 }: any) {
     const classes = useStyles();
 
@@ -52,6 +54,7 @@ export default function SpeedDials({
         {icon: <SaveIcon />, name: 'Save', handle: handleSave},
         {icon: <PrintIcon />, name: 'Print', handle: handlePrint},
         {icon: <VisibilityIcon />, name: 'Preview', handle: handlePreview},
+        {icon: <FormatPaintIcon />, name: 'Template', handle: handleTemplate},
     ];
 
     return (

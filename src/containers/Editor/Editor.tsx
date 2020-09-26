@@ -11,7 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import {alertActions} from '../../store/actions/alertActions';
 import {useDispatch} from 'react-redux';
 
-import AlertDialog from './Template/TemplateDialog';
+import TemplateDialog from './Template/TemplateDialog';
 
 import TextField from '@material-ui/core/TextField';
 
@@ -158,10 +158,13 @@ export default () => {
     return (
         <div>
             <div>
-                <AlertDialog
+                <TemplateDialog
                     open={openTemplate}
                     setOpen={setOpenTemplate}
                     portfolio={portfolio}
+                    title={title}
+                    description={description}
+                    rawJSON={BraftEditor.createEditorState(null).toRAW(true)}
                 />
             </div>
             {!portfolio ? null : (
@@ -173,6 +176,9 @@ export default () => {
                             setOpenPreview(true);
                         }}
                         handlePrint={() => {}}
+                        handleTemplate={() => {
+                            setOpenTemplate(true);
+                        }}
                     />
                     <Preview
                         open={openPreview}
