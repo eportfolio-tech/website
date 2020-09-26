@@ -22,7 +22,7 @@ import Dialog from '@material-ui/core/Dialog';
 import {alertActions} from '../../store/actions/alertActions';
 import {withSnackbar} from 'notistack';
 import {authService} from '../../utils/authService';
-import Layout from '../Navigation';
+import Layout from '../../components/Navigation';
 import LockOpenIcon from '@material-ui/icons/Lock';
 // import {userService} from "../../services/UserService";
 

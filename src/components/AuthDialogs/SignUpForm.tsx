@@ -1,13 +1,6 @@
 import React, {useState} from 'react';
 
-import {
-    TextField,
-    Grid,
-    MenuItem,
-    Typography,
-    Button,
-    Paper,
-} from '@material-ui/core';
+import {TextField, Grid, Typography, Button, Paper} from '@material-ui/core';
 import {makeStyles, createStyles, Theme} from '@material-ui/core/styles';
 
 import {authService} from '../../utils/authService';

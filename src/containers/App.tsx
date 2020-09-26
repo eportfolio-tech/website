@@ -104,12 +104,12 @@ function App() {
                 <ThemeProvider theme={theme}>
                     <SnackbarProvider maxSnack={5}>
                         <Switch>
-                            <Route path={'/search'} component={Search} />
                             <Route
                                 exact
-                                path={'/portfolios/:username'}
+                                path={'/portfolio/:username'}
                                 component={ProfilePage}
                             />
+                            <Route exact path={'/search'} component={Search} />
                             <Route
                                 exact
                                 path={'/verification/verify'}

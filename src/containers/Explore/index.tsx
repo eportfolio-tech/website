@@ -9,7 +9,7 @@ import {alertActions} from '../../store/actions/alertActions';
 
 import IContent from '../../components/Search/IContent';
 import Layout from '../../components/Navigation';
-import Profile from '../../components/ProfilePage/ProfilePage';
+import Profile from '../ProfilePage';
 import Feed from '../../components/Feed/Feed';
 
 function sleep(delay = 0) {
