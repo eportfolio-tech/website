@@ -210,14 +210,6 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
             {loggedIn ? (
                 <Drawer
                     variant={largeScreen ? 'permanent' : 'temporary'}
-                    className={
-                        largeScreen
-                            ? clsx(classes.drawer, {
-                                  [classes.drawerOpen]: open,
-                                  [classes.drawerClose]: !open,
-                              })
-                            : undefined
-                    }
                     classes={
                         largeScreen
                             ? {

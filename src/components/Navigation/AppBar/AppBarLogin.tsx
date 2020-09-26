@@ -3,12 +3,9 @@ import {withStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import {
     AppBar,
     Toolbar,
-    Button,
     IconButton,
     withWidth,
     isWidthUp,
-    Link,
-    Typography,
     Tooltip,
 } from '@material-ui/core';
 import {Breakpoint} from '@material-ui/core/styles/createBreakpoints';

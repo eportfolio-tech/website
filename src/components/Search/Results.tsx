@@ -19,12 +19,11 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface IResults {
-    setFlipped: any;
     loading: boolean;
     cards?: IContent[];
 }
 
-export default ({setFlipped, loading, cards}: IResults) => {
+export default ({loading, cards}: IResults) => {
     const classes = useStyles();
 
     const getText = () => {
@@ -62,10 +61,7 @@ export default ({setFlipped, loading, cards}: IResults) => {
                                   timeout={index * 200}
                               >
                                   <Grid item key={index} xs={12}>
-                                      <ResultCard
-                                          content={card}
-                                          setFlipped={setFlipped}
-                                      ></ResultCard>
+                                      <ResultCard content={card}></ResultCard>
                                   </Grid>
                               </Grow>
                           ))

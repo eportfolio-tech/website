@@ -16,9 +16,9 @@ import Setting from './SettingsPage';
 
 import HomePage from '../components/Homepage';
 
-import ProfilePage from '../components/ProfilePage/ProfilePage';
+import ProfilePage from './ProfilePage';
 
-import NotFound from '../components/NotFoundPage/NotFoundPage';
+import NotFound from './NotFoundPage/NotFoundPage';
 
 export {
     Search,
