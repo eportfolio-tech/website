@@ -3,22 +3,19 @@ import React, {useState, useEffect} from 'react';
 import BraftEditor from 'braft-editor';
 
 import Button from '@material-ui/core/Button';
-import {Container, Grid} from '@material-ui/core';
+import {Grid} from '@material-ui/core';
 
 import {useDispatch} from 'react-redux';
 import {alertActions} from '../../store/actions/alertActions';
 import {userService} from '../../utils/userService';
 import {pageService} from '../../utils/pageService';
 import Paper from '@material-ui/core/Paper';
-import Icon from '@material-ui/core/Icon';
-import MyHTML from './MyHtml';
+
 import AlertDialog from './AlertDialog';
-import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
-import DeleteIcon from '@material-ui/icons/Delete';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
+import {makeStyles} from '@material-ui/core/styles';
+
 import SaveIcon from '@material-ui/icons/Save';
-import VisibilityIcon from '@material-ui/icons/Visibility';
+
 import TextField from '@material-ui/core/TextField';
 import PreviewPopOver from '../../components/Preview/PreviewPopOver';
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +33,7 @@ export default () => {
     );
 
     const [html, setHtml] = useState(null);
-    const [showHtml, setShowHtml] = useState(false);
+    // const [showHtml, setShowHtml] = useState(false);
 
     const [title, setTitle] = useState(null);
 
@@ -100,7 +97,7 @@ export default () => {
     const renderHTML = () => {
         const htmlString = editorState.toHTML();
         setHtml(htmlString);
-        setShowHtml(true);
+        // setShowHtml(true);
     };
 
     const myUploadFn = async (param) => {
@@ -195,6 +192,7 @@ export default () => {
                         onChange={handleChange}
                         language="en"
                         media={{uploadFn: myUploadFn}}
+                        contentStyle={{height: 'auto'}}
                     />
                 </div>
             )}
