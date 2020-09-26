@@ -33,7 +33,7 @@ async function deleteUserTags(username, deletedTags) {
 }
 
 async function search(query, page, size) {
-    const response = await axios.get('/portfolios/search', {
+    const response = await axios.get('/search/keyword', {
         params: {
             query: query,
             page: page,
