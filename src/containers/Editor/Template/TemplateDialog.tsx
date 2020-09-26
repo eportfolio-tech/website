@@ -12,7 +12,7 @@ import {useDispatch} from 'react-redux';
 import {pageService} from '../../../utils/pageService';
 import {useHistory} from 'react-router-dom';
 
-import Templates from './templates';
+import Templates from './Templates';
 
 export default function AlertDialog({open, setOpen, portfolio}: any) {
     const history = useHistory();
