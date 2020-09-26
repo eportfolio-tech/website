@@ -10,6 +10,8 @@ import {authService} from '../../utils/authService';
 import {userActions} from '../../store/actions/userActions';
 import {alertActions} from '../../store/actions/alertActions';
 
+import GoogleLogin from 'react-google-login';
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         paper: {
@@ -58,6 +60,10 @@ export default (props: {close: () => void}) => {
         }
     };
 
+    const responseGoogle = (response: any) => {
+        console.log(response);
+    };
+
     return (
         <Paper elevation={0} className={classes.paper}>
             <Typography variant="h4" align="center">
@@ -85,6 +91,14 @@ export default (props: {close: () => void}) => {
                 >
                     Sign in
                 </Button>
+                <GoogleLogin
+                    clientId="1079841086908-gqndjb0tl4np1s0ripbed859638n5ajc.apps.googleusercontent.com"
+                    buttonText="Login"
+                    onSuccess={responseGoogle}
+                    onFailure={responseGoogle}
+                    cookiePolicy={'single_host_origin'}
+                />
+                ,
                 <Grid container>
                     <Grid item xs={12}>
                         <Button
