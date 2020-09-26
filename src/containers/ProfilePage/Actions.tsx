@@ -12,6 +12,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import CommentOutlinedIcon from '@material-ui/icons/CommentOutlined';
 import {
     Badge,
+    Button,
     CssBaseline,
     Drawer,
     Grid,
@@ -29,7 +30,7 @@ const useStyles: any = makeStyles((theme: Theme) =>
             position: 'fixed',
             backgroundColor: 'rgba(250,250,250,0)',
             zIndex: 1,
-            top: 50,
+            top: '30VH',
             right: 0,
             whiteSpace: 'nowrap',
             border: 'none',
@@ -60,6 +61,20 @@ export default function ProfilePage({
     return (
         <div>
             <CssBaseline />
+            <Grid container>
+                <Grid item xs={2}>
+                    <Grid container justify="center">
+                        <Button
+                            onClick={() => {
+                                history.goBack();
+                            }}
+                            startIcon={<ArrowBackIosIcon />}
+                        >
+                            Back
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Grid>
             <Drawer
                 classes={{
                     paper: clsx({
@@ -70,7 +85,7 @@ export default function ProfilePage({
                 anchor="right"
             >
                 <Grid container justify="flex-end">
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
                         <Tooltip
                             arrow
                             title={
@@ -92,7 +107,7 @@ export default function ProfilePage({
                         </Tooltip>
                         <br />
                         <br />
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12}>
                         <Tooltip
                             arrow
