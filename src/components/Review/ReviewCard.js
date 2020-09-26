@@ -20,10 +20,8 @@ const useStyles = makeStyles(
         },
         paper: {
             padding: '40px 20px',
-            marginTop: 100,
         },
-
-    }),
+    })
 );
 
 const ReviewCard = (props) => {
@@ -33,7 +31,7 @@ const ReviewCard = (props) => {
         <Card className={classes.paper}>
             <Grid container wrap="nowrap" spacing={2}>
                 <Grid item>
-                    <Avatar alt="Remy Sharp" src={props.avatar}/>
+                    <Avatar alt="Remy Sharp" src={props.avatar} />
                 </Grid>
                 <Grid item xs zeroMinWidth>
                     <h4 style={{margin: 0, textAlign: 'left'}}>

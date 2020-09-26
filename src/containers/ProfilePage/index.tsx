@@ -6,6 +6,7 @@ import {pageService} from '../../utils/pageService';
 import Layout from '../../components/Navigation';
 import Actions from './Actions';
 import ReviewCard from '../../components/Review/ReviewCard';
+import {Grid} from '@material-ui/core';
 
 // @ts-ignore
 const useStyles: any = makeStyles((theme: Theme) =>
@@ -103,12 +104,15 @@ export default function ProfilePage({match, history}: any) {
     if (comments != null && comments.length > 0) {
         // TODO: Fix @ts-ignore
         // @ts-ignore
-        commentComponents = comments.map(c => (
-            <ReviewCard
-                author={c.username}
-                content={c.comment}
-                date={c.createdDate}
-                avatar={c.avatar}/>
+        commentComponents = comments.map((c) => (
+            <Grid item xs={12}>
+                <ReviewCard
+                    author={c.username}
+                    content={c.comment}
+                    date={c.createdDate}
+                    avatar={c.avatar}
+                />
+            </Grid>
         ));
     }
     // TODO: Fix @ts-ignore
@@ -143,7 +147,9 @@ export default function ProfilePage({match, history}: any) {
                     <div className={classes.description}>
                         <p>{portfolio.description}</p>
                     </div>
-                    {commentComponents}
+                    <Grid container spacing={1}>
+                        {commentComponents}
+                    </Grid>
                 </div>
             </Layout>
             <Footer />
