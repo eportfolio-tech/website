@@ -2,8 +2,7 @@ import 'braft-editor/dist/index.css';
 import React, {useState, useEffect} from 'react';
 import BraftEditor from 'braft-editor';
 
-import Button from '@material-ui/core/Button';
-import {Grid} from '@material-ui/core';
+import {Grid, Typography, useTheme} from '@material-ui/core';
 
 import {userService} from '../../utils/userService';
 import {pageService} from '../../utils/pageService';
@@ -13,31 +12,29 @@ import {alertActions} from '../../store/actions/alertActions';
 import {useDispatch} from 'react-redux';
 
 import AlertDialog from './Template/TemplateDialog';
-import {makeStyles} from '@material-ui/core/styles';
-
-import SaveIcon from '@material-ui/icons/Save';
 
 import TextField from '@material-ui/core/TextField';
-import PreviewPopOver from '../../components/Preview/PreviewPopOver';
-const useStyles = makeStyles((theme) => ({
-    button: {width: 150},
-}));
+
+import Preview from './Preview';
+
+import Actions from './Actions';
 
 export default () => {
-    const classes = useStyles();
-
     const dispatch = useDispatch();
+
+    const theme = useTheme();
 
     const [portfolio, setPortfolio] = useState<any>();
     const [editorState, setEditorState] = useState(
         BraftEditor.createEditorState(null)
     );
     const [openTemplate, setOpenTemplate] = useState(false);
-
+    const [openPreview, setOpenPreview] = useState(false);
     const [html, setHtml] = useState(null);
     // const [showHtml, setShowHtml] = useState(false);
 
     const [title, setTitle] = useState(null);
+    const [description, setDescription] = useState(null);
 
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem('user') || '');
@@ -58,6 +55,7 @@ export default () => {
                     )
                 );
                 setTitle(data.portfolio.title);
+                setDescription(data.portfolio.description);
             })
             .catch((error) => {
                 console.log(error.response);
@@ -72,7 +70,7 @@ export default () => {
                     );
                 }
             });
-    }, [alertActions.success]);
+    }, []);
 
     const handleChange = (editorState: any) => {
         setEditorState(editorState);
@@ -86,6 +84,7 @@ export default () => {
             await pageService.putContent(username, rawJSON);
             await pageService.updatePortfolio(username, {
                 title: title,
+                description: description,
             });
             dispatch(alertActions.success('Save succeed'));
         } catch (error) {
@@ -157,7 +156,7 @@ export default () => {
     }
 
     return (
-        <Paper elevation={3}>
+        <div>
             <div>
                 <AlertDialog
                     open={openTemplate}
@@ -167,54 +166,87 @@ export default () => {
             </div>
             {!portfolio ? null : (
                 <div>
-                    <TextField
-                        id="standard-full-width"
-                        label="Title"
-                        style={{width: '70%', marginLeft: 10}}
-                        placeholder="My Portfolio"
-                        margin="normal"
-                        variant="standard"
-                        value={title || ''}
-                        onChange={(event: any) => {
-                            setTitle(event.target.value);
+                    <Actions
+                        handleSave={onSaveHandlerRemote}
+                        handlePreview={() => {
+                            renderHTML();
+                            setOpenPreview(true);
                         }}
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
+                        handlePrint={() => {}}
                     />
-                    <Grid
-                        container
-                        direction={'row'}
-                        spacing={1}
-                        justify={'flex-end'}
-                        alignItems={'flex-start'}
-                    >
-                        <Grid item>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                size="medium"
-                                className={classes.button}
-                                onClick={onSaveHandlerRemote}
-                                startIcon={<SaveIcon />}
-                                style={{marginRight: 10}}
-                            >
-                                Save
-                            </Button>
+                    <Preview
+                        open={openPreview}
+                        setOpen={setOpenPreview}
+                        html={html}
+                    />
+
+                    <Grid container spacing={4}>
+                        <Grid item xs={2}>
+                            <Typography align="center" variant="h6">
+                                Title :
+                            </Typography>
                         </Grid>
-                        <Grid item style={{marginRight: 10}}>
-                            <PreviewPopOver render={renderHTML} html={html} />
+                        <Grid item xs={9}>
+                            <TextField
+                                id="standard-full-width"
+                                placeholder="My Portfolio"
+                                variant="outlined"
+                                value={title || ''}
+                                onChange={(event: any) => {
+                                    setTitle(event.target.value);
+                                }}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                fullWidth
+                            />
+                        </Grid>
+
+                        <Grid item xs={2}>
+                            <Typography align="center" variant="h6">
+                                Description :
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={9}>
+                            <TextField
+                                id="standard-full-width2"
+                                placeholder="Description"
+                                variant="outlined"
+                                value={description || ''}
+                                onChange={(event: any) => {
+                                    setDescription(event.target.value);
+                                }}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                fullWidth
+                            />
+                        </Grid>
+                        <Grid item xs={2}>
+                            <Typography align="center" variant="h6">
+                                Content :
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={9}>
+                            <Paper
+                                style={{
+                                    minHeight: '50VH',
+                                    background:
+                                        theme.palette.background.default,
+                                }}
+                            >
+                                <BraftEditor
+                                    value={editorState}
+                                    onChange={handleChange}
+                                    language="en"
+                                    media={{uploadFn: myUploadFn}}
+                                    contentStyle={{height: 'auto'}}
+                                />
+                            </Paper>
                         </Grid>
                     </Grid>
-                    <BraftEditor
-                        value={editorState}
-                        onChange={handleChange}
-                        language="en"
-                        media={{uploadFn: myUploadFn}}
-                        contentStyle={{height: 'auto'}}
-                    />
                 </div>
             )}
-        </Paper>
+        </div>
     );
 };

@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {makeStyles} from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -7,24 +6,15 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import CircularProgress from '@material-ui/core/CircularProgress';
-
 import {alertActions} from '../../../store/actions/alertActions';
 import {useDispatch} from 'react-redux';
 
 import {pageService} from '../../../utils/pageService';
 import {useHistory} from 'react-router-dom';
 
-import Templates from './Templates';
-
-const useStyles = makeStyles({
-    loading: {
-        textAlign: 'center',
-    },
-});
+import Templates from './templates';
 
 export default function AlertDialog({open, setOpen, portfolio}: any) {
-    const classes = useStyles();
     const history = useHistory();
     const [isCreating, setIsCreating] = useState(false);
     const dispatch = useDispatch();
@@ -33,8 +23,6 @@ export default function AlertDialog({open, setOpen, portfolio}: any) {
         setOpen(false);
     };
 
-    const delay = (ms: number) =>
-        new Promise((resolve) => setTimeout(resolve, ms));
     const createProfolio = async () => {
         setIsCreating(true);
         const userInfo = JSON.parse(localStorage.getItem('user') || '');
