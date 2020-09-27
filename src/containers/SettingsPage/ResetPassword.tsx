@@ -73,12 +73,7 @@ export default function ResetPassword() {
             await authService.resetPassword(username, oldPassword, newPassword);
             dispatch(alertActions.success('reset password succeed'));
         } catch (error) {
-            dispatch(
-                alertActions.error(
-                    'reset password failed: ' +
-                        Object.values(error.response.data.data)
-                )
-            );
+            dispatch(alertActions.error(error, 'reset password failed'));
         }
     };
 

@@ -75,7 +75,7 @@ export default () => {
             await userSocial.findWhoLikedThisPortfolio(userName);
             dispatch(alertActions.success('You liked this portfolio'));
         } catch (error) {
-            dispatch(alertActions.error('like failed'));
+            dispatch(alertActions.error(error, 'like failed'));
         }
     };
 

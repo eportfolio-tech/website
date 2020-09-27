@@ -101,12 +101,7 @@ export default (props: {close: () => void}) => {
             dispatch(alertActions.success('sign up succeed'));
             props.close();
         } catch (error) {
-            // console.log(error.resp`onse);
-            dispatch(
-                alertActions.error(
-                    'sign up failed: ' + Object.values(error.response.data.data)
-                )
-            );
+            dispatch(alertActions.error(error, 'sign up failed'));
         }
     };
 

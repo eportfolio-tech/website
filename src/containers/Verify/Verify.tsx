@@ -68,9 +68,7 @@ export default () => {
                 )
             );
         } catch (error) {
-            dispatch(
-                alertActions.error(Object.values(error.response.data.data))
-            );
+            dispatch(alertActions.error(error));
         }
     };
 

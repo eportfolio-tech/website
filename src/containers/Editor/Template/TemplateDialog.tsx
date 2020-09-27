@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import {alertActions} from '../../../store/actions/alertActions';
+import {alertActions, pageActions} from '../../../store/actions';
 import {useDispatch} from 'react-redux';
 
 import {pageService} from '../../../utils/pageService';
@@ -35,6 +35,7 @@ export default function AlertDialog({
         const userInfo = JSON.parse(localStorage.getItem('user') || '');
         const username = userInfo.user.username;
         try {
+            dispatch(pageActions.loading());
             if (portfolio) {
                 await pageService.putContent(username, rawJSON);
                 await pageService.updatePortfolio(username, {
@@ -48,14 +49,12 @@ export default function AlertDialog({
                     visibility: 'PUBLIC',
                 });
             }
-
+            await pageActions.sleep(1000);
             dispatch(alertActions.success('E-Portfolio Created'));
             handleClose();
-            window.location.reload();
+            dispatch(pageActions.loaded());
         } catch (error) {
-            dispatch(
-                alertActions.error(Object.values(error.response.data.data))
-            );
+            dispatch(alertActions.error(error));
         }
     };
 

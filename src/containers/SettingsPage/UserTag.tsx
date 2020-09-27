@@ -77,12 +77,7 @@ export default () => {
             const tags = await userService.getAllTags();
             setOptions(tags.tag);
         } catch (error) {
-            // dispatch(
-            //     alertActions.error(
-            //         'fetch tags failed: ' +
-            //             Object.values(error.response.data.data)
-            //     )
-            // );
+            dispatch(alertActions.error(error, 'fetch tags failed'));
         }
     };
 

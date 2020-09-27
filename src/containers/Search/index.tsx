@@ -44,9 +44,7 @@ export default () => {
                 setCards(results.content);
                 setLoading(false);
             } catch (error) {
-                dispatch(
-                    alertActions.error(Object.values(error.response.data.data))
-                );
+                dispatch(alertActions.error(error));
 
                 setLoading(false);
             }

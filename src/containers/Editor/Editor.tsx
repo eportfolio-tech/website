@@ -58,16 +58,12 @@ export default () => {
                 setDescription(data.portfolio.description);
             })
             .catch((error) => {
-                console.log(error.response);
+                //console.log(error.response);
                 setPortfolio(null);
                 if (error.response.status === 404) {
                     setOpenTemplate(true);
                 } else {
-                    dispatch(
-                        alertActions.error(
-                            Object.values(error.response.data.data)
-                        )
-                    );
+                    dispatch(alertActions.error(error));
                 }
             });
     }, [dispatch]);
@@ -88,7 +84,7 @@ export default () => {
             });
             dispatch(alertActions.success('Save succeed'));
         } catch (error) {
-            dispatch(alertActions.error('Put data failed'));
+            dispatch(alertActions.error(error, 'Put data failed'));
         }
     };
 
@@ -101,7 +97,7 @@ export default () => {
             dispatch(alertActions.success('Save succeed'));
             return response;
         } catch (error) {
-            dispatch(alertActions.error('Save failed'));
+            dispatch(alertActions.error(error, 'Save failed'));
         }
     };
 
