@@ -122,7 +122,7 @@ export default (props: {close: () => void}) => {
                             <TextField
                                 required
                                 id="title"
-                                label="Title"
+                                label="Title e.g. Java programmer"
                                 variant="outlined"
                                 fullWidth
                                 value={userInfo.title || ''}

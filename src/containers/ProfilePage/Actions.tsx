@@ -115,26 +115,27 @@ export default function ProfilePage({
                         <br />
                     </Grid> */}
                     <Grid item xs={12}>
-                        <Tooltip
-                            arrow
-                            title={
-                                <Typography variant="body1">
-                                    {'Like'}
-                                </Typography>
-                            }
-                            placement="left"
-                            interactive
-                        >
-                            <IconButton
-                                aria-label="like"
-                                color={liked ? 'secondary' : undefined}
-                                onClick={handleLike}
-                            >
-                                <FavoriteIcon />
-                            </IconButton>
-                        </Tooltip>
-                        <br />
-                        <br />
+                        {/*<Tooltip*/}
+                        {/*    arrow*/}
+                        {/*    title={*/}
+                        {/*        <Typography variant="body1">*/}
+                        {/*            {'Like'}*/}
+                        {/*        </Typography>*/}
+                        {/*    }*/}
+                        {/*    placement="left"*/}
+                        {/*    interactive*/}
+                        {/*>*/}
+                        {/*    <IconButton*/}
+                        {/*        aria-label="like"*/}
+                        {/*        color={liked ? 'secondary' : undefined}*/}
+                        {/*        onClick={handleLike}*/}
+                        {/*    >*/}
+                        {/*        <FavoriteIcon />*/}
+                        {/*    </IconButton>*/}
+                        {/*</Tooltip>*/}
+                        {/*<br />*/}
+                        {/*<br />*/}
+                        <LikeBar />
                     </Grid>
                     <Grid item xs={12}>
                         <Tooltip

@@ -8,6 +8,7 @@ import {alertActions} from '../../store/actions/alertActions';
 import {userSocial} from '../../utils/userSocial';
 import Fab from '@material-ui/core/Fab';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import {IconButton, Tooltip, Typography} from '@material-ui/core';
 const styles = (theme: {
     palette: {background: {paper: any}};
     transitions: {
@@ -35,30 +36,48 @@ const styles = (theme: {
     },
 });
 
+interface IAction {
+    history: any;
+    handleLike?: any;
+    handleComment?: any;
+    handleShare?: any;
+    liked?: boolean;
+    commented?: number;
+}
+
 export default () => {
     const dispatch = useDispatch();
-    const history = useHistory();
 
-    const ownerUsername = useState('');
+    const [userName, setUserName] = useState('');
 
     const onLikeHandler = async () => {
         try {
-            await userSocial.findWhoLikedThisPortfolio(ownerUsername);
-            dispatch(alertActions.success('You liked'));
+            await userSocial.findWhoLikedThisPortfolio(userName);
+            dispatch(alertActions.success('You liked this portfolio'));
         } catch (error) {
-            dispatch(alertActions.error(error.response.data.errors));
+            dispatch(alertActions.error('like failed'));
         }
     };
 
     return (
         <div>
-            <Grid item>
-                <Fab color="primary" aria-label="like">
-                    <FavoriteIcon onClick={onLikeHandler} />
-                </Fab>
-                <div>
-                    <p> </p>
-                </div>
+            <Grid container justify="flex-end">
+                <Tooltip
+                    arrow
+                    title={<Typography variant="body1">{'Like'}</Typography>}
+                    placement="left"
+                    interactive
+                >
+                    <IconButton
+                        aria-label="like"
+                        //color={liked ? 'secondary' : undefined}
+                        onClick={onLikeHandler}
+                    >
+                        <FavoriteIcon />
+                    </IconButton>
+                </Tooltip>
+                <br />
+                <br />
             </Grid>
         </div>
     );
