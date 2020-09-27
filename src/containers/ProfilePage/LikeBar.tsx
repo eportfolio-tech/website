@@ -8,7 +8,10 @@ import {alertActions} from '../../store/actions/alertActions';
 import {userSocial} from '../../utils/userSocial';
 import Fab from '@material-ui/core/Fab';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import {IconButton, Tooltip, Typography} from '@material-ui/core';
+import {Drawer, IconButton, Tooltip, Typography} from '@material-ui/core';
+import clsx from 'clsx';
+import {createStyles, makeStyles} from '@material-ui/core/styles';
+import {Theme} from 'material-ui';
 const styles = (theme: {
     palette: {background: {paper: any}};
     transitions: {
@@ -45,9 +48,26 @@ interface IAction {
     commented?: number;
 }
 
+const useStyles: any = makeStyles((theme: Theme) =>
+    createStyles({
+        root: {
+            // @ts-ignore
+            width: theme.spacing(25) + 1,
+            position: 'fixed',
+            backgroundColor: 'rgba(250,250,250,0)',
+            zIndex: 1,
+            top: '30VH',
+            right: 0,
+            whiteSpace: 'nowrap',
+            border: 'none',
+        },
+    })
+);
 export default () => {
     const dispatch = useDispatch();
-
+    const classes = useStyles();
+    // @ts-ignore
+    const open = true;
     const [userName, setUserName] = useState('');
 
     const onLikeHandler = async () => {
@@ -61,24 +81,36 @@ export default () => {
 
     return (
         <div>
-            <Grid container justify="flex-end">
-                <Tooltip
-                    arrow
-                    title={<Typography variant="body1">{'Like'}</Typography>}
-                    placement="left"
-                    interactive
-                >
-                    <IconButton
-                        aria-label="like"
-                        //color={liked ? 'secondary' : undefined}
-                        onClick={onLikeHandler}
+            <Drawer
+                classes={{
+                    paper: clsx({
+                        [classes.root]: open,
+                    }),
+                }}
+                variant="permanent"
+                anchor="right"
+            >
+                <Grid container justify="flex-end">
+                    <Tooltip
+                        arrow
+                        title={
+                            <Typography variant="body1">{'Like'}</Typography>
+                        }
+                        placement="left"
+                        interactive
                     >
-                        <FavoriteIcon />
-                    </IconButton>
-                </Tooltip>
-                <br />
-                <br />
-            </Grid>
+                        <IconButton
+                            aria-label="like"
+                            //color={liked ? 'secondary' : undefined}
+                            onClick={onLikeHandler}
+                        >
+                            <FavoriteIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <br />
+                    <br />
+                </Grid>
+            </Drawer>
         </div>
     );
 };
