@@ -36,6 +36,7 @@
         "prismjs": "^1.21.0",
         "prop-types": "latest",
         "react": "^16.13.1",
+        "react-copy-to-clipboard": "^5.0.2",
         "react-document-title": "^2.0.3",
         "react-dom": "^16.13.1",
         "react-google-login": "^5.1.21",

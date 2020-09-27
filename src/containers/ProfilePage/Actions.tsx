@@ -6,10 +6,14 @@ import {createStyles, makeStyles} from '@material-ui/core/styles';
 // core components
 
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-
+import {alertActions} from '../../store/actions/alertActions';
+import {useDispatch} from 'react-redux';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import CommentOutlinedIcon from '@material-ui/icons/CommentOutlined';
+// @ts-ignore
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+import LikeBar from '../ProfilePage/LikeBar';
 import {
     Badge,
     Button,
@@ -58,6 +62,8 @@ export default function ProfilePage({
     const classes = useStyles();
     // @ts-ignore
     const open = true;
+    const url = window.location.href;
+    const dispatch = useDispatch();
     return (
         <div>
             <CssBaseline />
@@ -141,12 +147,20 @@ export default function ProfilePage({
                             placement="left"
                             interactive
                         >
-                            <IconButton
-                                aria-label="share"
-                                onClick={handleShare}
+                            <CopyToClipboard
+                                text={url}
+                                onCopy={() => {
+                                    dispatch(
+                                        alertActions.success(
+                                            'URL have copied to your clipboard.'
+                                        )
+                                    );
+                                }}
                             >
-                                <ShareIcon />
-                            </IconButton>
+                                <IconButton aria-label="share">
+                                    <ShareIcon />
+                                </IconButton>
+                            </CopyToClipboard>
                         </Tooltip>
                         <br />
                         <br />
