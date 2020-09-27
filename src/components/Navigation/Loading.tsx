@@ -5,11 +5,11 @@ import {withStyles, lighten, makeStyles, Theme} from '@material-ui/core/styles';
 const BorderLinearProgress = withStyles((theme) => ({
     root: {
         height: 5,
-        backgroundColor: lighten('#0a6aab', 0.8),
+        backgroundColor: lighten('#13a87c', 0.8),
     },
     bar: {
         borderRadius: 100,
-        backgroundColor: '#0a6aab',
+        backgroundColor: '#13a87c',
     },
 }))(LinearProgress);
 
@@ -19,10 +19,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     margin: {
         [theme.breakpoints.down('sm')]: {
-            margin: theme.spacing(10),
+            // margin: theme.spacing(10),
         },
         [theme.breakpoints.up('sm')]: {
-            margin: theme.spacing(8),
+            // margin: theme.spacing(8),
         },
     },
 }));
