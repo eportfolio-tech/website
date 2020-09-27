@@ -70,7 +70,7 @@ export default () => {
                     );
                 }
             });
-    }, []);
+    }, [dispatch]);
 
     const handleChange = (editorState: any) => {
         setEditorState(editorState);

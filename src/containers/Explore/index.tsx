@@ -31,6 +31,8 @@ export default () => {
     const [, setLoading] = useState(false);
     const [, setCards] = useState<undefined | IContent[]>();
 
+    const [q] = useState(query.get('query'));
+
     const [flipped, setFlipped] = useState(
         location.pathname === '/search/more'
     );
@@ -54,31 +56,30 @@ export default () => {
         width: '100%',
     };
 
-    const search = async (query: any) => {
-        try {
-            setLoading(true);
-            setCards(undefined);
-
-            const results = await userService.search(query, 0, 100);
-
-            await sleep(500);
-            console.log(results);
-            setCards(results.content);
-            setLoading(false);
-        } catch (error) {
-            dispatch(
-                alertActions.error(Object.values(error.response.data.data))
-            );
-
-            setLoading(false);
-        }
-    };
-
     useEffect(() => {
-        if (query.get('query')) {
-            search(query.get('query'));
+        const search = async (query: any) => {
+            try {
+                setLoading(true);
+                setCards(undefined);
+
+                const results = await userService.search(query, 0, 100);
+
+                await sleep(500);
+                console.log(results);
+                setCards(results.content);
+                setLoading(false);
+            } catch (error) {
+                dispatch(
+                    alertActions.error(Object.values(error.response.data.data))
+                );
+
+                setLoading(false);
+            }
+        };
+        if (q) {
+            search(q);
         }
-    }, [query.get('query')]);
+    }, [q, dispatch]);
 
     return (
         <Layout>

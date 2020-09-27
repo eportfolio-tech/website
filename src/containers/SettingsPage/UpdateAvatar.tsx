@@ -68,25 +68,24 @@ export default function UpdateAvatar() {
             isFirstRun.current = false;
             return;
         }
+        const onUpload = async () => {
+            try {
+                const res = await userService.uploadFile(user.username, avatar);
+                setAvatarUrl(res.URI);
+            } catch (error) {
+                dispatch(
+                    alertActions.error(
+                        'set avatar failed: ' +
+                            Object.values(error.response.data.data)
+                    )
+                );
+            }
+        };
         onUpload();
-    }, [avatar]);
+    }, [avatar, dispatch, user.username]);
 
     const onFileChange = async (event: any) => {
         setAvatar(event.target.files[0]);
-    };
-
-    const onUpload = async () => {
-        try {
-            const res = await userService.uploadFile(user.username, avatar);
-            setAvatarUrl(res.URI);
-        } catch (error) {
-            dispatch(
-                alertActions.error(
-                    'set avatar failed: ' +
-                        Object.values(error.response.data.data)
-                )
-            );
-        }
     };
 
     const onSaveHandler = async () => {

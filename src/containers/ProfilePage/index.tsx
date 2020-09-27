@@ -98,7 +98,7 @@ export default function ProfilePage({match, history}: any) {
             .catch((error) => {
                 console.log(error);
             });
-    }, []);
+    }, [match.params.username]);
 
     // @ts-ignore
     return (
