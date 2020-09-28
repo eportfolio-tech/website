@@ -2,7 +2,7 @@ import 'braft-editor/dist/index.css';
 import React, {useState, useEffect} from 'react';
 import BraftEditor from 'braft-editor';
 
-import {Grid, Typography, useTheme} from '@material-ui/core';
+import {Button, Grid, Typography, useTheme} from '@material-ui/core';
 
 import {userService} from '../../utils/userService';
 import {pageService} from '../../utils/pageService';
@@ -19,6 +19,8 @@ import TextField from '@material-ui/core/TextField';
 import Preview from './Preview';
 
 import Actions from './Actions';
+
+import SaveIcon from '@material-ui/icons/Save';
 
 export default () => {
     const dispatch = useDispatch();
@@ -200,53 +202,41 @@ export default () => {
                         description={description}
                     />
 
-                    <Grid container spacing={4}>
-                        <Grid item xs={2}>
-                            <Typography align="center" variant="h6">
-                                Title :
-                            </Typography>
-                        </Grid>
+                    <Grid container spacing={4} justify="center">
                         <Grid item xs={9}>
                             <TextField
                                 id="standard-full-width"
-                                placeholder="My Portfolio"
+                                // placeholder="My Portfolio"
                                 variant="outlined"
                                 value={title || ''}
                                 onChange={(event: any) => {
                                     setTitle(event.target.value);
                                 }}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
+                                // InputLabelProps={{
+                                //     shrink: true,
+                                // }}
                                 fullWidth
+                                label="Title"
                             />
                         </Grid>
 
-                        <Grid item xs={2}>
-                            <Typography align="center" variant="h6">
-                                Description :
-                            </Typography>
-                        </Grid>
                         <Grid item xs={9}>
                             <TextField
                                 id="standard-full-width2"
-                                placeholder="Description"
+                                // placeholder="Description"
                                 variant="outlined"
                                 value={description || ''}
                                 onChange={(event: any) => {
                                     setDescription(event.target.value);
                                 }}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
+                                // InputLabelProps={{
+                                //     shrink: true,
+                                // }}
                                 fullWidth
+                                label="Description"
                             />
                         </Grid>
-                        <Grid item xs={2}>
-                            <Typography align="center" variant="h6">
-                                Content :
-                            </Typography>
-                        </Grid>
+
                         <Grid item xs={9}>
                             <Paper
                                 style={{
@@ -263,6 +253,17 @@ export default () => {
                                     contentStyle={{height: 'auto'}}
                                 />
                             </Paper>
+                        </Grid>
+                        <Grid item xs={9}>
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                startIcon={<SaveIcon />}
+                                size="large"
+                                onClick={onSaveHandlerRemote}
+                            >
+                                Save
+                            </Button>
                         </Grid>
                     </Grid>
                 </div>
