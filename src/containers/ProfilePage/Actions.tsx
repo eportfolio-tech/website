@@ -67,20 +67,20 @@ export default function ProfilePage({
     return (
         <div>
             <CssBaseline />
-            <Grid container>
-                <Grid item xs={2}>
-                    <Grid container justify="center">
-                        <Button
-                            onClick={() => {
-                                history.goBack();
-                            }}
-                            startIcon={<ArrowBackIosIcon />}
-                        >
-                            Back
-                        </Button>
-                    </Grid>
-                </Grid>
-            </Grid>
+            {/*<Grid container>*/}
+            {/*    <Grid item xs={2}>*/}
+            {/*        <Grid container justify="center">*/}
+            {/*            <Button*/}
+            {/*                onClick={() => {*/}
+            {/*                    history.goBack();*/}
+            {/*                }}*/}
+            {/*                startIcon={<ArrowBackIosIcon />}*/}
+            {/*            >*/}
+            {/*                Back*/}
+            {/*            </Button>*/}
+            {/*        </Grid>*/}
+            {/*    </Grid>*/}
+            {/*</Grid>*/}
             <Drawer
                 classes={{
                     paper: clsx({

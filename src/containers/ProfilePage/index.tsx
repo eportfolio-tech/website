@@ -9,12 +9,21 @@ import {pageService} from '../../utils/pageService';
 import Layout from '../../components/Navigation';
 import Actions from './Actions';
 import ReviewCard from '../../components/Review/ReviewCard';
-import {Grid} from '@material-ui/core';
+import {Card, CardHeader, Container, Divider, Grid} from '@material-ui/core';
 import MyHTML from '../Editor/MyHtml';
+import Typography from "@material-ui/core/Typography";
+import Avatar from "@material-ui/core/Avatar";
+import CardContent from "@material-ui/core/CardContent";
+import Breadcrumbs from "@material-ui/core/Breadcrumbs";
+import Link from "@material-ui/core/Link";
 
 // @ts-ignore
 const useStyles: any = makeStyles((theme: Theme) =>
     createStyles({
+        root: {
+            width: '100%',
+            // backgroundColor: theme.palette.background.paper,
+        },
         profile: {
             textAlign: 'center',
             '& img': {
@@ -29,33 +38,29 @@ const useStyles: any = makeStyles((theme: Theme) =>
             color: '#999',
             textAlign: 'center',
         },
-        name: {},
-        imgFluid: {
-            maxWidth: '100%',
-            height: '160px',
+        // title: {
+        //     color: '#3C4858',
+        //     margin: '1.75rem 0 0.875rem',
+        //     textDecoration: 'none',
+        //     fontWeight: 700,
+        //     fontFamily: `"Roboto Slab", "Times New Roman", serif`,
+        //     display: 'inline-block',
+        //     position: 'relative',
+        //     marginTop: '30px',
+        //     minHeight: '32px',
+        // },
+        // social: {
+        //     margin: 'auto',
+        //     textAlign: 'center',
+        // },
+        large: {
+            width: theme.spacing(15),
+            height: theme.spacing(15),
         },
-        imgRoundedCircle: {
-            borderRadius: '50% !important',
-        },
-        imgRaised: {
-            boxShadow:
-                '0 5px 15px -8px rgba(0, 0, 0, 0.24), 0 8px 10px -5px rgba(0, 0, 0, 0.2)',
-        },
-        title: {
-            color: '#3C4858',
-            margin: '1.75rem 0 0.875rem',
-            textDecoration: 'none',
-            fontWeight: 700,
-            fontFamily: `"Roboto Slab", "Times New Roman", serif`,
-            display: 'inline-block',
-            position: 'relative',
-            marginTop: '30px',
-            minHeight: '32px',
-        },
-        social: {
-            margin: 'auto',
-            textAlign: 'center',
-        },
+        divider: {
+            margin: theme.spacing(5),
+
+        }
     })
 );
 
@@ -132,42 +137,65 @@ export default function ProfilePage({match, history}: any) {
     // TODO: Fix @ts-ignore
     // @ts-ignore
     return (
-        <div>
+        <div className={classes.root}>
             <Layout>
-                <div style={{minHeight: '100VH'}}>
-                    <Actions
-                        history={history}
-                        liked={liked}
-                        commented={commented}
-                        handleLike={() => {
-                            setLiked(!liked);
-                        }}
-                        handleComment={() => {
-                            setCommented(commented + 1);
-                        }}
-                    />
+                <Container maxWidth="md">
+                    <Card variant={"outlined"}>
+                        <CardHeader title={
+                            <Typography variant={"h4"}>
+                                {portfolio.title}
+                            </Typography>
+                        } subheader={`${portfolio.firstName} ${portfolio.lastName}`}
+                        />
 
-                    <div className={classes.profile}>
-                        <div>
-                            <img src={portfolio.avatarUrl} alt="..." />
-                        </div>
-                        <div className={classes.name}>
-                            <h1
-                                className={classes.title}
-                            >{`${portfolio.firstName} ${portfolio.lastName}`}</h1>
-                            <h2>{portfolio.title}</h2>
-                        </div>
-                    </div>
-                    <div className={classes.description}>
-                        <p>{portfolio.description}</p>
-                    </div>
-                    <Grid container spacing={1}>
-                        {commentComponents}
-                    </Grid>
-                    <br />
-                    <br />
-                    <MyHTML html={content} />
-                </div>
+                        <Divider />
+                        <Actions
+                            history={history}
+                            liked={liked}
+                            commented={commented}
+                            handleLike={() => {
+                                setLiked(!liked);
+                            }}
+                            handleComment={() => {
+                                setCommented(commented + 1);
+                            }}
+                        />
+                        <CardContent>
+                            <Breadcrumbs aria-label="breadcrumb">
+                                <Link color="inherit" href="/">
+                                    Material-UI
+                                </Link>
+                                <Link color="inherit" href="/getting-started/installation/">
+                                    Core
+                                </Link>
+                                <Typography color="textPrimary">Breadcrumb</Typography>
+                            </Breadcrumbs>
+                            <Grid container
+                                  alignItems={"flex-start"}
+                                  justify={"center"}
+                                  direction="row"
+                            >
+                                <Grid item className={classes.profile}>
+                                    <Avatar alt="Remy Sharp" src={portfolio.avatarUrl} className={classes.large}/>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Typography align={"center"} variant={"h3"}>
+                                        {`${portfolio.firstName} ${portfolio.lastName}`}
+                                    </Typography>
+                                    <Typography align={"center"} variant={"subtitle1"} className={classes.description}>
+                                        {portfolio.description}
+                                    </Typography>
+                                </Grid>
+                            </Grid>
+                            <Divider className={classes.divider}/>
+                            <MyHTML html={content} />
+                            <Grid container spacing={1}>
+                                {commentComponents}
+                            </Grid>
+                        </CardContent>
+                    </Card>
+
+                </Container>
             </Layout>
             <Footer />
         </div>
