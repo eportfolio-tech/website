@@ -6,6 +6,7 @@ import {Grid, Typography, useTheme} from '@material-ui/core';
 
 import {userService} from '../../utils/userService';
 import {pageService} from '../../utils/pageService';
+import {templateService} from '../../utils/templateService';
 import Paper from '@material-ui/core/Paper';
 
 import {alertActions} from '../../store/actions/alertActions';
@@ -101,6 +102,20 @@ export default () => {
         }
     };
 
+    const onUploadTemplate = async () => {
+        try {
+            const response = await templateService.createTemplate(
+                editorState,
+                description,
+                title
+            );
+            console.log(response);
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const renderHTML = () => {
         const htmlString = editorState.toHTML();
         setHtml(htmlString);
@@ -175,6 +190,7 @@ export default () => {
                         handleTemplate={() => {
                             setOpenTemplate(true);
                         }}
+                        handleUpload={onUploadTemplate}
                     />
                     <Preview
                         open={openPreview}

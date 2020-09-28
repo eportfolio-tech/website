@@ -13,7 +13,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import CommentOutlinedIcon from '@material-ui/icons/CommentOutlined';
 // @ts-ignore
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import LikeBar from '../ProfilePage/LikeBar';
+// import LikeBar from '../ProfilePage/LikeBar';
 import {
     Badge,
     Button,

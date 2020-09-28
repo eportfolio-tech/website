@@ -68,18 +68,17 @@ export default () => {
     const [deleteTags, setDeleteTags] = useState<TagType[]>([]); // array of tag object will be deleted
 
     useEffect(() => {
+        const getAllTags = async () => {
+            try {
+                const tags = await userService.getAllTags();
+                setOptions(tags.tag);
+            } catch (error) {
+                dispatch(alertActions.error(error, 'fetch tags failed'));
+            }
+        };
         getAllTags();
         getUserTags();
-    }, []);
-
-    const getAllTags = async () => {
-        try {
-            const tags = await userService.getAllTags();
-            setOptions(tags.tag);
-        } catch (error) {
-            dispatch(alertActions.error(error, 'fetch tags failed'));
-        }
-    };
+    }, [dispatch]);
 
     const getUserTags = async () => {
         try {

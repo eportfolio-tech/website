@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {makeStyles, Theme, createStyles} from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -11,6 +11,9 @@ import Menu from '@material-ui/core/Menu';
 import FormatPaintIcon from '@material-ui/icons/FormatPaint';
 import {Grid, Typography} from '@material-ui/core';
 
+// import {pageService} from '../../../utils/pageService';
+import {templateService} from '../../../utils/templateService';
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
@@ -19,12 +22,20 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-const options = ['Blank', 'Blank', 'Blank', 'Blank'];
-
 export default function SimpleListMenu() {
     const classes = useStyles();
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const [selectedIndex, setSelectedIndex] = React.useState(1);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const [selectedIndex, setSelectedIndex] = useState(1);
+
+    const [options, setOptions] = useState([]);
+
+    useEffect(() => {
+        templateService.getAllTemplates().then((data) => {
+            setOptions(
+                data.templates.map((template: {title: any}) => template.title)
+            );
+        });
+    }, []);
 
     const handleClickListItem = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -81,7 +92,7 @@ export default function SimpleListMenu() {
                 {options.map((option, index) => (
                     <MenuItem
                         key={option}
-                        disabled={index === 0}
+                        // disabled={index === 0}
                         selected={index === selectedIndex}
                         onClick={(event) => handleMenuItemClick(event, index)}
                     >
