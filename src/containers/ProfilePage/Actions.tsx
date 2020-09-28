@@ -6,12 +6,17 @@ import {createStyles, makeStyles} from '@material-ui/core/styles';
 // core components
 
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-
+import {alertActions} from '../../store/actions/alertActions';
+import {useDispatch} from 'react-redux';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import CommentOutlinedIcon from '@material-ui/icons/CommentOutlined';
+// @ts-ignore
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+// import LikeBar from '../ProfilePage/LikeBar';
 import {
     Badge,
+    Button,
     CssBaseline,
     Drawer,
     Grid,
@@ -29,7 +34,7 @@ const useStyles: any = makeStyles((theme: Theme) =>
             position: 'fixed',
             backgroundColor: 'rgba(250,250,250,0)',
             zIndex: 1,
-            top: 50,
+            top: '30VH',
             right: 0,
             whiteSpace: 'nowrap',
             border: 'none',
@@ -57,9 +62,25 @@ export default function ProfilePage({
     const classes = useStyles();
     // @ts-ignore
     const open = true;
+    const url = window.location.href;
+    const dispatch = useDispatch();
     return (
         <div>
             <CssBaseline />
+            <Grid container>
+                <Grid item xs={2}>
+                    <Grid container justify="center">
+                        <Button
+                            onClick={() => {
+                                history.goBack();
+                            }}
+                            startIcon={<ArrowBackIosIcon />}
+                        >
+                            Back
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Grid>
             <Drawer
                 classes={{
                     paper: clsx({
@@ -70,7 +91,7 @@ export default function ProfilePage({
                 anchor="right"
             >
                 <Grid container justify="flex-end">
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
                         <Tooltip
                             arrow
                             title={
@@ -92,7 +113,7 @@ export default function ProfilePage({
                         </Tooltip>
                         <br />
                         <br />
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12}>
                         <Tooltip
                             arrow
@@ -126,12 +147,20 @@ export default function ProfilePage({
                             placement="left"
                             interactive
                         >
-                            <IconButton
-                                aria-label="share"
-                                onClick={handleShare}
+                            <CopyToClipboard
+                                text={url}
+                                onCopy={() => {
+                                    dispatch(
+                                        alertActions.success(
+                                            'URL have copied to your clipboard.'
+                                        )
+                                    );
+                                }}
                             >
-                                <ShareIcon />
-                            </IconButton>
+                                <IconButton aria-label="share">
+                                    <ShareIcon />
+                                </IconButton>
+                            </CopyToClipboard>
                         </Tooltip>
                         <br />
                         <br />

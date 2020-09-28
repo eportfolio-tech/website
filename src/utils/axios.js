@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 // Set config defaults when creating the instance
-const testEnvironment = 'https://haswell.eportfolio.tech/';
+// const testEnvironment = 'https://haswell.eportfolio.tech/';
 const devEnvironment = 'https://api.eportfolio.tech/';
-const localEnvironment = 'http://localhost:8090';
+// const localEnvironment = 'http://localhost:8090';
 
 const instance = axios.create({
     baseURL: devEnvironment,

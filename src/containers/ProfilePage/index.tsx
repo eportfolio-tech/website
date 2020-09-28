@@ -1,5 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {createStyles, makeStyles} from '@material-ui/core/styles';
+import BraftEditor from 'braft-editor';
+// @material-ui/icons
+// core components
 import Footer from '../../components/Footer/AppFooter';
 
 import {pageService} from '../../utils/pageService';
@@ -7,6 +10,7 @@ import Layout from '../../components/Navigation';
 import Actions from './Actions';
 import ReviewCard from '../../components/Review/ReviewCard';
 import {Grid} from '@material-ui/core';
+import MyHTML from '../Editor/MyHtml';
 
 // @ts-ignore
 const useStyles: any = makeStyles((theme: Theme) =>
@@ -71,6 +75,9 @@ export default function ProfilePage({match, history}: any) {
         title: 'Full stack developer',
         description: 'I am handsome.',
     });
+
+    const [content, setContent] = useState();
+
     useEffect(() => {
         const username = match.params.username;
 
@@ -80,11 +87,18 @@ export default function ProfilePage({match, history}: any) {
             .then((data) => {
                 console.log('portfolio: ', data.portfolio);
                 setPortfolio(data.portfolio);
+                setContent(
+                    BraftEditor.createEditorState(
+                        data.portfolio.content !== null
+                            ? data.portfolio.content
+                            : null
+                    ).toHTML()
+                );
             })
             .catch((error) => {
                 console.log(error);
             });
-    }, []);
+    }, [match.params.username]);
 
     useEffect(() => {
         const username = match.params.username;
@@ -150,6 +164,9 @@ export default function ProfilePage({match, history}: any) {
                     <Grid container spacing={1}>
                         {commentComponents}
                     </Grid>
+                    <br />
+                    <br />
+                    <MyHTML html={content} />
                 </div>
             </Layout>
             <Footer />

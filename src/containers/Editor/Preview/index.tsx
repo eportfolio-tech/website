@@ -80,7 +80,7 @@ export default function FullScreenDialog({
     const handleClose = () => {
         setOpen(false);
     };
-    console.log(userInfo);
+    // console.log(userInfo);
 
     return (
         <Dialog

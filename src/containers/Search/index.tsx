@@ -20,40 +20,40 @@ function useQuery() {
 }
 
 export default () => {
-    const location = useLocation();
+    // const location = useLocation();
     const dispatch = useDispatch();
     const query = useQuery();
 
     const [loading, setLoading] = useState(false);
     const [cards, setCards] = useState<undefined | IContent[]>();
 
-    const [] = useState(location.pathname === '/search/more');
+    const [q] = useState(query.get('query'));
 
-    const search = async (query: any) => {
-        try {
-            setLoading(true);
-            setCards(undefined);
-
-            const results = await userService.search(query, 0, 100);
-
-            await sleep(500);
-            console.log(results);
-            setCards(results.content);
-            setLoading(false);
-        } catch (error) {
-            dispatch(
-                alertActions.error(Object.values(error.response.data.data))
-            );
-
-            setLoading(false);
-        }
-    };
+    // const [] = useState(location.pathname === '/search/more');
 
     useEffect(() => {
-        if (query.get('query')) {
-            search(query.get('query'));
+        const search = async (query: any) => {
+            try {
+                setLoading(true);
+                setCards(undefined);
+
+                const results = await userService.search(query, 0, 100);
+
+                await sleep(500);
+                console.log(results);
+                setCards(results.content);
+                setLoading(false);
+            } catch (error) {
+                dispatch(alertActions.error(error));
+
+                setLoading(false);
+            }
+        };
+
+        if (q) {
+            search(q);
         }
-    }, [query.get('query')]);
+    }, [q, dispatch]);
 
     return (
         <Layout>

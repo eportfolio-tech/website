@@ -79,12 +79,12 @@ export default withWidth()(() => {
         } else if (query.get('sign-up')) {
             setOpenSignUp('true');
         }
-    }, [location.pathname]);
+    }, [location.pathname, query]);
 
     return (
         <div>
-            <SignIn open={openLogin == 'true'} setOpen={setOpenLogin} />
-            <SignUp open={openSignUp == 'true'} setOpen={setOpenSignUp} />
+            <SignIn open={openLogin === 'true'} setOpen={setOpenLogin} />
+            <SignUp open={openSignUp === 'true'} setOpen={setOpenSignUp} />
             <AppBar position="fixed" className={classes.appBar}>
                 <Toolbar className={classes.toolbar}>
                     <Link

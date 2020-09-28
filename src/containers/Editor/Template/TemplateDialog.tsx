@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import {alertActions} from '../../../store/actions/alertActions';
+import {alertActions, pageActions} from '../../../store/actions';
 import {useDispatch} from 'react-redux';
 
 import {pageService} from '../../../utils/pageService';
@@ -14,7 +14,14 @@ import {useHistory} from 'react-router-dom';
 
 import Templates from './Templates';
 
-export default function AlertDialog({open, setOpen, portfolio}: any) {
+export default function AlertDialog({
+    open,
+    setOpen,
+    portfolio,
+    title,
+    description,
+    rawJSON,
+}: any) {
     const history = useHistory();
     const [isCreating, setIsCreating] = useState(false);
     const dispatch = useDispatch();
@@ -28,19 +35,26 @@ export default function AlertDialog({open, setOpen, portfolio}: any) {
         const userInfo = JSON.parse(localStorage.getItem('user') || '');
         const username = userInfo.user.username;
         try {
-            await pageService.createPortfolio(username, {
-                description: username,
-                title: 'My E-Portfolio',
-                visibility: 'PUBLIC',
-            });
-
+            dispatch(pageActions.loading());
+            if (portfolio) {
+                await pageService.putContent(username, rawJSON);
+                await pageService.updatePortfolio(username, {
+                    title: title,
+                    description: description,
+                });
+            } else {
+                await pageService.createPortfolio(username, {
+                    description: username,
+                    title: 'My E-Portfolio',
+                    visibility: 'PUBLIC',
+                });
+            }
+            await pageActions.sleep(1000);
             dispatch(alertActions.success('E-Portfolio Created'));
             handleClose();
-            window.location.reload();
+            dispatch(pageActions.loaded());
         } catch (error) {
-            dispatch(
-                alertActions.error(Object.values(error.response.data.data))
-            );
+            dispatch(alertActions.error(error));
         }
     };
 
@@ -55,14 +69,17 @@ export default function AlertDialog({open, setOpen, portfolio}: any) {
                 disableBackdropClick
             >
                 <DialogTitle id="alert-dialog-title">
-                    {'Welcome to your E-portfolio!'}
+                    {portfolio
+                        ? 'Overwrite your E-portfolio.'
+                        : 'Welcome to your E-portfolio!'}
                 </DialogTitle>
 
                 <div>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                            Create or overwrite your own E-portfolio by
-                            selecting a template.
+                            {portfolio
+                                ? 'Overwrite your own E-portfolio by selecting a template.'
+                                : 'Create your own E-portfolio by selecting a template.'}
                         </DialogContentText>
 
                         <Templates />
@@ -75,7 +92,7 @@ export default function AlertDialog({open, setOpen, portfolio}: any) {
                             onClick={createProfolio}
                             disabled={isCreating}
                         >
-                            Create
+                            {portfolio ? 'Overwrite' : 'Create'}
                         </Button>
                         <br />
                         <Button

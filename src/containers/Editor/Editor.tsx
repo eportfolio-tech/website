@@ -6,12 +6,13 @@ import {Grid, Typography, useTheme} from '@material-ui/core';
 
 import {userService} from '../../utils/userService';
 import {pageService} from '../../utils/pageService';
+import {templateService} from '../../utils/templateService';
 import Paper from '@material-ui/core/Paper';
 
 import {alertActions} from '../../store/actions/alertActions';
 import {useDispatch} from 'react-redux';
 
-import AlertDialog from './Template/TemplateDialog';
+import TemplateDialog from './Template/TemplateDialog';
 
 import TextField from '@material-ui/core/TextField';
 
@@ -58,19 +59,15 @@ export default () => {
                 setDescription(data.portfolio.description);
             })
             .catch((error) => {
-                console.log(error.response);
+                //console.log(error.response);
                 setPortfolio(null);
                 if (error.response.status === 404) {
                     setOpenTemplate(true);
                 } else {
-                    dispatch(
-                        alertActions.error(
-                            Object.values(error.response.data.data)
-                        )
-                    );
+                    dispatch(alertActions.error(error));
                 }
             });
-    }, []);
+    }, [dispatch]);
 
     const handleChange = (editorState: any) => {
         setEditorState(editorState);
@@ -88,7 +85,7 @@ export default () => {
             });
             dispatch(alertActions.success('Save succeed'));
         } catch (error) {
-            dispatch(alertActions.error('Put data failed'));
+            dispatch(alertActions.error(error, 'Put data failed'));
         }
     };
 
@@ -101,7 +98,21 @@ export default () => {
             dispatch(alertActions.success('Save succeed'));
             return response;
         } catch (error) {
-            dispatch(alertActions.error('Save failed'));
+            dispatch(alertActions.error(error, 'Save failed'));
+        }
+    };
+
+    const onUploadTemplate = async () => {
+        try {
+            const response = await templateService.createTemplate(
+                editorState,
+                description,
+                title
+            );
+            console.log(response);
+            return response;
+        } catch (error) {
+            console.log(error);
         }
     };
 
@@ -158,10 +169,13 @@ export default () => {
     return (
         <div>
             <div>
-                <AlertDialog
+                <TemplateDialog
                     open={openTemplate}
                     setOpen={setOpenTemplate}
                     portfolio={portfolio}
+                    title={title}
+                    description={description}
+                    rawJSON={BraftEditor.createEditorState(null).toRAW(true)}
                 />
             </div>
             {!portfolio ? null : (
@@ -173,6 +187,10 @@ export default () => {
                             setOpenPreview(true);
                         }}
                         handlePrint={() => {}}
+                        handleTemplate={() => {
+                            setOpenTemplate(true);
+                        }}
+                        handleUpload={onUploadTemplate}
                     />
                     <Preview
                         open={openPreview}

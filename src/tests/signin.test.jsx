@@ -18,7 +18,7 @@ describe('Login tests', () => {
         </Provider>
     );
     it('should have login button and forget password button', () => {
-        expect(wrapper.find(Button).length).toEqual(3);
+        expect(wrapper.find(Button).length).toEqual(4);
     });
 
     it('should render the form', () => {

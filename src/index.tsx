@@ -11,14 +11,13 @@ import thunkMiddleware from 'redux-thunk';
 
 import {authenticationReducer, IAuthState} from './store/reducers/authReducers';
 import {alertReducer, IAlertState} from './store/reducers/alertReducers';
-import {userReducer, IUserState} from './store/reducers/userReducers';
-
+import {pageReducer, IPageState} from './store/reducers/pageReducers';
 const loggerMiddleware = createLogger();
 
 export interface IRootState {
     alert: IAlertState;
     auth: IAuthState;
-    user: IUserState;
+    page: IPageState;
 }
 
 declare global {
@@ -33,7 +32,7 @@ const store = createStore<IRootState, any, any, any>(
     combineReducers({
         alert: alertReducer,
         auth: authenticationReducer,
-        user: userReducer,
+        page: pageReducer,
     }),
     composeEnhancers(applyMiddleware(thunkMiddleware, loggerMiddleware))
 );

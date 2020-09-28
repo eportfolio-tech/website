@@ -46,7 +46,7 @@ export default function UpdateProfile() {
                 setUserInfo(data.user);
             })
             .catch((error) => {
-                dispatch(alertActions.error('get info failed'));
+                dispatch(alertActions.error(error, 'get info failed'));
             });
         setOldUserInfo(userInfo.user);
     }, [dispatch]);
@@ -64,7 +64,7 @@ export default function UpdateProfile() {
             await authService.updateInfo(userInfo.username, userInfo);
             dispatch(alertActions.success('update succeed'));
         } catch (error) {
-            dispatch(alertActions.error('update failed'));
+            dispatch(alertActions.error(error, 'update failed'));
         }
     };
 

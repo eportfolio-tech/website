@@ -132,11 +132,13 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
     const loggedIn = useSelector<IRootState, boolean | undefined>(
         (state) => state.auth.loggedIn
     );
+    const loadingRoute = useSelector<IRootState, boolean | undefined | null>(
+        (state) => state.page.loading
+    );
 
     const alert = useSelector<IRootState, any>((state) => state.alert);
     const {enqueueSnackbar, closeSnackbar} = useSnackbar();
 
-    const loadingRoute = false;
     const [open, setOpen] = useState(false);
     const handleRouting = (newRoute: String) => {
         history.push('/' + newRoute);
@@ -234,14 +236,10 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
                             </IconButton>
                         )}
                     </div>
-                    {loadingRoute ? null : (
-                        <div>
-                            <MenuList
-                                open={open}
-                                handleRouting={handleRouting}
-                            />
-                        </div>
-                    )}
+
+                    <div>
+                        <MenuList open={open} handleRouting={handleRouting} />
+                    </div>
                 </Drawer>
             ) : null}
 
