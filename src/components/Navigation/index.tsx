@@ -45,11 +45,12 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         drawer: {
             width: drawerWidth,
-
+            flexShrink: 0,
             whiteSpace: 'nowrap',
         },
         drawerOpen: {
             width: drawerWidth,
+
             transition: theme.transitions.create('width', {
                 easing: theme.transitions.easing.sharp,
                 duration: theme.transitions.duration.enteringScreen,
@@ -67,13 +68,8 @@ const useStyles = makeStyles((theme: Theme) =>
             width: theme.spacing(7) + 1,
             [theme.breakpoints.up('md')]: {
                 width: theme.spacing(9) + 1,
-                position: 'fixed',
-                backgroundColor: 'rgba(250,250,250,0)',
-                zIndex: 1,
-                top: 0,
-                left: 0,
             },
-            //backgroundColor: 'rgba(250,250,250,0)',
+            background: theme.palette.background.default,
             border: 'none',
         },
         toolbar: {
@@ -83,7 +79,7 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: theme.spacing(0, 1),
             // necessary for content to be below app bar
             ...theme.mixins.toolbar,
-            backgroundColor: 'transparent',
+            backgroundColor: 'rgba(250,250,250,0.9)',
         },
         content: {
             flexGrow: 1,
@@ -91,11 +87,11 @@ const useStyles = makeStyles((theme: Theme) =>
                 padding: theme.spacing(13),
             },
             [theme.breakpoints.down('sm')]: {
-                //padding: theme.spacing(4),
+                padding: theme.spacing(4),
                 marginTop: '18%',
             },
             [theme.breakpoints.between('sm', 'md')]: {
-                //padding: theme.spacing(4),
+                padding: theme.spacing(4),
                 marginTop: '8%',
             },
             maxWidth: '100%',
@@ -132,14 +128,12 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
     const loggedIn = useSelector<IRootState, boolean | undefined>(
         (state) => state.auth.loggedIn
     );
-    const loadingRoute = useSelector<IRootState, boolean | undefined | null>(
-        (state) => state.page.loading
-    );
 
     const alert = useSelector<IRootState, any>((state) => state.alert);
     const {enqueueSnackbar, closeSnackbar} = useSnackbar();
 
-    const [open, setOpen] = useState(false);
+    const loadingRoute = false;
+    const [open, setOpen] = useState(largeScreen);
     const handleRouting = (newRoute: String) => {
         history.push('/' + newRoute);
     };
@@ -212,6 +206,14 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
             {loggedIn ? (
                 <Drawer
                     variant={largeScreen ? 'permanent' : 'temporary'}
+                    className={
+                        largeScreen
+                            ? clsx(classes.drawer, {
+                                  [classes.drawerOpen]: open,
+                                  [classes.drawerClose]: !open,
+                              })
+                            : undefined
+                    }
                     classes={
                         largeScreen
                             ? {
@@ -226,20 +228,19 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
                     onClose={getDrawlerOnClose}
                 >
                     <div className={classes.toolbar}>
-                        {largeScreen ? null : (
-                            <IconButton onClick={handleDrawerClose}>
-                                {theme.direction === 'rtl' ? (
-                                    <ChevronRightIcon />
-                                ) : (
-                                    <RemoveIcon />
-                                )}
-                            </IconButton>
-                        )}
+                        <IconButton onClick={handleDrawerClose}>
+                            {theme.direction === 'rtl' ? (
+                                <ChevronRightIcon />
+                            ) : (
+                                <RemoveIcon />
+                            )}
+                        </IconButton>
                     </div>
-
-                    <div>
-                        <MenuList open={open} handleRouting={handleRouting} />
-                    </div>
+                    {loadingRoute ? null : (
+                        <div>
+                            <MenuList handleRouting={handleRouting} />
+                        </div>
+                    )}
                 </Drawer>
             ) : null}
 

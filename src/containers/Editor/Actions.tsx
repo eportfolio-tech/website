@@ -81,7 +81,7 @@ export default function SpeedDials({
                         handleClose();
                     }}
                     style={{width: '30rem', height: '30rem'}}
-                    FabProps={{style: {width: '3.5rem', height: '3.5rem'}}}
+                    FabProps={{style: {width: '3rem', height: '3rem'}}}
                 />
             ))}
         </SpeedDial>

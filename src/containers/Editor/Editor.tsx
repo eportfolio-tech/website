@@ -202,8 +202,8 @@ export default () => {
                         description={description}
                     />
 
-                    <Grid container spacing={4} justify="center">
-                        <Grid item xs={9}>
+                    <Grid container spacing={4}>
+                        <Grid item xs={11}>
                             <TextField
                                 id="standard-full-width"
                                 // placeholder="My Portfolio"
@@ -220,7 +220,7 @@ export default () => {
                             />
                         </Grid>
 
-                        <Grid item xs={9}>
+                        <Grid item xs={11}>
                             <TextField
                                 id="standard-full-width2"
                                 // placeholder="Description"
@@ -237,7 +237,7 @@ export default () => {
                             />
                         </Grid>
 
-                        <Grid item xs={9}>
+                        <Grid item xs={11}>
                             <Paper
                                 style={{
                                     minHeight: '50VH',
@@ -254,7 +254,7 @@ export default () => {
                                 />
                             </Paper>
                         </Grid>
-                        <Grid item xs={9}>
+                        <Grid item xs={11}>
                             <Button
                                 variant="contained"
                                 color="secondary"
