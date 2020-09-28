@@ -1,11 +1,11 @@
-import {render} from 'react-dom';
 import React, {useState} from 'react';
-import {useSprings, animated, interpolate} from 'react-spring';
+import {animated, interpolate, useSprings} from 'react-spring';
 import {useGesture} from 'react-use-gesture';
 
 import './styles.css';
 
 import FeedItem from '../../components/Feed/FeedItem';
+
 const cards = [
     'https://upload.wikimedia.org/wikipedia/en/f/f5/RWS_Tarot_08_Strength.jpg',
     'https://upload.wikimedia.org/wikipedia/en/5/53/RWS_Tarot_16_Tower.jpg',
@@ -45,17 +45,17 @@ const trans = (r, s) =>
         r / 10
     }deg) rotateZ(${r}deg) scale(${s})`;
 
-function Deck() {
+function Deck(props) {
     const [gone] = useState(() => new Set()); // The set flags all the cards that are flicked out
-    const [props, set] = useSprings(urls.length, (i) => ({
+    const [springProps, set] = useSprings(urls.length, (i) => ({
         ...to(i),
         from: from(i),
     })); // Create a bunch of springs using the helpers above
     // Create a gesture, we're interested in down-state, delta (current-pos - click-pos), direction and velocity
     const bind = useGesture(
         ({
-            args: [index],
-            down,
+             args: [index],
+             down,
             delta: [xDelta],
             distance,
             direction: [xDir],
@@ -70,15 +70,15 @@ function Deck() {
                 const x = isGone
                     ? (200 + window.innerWidth) * dir
                     : down
-                    ? xDelta
-                    : 0; // When a card is gone it flys out left or right, otherwise goes back to zero
+                        ? xDelta
+                        : 0; // When a card is gone it flys out left or right, otherwise goes back to zero
                 const rot = xDelta / 100 + (isGone ? dir * 10 * velocity : 0); // How much the card tilts, flicking it harder makes it rotate faster
-                const scale = down ? 1.1 : 1; // Active cards lift up a bit
+                const scale = down ? props.zoom : 1; // Active cards lift up a bit
                 return {
                     x,
                     rot,
                     scale,
-                    delay: undefined,
+                    delay: null,
                     config: {
                         friction: 80,
                         tension: down ? 800 : isGone ? 200 : 500,
@@ -93,13 +93,13 @@ function Deck() {
     return (
         <div class="body">
             <div class="root1">
-                {props.map(({x, y, rot, scale}, i) => (
+                {springProps.map(({x, y, rot, scale}, i) => (
                     <animated.div
                         key={i}
                         style={{
                             transform: interpolate(
                                 [x, y],
-                                (x, y) => `translate3d(${x}px,${y}px,0)`
+                                (x, y) => `translate3d(${x}px,${y}px,0)`,
                             ),
                         }}
                     >
