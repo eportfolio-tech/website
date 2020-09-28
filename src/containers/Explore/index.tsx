@@ -1,4 +1,4 @@
-import {Button, Container, Dialog, DialogContent, Grid} from '@material-ui/core';
+import {Button, Container, Dialog, DialogActions, DialogContent, Grid} from '@material-ui/core';
 import React from 'react';
 import {useLocation} from 'react-router-dom';
 import Layout from '../../components/Navigation';
@@ -22,7 +22,6 @@ export default () => {
         zoom: false,
         layout: true,
     });
-
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -31,36 +30,19 @@ export default () => {
         setOpen(false);
     };
 
-    const marks = [
-        {
-            value: 1,
-            label: '100%',
-        },
-        {
-            value: 1.1,
-            label: '110%',
-        },
-        {
-            value: 1.2,
-            label: '120%',
-        },
-    ];
-
     return (
         <Layout>
             <Container>
                 <Grid
                     container
-                    justify="center"
+                    direction="column"
+                    justify="space-between"
                     alignItems="center"
                     style={{height: '70VH'}}
                 >
-                    {/*<Grid item  xs={11}>*/}
                     <Deck zoom={config.zoom ? 1.1 : 1.0}/>
-                    {/*</Grid>*/}
 
                 </Grid>
-                {/*<Grid xs={1}>*/}
                 <Grid
                     container
                     direction="row"
@@ -71,7 +53,11 @@ export default () => {
                         <Button variant="outlined" color="primary" onClick={handleClickOpen}>
                             Customisation
                         </Button>
-                        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                        <Dialog open={open}
+                                onClose={handleClose}
+                                aria-labelledby="form-dialog-title"
+                            // fullWidth={true}
+                                maxWidth="xs">
                             <DialogTitle id="form-dialog-title">Feed Customisation</DialogTitle>
                             <DialogContent>
                                 {/*<DialogContentText>*/}
@@ -80,6 +66,14 @@ export default () => {
                                 {/*</DialogContentText>*/}
                                 {/*<PrettoSlider />*/}
                                 <SwitchesGroup config={config} changeConfig={setConfig}/>
+                                <DialogActions>
+                                    <Button onClick={handleClose} color="primary">
+                                        Cancel
+                                    </Button>
+                                    <Button onClick={handleClose} color="primary" autoFocus>
+                                        Save
+                                    </Button>
+                                </DialogActions>
                             </DialogContent>
                             {/*<Button onClick={handleClose} color="primary">*/}
                             {/*    Cancel*/}
