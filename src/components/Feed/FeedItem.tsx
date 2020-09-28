@@ -16,7 +16,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            width: '100%',
+            width: '50VW',
         },
         media: {
             height: 0,
@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function FeedItem({image}: any) {
     const classes = useStyles();
-    console.log(image);
 
     return (
         <Card className={classes.root}>

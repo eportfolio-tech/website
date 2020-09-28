@@ -73,14 +73,14 @@ function Deck() {
                     ? xDelta
                     : 0; // When a card is gone it flys out left or right, otherwise goes back to zero
                 const rot = xDelta / 100 + (isGone ? dir * 10 * velocity : 0); // How much the card tilts, flicking it harder makes it rotate faster
-                const scale = down ? 1.5 : 1; // Active cards lift up a bit
+                const scale = down ? 1.1 : 1; // Active cards lift up a bit
                 return {
                     x,
                     rot,
                     scale,
                     delay: undefined,
                     config: {
-                        friction: 50,
+                        friction: 80,
                         tension: down ? 800 : isGone ? 200 : 500,
                     },
                 };
