@@ -54,8 +54,8 @@ function Deck(props) {
     // Create a gesture, we're interested in down-state, delta (current-pos - click-pos), direction and velocity
     const bind = useGesture(
         ({
-             args: [index],
-             down,
+            args: [index],
+            down,
             delta: [xDelta],
             distance,
             direction: [xDir],
@@ -70,8 +70,8 @@ function Deck(props) {
                 const x = isGone
                     ? (200 + window.innerWidth) * dir
                     : down
-                        ? xDelta
-                        : 0; // When a card is gone it flys out left or right, otherwise goes back to zero
+                    ? xDelta
+                    : 0; // When a card is gone it flys out left or right, otherwise goes back to zero
                 const rot = xDelta / 100 + (isGone ? dir * 10 * velocity : 0); // How much the card tilts, flicking it harder makes it rotate faster
                 const scale = down ? props.zoom : 1; // Active cards lift up a bit
                 return {
@@ -99,7 +99,7 @@ function Deck(props) {
                         style={{
                             transform: interpolate(
                                 [x, y],
-                                (x, y) => `translate3d(${x}px,${y}px,0)`,
+                                (x, y) => `translate3d(${x}px,${y}px,0)`
                             ),
                         }}
                     >

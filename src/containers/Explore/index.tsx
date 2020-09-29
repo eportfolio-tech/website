@@ -1,4 +1,11 @@
-import {Button, Container, Dialog, DialogActions, DialogContent, Grid} from '@material-ui/core';
+import {
+    Button,
+    Container,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    Grid,
+} from '@material-ui/core';
 import React from 'react';
 import {useLocation} from 'react-router-dom';
 import Layout from '../../components/Navigation';
@@ -40,8 +47,7 @@ export default () => {
                     alignItems="center"
                     style={{height: '70VH'}}
                 >
-                    <Deck zoom={config.zoom ? 1.1 : 1.0}/>
-
+                    <Deck zoom={config.zoom ? 1.1 : 1.0} />
                 </Grid>
                 <Grid
                     container
@@ -50,27 +56,45 @@ export default () => {
                     alignItems="flex-start"
                 >
                     <Grid item xs={1}>
-                        <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+                        <Button
+                            variant="outlined"
+                            color="primary"
+                            onClick={handleClickOpen}
+                        >
                             Customisation
                         </Button>
-                        <Dialog open={open}
-                                onClose={handleClose}
-                                aria-labelledby="form-dialog-title"
+                        <Dialog
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="form-dialog-title"
                             // fullWidth={true}
-                                maxWidth="xs">
-                            <DialogTitle id="form-dialog-title">Feed Customisation</DialogTitle>
+                            maxWidth="xs"
+                        >
+                            <DialogTitle id="form-dialog-title">
+                                Feed Customisation
+                            </DialogTitle>
                             <DialogContent>
                                 {/*<DialogContentText>*/}
                                 {/*    To subscribe to this website, please enter your email address here. We will send updates*/}
                                 {/*    occasionally.*/}
                                 {/*</DialogContentText>*/}
                                 {/*<PrettoSlider />*/}
-                                <SwitchesGroup config={config} changeConfig={setConfig}/>
+                                <SwitchesGroup
+                                    config={config}
+                                    changeConfig={setConfig}
+                                />
                                 <DialogActions>
-                                    <Button onClick={handleClose} color="primary">
+                                    <Button
+                                        onClick={handleClose}
+                                        color="primary"
+                                    >
                                         Cancel
                                     </Button>
-                                    <Button onClick={handleClose} color="primary" autoFocus>
+                                    <Button
+                                        onClick={handleClose}
+                                        color="primary"
+                                        autoFocus
+                                    >
                                         Save
                                     </Button>
                                 </DialogActions>
@@ -83,11 +107,9 @@ export default () => {
                             {/*</Button>*/}
                         </Dialog>
                     </Grid>
-
                 </Grid>
                 {/*</Grid>*/}
             </Container>
-
         </Layout>
     );
 };

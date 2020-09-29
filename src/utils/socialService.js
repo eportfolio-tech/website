@@ -20,8 +20,3 @@ async function unlikePortfolio(ownerUsername) {
     const response = await axios.delete(`/portfolios/${ownerUsername}/like`);
     return response.data.data;
 }
-
-async function Portfolios(ownerUsername) {
-    const response = await axios.get(`/portfolios/${ownerUsername}`);
-    return response.data.data;
-}

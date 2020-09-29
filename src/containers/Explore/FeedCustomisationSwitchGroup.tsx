@@ -6,16 +6,16 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Switch from '@material-ui/core/Switch';
 
-export default function SwitchesGroup(props: {
-    config: any
-    changeConfig: any
-}) {
+export default function SwitchesGroup(props: {config: any; changeConfig: any}) {
     // const [props.config, props.changeConfig] = React.useState({
     //     zoom: true,
     // });
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        props.changeConfig({...props.config, [event.target.name]: event.target.checked});
+        props.changeConfig({
+            ...props.config,
+            [event.target.name]: event.target.checked,
+        });
     };
 
     return (
@@ -23,11 +23,23 @@ export default function SwitchesGroup(props: {
             <FormLabel component="legend">Animation</FormLabel>
             <FormGroup>
                 <FormControlLabel
-                    control={<Switch checked={props.config.zoom} onChange={handleChange} name="zoom"/>}
+                    control={
+                        <Switch
+                            checked={props.config.zoom}
+                            onChange={handleChange}
+                            name="zoom"
+                        />
+                    }
                     label="Zoom in on click"
                 />
                 <FormControlLabel
-                    control={<Switch checked={props.config.layout} onChange={handleChange} name="layout"/>}
+                    control={
+                        <Switch
+                            checked={props.config.layout}
+                            onChange={handleChange}
+                            name="layout"
+                        />
+                    }
                     label="layout"
                 />
                 {/*<FormControlLabel*/}
@@ -39,4 +51,3 @@ export default function SwitchesGroup(props: {
         </FormControl>
     );
 }
-

@@ -17,7 +17,6 @@ const fortyTwo = createMuiTheme({
         success: {
             main: '#15d300',
         },
-
     },
 });
 
