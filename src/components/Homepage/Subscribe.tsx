@@ -22,7 +22,7 @@ const useStyles: any = makeStyles((theme: Theme) =>
         card: {
             display: 'flex',
             justifyContent: 'center',
-            backgroundColor: theme.palette.warning.main,
+            backgroundColor: '#ffb84d',
             padding: theme.spacing(8, 3),
         },
         cardContent: {
