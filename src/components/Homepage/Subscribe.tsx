@@ -6,6 +6,8 @@ import Container from '@material-ui/core/Container';
 import Typography from '../Typography/Typography';
 import TextField from '../TextField';
 import Button from '../Button/Button';
+import {alertActions} from '../../store/actions';
+import {useDispatch} from 'react-redux';
 
 const useStyles: any = makeStyles((theme: Theme) =>
     createStyles({
@@ -61,10 +63,11 @@ const useStyles: any = makeStyles((theme: Theme) =>
 function ProductCTA() {
     const classes = useStyles();
     const [, setOpen] = React.useState(false);
-
+    const dispatch = useDispatch();
     const handleSubmit = (event: any) => {
         event.preventDefault();
         setOpen(true);
+        dispatch(alertActions.success('Thank you. We will contact you soon.'));
     };
 
     return (
@@ -92,6 +95,9 @@ function ProductCTA() {
                                 noBorder
                                 className={classes.textField}
                                 placeholder="Your email"
+                                label="Email Address"
+                                setState={setOpen}
+                                required={true}
                             />
                             <Button
                                 type="submit"
