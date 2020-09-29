@@ -22,11 +22,12 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-export default function SimpleListMenu() {
+export default function SimpleListMenu({selectCallback, select}: any) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [selectedIndex, setSelectedIndex] = useState(1);
 
+    const [templates, setTemplates] = useState([]);
     const [options, setOptions] = useState([]);
 
     useEffect(() => {
@@ -34,6 +35,7 @@ export default function SimpleListMenu() {
             setOptions(
                 data.templates.map((template: {title: any}) => template.title)
             );
+            setTemplates(data.templates);
         });
     }, []);
 
@@ -47,6 +49,10 @@ export default function SimpleListMenu() {
     ) => {
         setSelectedIndex(index);
         setAnchorEl(null);
+
+        select((templates[index] as any).id);
+
+        selectCallback((templates[index] as any).boilerplate);
     };
 
     const handleClose = () => {

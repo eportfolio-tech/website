@@ -27,6 +27,6 @@ async function getTemplateById(templateID) {
 }
 
 async function deleteTemplateById(templateID) {
-    const response = await axios.get(`/templates/${templateID}`);
+    const response = await axios.delete(`/templates/${templateID}`);
     return response.data.data;
 }

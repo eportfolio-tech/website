@@ -2,7 +2,7 @@ import 'braft-editor/dist/index.css';
 import React, {useState, useEffect} from 'react';
 import BraftEditor from 'braft-editor';
 
-import {Button, Grid, Typography, useTheme} from '@material-ui/core';
+import {Button, Grid, TextField, useTheme} from '@material-ui/core';
 
 import {userService} from '../../utils/userService';
 import {pageService} from '../../utils/pageService';
@@ -13,8 +13,6 @@ import {alertActions} from '../../store/actions/alertActions';
 import {useDispatch} from 'react-redux';
 
 import TemplateDialog from './Template/TemplateDialog';
-
-import TextField from '@material-ui/core/TextField';
 
 import Preview from './Preview';
 
@@ -107,7 +105,7 @@ export default () => {
     const onUploadTemplate = async () => {
         try {
             const response = await templateService.createTemplate(
-                editorState,
+                editorState.toRAW(true),
                 description,
                 title
             );
@@ -116,6 +114,12 @@ export default () => {
         } catch (error) {
             console.log(error);
         }
+    };
+
+    const onSelectTemplateCallback = (selectedTemplate: any) => {
+        // console.log('callback');
+        setEditorState(BraftEditor.createEditorState(selectedTemplate));
+        // console.log(editorState);
     };
 
     const renderHTML = () => {
@@ -178,6 +182,7 @@ export default () => {
                     title={title}
                     description={description}
                     rawJSON={BraftEditor.createEditorState(null).toRAW(true)}
+                    selectCallback={onSelectTemplateCallback}
                 />
             </div>
             {!portfolio ? null : (
