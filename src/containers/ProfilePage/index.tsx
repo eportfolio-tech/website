@@ -149,7 +149,6 @@ export default function ProfilePage({match, history}: any) {
             await socialService.likePortfolio(username);
             setLiked(true);
             setLikeNum(likeNum + 1);
-            dispatch(alertActions.success('You liked this portfolio'));
         } catch (error) {
             dispatch(alertActions.error(error));
         }
@@ -161,7 +160,6 @@ export default function ProfilePage({match, history}: any) {
             await socialService.unlikePortfolio(username);
             setLiked(false);
             setLikeNum(likeNum - 1);
-            dispatch(alertActions.success('You unliked this portfolio'));
         } catch (error) {
             dispatch(alertActions.error(error));
         }
