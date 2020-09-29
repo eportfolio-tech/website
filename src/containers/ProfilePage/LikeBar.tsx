@@ -5,7 +5,7 @@ import {useHistory, withRouter} from 'react-router-dom';
 import {alertActions} from '../../store/actions/alertActions';
 
 // @ts-ignore
-import {userSocial} from '../../utils/userSocial';
+import {socialService} from '../../utils/socialService';
 import Fab from '@material-ui/core/Fab';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import {Drawer, IconButton, Tooltip, Typography} from '@material-ui/core';
@@ -68,14 +68,15 @@ export default () => {
     const classes = useStyles();
     // @ts-ignore
     const open = true;
-    const [userName, setUserName] = useState('');
 
     const onLikeHandler = async () => {
         try {
-            await userSocial.findWhoLikedThisPortfolio(userName);
+            const userInfo = JSON.parse(localStorage.getItem('user') || '');
+            const userName = userInfo.user.username;
+            await socialService.likePortfolio(userName);
             dispatch(alertActions.success('You liked this portfolio'));
         } catch (error) {
-            dispatch(alertActions.error(error, 'like failed'));
+            dispatch(alertActions.error(error));
         }
     };
 

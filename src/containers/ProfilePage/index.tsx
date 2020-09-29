@@ -13,6 +13,9 @@ import {pageService} from '../../utils/pageService';
 import Layout from '../../components/Navigation';
 import Actions from './Actions';
 import MyHTML from '../Editor/MyHtml';
+import {socialService} from '../../utils/socialService';
+import {alertActions} from '../../store/actions';
+import {useDispatch} from 'react-redux';
 
 // @ts-ignore
 const useStyles: any = makeStyles((theme: Theme) =>
@@ -64,7 +67,11 @@ const useStyles: any = makeStyles((theme: Theme) =>
 export default function ProfilePage({match, history}: any) {
     const classes = useStyles();
 
+    const dispatch = useDispatch();
+
     const [liked, setLiked] = useState(false);
+
+    //const [likeNum, setLikeNum] = useState(0);
 
     const [commented, setCommented] = useState(0);
 
@@ -100,6 +107,27 @@ export default function ProfilePage({match, history}: any) {
             });
     }, [match.params.username]);
 
+    const handleLike = async () => {
+        try {
+            const username = match.params.username;
+            await socialService.likePortfolio(username);
+            setLiked(true);
+            dispatch(alertActions.success('You liked this portfolio'));
+        } catch (error) {
+            dispatch(alertActions.error(error));
+        }
+    };
+
+    const handleUnlike = async () => {
+        try {
+            const username = match.params.username;
+            await socialService.unlikePortfolio(username);
+            setLiked(false);
+            dispatch(alertActions.success('You unliked this portfolio'));
+        } catch (error) {
+            dispatch(alertActions.error(error));
+        }
+    };
     // @ts-ignore
     return (
         <div>
@@ -109,9 +137,7 @@ export default function ProfilePage({match, history}: any) {
                         history={history}
                         liked={liked}
                         commented={commented}
-                        handleLike={() => {
-                            setLiked(!liked);
-                        }}
+                        handleLike={liked ? handleUnlike : handleLike}
                         handleComment={() => {
                             setCommented(commented + 1);
                         }}
