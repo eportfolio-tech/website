@@ -99,6 +99,14 @@ function ProductCTA() {
                                 setState={setOpen}
                                 required={true}
                             />
+                            <TextField
+                                noBorder
+                                className={classes.textField}
+                                placeholder="Your enquiry"
+                                label="Your enquiry"
+                                setState={setOpen}
+                                required={true}
+                            />
                             <Button
                                 type="submit"
                                 color="primary"
