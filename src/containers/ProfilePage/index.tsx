@@ -73,6 +73,8 @@ export default function ProfilePage({match, history}: any) {
 
     const [liked, setLiked] = useState(false);
 
+    const [likeNum, setLikeNum] = useState(0);
+
     const [commented, setCommented] = useState(0);
 
     const [comments, setComments] = useState();
@@ -146,6 +148,7 @@ export default function ProfilePage({match, history}: any) {
             const username = match.params.username;
             await socialService.likePortfolio(username);
             setLiked(true);
+            setLikeNum(likeNum + 1);
             dispatch(alertActions.success('You liked this portfolio'));
         } catch (error) {
             dispatch(alertActions.error(error));
@@ -157,13 +160,12 @@ export default function ProfilePage({match, history}: any) {
             const username = match.params.username;
             await socialService.unlikePortfolio(username);
             setLiked(false);
+            setLikeNum(likeNum - 1);
             dispatch(alertActions.success('You unliked this portfolio'));
         } catch (error) {
             dispatch(alertActions.error(error));
         }
     };
-    // TODO: Fix @ts-ignore
-    // @ts-ignore
     return (
         <div className={classes.root}>
             <Layout>
@@ -182,6 +184,7 @@ export default function ProfilePage({match, history}: any) {
                         <Actions
                             history={history}
                             liked={liked}
+                            likeNum={likeNum}
                             commented={commented}
                             handleLike={liked ? handleUnlike : handleLike}
                             handleComment={() => {

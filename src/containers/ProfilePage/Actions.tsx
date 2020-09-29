@@ -54,6 +54,7 @@ export default function ProfilePage({
     handleLike,
     handleComment,
     liked,
+    likeNum,
     commented,
 }: IAction) {
     const classes = useStyles();
@@ -127,37 +128,10 @@ export default function ProfilePage({
                                 color={liked ? 'secondary' : undefined}
                                 onClick={handleLike}
                             >
-                                <FavoriteIcon />
+                                <Badge badgeContent={likeNum} color="secondary">
+                                    <FavoriteIcon />
+                                </Badge>
                             </IconButton>
-                        </Tooltip>
-                        <br />
-                        <br />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Tooltip
-                            arrow
-                            title={
-                                <Typography variant="body1">
-                                    {'Share'}
-                                </Typography>
-                            }
-                            placement="left"
-                            interactive
-                        >
-                            <CopyToClipboard
-                                text={url}
-                                onCopy={() => {
-                                    dispatch(
-                                        alertActions.success(
-                                            'URL have copied to your clipboard.'
-                                        )
-                                    );
-                                }}
-                            >
-                                <IconButton aria-label="share">
-                                    <ShareIcon />
-                                </IconButton>
-                            </CopyToClipboard>
                         </Tooltip>
                         <br />
                         <br />
@@ -188,6 +162,33 @@ export default function ProfilePage({
                         <br />
                         <br />
                     </Grid>
+                </Grid>
+                <Grid item xs={12}>
+                    <Tooltip
+                        arrow
+                        title={
+                            <Typography variant="body1">{'Share'}</Typography>
+                        }
+                        placement="left"
+                        interactive
+                    >
+                        <CopyToClipboard
+                            text={url}
+                            onCopy={() => {
+                                dispatch(
+                                    alertActions.success(
+                                        'URL have copied to your clipboard.'
+                                    )
+                                );
+                            }}
+                        >
+                            <IconButton aria-label="share">
+                                <ShareIcon />
+                            </IconButton>
+                        </CopyToClipboard>
+                    </Tooltip>
+                    <br />
+                    <br />
                 </Grid>
             </Drawer>
         </div>
