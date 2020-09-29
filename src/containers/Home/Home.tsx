@@ -4,7 +4,7 @@ import {useSpring, animated as a} from 'react-spring';
 
 import {useTheme} from '@material-ui/core/styles';
 
-import Intro from './IntroAnimation.jsx';
+//import Intro from./IntroAnimation.txt/index.jssx';
 import Layout from '../../components/Navigation';
 
 export default () => {
@@ -37,14 +37,7 @@ export default () => {
                         }}
                     ></a.div>
                 ) : (
-                    <a.div>
-                        <Intro
-                            toggle={() => {
-                                setFlipped((state) => !state);
-                                history.push('/search');
-                            }}
-                        />
-                    </a.div>
+                    <a.div></a.div>
                 )}
             </div>
         </Layout>

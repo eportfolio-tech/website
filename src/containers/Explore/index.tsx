@@ -1,103 +1,93 @@
-import React, {useState, useEffect} from 'react';
-import {useLocation, useHistory} from 'react-router-dom';
-import {useSpring, animated as a} from 'react-spring';
-import {useDispatch} from 'react-redux';
-import {useTheme} from '@material-ui/core';
-
-import {userService} from '../../utils/userService';
-import {alertActions} from '../../store/actions/alertActions';
-
-import IContent from '../../components/Search/IContent';
+import {Button, Container, Dialog, DialogActions, DialogContent, Grid} from '@material-ui/core';
+import React from 'react';
+import {useLocation} from 'react-router-dom';
 import Layout from '../../components/Navigation';
-import Profile from '../ProfilePage';
-import Feed from '../../components/Feed/Feed';
+import Deck from './cards';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import SwitchesGroup from './FeedCustomisationSwitchGroup';
 
 function sleep(delay = 0) {
     return new Promise((resolve) => {
         setTimeout(resolve, delay);
     });
 }
+
 function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
 
 export default () => {
-    const location = useLocation();
-    const history = useHistory();
-    const theme = useTheme();
-    const dispatch = useDispatch();
-    const query = useQuery();
-
-    const [, setLoading] = useState(false);
-    const [, setCards] = useState<undefined | IContent[]>();
-
-    const [q] = useState(query.get('query'));
-
-    const [flipped, setFlipped] = useState(
-        location.pathname === '/search/more'
-    );
-
-    const {transform, opacity}: any = useSpring({
-        opacity: flipped ? 1 : 0,
-        transform: `perspective(600px) rotateX(${flipped ? 180 : 0}deg)`,
-        config: {mass: 5, tension: 500, friction: 80},
+    const [open, setOpen] = React.useState(false);
+    const [config, setConfig] = React.useState({
+        zoom: false,
+        layout: true,
     });
-
-    const searchStyle: React.CSSProperties = {
-        opacity: opacity.interpolate((o: any) => 1 - o),
-        transform,
+    const handleClickOpen = () => {
+        setOpen(true);
     };
 
-    const moreStyle: React.CSSProperties = {
-        opacity,
-        transform: transform.interpolate((t: any) => `${t} rotateX(180deg)`),
-        background: theme.palette.background.default,
-        height: '50VH',
-        width: '100%',
+    const handleClose = () => {
+        setOpen(false);
     };
-
-    useEffect(() => {
-        const search = async (query: any) => {
-            try {
-                setLoading(true);
-                setCards(undefined);
-
-                const results = await userService.search(query, 0, 100);
-
-                await sleep(500);
-                console.log(results);
-                setCards(results.content);
-                setLoading(false);
-            } catch (error) {
-                dispatch(alertActions.error(error));
-
-                setLoading(false);
-            }
-        };
-        if (q) {
-            search(q);
-        }
-    }, [q, dispatch]);
 
     return (
         <Layout>
-            <div>
-                {flipped ? (
-                    <a.div
-                        style={moreStyle}
-                        onClick={() => {
-                            setFlipped(false);
-                            history.push('/search');
-                        }}
-                    >
-                        <Profile />
-                    </a.div>
-                ) : (
-                    <a.div style={searchStyle}>
-                        <Feed />
-                    </a.div>
-                )}
-            </div>
+            <Container>
+                <Grid
+                    container
+                    direction="column"
+                    justify="space-between"
+                    alignItems="center"
+                    style={{height: '70VH'}}
+                >
+                    <Deck zoom={config.zoom ? 1.1 : 1.0}/>
+
+                </Grid>
+                <Grid
+                    container
+                    direction="row"
+                    justify="flex-end"
+                    alignItems="flex-start"
+                >
+                    <Grid item xs={1}>
+                        <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+                            Customisation
+                        </Button>
+                        <Dialog open={open}
+                                onClose={handleClose}
+                                aria-labelledby="form-dialog-title"
+                            // fullWidth={true}
+                                maxWidth="xs">
+                            <DialogTitle id="form-dialog-title">Feed Customisation</DialogTitle>
+                            <DialogContent>
+                                {/*<DialogContentText>*/}
+                                {/*    To subscribe to this website, please enter your email address here. We will send updates*/}
+                                {/*    occasionally.*/}
+                                {/*</DialogContentText>*/}
+                                {/*<PrettoSlider />*/}
+                                <SwitchesGroup config={config} changeConfig={setConfig}/>
+                                <DialogActions>
+                                    <Button onClick={handleClose} color="primary">
+                                        Cancel
+                                    </Button>
+                                    <Button onClick={handleClose} color="primary" autoFocus>
+                                        Save
+                                    </Button>
+                                </DialogActions>
+                            </DialogContent>
+                            {/*<Button onClick={handleClose} color="primary">*/}
+                            {/*    Cancel*/}
+                            {/*</Button>*/}
+                            {/*<Button onClick={handleClose} color="primary">*/}
+                            {/*    Subscribe*/}
+                            {/*</Button>*/}
+                        </Dialog>
+                    </Grid>
+
+                </Grid>
+                {/*</Grid>*/}
+            </Container>
+
         </Layout>
     );
 };

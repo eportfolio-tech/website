@@ -13,6 +13,7 @@ import {pageService} from '../../../utils/pageService';
 import {useHistory} from 'react-router-dom';
 
 import Templates from './Templates';
+import {templateService} from '../../../utils/templateService';
 
 export default function AlertDialog({
     open,
@@ -21,9 +22,11 @@ export default function AlertDialog({
     title,
     description,
     rawJSON,
+    selectCallback,
 }: any) {
     const history = useHistory();
     const [isCreating, setIsCreating] = useState(false);
+    const [selectID, setSelectID] = useState(null);
     const dispatch = useDispatch();
 
     const handleClose = () => {
@@ -51,6 +54,21 @@ export default function AlertDialog({
             }
             await pageActions.sleep(1000);
             dispatch(alertActions.success('E-Portfolio Created'));
+            setIsCreating(false);
+            handleClose();
+            dispatch(pageActions.loaded());
+        } catch (error) {
+            dispatch(alertActions.error(error));
+        }
+    };
+
+    const deleteTemplate = async () => {
+        try {
+            dispatch(pageActions.loading());
+            await templateService.deleteTemplateById(selectID);
+
+            await pageActions.sleep(1000);
+            dispatch(alertActions.success('Template deleted'));
             handleClose();
             dispatch(pageActions.loaded());
         } catch (error) {
@@ -82,10 +100,22 @@ export default function AlertDialog({
                                 : 'Create your own E-portfolio by selecting a template.'}
                         </DialogContentText>
 
-                        <Templates />
+                        <Templates
+                            selectCallback={selectCallback}
+                            select={setSelectID}
+                        />
                     </DialogContent>
 
                     <DialogActions>
+                        <Button
+                            color="primary"
+                            variant="contained"
+                            onClick={deleteTemplate}
+                            disabled={isCreating}
+                        >
+                            Delete
+                        </Button>
+                        <br />
                         <Button
                             color="secondary"
                             variant="contained"
@@ -107,6 +137,7 @@ export default function AlertDialog({
                         >
                             Cancel
                         </Button>
+
                         <br />
                         <br />
                     </DialogActions>

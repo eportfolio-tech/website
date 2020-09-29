@@ -42,7 +42,7 @@ export default function SpeedDials({
 }: any) {
     const classes = useStyles();
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(true);
 
     const handleClose = () => {
         setOpen(false);
@@ -80,6 +80,8 @@ export default function SpeedDials({
                         action.handle();
                         handleClose();
                     }}
+                    style={{width: '30rem', height: '30rem'}}
+                    FabProps={{style: {width: '3rem', height: '3rem'}}}
                 />
             ))}
         </SpeedDial>
