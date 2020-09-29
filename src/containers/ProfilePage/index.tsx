@@ -19,7 +19,7 @@ import Link from '@material-ui/core/Link';
 import {socialService} from '../../utils/socialService';
 import {useDispatch} from 'react-redux';
 import {alertActions} from '../../store/actions/alertActions';
-
+import Comment from '../../components/Comment/Comment'
 // @ts-ignore
 const useStyles: any = makeStyles((theme: Theme) =>
     createStyles({
@@ -71,6 +71,8 @@ export default function ProfilePage({match, history}: any) {
 
     const dispatch = useDispatch();
 
+    const [authorName, setAuthorName] = useState(match.params.username)
+
     const [liked, setLiked] = useState(false);
 
     const [likeNum, setLikeNum] = useState(0);
@@ -90,11 +92,10 @@ export default function ProfilePage({match, history}: any) {
     const [content, setContent] = useState();
 
     useEffect(() => {
-        const username = match.params.username;
 
         // Check if user has a portfolio
         pageService
-            .getPortfolio(username)
+            .getPortfolio(authorName)
             .then((data) => {
                 console.log('portfolio: ', data.portfolio);
                 setPortfolio(data.portfolio);
@@ -109,14 +110,14 @@ export default function ProfilePage({match, history}: any) {
             .catch((error) => {
                 console.log(error);
             });
-    }, [match.params.username]);
+    }, [authorName]);
 
     useEffect(() => {
         const username = match.params.username;
 
         pageService
             // @ts-ignore
-            .getComments(username)
+            .getComments(authorName)
             .then((data: {[x: string]: React.SetStateAction<undefined>}) => {
                 setComments(data['user-comment']);
             })
@@ -133,20 +134,25 @@ export default function ProfilePage({match, history}: any) {
         // @ts-ignore
         commentComponents = comments.map((c) => (
             <Grid item xs={12}>
-                <ReviewCard
-                    author={c.username}
-                    content={c.comment}
-                    date={c.createdDate}
-                    avatar={c.avatar}
-                />
+                <Card variant={"outlined"} >
+                    <CardContent>
+                        <Comment
+                            author={c.username}
+                            content={c.comment}
+                            date={new Date(c.createdDate).toDateString()}
+                            avatar={c.avatar}
+                            isAuthor={c.author===authorName}
+                            edited={true}
+                        />
+                    </CardContent>
+                </Card>
             </Grid>
         ));
     }
 
     const handleLike = async () => {
         try {
-            const username = match.params.username;
-            await socialService.likePortfolio(username);
+            await socialService.likePortfolio(authorName);
             setLiked(true);
             setLikeNum(likeNum + 1);
         } catch (error) {
@@ -156,8 +162,7 @@ export default function ProfilePage({match, history}: any) {
 
     const handleUnlike = async () => {
         try {
-            const username = match.params.username;
-            await socialService.unlikePortfolio(username);
+            await socialService.unlikePortfolio(authorName);
             setLiked(false);
             setLikeNum(likeNum - 1);
         } catch (error) {
@@ -229,10 +234,11 @@ export default function ProfilePage({match, history}: any) {
                                         {portfolio.description}
                                     </Typography>
                                 </Grid>
+                                <Grid item xs={12}>
+                                    <MyHTML html={content} />
+                                </Grid>
                             </Grid>
-                            <Divider className={classes.divider} />
-                            <MyHTML html={content} />
-                            <Grid container spacing={1}>
+                            <Grid container>
                                 {commentComponents}
                             </Grid>
                         </CardContent>
