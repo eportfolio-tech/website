@@ -4,8 +4,6 @@ import React from 'react';
 import {createStyles, makeStyles} from '@material-ui/core/styles';
 // @material-ui/icons
 // core components
-
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import {alertActions} from '../../store/actions/alertActions';
 import {useDispatch} from 'react-redux';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -13,7 +11,6 @@ import ShareIcon from '@material-ui/icons/Share';
 import CommentOutlinedIcon from '@material-ui/icons/CommentOutlined';
 // @ts-ignore
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import LikeBar from '../ProfilePage/LikeBar';
 import {
     Badge,
     Button,
