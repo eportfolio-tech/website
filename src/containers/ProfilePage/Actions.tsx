@@ -5,7 +5,7 @@ import {createStyles, makeStyles} from '@material-ui/core/styles';
 // @material-ui/icons
 // core components
 import {alertActions} from '../../store/actions/alertActions';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import CommentOutlinedIcon from '@material-ui/icons/CommentOutlined';
@@ -22,6 +22,7 @@ import {
     Typography,
 } from '@material-ui/core';
 import clsx from 'clsx';
+import {IRootState} from '../../index';
 
 // @ts-ignore
 const useStyles: any = makeStyles((theme: Theme) =>

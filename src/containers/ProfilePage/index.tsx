@@ -17,8 +17,10 @@ import CardContent from '@material-ui/core/CardContent';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import {socialService} from '../../utils/socialService';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {useHistory} from 'react-router-dom';
 import {alertActions} from '../../store/actions/alertActions';
+import {IRootState} from '../../index';
 
 // @ts-ignore
 const useStyles: any = makeStyles((theme: Theme) =>
@@ -71,6 +73,12 @@ export default function ProfilePage({match, history}: any) {
 
     const dispatch = useDispatch();
 
+    const historyDom = useHistory();
+    console.log(history);
+    const loggedIn = useSelector<IRootState, boolean | undefined>(
+        (state) => state.auth.loggedIn
+    );
+
     const [liked, setLiked] = useState(false);
 
     const [likeNum, setLikeNum] = useState(0);
@@ -91,39 +99,39 @@ export default function ProfilePage({match, history}: any) {
 
     useEffect(() => {
         const username = match.params.username;
-
-        // Check if user has a portfolio
-        pageService
-            .getPortfolio(username)
-            .then((data) => {
-                console.log('portfolio: ', data.portfolio);
-                setPortfolio(data.portfolio);
-                setContent(
-                    BraftEditor.createEditorState(
-                        data.portfolio.content !== null
-                            ? data.portfolio.content
-                            : null
-                    ).toHTML()
-                );
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        fetchContent();
     }, [match.params.username]);
 
-    useEffect(() => {
-        const username = match.params.username;
+    const fetchContent = async () => {
+        try {
+            const username = match.params.username;
 
-        pageService
-            // @ts-ignore
-            .getComments(username)
-            .then((data: {[x: string]: React.SetStateAction<undefined>}) => {
-                setComments(data['user-comment']);
-            })
-            .catch((error: any) => {
-                console.log(error);
-            });
-    }, []);
+            //get portfolio
+            const data = await pageService.getPortfolio(username);
+            console.log('portfolio: ', data.portfolio);
+            setPortfolio(data.portfolio);
+            setContent(
+                BraftEditor.createEditorState(
+                    data.portfolio.content !== null
+                        ? data.portfolio.content
+                        : null
+                ).toHTML()
+            );
+
+            //find who like this portfolio
+            const comment = await pageService.getComments(username);
+            setComments(comment['user-comment']);
+
+            //find comment of this portfolio
+            const likeInfo = await socialService.findWhoLikedThisPortfolio(
+                username
+            );
+            setLiked(likeInfo.liked);
+            setLikeNum(likeInfo['user-like'].length);
+        } catch (error) {
+            dispatch(alertActions.error(error));
+        }
+    };
 
     let commentComponents = null;
     // @ts-ignore
@@ -144,24 +152,32 @@ export default function ProfilePage({match, history}: any) {
     }
 
     const handleLike = async () => {
-        try {
-            const username = match.params.username;
-            await socialService.likePortfolio(username);
-            setLiked(true);
-            setLikeNum(likeNum + 1);
-        } catch (error) {
-            dispatch(alertActions.error(error));
+        if (loggedIn) {
+            try {
+                const username = match.params.username;
+                await socialService.likePortfolio(username);
+                setLiked(true);
+                setLikeNum(likeNum + 1);
+            } catch (error) {
+                dispatch(alertActions.error(error));
+            }
+        } else {
+            historyDom.push('/?login=true');
         }
     };
 
     const handleUnlike = async () => {
-        try {
-            const username = match.params.username;
-            await socialService.unlikePortfolio(username);
-            setLiked(false);
-            setLikeNum(likeNum - 1);
-        } catch (error) {
-            dispatch(alertActions.error(error));
+        if (loggedIn) {
+            try {
+                const username = match.params.username;
+                await socialService.unlikePortfolio(username);
+                setLiked(false);
+                setLikeNum(likeNum - 1);
+            } catch (error) {
+                dispatch(alertActions.error(error));
+            }
+        } else {
+            historyDom.push('/?login=true');
         }
     };
     return (
