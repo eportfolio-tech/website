@@ -5,7 +5,7 @@ import {createStyles, makeStyles} from '@material-ui/core/styles';
 // @material-ui/icons
 // core components
 import {alertActions} from '../../store/actions/alertActions';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import CommentOutlinedIcon from '@material-ui/icons/CommentOutlined';
@@ -13,29 +13,20 @@ import CommentOutlinedIcon from '@material-ui/icons/CommentOutlined';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {
     Badge,
-    Button,
     CssBaseline,
-    Drawer,
-    Grid,
     IconButton,
     Tooltip,
     Typography,
 } from '@material-ui/core';
-import clsx from 'clsx';
-import {IRootState} from '../../index';
 
 // @ts-ignore
-const useStyles: any = makeStyles((theme: Theme) =>
+const useStyles: any = makeStyles(() =>
     createStyles({
         root: {
-            width: theme.spacing(25) + 1,
             position: 'fixed',
             backgroundColor: 'rgba(250,250,250,0)',
-            zIndex: 1,
             top: '30VH',
-            right: 0,
-            whiteSpace: 'nowrap',
-            border: 'none',
+            right: '4%',
         },
     })
 );
@@ -51,7 +42,6 @@ interface IAction {
 }
 
 export default function ProfilePage({
-    history,
     handleLike,
     handleComment,
     liked,
@@ -60,138 +50,71 @@ export default function ProfilePage({
 }: IAction) {
     const classes = useStyles();
     // @ts-ignore
-    const open = true;
     const url = window.location.href;
     const dispatch = useDispatch();
     return (
-        <div>
+        <div className={classes.root}>
             <CssBaseline />
-            {/*<Grid container>*/}
-            {/*    <Grid item xs={2}>*/}
-            {/*        <Grid container justify="center">*/}
-            {/*            <Button*/}
-            {/*                onClick={() => {*/}
-            {/*                    history.goBack();*/}
-            {/*                }}*/}
-            {/*                startIcon={<ArrowBackIosIcon />}*/}
-            {/*            >*/}
-            {/*                Back*/}
-            {/*            </Button>*/}
-            {/*        </Grid>*/}
-            {/*    </Grid>*/}
-            {/*</Grid>*/}
-            <Drawer
-                classes={{
-                    paper: clsx({
-                        [classes.root]: open,
-                    }),
-                }}
-                variant="permanent"
-                anchor="right"
+            <Tooltip
+                arrow
+                title={<Typography variant="body1">{'Like'}</Typography>}
+                placement="left"
+                interactive
             >
-                <Grid container justify="flex-end">
-                    {/* <Grid item xs={12}>
-                        <Tooltip
-                            arrow
-                            title={
-                                <Typography variant="body1">
-                                    {'Go Back'}
-                                </Typography>
-                            }
-                            placement="left"
-                            interactive
-                        >
-                            <IconButton
-                                aria-label="back"
-                                onClick={() => {
-                                    history.goBack();
-                                }}
-                            >
-                                <ArrowBackIosIcon />
-                            </IconButton>
-                        </Tooltip>
-                        <br />
-                        <br />
-                    </Grid> */}
-                    <Grid item xs={12}>
-                        <Tooltip
-                            arrow
-                            title={
-                                <Typography variant="body1">
-                                    {'Like'}
-                                </Typography>
-                            }
-                            placement="left"
-                            interactive
-                        >
-                            <IconButton
-                                aria-label="like"
-                                color={liked ? 'secondary' : undefined}
-                                onClick={handleLike}
-                            >
-                                <Badge badgeContent={likeNum} color="secondary">
-                                    <FavoriteIcon />
-                                </Badge>
-                            </IconButton>
-                        </Tooltip>
-                        <br />
-                        <br />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Tooltip
-                            arrow
-                            title={
-                                <Typography variant="body1">
-                                    {'Comment'}
-                                </Typography>
-                            }
-                            placement="left"
-                            interactive
-                        >
-                            <IconButton
-                                onClick={handleComment}
-                                color={commented ? 'secondary' : undefined}
-                            >
-                                <Badge
-                                    badgeContent={commented}
-                                    color="secondary"
-                                >
-                                    <CommentOutlinedIcon />
-                                </Badge>
-                            </IconButton>
-                        </Tooltip>
-                        <br />
-                        <br />
-                    </Grid>
-                </Grid>
-                <Grid item xs={12}>
-                    <Tooltip
-                        arrow
-                        title={
-                            <Typography variant="body1">{'Share'}</Typography>
-                        }
-                        placement="left"
-                        interactive
-                    >
-                        <CopyToClipboard
-                            text={url}
-                            onCopy={() => {
-                                dispatch(
-                                    alertActions.success(
-                                        'URL have copied to your clipboard.'
-                                    )
-                                );
-                            }}
-                        >
-                            <IconButton aria-label="share">
-                                <ShareIcon />
-                            </IconButton>
-                        </CopyToClipboard>
-                    </Tooltip>
-                    <br />
-                    <br />
-                </Grid>
-            </Drawer>
+                <IconButton
+                    aria-label="like"
+                    color={liked ? 'secondary' : undefined}
+                    onClick={handleLike}
+                >
+                    <Badge badgeContent={likeNum} color="secondary">
+                        <FavoriteIcon />
+                    </Badge>
+                </IconButton>
+            </Tooltip>
+            <br />
+            <br />
+
+            <Tooltip
+                arrow
+                title={<Typography variant="body1">{'Comment'}</Typography>}
+                placement="left"
+                interactive
+            >
+                <IconButton
+                    onClick={handleComment}
+                    color={commented ? 'secondary' : undefined}
+                >
+                    <Badge badgeContent={commented} color="secondary">
+                        <CommentOutlinedIcon />
+                    </Badge>
+                </IconButton>
+            </Tooltip>
+            <br />
+            <br />
+
+            <Tooltip
+                arrow
+                title={<Typography variant="body1">{'Share'}</Typography>}
+                placement="left"
+                interactive
+            >
+                <CopyToClipboard
+                    text={url}
+                    onCopy={() => {
+                        dispatch(
+                            alertActions.success(
+                                'URL have copied to your clipboard.'
+                            )
+                        );
+                    }}
+                >
+                    <IconButton aria-label="share">
+                        <ShareIcon />
+                    </IconButton>
+                </CopyToClipboard>
+            </Tooltip>
+            <br />
+            <br />
         </div>
     );
 }

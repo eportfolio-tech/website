@@ -8,7 +8,7 @@ import {Typography} from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-        background: '#0ed69a',
+        background: theme.palette.background.default,
         alignItems: 'center',
         //minHeight: '100vh',
         minHeight: '100%',

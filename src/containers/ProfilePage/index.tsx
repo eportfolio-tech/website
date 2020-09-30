@@ -8,8 +8,8 @@ import Footer from '../../components/Footer/AppFooter';
 import {pageService} from '../../utils/pageService';
 import Layout from '../../components/Navigation';
 import Actions from './Actions';
-import ReviewCard from '../../components/Review/ReviewCard';
-import {Card, CardHeader, Container, Divider, Grid} from '@material-ui/core';
+
+import {Card, CardHeader, Divider, Grid, Drawer} from '@material-ui/core';
 import MyHTML from '../Editor/MyHtml';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
@@ -20,7 +20,7 @@ import {socialService} from '../../utils/socialService';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import {alertActions} from '../../store/actions/alertActions';
-import Comment from '../../components/Comment/Comment';
+import Comments from './Comments';
 import {IRootState} from '../../index';
 // @ts-ignore
 const useStyles: any = makeStyles((theme: Theme) =>
@@ -78,14 +78,15 @@ export default function ProfilePage({match, history}: any) {
     const loggedIn = useSelector<IRootState, boolean | undefined>(
         (state) => state.auth.loggedIn
     );
+    const [openComment, setOpenComment] = useState(false);
 
-    const [authorName, setAuthorName] = useState(match.params.username);
+    const [authorName] = useState(match.params.username);
 
     const [liked, setLiked] = useState(false);
 
     const [likeNum, setLikeNum] = useState(0);
 
-    const [commented, setCommented] = useState(0);
+    const [] = useState(0);
 
     const [comments, setComments] = useState();
 
@@ -100,7 +101,6 @@ export default function ProfilePage({match, history}: any) {
     const [content, setContent] = useState();
 
     useEffect(() => {
-        const username = match.params.username;
         fetchContent();
     }, [match.params.username]);
 
@@ -136,30 +136,6 @@ export default function ProfilePage({match, history}: any) {
         }
     };
 
-    let commentComponents = null;
-    // @ts-ignore
-    // TODO: Fix @ts-ignore
-    if (comments != null && comments.length > 0) {
-        // TODO: Fix @ts-ignore
-        // @ts-ignore
-        commentComponents = comments.map((c) => (
-            <Grid item xs={12}>
-                <Card variant={'outlined'}>
-                    <CardContent>
-                        <Comment
-                            author={c.username}
-                            content={c.comment}
-                            date={new Date(c.createdDate).toDateString()}
-                            avatar={c.avatar}
-                            isAuthor={c.author === authorName}
-                            edited={true}
-                        />
-                    </CardContent>
-                </Card>
-            </Grid>
-        ));
-    }
-
     const handleLike = async () => {
         if (loggedIn) {
             try {
@@ -191,77 +167,85 @@ export default function ProfilePage({match, history}: any) {
     };
     return (
         <div className={classes.root}>
+            <Drawer
+                anchor="right"
+                open={openComment}
+                onClose={() => {
+                    setOpenComment(false);
+                }}
+            >
+                <Grid container style={{width: '35VW'}}>
+                    <Comments authorName={authorName} comments={comments} />
+                </Grid>
+            </Drawer>
             <Layout>
-                <Container maxWidth="md">
-                    <Card variant={'outlined'}>
-                        <CardHeader
-                            title={
-                                <Typography variant={'h4'}>
-                                    {portfolio.title}
-                                </Typography>
-                            }
-                            subheader={`${portfolio.firstName} ${portfolio.lastName}`}
-                        />
+                <Card variant={'outlined'} style={{marginRight: '5%'}}>
+                    <CardHeader
+                        title={
+                            <Typography variant={'h4'}>
+                                {portfolio.title}
+                            </Typography>
+                        }
+                        subheader={`${portfolio.firstName} ${portfolio.lastName}`}
+                    />
 
-                        <Divider />
-                        <Actions
-                            history={history}
-                            liked={liked}
-                            likeNum={likeNum}
-                            commented={commented}
-                            handleLike={liked ? handleUnlike : handleLike}
-                            handleComment={() => {
-                                setCommented(commented + 1);
-                            }}
-                        />
-                        <CardContent>
-                            <Breadcrumbs aria-label="breadcrumb">
-                                <Link color="inherit" href="/">
-                                    Material-UI
-                                </Link>
-                                <Link
-                                    color="inherit"
-                                    href="/getting-started/installation/"
-                                >
-                                    Core
-                                </Link>
-                                <Typography color="textPrimary">
-                                    Breadcrumb
-                                </Typography>
-                            </Breadcrumbs>
-                            <Grid
-                                container
-                                alignItems={'flex-start'}
-                                justify={'center'}
-                                direction="row"
+                    <Divider />
+                    <Actions
+                        history={history}
+                        liked={liked}
+                        likeNum={likeNum}
+                        commented={0}
+                        handleLike={liked ? handleUnlike : handleLike}
+                        handleComment={() => {
+                            setOpenComment(true);
+                        }}
+                    />
+                    <CardContent>
+                        {/* <Breadcrumbs aria-label="breadcrumb">
+                            <Link color="inherit" href="/">
+                                Material-UI
+                            </Link>
+                            <Link
+                                color="inherit"
+                                href="/getting-started/installation/"
                             >
-                                <Grid item className={classes.profile}>
-                                    <Avatar
-                                        alt="Remy Sharp"
-                                        src={portfolio.avatarUrl}
-                                        className={classes.large}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <Typography align={'center'} variant={'h3'}>
-                                        {`${portfolio.firstName} ${portfolio.lastName}`}
-                                    </Typography>
-                                    <Typography
-                                        align={'center'}
-                                        variant={'subtitle1'}
-                                        className={classes.description}
-                                    >
-                                        {portfolio.description}
-                                    </Typography>
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <MyHTML html={content} />
-                                </Grid>
+                                Core
+                            </Link>
+                            <Typography color="textPrimary">
+                                Breadcrumb
+                            </Typography>
+                        </Breadcrumbs> */}
+                        <Grid
+                            container
+                            alignItems={'flex-start'}
+                            justify={'center'}
+                            direction="row"
+                        >
+                            <Grid item className={classes.profile}>
+                                <Avatar
+                                    alt="Remy Sharp"
+                                    src={portfolio.avatarUrl}
+                                    className={classes.large}
+                                />
                             </Grid>
-                            <Grid container>{commentComponents}</Grid>
-                        </CardContent>
-                    </Card>
-                </Container>
+                            <Grid item xs={12}>
+                                <Typography align={'center'} variant={'h3'}>
+                                    {`${portfolio.firstName} ${portfolio.lastName}`}
+                                </Typography>
+                                <Typography
+                                    align={'center'}
+                                    variant={'subtitle1'}
+                                    className={classes.description}
+                                >
+                                    {portfolio.description}
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <MyHTML html={content} />
+                            </Grid>
+                        </Grid>
+                    </CardContent>
+                </Card>
             </Layout>
             <Footer />
         </div>
