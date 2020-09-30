@@ -20,8 +20,8 @@ import {socialService} from '../../utils/socialService';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import {alertActions} from '../../store/actions/alertActions';
+import Comment from '../../components/Comment/Comment';
 import {IRootState} from '../../index';
-
 // @ts-ignore
 const useStyles: any = makeStyles((theme: Theme) =>
     createStyles({
@@ -79,6 +79,8 @@ export default function ProfilePage({match, history}: any) {
         (state) => state.auth.loggedIn
     );
 
+    const [authorName, setAuthorName] = useState(match.params.username);
+
     const [liked, setLiked] = useState(false);
 
     const [likeNum, setLikeNum] = useState(0);
@@ -120,7 +122,8 @@ export default function ProfilePage({match, history}: any) {
 
             //find who like this portfolio
             const comment = await pageService.getComments(username);
-            setComments(comment['user-comment']);
+            setComments(comment['comments']);
+            console.log(comment);
 
             //find comment of this portfolio
             const likeInfo = await socialService.findWhoLikedThisPortfolio(
@@ -141,12 +144,18 @@ export default function ProfilePage({match, history}: any) {
         // @ts-ignore
         commentComponents = comments.map((c) => (
             <Grid item xs={12}>
-                <ReviewCard
-                    author={c.username}
-                    content={c.comment}
-                    date={c.createdDate}
-                    avatar={c.avatar}
-                />
+                <Card variant={'outlined'}>
+                    <CardContent>
+                        <Comment
+                            author={c.username}
+                            content={c.comment}
+                            date={new Date(c.createdDate).toDateString()}
+                            avatar={c.avatar}
+                            isAuthor={c.author === authorName}
+                            edited={true}
+                        />
+                    </CardContent>
+                </Card>
             </Grid>
         ));
     }
@@ -245,12 +254,11 @@ export default function ProfilePage({match, history}: any) {
                                         {portfolio.description}
                                     </Typography>
                                 </Grid>
+                                <Grid item xs={12}>
+                                    <MyHTML html={content} />
+                                </Grid>
                             </Grid>
-                            <Divider className={classes.divider} />
-                            <MyHTML html={content} />
-                            <Grid container spacing={1}>
-                                {commentComponents}
-                            </Grid>
+                            <Grid container>{commentComponents}</Grid>
                         </CardContent>
                     </Card>
                 </Container>
