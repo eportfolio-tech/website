@@ -71,7 +71,10 @@ export default function ProfilePage({
                     color={liked ? 'secondary' : undefined}
                     onClick={handleLike}
                 >
-                    <Badge badgeContent={likeNum} color="secondary">
+                    <Badge
+                        badgeContent={likeNum}
+                        color={liked ? 'secondary' : undefined}
+                    >
                         <FavoriteIcon />
                     </Badge>
                 </IconButton>
@@ -89,7 +92,10 @@ export default function ProfilePage({
                     onClick={handleComment}
                     color={commented ? 'secondary' : undefined}
                 >
-                    <Badge badgeContent={commented} color="secondary">
+                    <Badge
+                        badgeContent={commented}
+                        color={liked ? 'secondary' : undefined}
+                    >
                         <CommentOutlinedIcon />
                     </Badge>
                 </IconButton>
