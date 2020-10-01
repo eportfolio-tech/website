@@ -24,7 +24,7 @@ export default ({authorName, comments}: any) => {
                     content={c.content}
                     date={new Date(c.createdDate).toDateString()}
                     avatar={c.avatar}
-                    isAuthor={c.username === authorName}
+                    isAuthor={username === c.username}
                     edited={!compareDate(c.createdDate, c.updatedDate)}
                     editable={c.username === username}
                 >
@@ -41,7 +41,7 @@ export default ({authorName, comments}: any) => {
                                         subC.createdDate
                                     ).toDateString()}
                                     avatar={subC.avatar}
-                                    isAuthor={subC.username === authorName}
+                                    isAuthor={username === authorName}
                                     edited={
                                         !compareDate(
                                             subC.createdDate,

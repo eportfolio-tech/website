@@ -38,7 +38,7 @@ interface IAction {
     handleShare?: any;
     liked?: boolean;
     likeNum?: number;
-    commented?: number;
+    comments?: any;
 }
 
 export default function ProfilePage({
@@ -46,7 +46,7 @@ export default function ProfilePage({
     handleComment,
     liked,
     likeNum,
-    commented,
+    comments,
 }: IAction) {
     const classes = useStyles();
     // @ts-ignore
@@ -80,11 +80,11 @@ export default function ProfilePage({
                 placement="left"
                 interactive
             >
-                <IconButton
-                    onClick={handleComment}
-                    color={commented ? 'secondary' : undefined}
-                >
-                    <Badge badgeContent={commented} color="secondary">
+                <IconButton onClick={handleComment}>
+                    <Badge
+                        badgeContent={comments ? comments.length : 0}
+                        color="secondary"
+                    >
                         <CommentOutlinedIcon />
                     </Badge>
                 </IconButton>

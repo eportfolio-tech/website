@@ -7,7 +7,7 @@ import 'braft-editor/dist/output.css';
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            background: theme.palette.background.default,
+            // background: theme.palette.background.default,
         },
     })
 );
