@@ -182,7 +182,9 @@ export default function ProfilePage({match, history}: any) {
                 await socialService.followPortfolio(username);
                 // @ts-ignore
                 setFollower(true);
-                console.log(follower);
+                dispatch(
+                    alertActions.success('You have followed this portfolio.')
+                );
             } catch (error) {
                 dispatch(alertActions.error(error));
             }
@@ -199,6 +201,9 @@ export default function ProfilePage({match, history}: any) {
                 await socialService.unfollowPortfolio(username);
                 // @ts-ignore
                 setFollower(false);
+                dispatch(
+                    alertActions.success('You have unfollowed this portfolio.')
+                );
             } catch (error) {
                 dispatch(alertActions.error(error));
             }
