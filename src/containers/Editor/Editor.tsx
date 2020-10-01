@@ -20,6 +20,9 @@ import Actions from './Actions';
 
 import SaveIcon from '@material-ui/icons/Save';
 
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
+
 export default () => {
     const dispatch = useDispatch();
 
@@ -59,12 +62,13 @@ export default () => {
                 setDescription(data.portfolio.description);
             })
             .catch((error) => {
-                //console.log(error.response);
                 setPortfolio(null);
-                if (error.response.status === 404) {
-                    setOpenTemplate(true);
-                } else {
-                    dispatch(alertActions.error(error));
+                if (error.response !== undefined) {
+                    if (error.response.status === 404) {
+                        setOpenTemplate(true);
+                    } else {
+                        dispatch(alertActions.error(error));
+                    }
                 }
             });
     }, [dispatch]);
@@ -208,6 +212,14 @@ export default () => {
                     />
 
                     <Grid container spacing={4}>
+                        <Grid item xs={11}>
+                            <AudioPlayer
+                                autoPlay
+                                src=""
+                                onPlay={(e) => console.log('onPlay')}
+                                // other props here
+                            />
+                        </Grid>
                         <Grid item xs={11}>
                             <TextField
                                 id="standard-full-width"
