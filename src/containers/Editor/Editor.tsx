@@ -215,7 +215,7 @@ export default () => {
                         <Grid item xs={11}>
                             <AudioPlayer
                                 autoPlay
-                                src=""
+                                src="https://comp30002.blob.core.windows.net/image/但願人長久(歌詞)王菲_Wong_feilyrics.mp3"
                                 onPlay={(e) => console.log('onPlay')}
                                 // other props here
                             />
