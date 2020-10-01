@@ -90,6 +90,8 @@ export default function ProfilePage({match, history}: any) {
 
     const [comments, setComments] = useState();
 
+    const [follower, setFollower] = useState(false);
+
     const [portfolio, setPortfolio] = useState({
         firstName: 'David',
         lastName: 'Smith',
@@ -131,6 +133,12 @@ export default function ProfilePage({match, history}: any) {
             );
             setLiked(likeInfo.liked);
             setLikeNum(likeInfo['user-like'].length);
+
+            // find who follow this portfolio
+            const follower = await socialService.findWhofollowedThisPortfolio(
+                username
+            );
+            setFollower(follower.followed);
         } catch (error) {
             dispatch(alertActions.error(error));
         }
@@ -158,6 +166,39 @@ export default function ProfilePage({match, history}: any) {
                 await socialService.unlikePortfolio(username);
                 setLiked(false);
                 setLikeNum(likeNum - 1);
+            } catch (error) {
+                dispatch(alertActions.error(error));
+            }
+        } else {
+            historyDom.push('/?login=true');
+        }
+    };
+
+    const handleFollow = async () => {
+        if (loggedIn) {
+            try {
+                const username = match.params.username;
+                // @ts-ignore
+                await socialService.followPortfolio(username);
+                // @ts-ignore
+                setFollower(true);
+                console.log(follower);
+            } catch (error) {
+                dispatch(alertActions.error(error));
+            }
+        } else {
+            historyDom.push('/?login=true');
+        }
+    };
+
+    const handleUnFollow = async () => {
+        if (loggedIn) {
+            try {
+                const username = match.params.username;
+                // @ts-ignore
+                await socialService.unfollowPortfolio(username);
+                // @ts-ignore
+                setFollower(false);
             } catch (error) {
                 dispatch(alertActions.error(error));
             }
@@ -195,10 +236,13 @@ export default function ProfilePage({match, history}: any) {
                         liked={liked}
                         likeNum={likeNum}
                         commented={0}
+                        follower={follower}
                         handleLike={liked ? handleUnlike : handleLike}
                         handleComment={() => {
                             setOpenComment(true);
                         }}
+                        // @ts-ignore
+                        handleFollow={follower ? handleUnFollow : handleFollow}
                     />
                     <CardContent>
                         {/* <Breadcrumbs aria-label="breadcrumb">
