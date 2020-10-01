@@ -8,7 +8,7 @@ import {alertActions} from '../../store/actions';
 import {useDispatch} from 'react-redux';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
-import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
+import PlaylistAddOutlinedIcon from '@material-ui/icons/PlaylistAddOutlined';
 import CommentOutlinedIcon from '@material-ui/icons/CommentOutlined';
 // @ts-ignore
 import {CopyToClipboard} from 'react-copy-to-clipboard';
@@ -138,7 +138,7 @@ export default function ProfilePage({
                     color={follower ? 'secondary' : undefined}
                     onClick={handleFollow}
                 >
-                    <AddBoxOutlinedIcon />
+                    <PlaylistAddOutlinedIcon />
                 </IconButton>
             </Tooltip>
             <br />
