@@ -74,13 +74,12 @@ export default function ProfilePage({match, history}: any) {
     const dispatch = useDispatch();
 
     const historyDom = useHistory();
-    console.log(history);
+    const authorName = match.params.username;
+
     const loggedIn = useSelector<IRootState, boolean | undefined>(
         (state) => state.auth.loggedIn
     );
     const [openComment, setOpenComment] = useState(false);
-
-    const [authorName] = useState(match.params.username);
 
     const [liked, setLiked] = useState(false);
 
@@ -120,12 +119,11 @@ export default function ProfilePage({match, history}: any) {
                 ).toHTML()
             );
 
-            //find who like this portfolio
+            //find comment of this portfolio
             const comment = await pageService.getComments(username);
             setComments(comment['comments']);
-            console.log(comment);
 
-            //find comment of this portfolio
+            //find who like this portfolio
             const likeInfo = await socialService.findWhoLikedThisPortfolio(
                 username
             );
@@ -198,6 +196,7 @@ export default function ProfilePage({match, history}: any) {
                         handleLike={liked ? handleUnlike : handleLike}
                         handleComment={() => {
                             setOpenComment(true);
+                            //console.log(comments);
                         }}
                     />
                     <CardContent>

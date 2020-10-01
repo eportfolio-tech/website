@@ -9,8 +9,9 @@ const compareDate = (d1: any, d2: any) => {
 
 export default ({authorName, comments}: any) => {
     let commentComponents = null;
-    const userInfo = JSON.parse(localStorage.getItem('user') || '');
-    const username = userInfo.user.username;
+    const userInfo = JSON.parse(localStorage.getItem('user') || 'null');
+    let username = '';
+    if (userInfo) username = userInfo.user.username;
 
     if (comments != null && comments.length > 0) {
         const parents = comments.filter((each: any) => !each.parentId);

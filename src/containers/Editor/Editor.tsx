@@ -41,7 +41,7 @@ export default () => {
     const [description, setDescription] = useState(null);
 
     useEffect(() => {
-        const userInfo = JSON.parse(localStorage.getItem('user') || '');
+        const userInfo = JSON.parse(localStorage.getItem('user') || 'null');
         const username = userInfo.user.username;
 
         // Check if user has a portfolio
@@ -80,7 +80,7 @@ export default () => {
     const onSaveHandlerRemote = async () => {
         try {
             const rawJSON = editorState.toRAW(true);
-            const userInfo = JSON.parse(localStorage.getItem('user') || '');
+            const userInfo = JSON.parse(localStorage.getItem('user') || 'null');
             const username = userInfo.user.username;
             await pageService.putContent(username, rawJSON);
             await pageService.updatePortfolio(username, {
@@ -95,7 +95,7 @@ export default () => {
 
     const onUpload = async (file: any) => {
         try {
-            const userInfo = JSON.parse(localStorage.getItem('user') || '');
+            const userInfo = JSON.parse(localStorage.getItem('user') || 'null');
             const username = userInfo.user.username;
 
             const response = await userService.uploadFile(username, file);
