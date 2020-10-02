@@ -82,7 +82,7 @@ export default () => {
 
     const getUserTags = async () => {
         try {
-            const userInfo = JSON.parse(localStorage.getItem('user') || '');
+            const userInfo = JSON.parse(localStorage.getItem('user') || 'null');
             const username = userInfo.user.username;
 
             const tags = await userService.getUserTags(username);
@@ -141,7 +141,7 @@ export default () => {
 
     const onSubmitHandler = async () => {
         try {
-            const userInfo = JSON.parse(localStorage.getItem('user') || '');
+            const userInfo = JSON.parse(localStorage.getItem('user') || 'null');
             const username = userInfo.user.username;
 
             await userService.deleteUserTags(username, deleteTags);

@@ -67,7 +67,7 @@ export default function ResetPassword() {
 
     const onResetHandler = async () => {
         try {
-            const userInfo = JSON.parse(localStorage.getItem('user') || '');
+            const userInfo = JSON.parse(localStorage.getItem('user') || 'null');
             const username = userInfo.user.username;
 
             await authService.resetPassword(username, oldPassword, newPassword);

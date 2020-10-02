@@ -9,19 +9,18 @@ import {pageService} from '../../utils/pageService';
 import Layout from '../../components/Navigation';
 import Actions from './Actions';
 
-import {Card, CardHeader, Divider, Grid, Drawer} from '@material-ui/core';
+import {Card, CardHeader, Container, Divider, Grid} from '@material-ui/core';
+
 import MyHTML from '../Editor/MyHtml';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import CardContent from '@material-ui/core/CardContent';
-// import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-// import Link from '@material-ui/core/Link';
 import {socialService} from '../../utils/socialService';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import {alertActions} from '../../store/actions/alertActions';
-import Comments from './Comments';
 import {IRootState} from '../../index';
+import CommentDialog from './CommentDialog';
 // @ts-ignore
 const useStyles: any = makeStyles((theme: Theme) =>
     createStyles({
@@ -43,21 +42,7 @@ const useStyles: any = makeStyles((theme: Theme) =>
             color: '#999',
             textAlign: 'center',
         },
-        // title: {
-        //     color: '#3C4858',
-        //     margin: '1.75rem 0 0.875rem',
-        //     textDecoration: 'none',
-        //     fontWeight: 700,
-        //     fontFamily: `"Roboto Slab", "Times New Roman", serif`,
-        //     display: 'inline-block',
-        //     position: 'relative',
-        //     marginTop: '30px',
-        //     minHeight: '32px',
-        // },
-        // social: {
-        //     margin: 'auto',
-        //     textAlign: 'center',
-        // },
+
         large: {
             width: theme.spacing(15),
             height: theme.spacing(15),
@@ -65,28 +50,28 @@ const useStyles: any = makeStyles((theme: Theme) =>
         divider: {
             margin: theme.spacing(5),
         },
+        closeComments: {
+            marginTop: theme.spacing(1),
+        },
     })
 );
 
-export default function ProfilePage({match, history}: any) {
+export default function ProfilePage({match, history, forceUpdate}: any) {
     const classes = useStyles();
 
     const dispatch = useDispatch();
 
     const historyDom = useHistory();
-    console.log(history);
+    const authorName = match.params.username;
+
     const loggedIn = useSelector<IRootState, boolean | undefined>(
         (state) => state.auth.loggedIn
     );
     const [openComment, setOpenComment] = useState(false);
 
-    const [authorName] = useState(match.params.username);
-
     const [liked, setLiked] = useState(false);
 
     const [likeNum, setLikeNum] = useState(0);
-
-    //const [] = useState(0);
 
     const [comments, setComments] = useState();
 
@@ -104,6 +89,8 @@ export default function ProfilePage({match, history}: any) {
 
     useEffect(() => {
         fetchContent();
+        fetchComment();
+        fetchLike();
     }, [match.params.username]);
 
     const fetchContent = async () => {
@@ -121,15 +108,28 @@ export default function ProfilePage({match, history}: any) {
                         : null
                 ).toHTML()
             );
+        } catch (error) {
+            dispatch(alertActions.error(error));
+        }
+    };
 
-            //find who like this portfolio
-            const comment = await pageService.getComments(username);
-            setComments(comment['comments']);
-            console.log(comment);
-
+    const fetchComment = async () => {
+        try {
             //find comment of this portfolio
+            const comment = await pageService.getComments(
+                match.params.username
+            );
+            setComments(comment['comments']);
+        } catch (error) {
+            dispatch(alertActions.error(error));
+        }
+    };
+
+    const fetchLike = async () => {
+        try {
+            //find who like this portfolio
             const likeInfo = await socialService.findWhoLikedThisPortfolio(
-                username
+                match.params.username
             );
             setLiked(likeInfo.liked);
             setLikeNum(likeInfo['user-like'].length);
@@ -213,44 +213,44 @@ export default function ProfilePage({match, history}: any) {
     };
     return (
         <div className={classes.root}>
-            <Drawer
-                anchor="right"
-                open={openComment}
-                onClose={() => {
-                    setOpenComment(false);
-                }}
-            >
-                <Grid container style={{width: '35VW'}}>
-                    <Comments authorName={authorName} comments={comments} />
-                </Grid>
-            </Drawer>
-            <Layout>
-                <Card variant={'outlined'} style={{marginRight: '5%'}}>
-                    <CardHeader
-                        title={
-                            <Typography variant={'h4'}>
-                                {portfolio.title}
-                            </Typography>
-                        }
-                        subheader={`${portfolio.firstName} ${portfolio.lastName}`}
-                    />
+            <CommentDialog
+                authorName={authorName}
+                comments={comments}
+                openComment={openComment}
+                setOpenComment={setOpenComment}
+                loggedIn={loggedIn}
+                username={match.params.username}
+                fetchComment={fetchComment}
+            />
 
-                    <Divider />
-                    <Actions
-                        history={history}
-                        liked={liked}
-                        likeNum={likeNum}
-                        commented={0}
-                        follower={follower}
-                        handleLike={liked ? handleUnlike : handleLike}
-                        handleComment={() => {
-                            setOpenComment(true);
-                        }}
-                        // @ts-ignore
-                        handleFollow={follower ? handleUnFollow : handleFollow}
-                    />
-                    <CardContent>
-                        {/* <Breadcrumbs aria-label="breadcrumb">
+            <Layout>
+                <Card variant={'outlined'} style={{marginRight: '7%'}}>
+                    <Container maxWidth="md">
+                        <CardHeader
+                            title={
+                                <Typography variant={'h4'}>
+                                    {portfolio.title}
+                                </Typography>
+                            }
+                            subheader={`${portfolio.firstName} ${portfolio.lastName}`}
+                        />
+
+                        <Divider />
+                        <Actions
+                            history={history}
+                            liked={liked}
+                            likeNum={likeNum}
+                            comments={comments}
+                            follower={follower}
+                            handleLike={liked ? handleUnlike : handleLike}
+                            handleComment={() => {
+                                setOpenComment(true);
+                                //console.log(comments);
+                            }}
+                            handleFollow={follower ? handleUnFollow : handleFollow}
+                        />
+                        <CardContent>
+                            {/* <Breadcrumbs aria-label="breadcrumb">
                             <Link color="inherit" href="/">
                                 Material-UI
                             </Link>
@@ -264,36 +264,37 @@ export default function ProfilePage({match, history}: any) {
                                 Breadcrumb
                             </Typography>
                         </Breadcrumbs> */}
-                        <Grid
-                            container
-                            alignItems={'flex-start'}
-                            justify={'center'}
-                            direction="row"
-                        >
-                            <Grid item className={classes.profile}>
-                                <Avatar
-                                    alt="Remy Sharp"
-                                    src={portfolio.avatarUrl}
-                                    className={classes.large}
-                                />
+                            <Grid
+                                container
+                                alignItems={'flex-start'}
+                                justify={'center'}
+                                direction="row"
+                            >
+                                <Grid item className={classes.profile}>
+                                    <Avatar
+                                        alt="Remy Sharp"
+                                        src={portfolio.avatarUrl}
+                                        className={classes.large}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Typography align={'center'} variant={'h3'}>
+                                        {`${portfolio.firstName} ${portfolio.lastName}`}
+                                    </Typography>
+                                    <Typography
+                                        align={'center'}
+                                        variant={'subtitle1'}
+                                        className={classes.description}
+                                    >
+                                        {portfolio.description}
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <MyHTML html={content} />
+                                </Grid>
                             </Grid>
-                            <Grid item xs={12}>
-                                <Typography align={'center'} variant={'h3'}>
-                                    {`${portfolio.firstName} ${portfolio.lastName}`}
-                                </Typography>
-                                <Typography
-                                    align={'center'}
-                                    variant={'subtitle1'}
-                                    className={classes.description}
-                                >
-                                    {portfolio.description}
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <MyHTML html={content} />
-                            </Grid>
-                        </Grid>
-                    </CardContent>
+                        </CardContent>
+                    </Container>
                 </Card>
             </Layout>
             <Footer />

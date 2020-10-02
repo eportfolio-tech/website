@@ -9,8 +9,9 @@ const compareDate = (d1: any, d2: any) => {
 
 export default ({authorName, comments}: any) => {
     let commentComponents = null;
-    const userInfo = JSON.parse(localStorage.getItem('user') || '');
-    const username = userInfo.user.username;
+    const userInfo = JSON.parse(localStorage.getItem('user') || 'null');
+    let username = '';
+    if (userInfo) username = userInfo.user.username;
 
     if (comments != null && comments.length > 0) {
         const parents = comments.filter((each: any) => !each.parentId);
@@ -23,7 +24,7 @@ export default ({authorName, comments}: any) => {
                     content={c.content}
                     date={new Date(c.createdDate).toDateString()}
                     avatar={c.avatar}
-                    isAuthor={c.username === authorName}
+                    isAuthor={username === c.username}
                     edited={!compareDate(c.createdDate, c.updatedDate)}
                     editable={c.username === username}
                 >
@@ -40,7 +41,7 @@ export default ({authorName, comments}: any) => {
                                         subC.createdDate
                                     ).toDateString()}
                                     avatar={subC.avatar}
-                                    isAuthor={subC.username === authorName}
+                                    isAuthor={username === authorName}
                                     edited={
                                         !compareDate(
                                             subC.createdDate,

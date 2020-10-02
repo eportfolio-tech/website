@@ -76,7 +76,7 @@ export default function FullScreenDialog({
     description,
 }: any) {
     const classes = useStyles();
-    const userInfo = JSON.parse(localStorage.getItem('user') || '').user;
+    const userInfo = JSON.parse(localStorage.getItem('user') || 'null').user;
 
     const handleClose = () => {
         setOpen(false);

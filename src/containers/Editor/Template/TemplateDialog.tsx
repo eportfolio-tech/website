@@ -35,7 +35,7 @@ export default function AlertDialog({
 
     const createProfolio = async () => {
         setIsCreating(true);
-        const userInfo = JSON.parse(localStorage.getItem('user') || '');
+        const userInfo = JSON.parse(localStorage.getItem('user') || 'null');
         const username = userInfo.user.username;
         try {
             dispatch(pageActions.loading());

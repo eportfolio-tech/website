@@ -46,7 +46,7 @@ export default function UpdateProfile() {
     const [oldUserInfo, setOldUserInfo] = useState<any | null>({});
 
     useEffect(() => {
-        const userInfo = JSON.parse(localStorage.getItem('user') || '');
+        const userInfo = JSON.parse(localStorage.getItem('user') || 'null');
         const username = userInfo.user.username;
         authService
             .getInfo(username)
