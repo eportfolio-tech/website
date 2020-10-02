@@ -14,8 +14,8 @@ import MyHTML from '../Editor/MyHtml';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import CardContent from '@material-ui/core/CardContent';
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-import Link from '@material-ui/core/Link';
+// import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+// import Link from '@material-ui/core/Link';
 import {socialService} from '../../utils/socialService';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
@@ -86,7 +86,7 @@ export default function ProfilePage({match, history}: any) {
 
     const [likeNum, setLikeNum] = useState(0);
 
-    const [] = useState(0);
+    //const [] = useState(0);
 
     const [comments, setComments] = useState();
 
