@@ -27,33 +27,40 @@ export default () => {
     const [loading, setLoading] = useState(false);
     const [cards, setCards] = useState<undefined | IContent[]>();
 
-    const [q] = useState(query.get('query'));
-
-    // const [] = useState(location.pathname === '/search/more');
+    const queryKeyword = query.get('query');
+    const queryTag = query.get('tag');
 
     useEffect(() => {
-        const search = async (query: any) => {
-            try {
-                setLoading(true);
-                setCards(undefined);
-
-                const results = await userService.search(query, 0, 100);
-
-                await sleep(500);
-                console.log(results);
-                setCards(results.content);
-                setLoading(false);
-            } catch (error) {
-                dispatch(alertActions.error(error));
-
-                setLoading(false);
-            }
-        };
-
-        if (q) {
-            search(q);
+        if (queryKeyword || queryTag) {
+            search();
         }
-    }, [q, dispatch]);
+    }, []);
+
+    const search = async () => {
+        try {
+            setLoading(true);
+            setCards(undefined);
+
+            let results = {
+                content: undefined,
+            };
+
+            if (queryTag) {
+                results = await userService.searchTag(queryTag, 0, 100);
+            } else {
+                results = await userService.searchKeyword(queryKeyword, 0, 100);
+            }
+
+            //await sleep(500);
+            console.log(results);
+            setCards(results.content);
+            setLoading(false);
+        } catch (error) {
+            dispatch(alertActions.error(error));
+
+            setLoading(false);
+        }
+    };
 
     return (
         <Layout>

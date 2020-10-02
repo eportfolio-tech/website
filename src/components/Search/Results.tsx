@@ -27,8 +27,9 @@ export default ({loading, cards}: IResults) => {
     const classes = useStyles();
 
     const getText = () => {
-        if (loading) return 'Loading...';
-        if (cards === undefined) return 'click search icon to start search';
+        if (loading) return '';
+        if (cards === undefined)
+            return 'click search icon or enter to get your result(s).';
         else return `There are ${cards.length} result(s).`;
     };
 
@@ -37,7 +38,7 @@ export default ({loading, cards}: IResults) => {
             <div className={classes.heroContent}>
                 <Container maxWidth="sm">
                     <Typography
-                        variant="h5"
+                        variant="h6"
                         color="textSecondary"
                         paragraph
                         align="center"
@@ -45,9 +46,9 @@ export default ({loading, cards}: IResults) => {
                         {getText()}
                     </Typography>
                     {loading ? (
-                        <Grid container>
-                            <LoadingLogo style={{width: '80%'}} />
-                        </Grid>
+                        <LoadingLogo
+                            style={{width: '60%', marginLeft: '15%'}}
+                        />
                     ) : null}
                 </Container>
             </div>

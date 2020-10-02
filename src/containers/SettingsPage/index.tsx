@@ -24,14 +24,14 @@ export default () => {
                 <Grid item xs={12} md={6}>
                     <UpdateInfo />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} md={6}>
+                    <UpdateAvatar />
+                </Grid>
+                <Grid item xs={12}>
                     <UserTags />
                 </Grid>
-                <Grid item xs={12} md={12}>
+                <Grid item xs={12}>
                     <ResetPassword />
-                </Grid>
-                <Grid item xs={6}>
-                    <UpdateAvatar />
                 </Grid>
             </Grid>
         </div>

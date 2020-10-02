@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
             '& > *': {
                 margin: theme.spacing(0),
             },
+            height: '100%',
         },
         resetButton: {
             marginTop: theme.spacing(3),

@@ -5,7 +5,8 @@ export const userService = {
     getUserTags,
     updateUserTags,
     deleteUserTags,
-    search,
+    searchKeyword,
+    searchTag,
     uploadFile,
 };
 
@@ -32,10 +33,21 @@ async function deleteUserTags(username, deletedTags) {
     return response.data.data;
 }
 
-async function search(query, page, size) {
+async function searchKeyword(query, page, size) {
     const response = await axios.get('/search/keyword', {
         params: {
             query: query,
+            page: page,
+            size: size,
+        },
+    });
+    return response.data.data;
+}
+
+async function searchTag(tag, page, size) {
+    const response = await axios.get('/search/tag', {
+        params: {
+            tagName: tag,
             page: page,
             size: size,
         },

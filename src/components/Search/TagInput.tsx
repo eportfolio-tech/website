@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 import {TextField, CircularProgress, Theme} from '@material-ui/core';
 import {createStyles, makeStyles} from '@material-ui/core/styles';
+import {useLocation} from 'react-router-dom';
 import {Autocomplete} from '@material-ui/lab';
 import TagType from './TagType';
 
@@ -30,10 +31,19 @@ function sleep(delay = 0) {
     });
 }
 
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+}
+
 export default ({setInput, style}: ITagInput) => {
     const classes = useStyles();
+    const query = useQuery();
+    const queryTag = query.get('tag');
+
     const [open, setOpen] = useState(false);
     const [options, setOptions] = useState<TagType[]>([]);
+    const [selected, setSelected] = useState<string>(queryTag ? queryTag : '');
+
     const loading = open && options.length === 0;
 
     /*
@@ -62,11 +72,11 @@ export default ({setInput, style}: ITagInput) => {
 	};*/
 
     const fetchChips = async (active: boolean) => {
-        const response = await fetch('https://api.eportfolio.tech/tags/');
-        await sleep(500); // For demo purposes.
-        const tags = await response.json();
-
         if (active) {
+            setSelected('');
+            const response = await fetch('https://api.eportfolio.tech/tags/');
+            const tags = await response.json();
+            await sleep(500);
             setOptions(tags.data.tag);
         }
     };
@@ -95,16 +105,29 @@ export default ({setInput, style}: ITagInput) => {
             style={style}
             onOpen={() => {
                 setOpen(true);
+                //setSelected('');
             }}
             onClose={() => {
                 setOpen(false);
             }}
             options={options}
+            inputValue={selected}
             getOptionSelected={(option, value) => option.name === value.name}
             getOptionLabel={(option) => option.name}
-            onChange={(event: any, value: TagType | null) =>
-                setInput(value?.name)
-            }
+            onChange={(event: any, value: TagType | null) => {
+                if (!value) {
+                    setInput('');
+                    setSelected('');
+                    return;
+                }
+                setInput(value.name);
+                setSelected(value.name);
+            }}
+            onInputChange={(event, newInputValue) => {
+                if (!newInputValue) return;
+                setInput(newInputValue);
+                setSelected(newInputValue);
+            }}
             renderInput={(params) => {
                 return (
                     <TextField
