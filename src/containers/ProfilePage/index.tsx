@@ -196,8 +196,11 @@ export default function ProfilePage({match, history, forceUpdate}: any) {
                         //console.log(comments);
                     }}
                     handleFollow={follower ? handleUnFollow : handleFollow}
+                    audioSrc={
+                        'https://comp30002.blob.core.windows.net/image/但願人長久(歌詞)王菲_Wong_feilyrics.mp3'
+                    }
                 />
-                <Profile portfolio={portfolio} content={content} height={80} />
+                <Profile portfolio={portfolio} content={content} height={83} />
 
                 <Footer />
             </div>

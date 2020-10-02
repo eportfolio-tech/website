@@ -20,14 +20,16 @@ import {
     Typography,
 } from '@material-ui/core';
 
+import Music from '../../components/MusicPlayer';
+
 // @ts-ignore
 const useStyles: any = makeStyles(() =>
     createStyles({
         root: {
             position: 'fixed',
             backgroundColor: 'rgba(250,250,250,0)',
-            top: '30VH',
-            right: '4%',
+            top: '15VH',
+            right: '2.5%',
         },
     })
 );
@@ -43,6 +45,7 @@ interface IAction {
     commented?: number;
     follower?: boolean;
     comments?: any;
+    audioSrc?: string;
 }
 
 export default function ProfilePage({
@@ -54,6 +57,7 @@ export default function ProfilePage({
     commented,
     follower,
     comments,
+    audioSrc,
 }: IAction) {
     const classes = useStyles();
     // @ts-ignore
@@ -62,6 +66,11 @@ export default function ProfilePage({
     return (
         <div className={classes.root}>
             <CssBaseline />
+
+            <Music src={audioSrc} />
+
+            <br />
+
             <Tooltip
                 arrow
                 title={<Typography variant="body1">{'Like'}</Typography>}

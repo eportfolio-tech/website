@@ -20,9 +20,6 @@ import Actions from './Actions';
 
 import SaveIcon from '@material-ui/icons/Save';
 
-import AudioPlayer from 'react-h5-audio-player';
-import 'react-h5-audio-player/lib/styles.css';
-
 export default () => {
     const dispatch = useDispatch();
 
@@ -212,14 +209,6 @@ export default () => {
                     />
 
                     <Grid container spacing={4}>
-                        <Grid item xs={11}>
-                            <AudioPlayer
-                                autoPlay
-                                src="https://comp30002.blob.core.windows.net/image/但願人長久(歌詞)王菲_Wong_feilyrics.mp3"
-                                onPlay={(e) => console.log('onPlay')}
-                                // other props here
-                            />
-                        </Grid>
                         <Grid item xs={11}>
                             <TextField
                                 id="standard-full-width"

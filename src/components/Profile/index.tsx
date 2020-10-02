@@ -65,7 +65,7 @@ export default ({portfolio, content, height}: any) => {
                             <Typography variant={'h5'}>
                                 <Typed
                                     strings={[
-                                        `${portfolio.firstName}^500 ${portfolio.lastName}^1000`,
+                                        `I'm ${portfolio.firstName} ${portfolio.lastName}.^1500`,
                                         portfolio.title + '^2000',
                                         portfolio.username + '^500',
                                     ]}
