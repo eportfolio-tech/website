@@ -91,6 +91,7 @@ export default function ProfilePage({match, history, forceUpdate}: any) {
         fetchContent();
         fetchComment();
         fetchLike();
+        fetchFollow();
     }, [match.params.username]);
 
     const fetchContent = async () => {
@@ -133,10 +134,16 @@ export default function ProfilePage({match, history, forceUpdate}: any) {
             );
             setLiked(likeInfo.liked);
             setLikeNum(likeInfo['user-like'].length);
+        } catch (error) {
+            dispatch(alertActions.error(error));
+        }
+    };
 
+    const fetchFollow = async () => {
+        try {
             // find who follow this portfolio
             const follower = await socialService.findWhofollowedThisPortfolio(
-                username
+                match.params.username
             );
             setFollower(follower.followed);
         } catch (error) {
@@ -247,7 +254,9 @@ export default function ProfilePage({match, history, forceUpdate}: any) {
                                 setOpenComment(true);
                                 //console.log(comments);
                             }}
-                            handleFollow={follower ? handleUnFollow : handleFollow}
+                            handleFollow={
+                                follower ? handleUnFollow : handleFollow
+                            }
                         />
                         <CardContent>
                             {/* <Breadcrumbs aria-label="breadcrumb">

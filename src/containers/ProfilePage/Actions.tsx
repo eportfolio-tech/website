@@ -90,7 +90,6 @@ export default function ProfilePage({
                 placement="left"
                 interactive
             >
-
                 <IconButton onClick={handleComment}>
                     <Badge
                         badgeContent={comments ? comments.length : 0}
