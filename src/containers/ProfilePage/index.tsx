@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {createStyles, makeStyles} from '@material-ui/core/styles';
+//import {createStyles, makeStyles} from '@material-ui/core/styles';
 import BraftEditor from 'braft-editor';
 // @material-ui/icons
 // core components
@@ -9,56 +9,15 @@ import {pageService} from '../../utils/pageService';
 import Layout from '../../components/Navigation';
 import Actions from './Actions';
 
-import {Card, CardHeader, Container, Divider, Grid} from '@material-ui/core';
-
-import MyHTML from '../Editor/MyHtml';
-import Typography from '@material-ui/core/Typography';
-import Avatar from '@material-ui/core/Avatar';
-import CardContent from '@material-ui/core/CardContent';
 import {socialService} from '../../utils/socialService';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
-import {alertActions} from '../../store/actions/alertActions';
+import {alertActions, pageActions} from '../../store/actions';
 import {IRootState} from '../../index';
 import CommentDialog from './CommentDialog';
-// @ts-ignore
-const useStyles: any = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            width: '100%',
-            // backgroundColor: theme.palette.background.paper,
-        },
-        profile: {
-            textAlign: 'center',
-            '& img': {
-                maxWidth: '160px',
-                width: '100%',
-            },
-            marginTop: theme.spacing(10),
-        },
-        description: {
-            margin: '1.071rem auto 0',
-            maxWidth: '600px',
-            color: '#999',
-            textAlign: 'center',
-        },
-
-        large: {
-            width: theme.spacing(15),
-            height: theme.spacing(15),
-        },
-        divider: {
-            margin: theme.spacing(5),
-        },
-        closeComments: {
-            marginTop: theme.spacing(1),
-        },
-    })
-);
+import Profile from '../../components/Profile';
 
 export default function ProfilePage({match, history, forceUpdate}: any) {
-    const classes = useStyles();
-
     const dispatch = useDispatch();
 
     const historyDom = useHistory();
@@ -77,13 +36,7 @@ export default function ProfilePage({match, history, forceUpdate}: any) {
 
     const [follower, setFollower] = useState(false);
 
-    const [portfolio, setPortfolio] = useState({
-        firstName: 'David',
-        lastName: 'Smith',
-        avatarUrl: 'https://comp30002.blob.core.windows.net/image/viewB.jpg',
-        title: 'Full stack developer',
-        description: 'I am handsome.',
-    });
+    const [portfolio, setPortfolio] = useState(null);
 
     const [content, setContent] = useState();
 
@@ -101,6 +54,7 @@ export default function ProfilePage({match, history, forceUpdate}: any) {
             //get portfolio
             const data = await pageService.getPortfolio(username);
             console.log('portfolio: ', data.portfolio);
+            await pageActions.sleep(500);
             setPortfolio(data.portfolio);
             setContent(
                 BraftEditor.createEditorState(
@@ -219,94 +173,34 @@ export default function ProfilePage({match, history, forceUpdate}: any) {
         }
     };
     return (
-        <div className={classes.root}>
-            <CommentDialog
-                authorName={authorName}
-                comments={comments}
-                openComment={openComment}
-                setOpenComment={setOpenComment}
-                loggedIn={loggedIn}
-                username={match.params.username}
-                fetchComment={fetchComment}
-            />
+        <Layout>
+            <div>
+                <CommentDialog
+                    authorName={authorName}
+                    comments={comments}
+                    openComment={openComment}
+                    setOpenComment={setOpenComment}
+                    loggedIn={loggedIn}
+                    username={match.params.username}
+                    fetchComment={fetchComment}
+                />
+                <Actions
+                    history={history}
+                    liked={liked}
+                    likeNum={likeNum}
+                    comments={comments}
+                    follower={follower}
+                    handleLike={liked ? handleUnlike : handleLike}
+                    handleComment={() => {
+                        setOpenComment(true);
+                        //console.log(comments);
+                    }}
+                    handleFollow={follower ? handleUnFollow : handleFollow}
+                />
+                <Profile portfolio={portfolio} content={content} height={80} />
 
-            <Layout>
-                <Card variant={'outlined'} style={{marginRight: '7%'}}>
-                    <Container maxWidth="md">
-                        <CardHeader
-                            title={
-                                <Typography variant={'h4'}>
-                                    {portfolio.title}
-                                </Typography>
-                            }
-                            subheader={`${portfolio.firstName} ${portfolio.lastName}`}
-                        />
-
-                        <Divider />
-                        <Actions
-                            history={history}
-                            liked={liked}
-                            likeNum={likeNum}
-                            comments={comments}
-                            follower={follower}
-                            handleLike={liked ? handleUnlike : handleLike}
-                            handleComment={() => {
-                                setOpenComment(true);
-                                //console.log(comments);
-                            }}
-                            handleFollow={
-                                follower ? handleUnFollow : handleFollow
-                            }
-                        />
-                        <CardContent>
-                            {/* <Breadcrumbs aria-label="breadcrumb">
-                            <Link color="inherit" href="/">
-                                Material-UI
-                            </Link>
-                            <Link
-                                color="inherit"
-                                href="/getting-started/installation/"
-                            >
-                                Core
-                            </Link>
-                            <Typography color="textPrimary">
-                                Breadcrumb
-                            </Typography>
-                        </Breadcrumbs> */}
-                            <Grid
-                                container
-                                alignItems={'flex-start'}
-                                justify={'center'}
-                                direction="row"
-                            >
-                                <Grid item className={classes.profile}>
-                                    <Avatar
-                                        alt="Remy Sharp"
-                                        src={portfolio.avatarUrl}
-                                        className={classes.large}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <Typography align={'center'} variant={'h3'}>
-                                        {`${portfolio.firstName} ${portfolio.lastName}`}
-                                    </Typography>
-                                    <Typography
-                                        align={'center'}
-                                        variant={'subtitle1'}
-                                        className={classes.description}
-                                    >
-                                        {portfolio.description}
-                                    </Typography>
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <MyHTML html={content} />
-                                </Grid>
-                            </Grid>
-                        </CardContent>
-                    </Container>
-                </Card>
-            </Layout>
-            <Footer />
-        </div>
+                <Footer />
+            </div>
+        </Layout>
     );
 }

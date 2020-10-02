@@ -33,7 +33,7 @@ import clsx from 'clsx';
 
 import AppBarLogin from './AppBar/AppBarLogin';
 import AppBarLogout from './AppBar/AppBarLogout';
-import Loading from './Loading';
+import Loading from '../Loading/Loading';
 import MenuList from './MenuList';
 
 const drawerWidth = 240;
@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme: Theme) =>
         content: {
             flexGrow: 1,
             [theme.breakpoints.up('lg')]: {
-                padding: theme.spacing(13),
+                padding: theme.spacing(8),
             },
             [theme.breakpoints.down('sm')]: {
                 padding: theme.spacing(4),

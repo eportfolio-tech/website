@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         speedDial: {
             position: 'fixed',
-            right: '5%',
+            right: '3%',
         },
         speedDialIcon: {
             //backgroundColor: theme.palette.secondary.main,

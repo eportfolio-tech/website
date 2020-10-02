@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 
 import Dialog from '@material-ui/core/Dialog';
@@ -9,13 +9,13 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import {TransitionProps} from '@material-ui/core/transitions';
-import MyHTML from '../MyHtml';
-
+import Profile from '../../../components/Profile';
+import {Grid} from '@material-ui/core';
+import Actions from '../../ProfilePage/Actions';
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         appBar: {
             position: 'relative',
-
             background: theme.palette.secondary.main,
         },
         title: {
@@ -28,17 +28,15 @@ const useStyles = makeStyles((theme: Theme) =>
                 padding: theme.spacing(13),
             },
             [theme.breakpoints.down('sm')]: {
-                //padding: theme.spacing(4),
+                padding: theme.spacing(4),
                 marginTop: '18%',
-                padding: theme.spacing(10),
             },
             [theme.breakpoints.between('sm', 'md')]: {
-                //padding: theme.spacing(4),
+                padding: theme.spacing(4),
                 marginTop: '8%',
             },
-            width: '100VW',
-            maxWidth: '100VW',
-            background: theme.palette.background.default,
+            width: '100%',
+            minWidth: '100VW',
         },
         root: {
             display: 'flex',
@@ -77,11 +75,21 @@ export default function FullScreenDialog({
 }: any) {
     const classes = useStyles();
     const userInfo = JSON.parse(localStorage.getItem('user') || 'null').user;
+    const [liked, setLiked] = useState(false);
 
     const handleClose = () => {
         setOpen(false);
     };
     // console.log(userInfo);
+
+    const portfolio = {
+        title: title,
+        description: description,
+        avatarUrl: userInfo.avatarUrl,
+        firstName: userInfo.firstName,
+        lastName: userInfo.lastName,
+        username: userInfo.username,
+    };
 
     return (
         <Dialog
@@ -107,23 +115,23 @@ export default function FullScreenDialog({
                 </Toolbar>
             </AppBar>
             <div className={classes.content}>
-                <div className={classes.profile}>
-                    <div>
-                        <img src={userInfo.avatarUrl} alt="..." />
-                    </div>
-                    <div className={classes.name}>
-                        <h1
-                            className={classes.title}
-                        >{`${userInfo.firstName} ${userInfo.lastName}`}</h1>
-                        <h2>{title}</h2>
-                    </div>
-                </div>
-                <div className={classes.description}>
-                    <p>{description}</p>
-                </div>
-                <br />
-                <br />
-                <MyHTML html={html} />
+                <Actions
+                    handleLike={() => {
+                        setLiked(!liked);
+                    }}
+                    liked={liked}
+                    handleComment={() => {}}
+                    handleFollow={() => {}}
+                />
+                <Grid container justify="center">
+                    <Grid xs={12}>
+                        <Profile
+                            portfolio={portfolio}
+                            content={html}
+                            height={70}
+                        />
+                    </Grid>
+                </Grid>
             </div>
         </Dialog>
     );

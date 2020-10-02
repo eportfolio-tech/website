@@ -82,7 +82,7 @@ export default withWidth()(({handleRouting}: IMenuListProps) => {
                 </ListItem>
                 <ListItem
                     button
-                    onClick={() => handleRouting('search')}
+                    onClick={() => handleRouting('search?query=arts')}
                     selected={path === '/search'}
                     className={classes.item}
                 >

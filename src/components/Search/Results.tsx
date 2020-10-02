@@ -3,7 +3,7 @@ import {Container, Grid, Grow, Typography} from '@material-ui/core';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 
 import ResultCard from './ResultCard';
-import LoadingLogo from '../LandingLogo';
+import LoadingLogo from '../Loading/LoadingLogo';
 import IContent from './IContent';
 
 const useStyles = makeStyles((theme: Theme) =>

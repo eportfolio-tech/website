@@ -33,7 +33,7 @@ const useStyles: any = makeStyles(() =>
 );
 
 interface IAction {
-    history: any;
+    history?: any;
     handleLike?: any;
     handleComment?: any;
     handleShare?: any;

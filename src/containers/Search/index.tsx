@@ -10,11 +10,6 @@ import SearchBar from '../../components/Search/SearchBar';
 import IContent from '../../components/Search/IContent';
 import Layout from '../../components/Navigation';
 
-function sleep(delay = 0) {
-    return new Promise((resolve) => {
-        setTimeout(resolve, delay);
-    });
-}
 function useQuery() {
     return new URLSearchParams(useLocation().search);
 }

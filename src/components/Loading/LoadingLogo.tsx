@@ -1,5 +1,5 @@
 import React from 'react';
-import './LandingLogo.css';
+import './LoadingLogo.css';
 
 /***
  * Login dialog
