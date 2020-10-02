@@ -4,10 +4,11 @@ import React from 'react';
 import {createStyles, makeStyles} from '@material-ui/core/styles';
 // @material-ui/icons
 // core components
-import {alertActions} from '../../store/actions/alertActions';
+import {alertActions} from '../../store/actions';
 import {useDispatch} from 'react-redux';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
+import PlaylistAddOutlinedIcon from '@material-ui/icons/PlaylistAddOutlined';
 import CommentOutlinedIcon from '@material-ui/icons/CommentOutlined';
 // @ts-ignore
 import {CopyToClipboard} from 'react-copy-to-clipboard';
@@ -36,16 +37,22 @@ interface IAction {
     handleLike?: any;
     handleComment?: any;
     handleShare?: any;
+    handleFollow?: any;
     liked?: boolean;
     likeNum?: number;
+    commented?: number;
+    follower?: boolean;
     comments?: any;
 }
 
 export default function ProfilePage({
     handleLike,
     handleComment,
+    handleFollow,
     liked,
     likeNum,
+    commented,
+    follower,
     comments,
 }: IAction) {
     const classes = useStyles();
@@ -66,7 +73,10 @@ export default function ProfilePage({
                     color={liked ? 'secondary' : undefined}
                     onClick={handleLike}
                 >
-                    <Badge badgeContent={likeNum} color="secondary">
+                    <Badge
+                        badgeContent={likeNum}
+                        color={liked ? 'secondary' : undefined}
+                    >
                         <FavoriteIcon />
                     </Badge>
                 </IconButton>
@@ -80,6 +90,7 @@ export default function ProfilePage({
                 placement="left"
                 interactive
             >
+
                 <IconButton onClick={handleComment}>
                     <Badge
                         badgeContent={comments ? comments.length : 0}
@@ -112,6 +123,23 @@ export default function ProfilePage({
                         <ShareIcon />
                     </IconButton>
                 </CopyToClipboard>
+            </Tooltip>
+            <br />
+            <br />
+
+            <Tooltip
+                arrow
+                title={<Typography variant="body1">Follow</Typography>}
+                placement="left"
+                interactive
+            >
+                <IconButton
+                    aria-label="follow"
+                    color={follower ? 'secondary' : undefined}
+                    onClick={handleFollow}
+                >
+                    <PlaylistAddOutlinedIcon />
+                </IconButton>
             </Tooltip>
             <br />
             <br />

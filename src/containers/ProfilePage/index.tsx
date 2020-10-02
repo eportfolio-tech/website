@@ -75,6 +75,8 @@ export default function ProfilePage({match, history, forceUpdate}: any) {
 
     const [comments, setComments] = useState();
 
+    const [follower, setFollower] = useState(false);
+
     const [portfolio, setPortfolio] = useState({
         firstName: 'David',
         lastName: 'Smith',
@@ -131,6 +133,12 @@ export default function ProfilePage({match, history, forceUpdate}: any) {
             );
             setLiked(likeInfo.liked);
             setLikeNum(likeInfo['user-like'].length);
+
+            // find who follow this portfolio
+            const follower = await socialService.findWhofollowedThisPortfolio(
+                username
+            );
+            setFollower(follower.followed);
         } catch (error) {
             dispatch(alertActions.error(error));
         }
@@ -158,6 +166,44 @@ export default function ProfilePage({match, history, forceUpdate}: any) {
                 await socialService.unlikePortfolio(username);
                 setLiked(false);
                 setLikeNum(likeNum - 1);
+            } catch (error) {
+                dispatch(alertActions.error(error));
+            }
+        } else {
+            historyDom.push('/?login=true');
+        }
+    };
+
+    const handleFollow = async () => {
+        if (loggedIn) {
+            try {
+                const username = match.params.username;
+                // @ts-ignore
+                await socialService.followPortfolio(username);
+                // @ts-ignore
+                setFollower(true);
+                dispatch(
+                    alertActions.success('You have followed this portfolio.')
+                );
+            } catch (error) {
+                dispatch(alertActions.error(error));
+            }
+        } else {
+            historyDom.push('/?login=true');
+        }
+    };
+
+    const handleUnFollow = async () => {
+        if (loggedIn) {
+            try {
+                const username = match.params.username;
+                // @ts-ignore
+                await socialService.unfollowPortfolio(username);
+                // @ts-ignore
+                setFollower(false);
+                dispatch(
+                    alertActions.success('You have unfollowed this portfolio.')
+                );
             } catch (error) {
                 dispatch(alertActions.error(error));
             }
@@ -195,11 +241,13 @@ export default function ProfilePage({match, history, forceUpdate}: any) {
                             liked={liked}
                             likeNum={likeNum}
                             comments={comments}
+                            follower={follower}
                             handleLike={liked ? handleUnlike : handleLike}
                             handleComment={() => {
                                 setOpenComment(true);
                                 //console.log(comments);
                             }}
+                            handleFollow={follower ? handleUnFollow : handleFollow}
                         />
                         <CardContent>
                             {/* <Breadcrumbs aria-label="breadcrumb">

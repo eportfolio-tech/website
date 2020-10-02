@@ -33,7 +33,8 @@ export default ({open, setOpen}: ISignIn) => {
     //const [open, setOpen] = useState(false);
 
     const closeLoginWindow = () => {
-        history.push('/');
+        //history.push('/');
+        history.go(-1);
         setOpen(false);
         //setLoginEl(null);
     };

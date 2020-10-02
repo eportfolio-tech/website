@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {useHistory, useLocation} from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
 import {useSpring, animated as a} from 'react-spring';
 
 import {useTheme} from '@material-ui/core/styles';
@@ -9,10 +9,9 @@ import Layout from '../../components/Navigation';
 
 export default () => {
     const theme = useTheme();
-    const history = useHistory();
     const location = useLocation();
 
-    const [flipped, setFlipped] = useState(location.pathname === '/search');
+    const [flipped] = useState(location.pathname === '/search');
     const {transform, opacity}: any = useSpring({
         opacity: flipped ? 1 : 0,
         transform: `perspective(600px) rotateX(${flipped ? 180 : 0}deg)`,

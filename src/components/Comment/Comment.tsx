@@ -1,5 +1,5 @@
 import React from 'react';
-import {makeStyles, createStyles} from '@material-ui/core/styles';
+//import {makeStyles, createStyles} from '@material-ui/core/styles';
 
 // import Avatar from '@atlaskit/avatar';
 
@@ -11,24 +11,24 @@ import Comment, {
 } from '@atlaskit/comment';
 import {Avatar, Divider} from '@material-ui/core';
 
-const useStyles = makeStyles((theme) =>
-    createStyles({
-        root: {
-            display: 'flex',
-            '& > *': {
-                margin: theme.spacing(1),
-            },
-        },
-        small: {
-            width: theme.spacing(3),
-            height: theme.spacing(3),
-        },
-        large: {
-            width: theme.spacing(7),
-            height: theme.spacing(7),
-        },
-    })
-);
+// const useStyles = makeStyles((theme) =>
+//     createStyles({
+//         root: {
+//             display: 'flex',
+//             '& > *': {
+//                 margin: theme.spacing(1),
+//             },
+//         },
+//         small: {
+//             width: theme.spacing(3),
+//             height: theme.spacing(3),
+//         },
+//         large: {
+//             width: theme.spacing(7),
+//             height: theme.spacing(7),
+//         },
+//     })
+// );
 
 export default (props: any) => {
     return (
