@@ -6,11 +6,12 @@ import 'react-h5-audio-player/lib/styles.css';
 import MusicWave from './musicWave';
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
 export default ({style, src}: any) => {
-    const [playing, setPlaying] = useState(false);
+    const [playing, setPlaying] = useState(true);
     const [open, setOpen] = useState(false);
 
     const Player = (
         <AudioPlayer
+            autoPlay
             style={{
                 position: 'fixed',
                 top: '30%',
@@ -43,7 +44,7 @@ export default ({style, src}: any) => {
             onEnded={() => {
                 setPlaying(false);
             }}
-            autoPlay={playing}
+
             // other props here
         />
     );

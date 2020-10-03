@@ -228,7 +228,14 @@ export default withWidth()(({}: any) => {
                         placement="bottom"
                         interactive
                     >
-                        <IconButton className={classes.logout}>
+                        <IconButton
+                            onClick={() => {
+                                localStorage.removeItem('user');
+                                localStorage.removeItem('token');
+                                window.location.reload(false);
+                            }}
+                            className={classes.logout}
+                        >
                             <PowerSettingsNewIcon />
                         </IconButton>
                     </Tooltip>

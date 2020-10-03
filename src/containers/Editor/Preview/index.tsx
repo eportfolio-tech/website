@@ -122,6 +122,9 @@ export default function FullScreenDialog({
                     liked={liked}
                     handleComment={() => {}}
                     handleFollow={() => {}}
+                    audioSrc={
+                        'https://comp30002.blob.core.windows.net/image/cocabona,Glimlip-Drops.mp3'
+                    }
                 />
                 <Grid container justify="center">
                     <Grid xs={12}>

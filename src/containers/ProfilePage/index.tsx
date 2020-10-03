@@ -173,37 +173,42 @@ export default function ProfilePage({match, history, forceUpdate}: any) {
         }
     };
     return (
-        <Layout>
-            <div>
-                <CommentDialog
-                    authorName={authorName}
-                    comments={comments}
-                    openComment={openComment}
-                    setOpenComment={setOpenComment}
-                    loggedIn={loggedIn}
-                    username={match.params.username}
-                    fetchComment={fetchComment}
-                />
-                <Actions
-                    history={history}
-                    liked={liked}
-                    likeNum={likeNum}
-                    comments={comments}
-                    follower={follower}
-                    handleLike={liked ? handleUnlike : handleLike}
-                    handleComment={() => {
-                        setOpenComment(true);
-                        //console.log(comments);
-                    }}
-                    handleFollow={follower ? handleUnFollow : handleFollow}
-                    audioSrc={
-                        'https://comp30002.blob.core.windows.net/image/但願人長久(歌詞)王菲_Wong_feilyrics.mp3'
-                    }
-                />
-                <Profile portfolio={portfolio} content={content} height={83} />
-
-                <Footer />
-            </div>
-        </Layout>
+        <div>
+            <Layout>
+                <div>
+                    <CommentDialog
+                        authorName={authorName}
+                        comments={comments}
+                        openComment={openComment}
+                        setOpenComment={setOpenComment}
+                        loggedIn={loggedIn}
+                        username={match.params.username}
+                        fetchComment={fetchComment}
+                    />
+                    <Actions
+                        history={history}
+                        liked={liked}
+                        likeNum={likeNum}
+                        comments={comments}
+                        follower={follower}
+                        handleLike={liked ? handleUnlike : handleLike}
+                        handleComment={() => {
+                            setOpenComment(true);
+                            //console.log(comments);
+                        }}
+                        handleFollow={follower ? handleUnFollow : handleFollow}
+                        audioSrc={
+                            'https://comp30002.blob.core.windows.net/image/cocabona,Glimlip-Drops.mp3'
+                        }
+                    />
+                    <Profile
+                        portfolio={portfolio}
+                        content={content}
+                        height={76}
+                    />
+                </div>
+            </Layout>
+            {/* <Footer /> */}
+        </div>
     );
 }

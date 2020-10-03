@@ -11,7 +11,7 @@ const App = () => {
                     <NotFoundLogo />
                 </div>
             </Layout>
-            <AppFooter />
+            {/* <AppFooter /> */}
         </div>
     );
 };

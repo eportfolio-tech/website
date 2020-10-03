@@ -18,9 +18,9 @@ function Index() {
                     <TagGrids />
                     <HowItWorks />
                     <Subscribe />
-                    <AppFooter />
                 </div>
             </Layout>
+            {/* <AppFooter /> */}
         </div>
     );
 }
