@@ -52,7 +52,7 @@ export default ({portfolio, content, height}: any) => {
     return (
         <Card variant={'outlined'} style={{marginRight: '7%'}}>
             {portfolio && content ? (
-                <Container maxWidth="md" style={{minHeight: height + 'VH'}}>
+                <Container style={{minHeight: height + 'VH'}}>
                     <Grid container className={classes.skeletonHeader}>
                         <Grid xs={3} md={1}>
                             <Avatar
@@ -96,7 +96,7 @@ export default ({portfolio, content, height}: any) => {
                 </Container>
             ) : (
                 <div>
-                    <Container maxWidth="md" style={{minHeight: height + 'VH'}}>
+                    <Container style={{minHeight: height + 'VH'}}>
                         <Grid
                             container
                             className={classes.skeletonHeader}

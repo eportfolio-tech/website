@@ -11,11 +11,13 @@ import {
     Typography,
     Grid,
     Link,
+    isWidthUp,
 } from '@material-ui/core';
 
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
+import MenuIcon from '@material-ui/icons/Menu';
 import EditIcon from '@material-ui/icons/Edit';
 import SettingsIcon from '@material-ui/icons/Settings';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
@@ -148,10 +150,10 @@ const getIndex = (path: any) => {
 /***
  * The App Bar at the top.
  */
-export default withWidth()(({}: any) => {
+export default withWidth()(({width, handleDrawerOpen}: any) => {
     //const classes = useStyles();
     const history = useHistory();
-
+    const largeScreen = isWidthUp('md', width);
     const classes = useStyles();
 
     const handleChange = (event: any, active: any) => {
@@ -161,86 +163,103 @@ export default withWidth()(({}: any) => {
     console.log(getIndex(history.location.pathname));
     return (
         <AppBar position="fixed" className={classes.appBar}>
-            <Grid container>
-                <Grid item xs={4}>
-                    <Link
-                        underline="none"
-                        color="textPrimary"
-                        href="/"
-                        className={classes.toolbarTitle}
+            {!largeScreen ? (
+                <Grid container justify="center">
+                    <Button
+                        aria-label="open drawer"
+                        fullWidth
+                        onClick={handleDrawerOpen}
                     >
-                        <Button
-                            style={{
-                                textTransform: 'none',
-                            }}
-                        >
-                            <img
-                                className={classes.logo}
-                                src={logoImage}
-                                alt="logo"
-                            />
-                            <Typography variant="h6" style={{fontWeight: 800}}>
-                                Forty-Two
-                            </Typography>
-                        </Button>
-                    </Link>
+                        <MenuIcon />
+                    </Button>
                 </Grid>
+            ) : (
+                <Grid container>
+                    <Grid item xs={4}>
+                        <Link
+                            underline="none"
+                            color="textPrimary"
+                            href="/"
+                            className={classes.toolbarTitle}
+                        >
+                            <Button
+                                style={{
+                                    textTransform: 'none',
+                                }}
+                            >
+                                <img
+                                    className={classes.logo}
+                                    src={logoImage}
+                                    alt="logo"
+                                />
+                                <Typography
+                                    variant="h6"
+                                    style={{fontWeight: 800}}
+                                >
+                                    Forty-Two
+                                </Typography>
+                            </Button>
+                        </Link>
+                    </Grid>
 
-                <Grid item xs={7}>
-                    <Toolbar>
-                        <Tabs
-                            className={classes.root}
-                            value={getIndex(history.location.pathname)}
-                            onChange={handleChange}
-                            centered
+                    <Grid item xs={7}>
+                        <Toolbar>
+                            <Tabs
+                                className={classes.root}
+                                value={getIndex(history.location.pathname)}
+                                onChange={handleChange}
+                                centered
+                            >
+                                {routers.map((prop: any, key: any) => {
+                                    return (
+                                        <Tooltip
+                                            arrow
+                                            title={
+                                                <Typography variant="body1">
+                                                    {prop.name}
+                                                </Typography>
+                                            }
+                                            placement="bottom"
+                                            interactive
+                                        >
+                                            <Tab
+                                                icon={prop.icon}
+                                                key={key}
+                                                classes={{
+                                                    root: classes.pills,
+                                                    selected: classes.primary,
+                                                    wrapper: classes.tabWrapper,
+                                                }}
+                                            ></Tab>
+                                        </Tooltip>
+                                    );
+                                })}
+                            </Tabs>
+                        </Toolbar>
+                    </Grid>
+                    <Grid item xs={1}>
+                        <Tooltip
+                            arrow
+                            title={
+                                <Typography variant="body1">Logout</Typography>
+                            }
+                            placement="bottom"
+                            interactive
                         >
-                            {routers.map((prop: any, key: any) => {
-                                return (
-                                    <Tooltip
-                                        arrow
-                                        title={
-                                            <Typography variant="body1">
-                                                {prop.name}
-                                            </Typography>
-                                        }
-                                        placement="bottom"
-                                        interactive
-                                    >
-                                        <Tab
-                                            icon={prop.icon}
-                                            key={key}
-                                            classes={{
-                                                root: classes.pills,
-                                                selected: classes.primary,
-                                                wrapper: classes.tabWrapper,
-                                            }}
-                                        ></Tab>
-                                    </Tooltip>
-                                );
-                            })}
-                        </Tabs>
-                    </Toolbar>
+                            <IconButton
+                                onClick={() => {
+                                    localStorage.removeItem('user');
+                                    localStorage.removeItem('token');
+                                    window.location.reload(false);
+                                }}
+                                className={classes.logout}
+                            >
+                                <PowerSettingsNewIcon />
+                            </IconButton>
+                        </Tooltip>
+                    </Grid>
                 </Grid>
-                <Grid item xs={1}>
-                    <Tooltip
-                        arrow
-                        title={<Typography variant="body1">Logout</Typography>}
-                        placement="bottom"
-                        interactive
-                    >
-                        <IconButton
-                            onClick={() => {
-                                localStorage.removeItem('user');
-                                localStorage.removeItem('token');
-                                window.location.reload(false);
-                            }}
-                            className={classes.logout}
-                        >
-                            <PowerSettingsNewIcon />
-                        </IconButton>
-                    </Tooltip>
-                </Grid>
-            </Grid>
+            )}
         </AppBar>
     );
 });

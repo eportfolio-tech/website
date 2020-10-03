@@ -15,47 +15,31 @@ import Actions from '../../ProfilePage/Actions';
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         appBar: {
-            position: 'relative',
+            position: 'fixed',
             background: theme.palette.secondary.main,
         },
         title: {
             marginLeft: theme.spacing(2),
-            flex: 1,
         },
         content: {
             flexGrow: 1,
             [theme.breakpoints.up('lg')]: {
-                padding: theme.spacing(13),
+                padding: theme.spacing(15),
             },
             [theme.breakpoints.down('sm')]: {
-                padding: theme.spacing(4),
-                marginTop: '18%',
+                padding: theme.spacing(8),
+                // marginTop: '18%',
             },
             [theme.breakpoints.between('sm', 'md')]: {
-                padding: theme.spacing(4),
-                marginTop: '8%',
+                padding: theme.spacing(8),
+                // marginTop: '4%',
             },
             width: '100%',
             minWidth: '100VW',
         },
         root: {
-            display: 'flex',
+            //display: 'flex',
         },
-        profile: {
-            textAlign: 'center',
-            '& img': {
-                maxWidth: '160px',
-                width: '100%',
-            },
-            marginTop: theme.spacing(10),
-        },
-        description: {
-            margin: '1.071rem auto 0',
-            maxWidth: '600px',
-            color: '#999',
-            textAlign: 'center',
-        },
-        name: {},
     })
 );
 

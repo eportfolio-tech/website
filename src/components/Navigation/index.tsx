@@ -1,8 +1,22 @@
 import React, {ReactChildren, ReactChild, useEffect, Fragment} from 'react';
+import {useHistory} from 'react-router-dom';
 
-import {makeStyles, createStyles, Theme} from '@material-ui/core/styles';
-import {CssBaseline, IconButton, withWidth, isWidthUp} from '@material-ui/core';
+import {
+    makeStyles,
+    useTheme,
+    createStyles,
+    Theme,
+} from '@material-ui/core/styles';
+import {
+    Drawer,
+    CssBaseline,
+    IconButton,
+    withWidth,
+    isWidthUp,
+} from '@material-ui/core';
 import {Breakpoint} from '@material-ui/core/styles/createBreakpoints';
+import RemoveIcon from '@material-ui/icons/Remove';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import CancelIcon from '@material-ui/icons/Cancel';
 
 import {useSelector, useDispatch} from 'react-redux';
@@ -13,6 +27,7 @@ import {useSnackbar} from 'notistack';
 import AppBarLogin from './AppBar/AppBarLogin';
 import AppBarLogout from './AppBar/AppBarLogout';
 import Loading from '../Loading/Loading';
+import MenuList from './MenuList';
 import {pageActions} from '../../store/actions';
 
 const drawerWidth = 240;
@@ -114,8 +129,10 @@ interface ILayoutProps {
  */
 export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
     const classes = useStyles();
+    const theme = useTheme();
     const dispatch = useDispatch();
-    const largeScreen = isWidthUp('lg', width);
+    const history = useHistory();
+    const largeScreen = isWidthUp('md', width);
 
     const loggedIn = useSelector<IRootState, boolean | undefined>(
         (state) => state.auth.loggedIn
@@ -132,10 +149,18 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
         (state) => state.page.openDrawer
     );
 
+    const handleRouting = (newRoute: String) => {
+        history.push('/' + newRoute);
+    };
+
     const handleDrawerOpen = () => {
         dispatch(pageActions.openDrawer());
     };
     const handleDrawerClose = () => {
+        dispatch(pageActions.closeDrawer());
+    };
+
+    const getDrawlerOnClose = () => {
         dispatch(pageActions.closeDrawer());
     };
 
@@ -195,6 +220,30 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
             ) : (
                 <AppBarLogout />
             )}
+
+            {loggedIn && !largeScreen ? (
+                <Drawer
+                    variant={'temporary'}
+                    open={openDrawer}
+                    onClose={getDrawlerOnClose}
+                >
+                    <div className={classes.toolbar}>
+                        <IconButton onClick={handleDrawerClose}>
+                            {theme.direction === 'rtl' ? (
+                                <ChevronRightIcon />
+                            ) : (
+                                <RemoveIcon />
+                            )}
+                        </IconButton>
+                    </div>
+                    <div>
+                        <MenuList
+                            handleRouting={handleRouting}
+                            openDrawer={openDrawer}
+                        />
+                    </div>
+                </Drawer>
+            ) : null}
 
             {loadingRoute ? (
                 <Loading />
