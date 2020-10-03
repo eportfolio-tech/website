@@ -30,7 +30,7 @@ import logoImage from '../../../assets/logo.svg';
 // const drawerWidth = 400;
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        appBar: {background: 'rgba(250,250,250,0.5)'},
+        appBar: {background: 'rgba(250,250,250,0.9)'},
         root: {
             marginTop: theme.spacing(1),
 
