@@ -29,7 +29,7 @@ const useStyles: any = makeStyles(() =>
             position: 'fixed',
             backgroundColor: 'rgba(250,250,250,0)',
             top: '15VH',
-            right: '2.5%',
+            right: '5%',
         },
     })
 );

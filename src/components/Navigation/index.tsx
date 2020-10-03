@@ -1,40 +1,18 @@
-import React, {
-    useState,
-    ReactChildren,
-    ReactChild,
-    useEffect,
-    Fragment,
-} from 'react';
-import {useHistory} from 'react-router-dom';
+import React, {ReactChildren, ReactChild, useEffect, Fragment} from 'react';
 
-import {
-    makeStyles,
-    useTheme,
-    createStyles,
-    Theme,
-} from '@material-ui/core/styles';
-import {
-    Drawer,
-    CssBaseline,
-    IconButton,
-    withWidth,
-    isWidthUp,
-} from '@material-ui/core';
+import {makeStyles, createStyles, Theme} from '@material-ui/core/styles';
+import {CssBaseline, IconButton, withWidth, isWidthUp} from '@material-ui/core';
 import {Breakpoint} from '@material-ui/core/styles/createBreakpoints';
-import RemoveIcon from '@material-ui/icons/Remove';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import CancelIcon from '@material-ui/icons/Cancel';
 
 import {useSelector, useDispatch} from 'react-redux';
 import {alertActions} from '../../store/actions/alertActions';
 import {IRootState} from '../../index';
 import {useSnackbar} from 'notistack';
-import clsx from 'clsx';
 
 import AppBarLogin from './AppBar/AppBarLogin';
 import AppBarLogout from './AppBar/AppBarLogout';
 import Loading from '../Loading/Loading';
-import MenuList from './MenuList';
 import {pageActions} from '../../store/actions';
 
 const drawerWidth = 240;
@@ -85,14 +63,14 @@ const useStyles = makeStyles((theme: Theme) =>
         contentLogin: {
             flexGrow: 1,
             [theme.breakpoints.up('lg')]: {
-                padding: theme.spacing(8),
+                padding: theme.spacing(15),
             },
             [theme.breakpoints.down('sm')]: {
-                padding: theme.spacing(4),
+                padding: theme.spacing(8),
                 marginTop: '18%',
             },
             [theme.breakpoints.between('sm', 'md')]: {
-                padding: theme.spacing(4),
+                padding: theme.spacing(8),
                 marginTop: '8%',
             },
             maxWidth: '100%',
@@ -136,9 +114,7 @@ interface ILayoutProps {
  */
 export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
     const classes = useStyles();
-    const theme = useTheme();
     const dispatch = useDispatch();
-    const history = useHistory();
     const largeScreen = isWidthUp('lg', width);
 
     const loggedIn = useSelector<IRootState, boolean | undefined>(
@@ -156,18 +132,10 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
         (state) => state.page.openDrawer
     );
 
-    const handleRouting = (newRoute: String) => {
-        history.push('/' + newRoute);
-    };
-
     const handleDrawerOpen = () => {
         dispatch(pageActions.openDrawer());
     };
     const handleDrawerClose = () => {
-        dispatch(pageActions.closeDrawer());
-    };
-
-    const getDrawlerOnClose = () => {
         dispatch(pageActions.closeDrawer());
     };
 
@@ -227,48 +195,6 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
             ) : (
                 <AppBarLogout />
             )}
-
-            {loggedIn ? (
-                <Drawer
-                    variant={largeScreen ? 'permanent' : 'temporary'}
-                    className={
-                        largeScreen
-                            ? clsx(classes.drawer, {
-                                  [classes.drawerOpen]: openDrawer,
-                                  [classes.drawerClose]: !openDrawer,
-                              })
-                            : undefined
-                    }
-                    classes={
-                        largeScreen
-                            ? {
-                                  paper: clsx({
-                                      [classes.drawerOpen]: openDrawer,
-                                      [classes.drawerClose]: !openDrawer,
-                                  }),
-                              }
-                            : undefined
-                    }
-                    open={largeScreen ? false : openDrawer}
-                    onClose={getDrawlerOnClose}
-                >
-                    <div className={classes.toolbar}>
-                        <IconButton onClick={handleDrawerClose}>
-                            {theme.direction === 'rtl' ? (
-                                <ChevronRightIcon />
-                            ) : (
-                                <RemoveIcon />
-                            )}
-                        </IconButton>
-                    </div>
-                    <div>
-                        <MenuList
-                            handleRouting={handleRouting}
-                            openDrawer={openDrawer}
-                        />
-                    </div>
-                </Drawer>
-            ) : null}
 
             {loadingRoute ? (
                 <Loading />

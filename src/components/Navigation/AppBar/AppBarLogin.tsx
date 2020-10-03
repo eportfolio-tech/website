@@ -6,115 +6,234 @@ import {
     Button,
     IconButton,
     withWidth,
+    createStyles,
+    Tooltip,
+    Typography,
+    Grid,
+    Link,
 } from '@material-ui/core';
-import {Breakpoint} from '@material-ui/core/styles/createBreakpoints';
-import MenuIcon from '@material-ui/icons/Menu';
-import clsx from 'clsx';
 
-const drawerWidth = 400;
-const useStyles = makeStyles((theme: Theme) => ({
-    logo: {
-        maxHeight: '3rem',
-    },
-    link: {
-        marginLeft: 'auto',
-    },
-    appBar: {
-        zIndex: theme.zIndex.drawer + 1,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        backgroundColor: 'rgba(250,250,250,0)',
-        boxShadow: 'none',
-    },
-    appBarShift: {
-        marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    menuButton: {
-        marginRight: 10,
-    },
-    hide: {
-        display: 'none',
-    },
-    menuItem: {
-        fontWeight: 900,
-    },
-}));
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
-interface AppBarProps {
-    width: Breakpoint;
-    openDrawer?: any;
-    handleDrawerOpen?: any;
-    handleDrawerClose?: any;
-}
+import EditIcon from '@material-ui/icons/Edit';
+import SettingsIcon from '@material-ui/icons/Settings';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+import SearchIcon from '@material-ui/icons/Search';
+import HomeIcon from '@material-ui/icons/Home';
+import ExploreIcon from '@material-ui/icons/Explore';
+import {useHistory} from 'react-router-dom';
+import logoImage from '../../../assets/logo.svg';
+
+// const drawerWidth = 400;
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        appBar: {background: 'rgba(250,250,250,0.5)'},
+        root: {
+            marginTop: theme.spacing(1),
+
+            textTransform: 'none',
+            fontSize: '12px',
+            fontWeight: 500,
+            position: 'relative',
+            display: 'block',
+
+            width: '100%',
+        },
+        toolbar: {},
+
+        toolbarTitle: {
+            flexGrow: 1,
+
+            marginLeft: theme.spacing(10),
+        },
+        logo: {
+            maxHeight: '3rem',
+        },
+        pills: {
+            float: 'left',
+            position: 'relative',
+            display: 'block',
+            minWidth: '100px',
+            textAlign: 'center',
+            transition: 'all .3s',
+            padding: '10px 15px',
+            color: '#555555',
+            height: 'auto',
+            opacity: '1',
+            maxWidth: '100%',
+            margin: '0 5px',
+            borderRadius: '30px',
+        },
+
+        primary: {
+            '&,&:hover': {
+                color: '#FFFFFF',
+                backgroundColor: '#13a87c',
+                boxShadow:
+                    '0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(156, 39, 176, 0.4)',
+            },
+        },
+        alignCenter: {
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        tabWrapper: {
+            color: 'inherit',
+            position: 'relative',
+            fontSize: '24px',
+            lineHeight: '30px',
+            fontWeight: 500,
+            textTransform: 'uppercase',
+            '&,& *': {
+                letterSpacing: 'normal',
+            },
+        },
+        logout: {
+            marginTop: theme.spacing(1),
+        },
+    })
+);
+
+const routers = [
+    {
+        icon: <HomeIcon />,
+        path: '',
+        matchPath: '',
+        name: 'Home',
+    },
+    {
+        icon: <ExploreIcon />,
+        path: 'explore',
+        matchPath: 'explore',
+        name: 'Explore',
+    },
+    {
+        icon: <SearchIcon />,
+        path: 'search?query=arts',
+        matchPath: 'search',
+        name: 'Search',
+    },
+    {
+        icon: <EditIcon />,
+        path: 'editor',
+        matchPath: 'editor',
+        name: 'Editor',
+    },
+    {
+        icon: <SettingsIcon />,
+        path: 'settings',
+        matchPath: 'settings',
+        name: 'Settings',
+    },
+];
+
+const getIndex = (path: any) => {
+    switch (path) {
+        case '/':
+            return 0;
+        case '/explore':
+            return 1;
+        case '/search':
+            return 2;
+        case '/editor':
+            return 3;
+        case '/settings':
+            return 4;
+        default:
+            return -1;
+    }
+};
 
 /***
  * The App Bar at the top.
  */
-export default withWidth()(({handleDrawerOpen, openDrawer}: AppBarProps) => {
+export default withWidth()(({}: any) => {
+    //const classes = useStyles();
+    const history = useHistory();
+
     const classes = useStyles();
-    //const history = useHistory();
-    //const location = useLocation();
 
-    //const [avatarEL, setAvatarEL] = useState(null);
+    const handleChange = (event: any, active: any) => {
+        history.push('/' + routers[active].path);
+    };
 
+    console.log(getIndex(history.location.pathname));
     return (
-        <div>
-            <AppBar
-                position="fixed"
-                className={clsx(classes.appBar, {
-                    [classes.appBarShift]: openDrawer,
-                })}
-            >
-                <Toolbar>
-                    <IconButton
-                        aria-label="open drawer"
-                        edge="start"
-                        onClick={handleDrawerOpen}
-                        className={clsx(classes.menuButton, {
-                            [classes.hide]: openDrawer,
-                        })}
+        <AppBar position="fixed" className={classes.appBar}>
+            <Grid container>
+                <Grid item xs={4}>
+                    <Link
+                        underline="none"
+                        color="textPrimary"
+                        href="/"
+                        className={classes.toolbarTitle}
                     >
-                        <MenuIcon />
-                    </IconButton>
-                    <Button></Button>
-                    {/*
-                    <div className={classes.link}>
                         <Button
-                            className={classes.link}
-                            onClick={(event: any) => {
-                                setAvatarEL(event.currentTarget);
+                            style={{
+                                textTransform: 'none',
                             }}
                         >
-                            <Avatar />
+                            <img
+                                className={classes.logo}
+                                src={logoImage}
+                                alt="logo"
+                            />
+                            <Typography variant="h6" style={{fontWeight: 800}}>
+                                Forty-Two
+                            </Typography>
                         </Button>
-                        <Menu
-                            open={Boolean(avatarEL)}
-                            keepMounted
-                            anchorEl={avatarEL}
-                            onClose={() => {
-                                setAvatarEL(null);
-                            }}
+                    </Link>
+                </Grid>
+
+                <Grid item xs={7}>
+                    <Toolbar>
+                        <Tabs
+                            className={classes.root}
+                            value={getIndex(history.location.pathname)}
+                            onChange={handleChange}
+                            centered
                         >
-                            <MenuItem
-                                className={classes.menuItem}
-                                onClick={() => {
-                                    localStorage.removeItem('user');
-                                    window.location.reload(false);
-                                }}
-                            >
-                                Logout
-                            </MenuItem>
-                        </Menu>
-                            </div>*/}
-                </Toolbar>
-            </AppBar>
-        </div>
+                            {routers.map((prop: any, key: any) => {
+                                return (
+                                    <Tooltip
+                                        arrow
+                                        title={
+                                            <Typography variant="body1">
+                                                {prop.name}
+                                            </Typography>
+                                        }
+                                        placement="bottom"
+                                        interactive
+                                    >
+                                        <Tab
+                                            icon={prop.icon}
+                                            key={key}
+                                            classes={{
+                                                root: classes.pills,
+                                                selected: classes.primary,
+                                                wrapper: classes.tabWrapper,
+                                            }}
+                                        ></Tab>
+                                    </Tooltip>
+                                );
+                            })}
+                        </Tabs>
+                    </Toolbar>
+                </Grid>
+                <Grid item xs={1}>
+                    <Tooltip
+                        arrow
+                        title={<Typography variant="body1">Logout</Typography>}
+                        placement="bottom"
+                        interactive
+                    >
+                        <IconButton className={classes.logout}>
+                            <PowerSettingsNewIcon />
+                        </IconButton>
+                    </Tooltip>
+                </Grid>
+            </Grid>
+        </AppBar>
     );
 });
