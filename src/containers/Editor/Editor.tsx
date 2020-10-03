@@ -182,7 +182,7 @@ export default () => {
                     portfolio={portfolio}
                     title={title}
                     description={description}
-                    rawJSON={BraftEditor.createEditorState(null).toRAW(true)}
+                    rawJSON={editorState.toRAW(true)}
                     selectCallback={onSelectTemplateCallback}
                 />
             </div>
