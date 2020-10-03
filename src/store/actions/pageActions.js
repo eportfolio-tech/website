@@ -4,6 +4,8 @@ export const pageActions = {
     loading,
     loaded,
     sleep,
+    openDrawer,
+    closeDrawer,
 };
 
 function loading() {
@@ -12,6 +14,14 @@ function loading() {
 
 function loaded() {
     return {type: pageConstants.LOADED};
+}
+
+function openDrawer() {
+    return {type: pageConstants.OPEN_DRAWER};
+}
+
+function closeDrawer() {
+    return {type: pageConstants.CLOSE_DRAWER};
 }
 
 function sleep(delay = 0) {

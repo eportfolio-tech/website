@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface AppBarProps {
     width: Breakpoint;
-    openDrawer?: Boolean;
+    openDrawer?: any;
     handleDrawerOpen?: any;
     handleDrawerClose?: any;
 }

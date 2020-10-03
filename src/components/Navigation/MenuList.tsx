@@ -8,6 +8,8 @@ import {
     ListItem,
     ListItemIcon,
     ListItemText,
+    Tooltip,
+    Typography,
 } from '@material-ui/core';
 
 import EditIcon from '@material-ui/icons/Edit';
@@ -38,12 +40,40 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface IMenuListProps {
     handleRouting: any;
+    openDrawer?: any;
 }
+
+const routers = [
+    {
+        icon: <HomeIcon />,
+        path: '',
+        matchPath: '',
+        name: 'Home',
+    },
+    {
+        icon: <ExploreIcon />,
+        path: 'explore',
+        matchPath: 'explore',
+        name: 'Explore',
+    },
+    {
+        icon: <SearchIcon />,
+        path: 'search?query=arts',
+        matchPath: 'search',
+        name: 'Search',
+    },
+    {
+        icon: <EditIcon />,
+        path: 'editor',
+        matchPath: 'editor',
+        name: 'Editor',
+    },
+];
 
 /***
  * The layout of the application once login in.
  */
-export default withWidth()(({handleRouting}: IMenuListProps) => {
+export default withWidth()(({handleRouting, openDrawer}: IMenuListProps) => {
     const classes = useStyles();
     //const loadingRoute = false;
     const location = useLocation();
@@ -58,50 +88,31 @@ export default withWidth()(({handleRouting}: IMenuListProps) => {
     return (
         <div>
             <List className={classes.root}>
-                <ListItem
-                    button
-                    onClick={() => handleRouting('')}
-                    selected={path === '/'}
-                    className={classes.item}
-                >
-                    <ListItemIcon className={classes.icon}>
-                        <HomeIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Home" />
-                </ListItem>
-                <ListItem
-                    button
-                    onClick={() => handleRouting('explore')}
-                    selected={path === '/explore'}
-                    className={classes.item}
-                >
-                    <ListItemIcon className={classes.icon}>
-                        <ExploreIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Explore" />
-                </ListItem>
-                <ListItem
-                    button
-                    onClick={() => handleRouting('search?query=arts')}
-                    selected={path === '/search'}
-                    className={classes.item}
-                >
-                    <ListItemIcon className={classes.icon}>
-                        <SearchIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Search" />
-                </ListItem>
-                <ListItem
-                    button
-                    onClick={() => handleRouting('editor')}
-                    selected={path === '/editor'}
-                    className={classes.item}
-                >
-                    <ListItemIcon className={classes.icon}>
-                        <EditIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Editor" />
-                </ListItem>
+                {routers.map((route) => (
+                    <ListItem
+                        button
+                        onClick={() => handleRouting(route.path)}
+                        selected={path === '/' + route.matchPath}
+                        className={classes.item}
+                    >
+                        <Tooltip
+                            arrow
+                            title={
+                                <Typography variant="body1">
+                                    {route.name}
+                                </Typography>
+                            }
+                            placement="right"
+                            interactive
+                            disableHoverListener={openDrawer}
+                        >
+                            <ListItemIcon className={classes.icon}>
+                                {route.icon}
+                            </ListItemIcon>
+                        </Tooltip>
+                        <ListItemText primary={route.name} />
+                    </ListItem>
+                ))}
             </List>
 
             <List>

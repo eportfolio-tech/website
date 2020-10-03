@@ -35,6 +35,7 @@ import AppBarLogin from './AppBar/AppBarLogin';
 import AppBarLogout from './AppBar/AppBarLogout';
 import Loading from '../Loading/Loading';
 import MenuList from './MenuList';
+import {pageActions} from '../../store/actions';
 
 const drawerWidth = 240;
 
@@ -81,7 +82,7 @@ const useStyles = makeStyles((theme: Theme) =>
             ...theme.mixins.toolbar,
             backgroundColor: 'rgba(250,250,250,0.9)',
         },
-        content: {
+        contentLogin: {
             flexGrow: 1,
             [theme.breakpoints.up('lg')]: {
                 padding: theme.spacing(8),
@@ -92,6 +93,21 @@ const useStyles = makeStyles((theme: Theme) =>
             },
             [theme.breakpoints.between('sm', 'md')]: {
                 padding: theme.spacing(4),
+                marginTop: '8%',
+            },
+            maxWidth: '100%',
+        },
+        contentOut: {
+            flexGrow: 1,
+            [theme.breakpoints.up('lg')]: {
+                padding: theme.spacing(15),
+            },
+            [theme.breakpoints.down('sm')]: {
+                padding: theme.spacing(8),
+                marginTop: '18%',
+            },
+            [theme.breakpoints.between('sm', 'md')]: {
+                padding: theme.spacing(8),
                 marginTop: '8%',
             },
             maxWidth: '100%',
@@ -136,21 +152,23 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
         (state) => state.page.loading
     );
 
-    const [open, setOpen] = useState(largeScreen);
+    const openDrawer = useSelector<IRootState, boolean | undefined>(
+        (state) => state.page.openDrawer
+    );
+
     const handleRouting = (newRoute: String) => {
         history.push('/' + newRoute);
     };
 
     const handleDrawerOpen = () => {
-        setOpen(true);
+        dispatch(pageActions.openDrawer());
     };
     const handleDrawerClose = () => {
-        setOpen(false);
+        dispatch(pageActions.closeDrawer());
     };
 
     const getDrawlerOnClose = () => {
-        if (largeScreen) return;
-        setOpen(false);
+        dispatch(pageActions.closeDrawer());
     };
 
     const getAnchorOrigin = (type: any): any => {
@@ -170,6 +188,10 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
     };
     // using alert bar.
     useEffect(() => {
+        if (!largeScreen) {
+            dispatch(pageActions.closeDrawer());
+        }
+
         // customized closed button in snackbar
         const action = (key: any) => (
             <Fragment>
@@ -198,7 +220,7 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
             <CssBaseline />
             {loggedIn ? (
                 <AppBarLogin
-                    openDrawer={largeScreen ? open : false}
+                    openDrawer={largeScreen ? openDrawer : false}
                     handleDrawerOpen={handleDrawerOpen}
                     handleDrawerClose={handleDrawerClose}
                 />
@@ -212,8 +234,8 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
                     className={
                         largeScreen
                             ? clsx(classes.drawer, {
-                                  [classes.drawerOpen]: open,
-                                  [classes.drawerClose]: !open,
+                                  [classes.drawerOpen]: openDrawer,
+                                  [classes.drawerClose]: !openDrawer,
                               })
                             : undefined
                     }
@@ -221,13 +243,13 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
                         largeScreen
                             ? {
                                   paper: clsx({
-                                      [classes.drawerOpen]: open,
-                                      [classes.drawerClose]: !open,
+                                      [classes.drawerOpen]: openDrawer,
+                                      [classes.drawerClose]: !openDrawer,
                                   }),
                               }
                             : undefined
                     }
-                    open={largeScreen ? false : open}
+                    open={largeScreen ? false : openDrawer}
                     onClose={getDrawlerOnClose}
                 >
                     <div className={classes.toolbar}>
@@ -240,7 +262,10 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
                         </IconButton>
                     </div>
                     <div>
-                        <MenuList handleRouting={handleRouting} />
+                        <MenuList
+                            handleRouting={handleRouting}
+                            openDrawer={openDrawer}
+                        />
                     </div>
                 </Drawer>
             ) : null}
@@ -250,7 +275,11 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
             ) : (
                 <main
                     className={
-                        noPadding ? classes.noPaddingContent : classes.content
+                        noPadding
+                            ? classes.noPaddingContent
+                            : loggedIn
+                            ? classes.contentLogin
+                            : classes.contentOut
                     }
                 >
                     {children}
