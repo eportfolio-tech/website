@@ -18,7 +18,10 @@ export default (props: any) => {
 
     return (
         <Card className={classes.root} elevation={0}>
-            <div dangerouslySetInnerHTML={{__html: props.html}}></div>
+            <div
+                className="braft-output-content"
+                dangerouslySetInnerHTML={{__html: props.html}}
+            ></div>
         </Card>
     );
 };
