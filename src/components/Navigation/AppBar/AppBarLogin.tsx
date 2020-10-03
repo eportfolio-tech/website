@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme: Theme) =>
             opacity: '1',
             maxWidth: '100%',
             margin: '0 5px',
-            borderRadius: '30px',
+            borderRadius: '4px',
         },
 
         primary: {
