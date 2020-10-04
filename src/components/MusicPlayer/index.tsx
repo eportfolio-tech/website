@@ -36,10 +36,10 @@ export default ({style, src}: any) => {
             }
             src={src}
             onPlay={() => {
-                setPlaying(true);
+                setPlaying(false);
             }}
             onPause={() => {
-                setPlaying(false);
+                setPlaying(true);
             }}
             onEnded={() => {
                 setPlaying(false);
