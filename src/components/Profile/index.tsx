@@ -3,6 +3,7 @@ import {createStyles, makeStyles} from '@material-ui/core/styles';
 
 import {Card, Container, Divider, Grid, Avatar} from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
+// @ts-ignore
 import Typed from 'react-typed';
 
 import MyHTML from '../../containers/Editor/MyHtml';
