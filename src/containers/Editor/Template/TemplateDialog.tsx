@@ -111,7 +111,7 @@ export default function AlertDialog({
                             color="primary"
                             variant="contained"
                             onClick={deleteTemplate}
-                            disabled={isCreating}
+                            disabled={isCreating || selectID == null}
                         >
                             Delete
                         </Button>
@@ -120,7 +120,7 @@ export default function AlertDialog({
                             color="secondary"
                             variant="contained"
                             onClick={createProfolio}
-                            disabled={isCreating}
+                            disabled={isCreating || selectID == null}
                         >
                             {portfolio ? 'Overwrite' : 'Create'}
                         </Button>

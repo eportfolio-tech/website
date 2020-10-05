@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function SimpleListMenu({selectCallback, select}: any) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const [selectedIndex, setSelectedIndex] = useState(1);
+    const [selectedIndex, setSelectedIndex] = useState(-1);
 
     const [templates, setTemplates] = useState([]);
     const [options, setOptions] = useState([]);
@@ -83,11 +83,19 @@ export default function SimpleListMenu({selectCallback, select}: any) {
                             <ListItemIcon>
                                 <FormatPaintIcon />
                             </ListItemIcon>
-                            <ListItemText primary={options[selectedIndex]} />
+
+                            {selectedIndex === -1 ? (
+                                <ListItemText primary={'Click here'} />
+                            ) : (
+                                <ListItemText
+                                    primary={options[selectedIndex]}
+                                />
+                            )}
                         </ListItem>
                     </List>
                 </Grid>
             </Grid>
+
             <Menu
                 id="lock-menu"
                 anchorEl={anchorEl}
