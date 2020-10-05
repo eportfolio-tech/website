@@ -26,36 +26,39 @@ export default () => {
     const queryTag = query.get('tag');
 
     useEffect(() => {
+        const search = async () => {
+            try {
+                setLoading(true);
+                setCards(undefined);
+
+                let results = {
+                    content: undefined,
+                };
+
+                if (queryTag) {
+                    results = await userService.searchTag(queryTag, 0, 100);
+                } else {
+                    results = await userService.searchKeyword(
+                        queryKeyword,
+                        0,
+                        100
+                    );
+                }
+
+                //await sleep(500);
+                console.log(results);
+                setCards(results.content);
+                setLoading(false);
+            } catch (error) {
+                dispatch(alertActions.error(error));
+
+                setLoading(false);
+            }
+        };
         if (queryKeyword || queryTag) {
             search();
         }
-    }, []);
-
-    const search = async () => {
-        try {
-            setLoading(true);
-            setCards(undefined);
-
-            let results = {
-                content: undefined,
-            };
-
-            if (queryTag) {
-                results = await userService.searchTag(queryTag, 0, 100);
-            } else {
-                results = await userService.searchKeyword(queryKeyword, 0, 100);
-            }
-
-            //await sleep(500);
-            console.log(results);
-            setCards(results.content);
-            setLoading(false);
-        } catch (error) {
-            dispatch(alertActions.error(error));
-
-            setLoading(false);
-        }
-    };
+    }, [dispatch, queryKeyword, queryTag]);
 
     return (
         <Layout>

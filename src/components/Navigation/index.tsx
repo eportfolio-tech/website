@@ -206,7 +206,7 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
             });
             dispatch(alertActions.clear());
         }
-    }, [alert, enqueueSnackbar, dispatch, closeSnackbar]);
+    }, [alert, enqueueSnackbar, dispatch, closeSnackbar, largeScreen]);
 
     return (
         <div className={classes.root}>
