@@ -8,7 +8,6 @@ import {SnackbarProvider} from 'notistack';
 
 import Layout from '../components/Navigation';
 import theme from '../theme/fortyTwo';
-import Footer from '../components/Footer/AppFooter';
 
 import Explore from '../containers/Explore';
 
@@ -148,7 +147,6 @@ function App() {
                             />
                             <Redirect push to="/notfound" />
                         </Switch>
-                        <Footer />
                     </SnackbarProvider>
                 </ThemeProvider>
             </DocumentTitle>

@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import BraftEditor from 'braft-editor';
 // @material-ui/icons
 // core components
-// import Footer from '../../components/Footer/AppFooter';
+import Footer from '../../components/Footer/AppFooter';
 
 import {pageService} from '../../utils/pageService';
 import Layout from '../../components/Navigation';
@@ -209,7 +209,7 @@ export default function ProfilePage({match, history, forceUpdate}: any) {
                     />
                 </div>
             </Layout>
-            {/* <Footer /> */}
+            <Footer />
         </div>
     );
 }
