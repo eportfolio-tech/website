@@ -197,6 +197,7 @@ export default () => {
                                     variant="outlined"
                                     label="Select from existing tags or create your own"
                                     placeholder="Add..."
+                                    autoComplete="off"
                                 />
                             )}
                         />
