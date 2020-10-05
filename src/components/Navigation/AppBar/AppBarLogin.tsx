@@ -33,14 +33,11 @@ const useStyles = makeStyles((theme: Theme) =>
         appBar: {background: 'rgba(250,250,250,0.9)'},
         root: {
             marginTop: theme.spacing(1),
-
             textTransform: 'none',
             fontSize: '12px',
             fontWeight: 500,
             position: 'relative',
             display: 'block',
-
-            width: '100%',
         },
         toolbar: {},
 
@@ -175,7 +172,7 @@ export default withWidth()(({width, handleDrawerOpen}: any) => {
                 </Grid>
             ) : (
                 <Grid container>
-                    <Grid item xs={4}>
+                    <Grid item xs={5}>
                         <Link
                             underline="none"
                             color="textPrimary"
@@ -202,7 +199,7 @@ export default withWidth()(({width, handleDrawerOpen}: any) => {
                         </Link>
                     </Grid>
 
-                    <Grid item xs={7}>
+                    <Grid item xs={6}>
                         <Toolbar>
                             <Tabs
                                 className={classes.root}
