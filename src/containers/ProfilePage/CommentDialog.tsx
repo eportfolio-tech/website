@@ -120,6 +120,7 @@ export default ({
                         onClick={handleNewComment}
                         className={classes.submitComment}
                         color="secondary"
+                        disabled={!newComment}
                     >
                         <Send />
                     </IconButton>
