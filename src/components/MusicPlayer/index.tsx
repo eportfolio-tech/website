@@ -6,7 +6,7 @@ import 'react-h5-audio-player/lib/styles.css';
 import MusicWave from './musicWave';
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
 export default ({style, src}: any) => {
-    const [playing, setPlaying] = useState(true);
+    const [playing, setPlaying] = useState(false);
     const [open, setOpen] = useState(false);
 
     const Player = (
@@ -36,10 +36,10 @@ export default ({style, src}: any) => {
             }
             src={src}
             onPlay={() => {
-                setPlaying(false);
+                setPlaying(true);
             }}
             onPause={() => {
-                setPlaying(true);
+                setPlaying(false);
             }}
             onEnded={() => {
                 setPlaying(false);
