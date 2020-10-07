@@ -122,7 +122,7 @@ function ProductCTA() {
                     <Hidden smDown>
                         <div className={classes.imageDots} />
                         <img
-                            src="http://haswf.com:10000/devstoreaccount1/image/unimelb.jpg"
+                            src="https://comp30002.blob.core.windows.net/image/unimelb.jpg"
                             alt="call to action"
                             className={classes.image}
                         />
