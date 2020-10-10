@@ -135,8 +135,7 @@ function App() {
                                 Component={Explore}
                             />
                             <LoggedInRoute
-                                exact
-                                path={'/settings'}
+                                path={'/dashboard'}
                                 Component={Settings}
                             />
                             <Route exact path={'/'} component={HomePage} />
