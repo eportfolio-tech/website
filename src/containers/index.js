@@ -18,6 +18,8 @@ import HomePage from '../components/Homepage';
 
 import ProfilePage from './ProfilePage';
 
+import Dashboard from './Dashboard';
+
 import NotFound from './NotFoundPage/NotFoundPage';
 
 export {
@@ -31,4 +33,5 @@ export {
     HomePage,
     ProfilePage,
     NotFound,
+    Dashboard,
 };

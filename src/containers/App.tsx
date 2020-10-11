@@ -21,6 +21,7 @@ import {
     Setting,
     Verify,
     NotFound,
+    Dashboard,
 } from '.';
 
 interface IProtectedRoute {
@@ -136,6 +137,11 @@ function App() {
                             />
                             <LoggedInRoute
                                 path={'/dashboard'}
+                                Component={Dashboard}
+                            />
+                            <LoggedInRoute
+                                exact
+                                path={'/settings'}
                                 Component={Settings}
                             />
                             <Route exact path={'/'} component={HomePage} />
