@@ -95,7 +95,9 @@ export default function AppFooter() {
                         </Typography>
                         <ul className={classes.list}>
                             <li className={classes.listItem}>
-                                <Link href="https://www.google.com">Terms</Link>
+                                <Link href="https://www.google.com">
+                                    Terms and Conditions
+                                </Link>
                             </li>
                             <li className={classes.listItem}>
                                 <Link href="https://www.google.com">
