@@ -97,7 +97,7 @@ export default function ProfilePage({match, history, forceUpdate}: any) {
     const fetchFollow = async () => {
         try {
             // find who follow this portfolio
-            const follower = await socialService.findWhofollowedThisPortfolio(
+            const follower = await socialService.findWhoFollowedThisPortfolio(
                 match.params.username
             );
             setFollower(follower.followed);
@@ -160,7 +160,7 @@ export default function ProfilePage({match, history, forceUpdate}: any) {
             try {
                 const username = match.params.username;
                 // @ts-ignore
-                await socialService.unfollowPortfolio(username);
+                await socialService.unFollowPortfolio(username);
                 // @ts-ignore
                 setFollower(false);
                 dispatch(

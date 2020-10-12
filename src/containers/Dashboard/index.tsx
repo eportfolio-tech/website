@@ -20,7 +20,7 @@ import TagIcon from '@material-ui/icons/LocalOffer';
 import ResetPassword from './ResetPassword';
 import UserTags from './UserTag';
 import UpdateInfo from './UpdateInfo';
-
+import Follow from './Follow';
 import Layout from '../../components/Navigation';
 
 // import TabContext from '@material-ui/lab/TabContext';
@@ -209,7 +209,7 @@ export default withWidth()(({width}: any) => {
                                 <UpdateInfo />
                             </TabPanel>
                             <TabPanel value={getIndex(path)} index={1}>
-                                <div></div>
+                                <Follow />
                             </TabPanel>
                             <TabPanel value={getIndex(path)} index={2}>
                                 <UserTags />
