@@ -118,7 +118,7 @@ export default function AppFooter() {
                                 </Link>
                             </li>
                             <li className={classes.listItem}>
-                                <Link href="https://www.google.com">
+                                <Link href="https://www.seek.com.au/Forty+Two-jobs">
                                     Careers
                                 </Link>
                             </li>
