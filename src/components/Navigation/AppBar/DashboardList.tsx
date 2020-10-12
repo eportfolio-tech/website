@@ -42,7 +42,7 @@ const routers = [
     {
         icon: <FaceIcon />,
         path: 'profile',
-        name: 'My Profile',
+        name: 'Profile',
     },
     {
         icon: <FollowIcon />,
@@ -52,7 +52,7 @@ const routers = [
     {
         icon: <TagIcon />,
         path: 'tags',
-        name: 'My Tag(s)',
+        name: 'Tag(s)',
     },
     {
         icon: <KeyIcon />,
@@ -102,7 +102,6 @@ export default withWidth()(() => {
                     return (
                         <Tab
                             key={key}
-                            icon={prop.icon}
                             classes={{
                                 root: classes.pills,
                                 selected: classes.primary,

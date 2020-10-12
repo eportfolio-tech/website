@@ -44,7 +44,9 @@ function TabPanel(props: TabPanelProps) {
             aria-labelledby={`full-width-tab-${index}`}
             {...other}
         >
-            {value === index && <div>{children}</div>}
+            {value === index && (
+                <div style={{minHeight: '70VH'}}>{children}</div>
+            )}
         </div>
     );
 }
@@ -62,7 +64,7 @@ const useStyles = makeStyles((theme: Theme) =>
             flexGrow: 1,
             width: '100%',
         },
-        pills: {
+        vertical: {
             color: '#555555',
             textTransform: 'none',
             opacity: '1',
@@ -70,6 +72,12 @@ const useStyles = makeStyles((theme: Theme) =>
             borderRadius: '4px',
             borderTopLeftRadius: '50px',
             borderBottomLeftRadius: '50px',
+        },
+        horizontal: {
+            color: '#555555',
+            textTransform: 'none',
+            opacity: '1',
+            borderRadius: '4px',
         },
 
         primary: {
@@ -89,7 +97,7 @@ const routers = [
     {
         icon: <FaceIcon />,
         path: 'profile',
-        name: 'My Profile',
+        name: 'Profile',
     },
     {
         icon: <FollowIcon />,
@@ -99,7 +107,7 @@ const routers = [
     {
         icon: <TagIcon />,
         path: 'tags',
-        name: 'My Tag(s)',
+        name: 'Tag(s)',
     },
     {
         icon: <KeyIcon />,
@@ -138,8 +146,14 @@ export default withWidth()(({width}: any) => {
             <div className={classes.root}>
                 <CssBaseline />
                 <Grid container justify="center">
-                    <Grid item xs={2} md={2}>
-                        <div style={{marginLeft: '0%', maxWidth: '200px'}}>
+                    <Grid item xs={12} md={2}>
+                        <div
+                            style={
+                                largeScreen
+                                    ? {marginLeft: '0%', maxWidth: '200px'}
+                                    : undefined
+                            }
+                        >
                             {' '}
                             <Tabs
                                 className={classes.root}
@@ -149,7 +163,12 @@ export default withWidth()(({width}: any) => {
                                         '/dashboard/' + routers[active].path
                                     );
                                 }}
-                                orientation="vertical"
+                                orientation={
+                                    largeScreen ? 'vertical' : 'horizontal'
+                                }
+                                variant="fullWidth"
+                                centered={!largeScreen}
+                                scrollButtons="auto"
                             >
                                 {routers.map((prop: any, key: any) => {
                                     return (
@@ -157,14 +176,16 @@ export default withWidth()(({width}: any) => {
                                             {...a11yProps(key)}
                                             icon={prop.icon}
                                             classes={{
-                                                root: classes.pills,
+                                                root: largeScreen
+                                                    ? classes.vertical
+                                                    : classes.horizontal,
                                                 selected: classes.primary,
                                                 wrapper: classes.tabWrapper,
                                             }}
                                             label={
                                                 largeScreen
                                                     ? prop.name
-                                                    : undefined
+                                                    : prop.name
                                             }
                                         ></Tab>
                                     );
@@ -172,13 +193,15 @@ export default withWidth()(({width}: any) => {
                             </Tabs>
                         </div>
                     </Grid>
+                    <Grid item xs={12} md={1}></Grid>
+
                     <Grid item xs={10} md={8}>
                         <SwipeableViews
                             axis="x"
                             index={getIndex(path)}
-                            onChangeIndex={(event: any, active: any) => {
+                            onChangeIndex={(index: number) => {
                                 history.push(
-                                    '/dashboard/' + routers[active].path
+                                    '/dashboard/' + routers[index].path
                                 );
                             }}
                         >

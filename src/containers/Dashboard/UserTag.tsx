@@ -1,13 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-    Button,
-    Card,
-    CardContent,
-    Checkbox,
-    Grid,
-    TextField,
-    useTheme,
-} from '@material-ui/core';
+import {Button, Checkbox, Grid, TextField, useTheme} from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
@@ -36,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             background: theme.palette.background.default,
-            height: '100%',
+            marginTop: theme.spacing(5),
         },
         resetButton: {
             marginTop: theme.spacing(3),
@@ -149,7 +141,7 @@ export default () => {
     };
 
     return (
-        <Card className={classes.root}>
+        <div className={classes.root}>
             {/* <CardHeader
                 avatar={<TagIcon className={classes.cardTitleIcon} />}
                 title={
@@ -159,69 +151,65 @@ export default () => {
                 }
             />
             <Divider /> */}
-            <CardContent>
-                <Grid container spacing={1}>
-                    <Grid item xs={12}>
-                        <Autocomplete
-                            multiple
-                            id="checkboxes-tags-demo"
-                            disableCloseOnSelect
-                            options={options}
-                            getOptionLabel={(option: any) =>
-                                option.name || option
-                            }
-                            value={userTags}
-                            onChange={onChangeHandler}
-                            freeSolo
-                            getOptionSelected={checkSelect}
-                            renderOption={(option, {selected}) => (
-                                <React.Fragment>
-                                    <Checkbox
-                                        icon={icon}
-                                        checkedIcon={checkedIcon}
-                                        style={{marginRight: 8}}
-                                        checked={selected}
-                                    />
-                                    {option.name}
-                                </React.Fragment>
-                            )}
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    variant="outlined"
-                                    label="Select from existing tags or create your own"
-                                    placeholder="Add..."
-                                    autoComplete="off"
+
+            <Grid container justify="center" spacing={3}>
+                <Grid item xs={10} md={12}>
+                    <Autocomplete
+                        multiple
+                        id="checkboxes-tags-demo"
+                        disableCloseOnSelect
+                        options={options}
+                        getOptionLabel={(option: any) => option.name || option}
+                        value={userTags}
+                        onChange={onChangeHandler}
+                        freeSolo
+                        getOptionSelected={checkSelect}
+                        renderOption={(option, {selected}) => (
+                            <React.Fragment>
+                                <Checkbox
+                                    icon={icon}
+                                    checkedIcon={checkedIcon}
+                                    style={{marginRight: 8}}
+                                    checked={selected}
                                 />
-                            )}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <br />
-                        <Button
-                            style={{textTransform: 'none'}}
-                            onClick={getUserTags}
-                            variant="contained"
-                            color="secondary"
-                            startIcon={<RestoreIcon />}
-                        >
-                            Refresh
-                        </Button>
-                        <Button
-                            style={{
-                                textTransform: 'none',
-                                marginLeft: theme.spacing(2),
-                            }}
-                            onClick={onSubmitHandler}
-                            variant="contained"
-                            color="secondary"
-                            startIcon={<PublishIcon />}
-                        >
-                            Submit
-                        </Button>
-                    </Grid>
+                                {option.name}
+                            </React.Fragment>
+                        )}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                variant="outlined"
+                                label="Select from existing or create your own"
+                                placeholder="Add..."
+                                autoComplete="off"
+                            />
+                        )}
+                    />
                 </Grid>
-            </CardContent>
-        </Card>
+                <Grid item>
+                    <Button
+                        style={{textTransform: 'none'}}
+                        onClick={getUserTags}
+                        variant="contained"
+                        color="secondary"
+                        startIcon={<RestoreIcon />}
+                    >
+                        Refresh
+                    </Button>
+                    <Button
+                        style={{
+                            textTransform: 'none',
+                            marginLeft: theme.spacing(2),
+                        }}
+                        onClick={onSubmitHandler}
+                        variant="contained"
+                        color="secondary"
+                        startIcon={<PublishIcon />}
+                    >
+                        Submit
+                    </Button>
+                </Grid>
+            </Grid>
+        </div>
     );
 };
