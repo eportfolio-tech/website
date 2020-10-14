@@ -21,6 +21,7 @@ import {useDispatch} from 'react-redux';
 import {socialService} from '../../../utils/socialService';
 import {alertActions} from '../../../store/actions/alertActions';
 import Loading from '../../../components/Loading/Loading';
+import {useHistory} from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -39,6 +40,8 @@ export default withWidth()(({width, isFollower}: any) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const largeScreen = isWidthUp('md', width);
+    const history = useHistory();
+
     const userInfo = JSON.parse(localStorage.getItem('user') || 'null').user;
     const [avatars, setAvatars] = useState<any>(null);
     console.log(largeScreen);
@@ -93,6 +96,9 @@ export default withWidth()(({width, isFollower}: any) => {
                         button
                         alignItems="flex-start"
                         className={classes.nested}
+                        onClick={() => {
+                            history.push('/portfolio/' + getUsername(each));
+                        }}
                     >
                         <ListItemAvatar>
                             <Avatar>{getUsername(each)[0]}</Avatar>
