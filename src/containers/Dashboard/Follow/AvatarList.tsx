@@ -46,12 +46,12 @@ export default withWidth()(({width, isFollower}: any) => {
         fetchFollow();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [dispatch]);
 
     const fetchFollow = async () => {
         try {
             //get portfolio
-
+            setAvatars(null);
             const fetch = isFollower
                 ? socialService.findWhoFollowedThisPortfolio
                 : socialService.findWhoIamFollowing;
@@ -67,12 +67,15 @@ export default withWidth()(({width, isFollower}: any) => {
         }
     };
 
-    const unFollowHandler = async () => {
+    const unFollowHandler = async (username: any) => {
         try {
             // const userInfo = JSON.parse(localStorage.getItem('user') || 'null');
             // const username = userInfo.user.username;
             // await authService.resetPassword(username, oldPassword, newPassword);
             // dispatch(alertActions.success('reset password succeed'));
+            const data = await socialService.unFollowPortfolio(username);
+            console.log(data);
+            dispatch(alertActions.success('succeed'));
         } catch (error) {
             dispatch(alertActions.error(error));
         }
@@ -84,7 +87,7 @@ export default withWidth()(({width, isFollower}: any) => {
     return (
         <List component="div" disablePadding>
             <Divider variant="inset" component="li" />
-            {avatars ? (
+            {avatars && avatars.length > 0 ? (
                 avatars.map((each: any) => (
                     <ListItem
                         button
@@ -115,7 +118,12 @@ export default withWidth()(({width, isFollower}: any) => {
                                 >
                                     <IconButton
                                         edge="end"
-                                        onClick={unFollowHandler}
+                                        onClick={async () => {
+                                            await unFollowHandler(
+                                                getUsername(each)
+                                            );
+                                            fetchFollow();
+                                        }}
                                     >
                                         <RemoveIcon />
                                     </IconButton>
@@ -124,12 +132,12 @@ export default withWidth()(({width, isFollower}: any) => {
                         )}
                     </ListItem>
                 ))
-            ) : avatars === [] ? (
+            ) : avatars === null ? (
+                <Loading />
+            ) : (
                 <ListItem alignItems="flex-start">
                     <ListItemText primary="None" className={classes.nested} />
                 </ListItem>
-            ) : (
-                <Loading />
             )}
         </List>
     );

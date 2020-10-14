@@ -1,10 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Checkbox, Grid, TextField, useTheme} from '@material-ui/core';
+import {
+    Button,
+    Checkbox,
+    Grid,
+    TextField,
+    useTheme,
+    Card,
+    CardContent,
+    CardHeader,
+    Divider,
+    Typography,
+} from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import PublishIcon from '@material-ui/icons/Publish';
 import RestoreIcon from '@material-ui/icons/Restore';
+import TagIcon from '@material-ui/icons/LocalOffer';
 
 import {useDispatch} from 'react-redux';
 import {userService} from '../../utils/userService';
@@ -27,8 +39,8 @@ interface TagType {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            background: theme.palette.background.default,
-            marginTop: theme.spacing(5),
+            // background: theme.palette.background.default,
+            // marginTop: theme.spacing(5),
         },
         resetButton: {
             marginTop: theme.spacing(3),
@@ -141,8 +153,8 @@ export default () => {
     };
 
     return (
-        <div className={classes.root}>
-            {/* <CardHeader
+        <Card elevation={0} className={classes.root}>
+            <CardHeader
                 avatar={<TagIcon className={classes.cardTitleIcon} />}
                 title={
                     <Typography className={classes.cardTitle} variant="h5">
@@ -150,66 +162,69 @@ export default () => {
                     </Typography>
                 }
             />
-            <Divider /> */}
-
-            <Grid container justify="center" spacing={3}>
-                <Grid item xs={10} md={12}>
-                    <Autocomplete
-                        multiple
-                        id="checkboxes-tags-demo"
-                        disableCloseOnSelect
-                        options={options}
-                        getOptionLabel={(option: any) => option.name || option}
-                        value={userTags}
-                        onChange={onChangeHandler}
-                        freeSolo
-                        getOptionSelected={checkSelect}
-                        renderOption={(option, {selected}) => (
-                            <React.Fragment>
-                                <Checkbox
-                                    icon={icon}
-                                    checkedIcon={checkedIcon}
-                                    style={{marginRight: 8}}
-                                    checked={selected}
+            <Divider />
+            <CardContent>
+                <Grid container justify="center" spacing={3}>
+                    <Grid item xs={10} md={12}>
+                        <Autocomplete
+                            multiple
+                            id="checkboxes-tags-demo"
+                            disableCloseOnSelect
+                            options={options}
+                            getOptionLabel={(option: any) =>
+                                option.name || option
+                            }
+                            value={userTags}
+                            onChange={onChangeHandler}
+                            freeSolo
+                            getOptionSelected={checkSelect}
+                            renderOption={(option, {selected}) => (
+                                <React.Fragment>
+                                    <Checkbox
+                                        icon={icon}
+                                        checkedIcon={checkedIcon}
+                                        style={{marginRight: 8}}
+                                        checked={selected}
+                                    />
+                                    {option.name}
+                                </React.Fragment>
+                            )}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    variant="outlined"
+                                    label="Select from existing or create your own"
+                                    placeholder="Add..."
+                                    autoComplete="off"
                                 />
-                                {option.name}
-                            </React.Fragment>
-                        )}
-                        renderInput={(params) => (
-                            <TextField
-                                {...params}
-                                variant="outlined"
-                                label="Select from existing or create your own"
-                                placeholder="Add..."
-                                autoComplete="off"
-                            />
-                        )}
-                    />
+                            )}
+                        />
+                    </Grid>
+                    <Grid item>
+                        <Button
+                            style={{textTransform: 'none'}}
+                            onClick={getUserTags}
+                            variant="contained"
+                            color="secondary"
+                            startIcon={<RestoreIcon />}
+                        >
+                            Refresh
+                        </Button>
+                        <Button
+                            style={{
+                                textTransform: 'none',
+                                marginLeft: theme.spacing(2),
+                            }}
+                            onClick={onSubmitHandler}
+                            variant="contained"
+                            color="secondary"
+                            startIcon={<PublishIcon />}
+                        >
+                            Submit
+                        </Button>
+                    </Grid>
                 </Grid>
-                <Grid item>
-                    <Button
-                        style={{textTransform: 'none'}}
-                        onClick={getUserTags}
-                        variant="contained"
-                        color="secondary"
-                        startIcon={<RestoreIcon />}
-                    >
-                        Refresh
-                    </Button>
-                    <Button
-                        style={{
-                            textTransform: 'none',
-                            marginLeft: theme.spacing(2),
-                        }}
-                        onClick={onSubmitHandler}
-                        variant="contained"
-                        color="secondary"
-                        startIcon={<PublishIcon />}
-                    >
-                        Submit
-                    </Button>
-                </Grid>
-            </Grid>
-        </div>
+            </CardContent>
+        </Card>
     );
 };

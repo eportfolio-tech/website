@@ -1,16 +1,26 @@
 import React, {useState} from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
-import {Button, Grid, TextField, Typography} from '@material-ui/core';
+import {
+    Button,
+    Grid,
+    TextField,
+    Typography,
+    Card,
+    CardContent,
+    CardHeader,
+    Divider,
+} from '@material-ui/core';
 
 import {useDispatch} from 'react-redux';
 import {authService} from '../../utils/authService';
 import {alertActions} from '../../store/actions/alertActions';
+import KeyIcon from '@material-ui/icons/VpnKey';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            background: theme.palette.background.default,
-            marginTop: theme.spacing(5),
+            // background: theme.palette.background.default,
+            // marginTop: theme.spacing(5),
         },
         resetButton: {
             marginTop: theme.spacing(3),
@@ -67,76 +77,91 @@ export default function ResetPassword() {
     };
 
     return (
-        <div className={classes.root}>
-            <Grid container justify="center" spacing={2}>
-                <Grid item xs={10} md={12}>
-                    <TextField
-                        required
-                        id="outlined-basic"
-                        label="Old Password"
-                        variant="outlined"
-                        type="password"
-                        onChange={(event) => setOldPassword(event.target.value)}
-                        fullWidth
-                    >
-                        Old Password
-                    </TextField>
-                </Grid>
-                <Grid item xs={10} md={12}>
-                    <Typography variant={'subtitle2'}>
-                        Use at least 8 characters. Don’t use a password from
-                        another site or something too obvious like your pet’s
-                        name.
-                    </Typography>
-                </Grid>
-                <Grid item xs={10} md={12}>
-                    <TextField
-                        required
-                        id="outlined-basic"
-                        label="New Password"
-                        variant="outlined"
-                        type="password"
-                        onChange={(event) => setNewPassword(event.target.value)}
-                        error={!checkPassword()}
-                        fullWidth
-                    >
-                        New Password
-                    </TextField>
-                </Grid>
-                <Grid item xs={10} md={12}>
-                    <TextField
-                        required
-                        id="outlined-basic"
-                        variant="outlined"
-                        type="password"
-                        label="Confirm new password"
-                        onChange={(event) =>
-                            setRepeatPassword(event.target.value)
-                        }
-                        error={
-                            newPassword !== repeatPassword &&
-                            repeatPassword.length > 0
-                        }
-                        fullWidth
-                    >
-                        Repeat New Password
-                    </TextField>
-                </Grid>
-                <Grid item>
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        disabled={
-                            !oldPassword || !newPassword || !repeatPassword
-                        }
-                        onClick={onResetHandler}
-                        className={classes.resetButton}
-                    >
-                        {' '}
+        <Card elevation={0} className={classes.root}>
+            <CardHeader
+                avatar={<KeyIcon className={classes.cardTitleIcon} />}
+                title={
+                    <Typography variant="h5" className={classes.cardTitle}>
                         Change Password
-                    </Button>
+                    </Typography>
+                }
+            />
+            <Divider />
+            <CardContent>
+                <Grid container justify="center" spacing={2}>
+                    <Grid item xs={10} md={12}>
+                        <TextField
+                            required
+                            id="outlined-basic"
+                            label="Old Password"
+                            variant="outlined"
+                            type="password"
+                            onChange={(event) =>
+                                setOldPassword(event.target.value)
+                            }
+                            fullWidth
+                        >
+                            Old Password
+                        </TextField>
+                    </Grid>
+                    <Grid item xs={10} md={12}>
+                        <Typography variant={'subtitle2'}>
+                            Use at least 8 characters. Don’t use a password from
+                            another site or something too obvious like your
+                            pet’s name.
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={10} md={12}>
+                        <TextField
+                            required
+                            id="outlined-basic"
+                            label="New Password"
+                            variant="outlined"
+                            type="password"
+                            onChange={(event) =>
+                                setNewPassword(event.target.value)
+                            }
+                            error={!checkPassword()}
+                            fullWidth
+                        >
+                            New Password
+                        </TextField>
+                    </Grid>
+                    <Grid item xs={10} md={12}>
+                        <TextField
+                            required
+                            id="outlined-basic"
+                            variant="outlined"
+                            type="password"
+                            label="Confirm new password"
+                            onChange={(event) =>
+                                setRepeatPassword(event.target.value)
+                            }
+                            error={
+                                newPassword !== repeatPassword &&
+                                repeatPassword.length > 0
+                            }
+                            fullWidth
+                        >
+                            Repeat New Password
+                        </TextField>
+                    </Grid>
+                    <Grid item>
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            disabled={
+                                !oldPassword || !newPassword || !repeatPassword
+                            }
+                            onClick={onResetHandler}
+                            className={classes.resetButton}
+                        >
+                            {' '}
+                            Change Password
+                        </Button>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </div>
+            </CardContent>
+        </Card>
     );
 }

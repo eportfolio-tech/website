@@ -102,12 +102,12 @@ const routers = [
     {
         icon: <FollowIcon />,
         path: 'follows',
-        name: 'Follower(s)',
+        name: 'Follow',
     },
     {
         icon: <TagIcon />,
         path: 'tags',
-        name: 'Tag(s)',
+        name: 'Tag',
     },
     {
         icon: <KeyIcon />,
@@ -174,7 +174,6 @@ export default withWidth()(({width}: any) => {
                                     return (
                                         <Tab
                                             {...a11yProps(key)}
-                                            icon={prop.icon}
                                             classes={{
                                                 root: largeScreen
                                                     ? classes.vertical

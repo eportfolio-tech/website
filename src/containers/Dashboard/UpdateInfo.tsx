@@ -8,6 +8,10 @@ import {
     IconButton,
     Tooltip,
     Typography,
+    Card,
+    CardContent,
+    CardHeader,
+    Divider,
 } from '@material-ui/core';
 
 import {useDispatch} from 'react-redux';
@@ -15,12 +19,13 @@ import {authService} from '../../utils/authService';
 import {alertActions} from '../../store/actions/alertActions';
 
 import {userService} from '../../utils/userService';
+import UpdateIcon from '@material-ui/icons/Update';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            background: theme.palette.background.default,
-            marginTop: theme.spacing(5),
+            //background: theme.palette.background.default,
+            //marginTop: theme.spacing(5),
         },
         resetButton: {
             marginTop: theme.spacing(3),
@@ -130,8 +135,8 @@ export default function UpdateProfile() {
     console.log(userInfo);
 
     return (
-        <div className={classes.root}>
-            {/* <CardHeader
+        <Card elevation={0} className={classes.root}>
+            <CardHeader
                 avatar={<UpdateIcon className={classes.cardTitleIcon} />}
                 title={
                     <Typography variant="h5" className={classes.cardTitle}>
@@ -139,51 +144,51 @@ export default function UpdateProfile() {
                     </Typography>
                 }
             />
-            <Divider /> */}
-
-            <Grid container justify="center" spacing={1}>
-                <Grid item xs={12}>
-                    <Grid container justify="center">
-                        <Grid item>
-                            <label
-                                htmlFor="upload-photo"
-                                style={{margin: 'auto'}}
-                            >
-                                <input
-                                    style={{display: 'none'}}
-                                    id="upload-photo"
-                                    name="upload-photo"
-                                    type="file"
-                                    accept=".png,.jpg"
-                                    onChange={onAvatarChange}
-                                />
-                                <Tooltip
-                                    placement="top"
-                                    title={
-                                        <Typography variant="body1">
-                                            Edit Avatar
-                                        </Typography>
-                                    }
-                                    arrow
+            <Divider />
+            <CardContent>
+                <Grid container justify="center" spacing={1}>
+                    <Grid item xs={12}>
+                        <Grid container justify="center">
+                            <Grid item>
+                                <label
+                                    htmlFor="upload-photo"
+                                    style={{margin: 'auto'}}
                                 >
-                                    <IconButton
-                                        component="span"
-                                        aria-label="add"
+                                    <input
+                                        style={{display: 'none'}}
+                                        id="upload-photo"
+                                        name="upload-photo"
+                                        type="file"
+                                        accept=".png,.jpg"
+                                        onChange={onAvatarChange}
+                                    />
+                                    <Tooltip
+                                        placement="top"
+                                        title={
+                                            <Typography variant="body1">
+                                                Edit Avatar
+                                            </Typography>
+                                        }
+                                        arrow
                                     >
-                                        <Avatar
-                                            alt={userInfo.username.toUpperCase()}
-                                            src={userInfo.avatarUrl}
-                                            className={classes.large}
-                                            // style={{borderStyle: 'solid'}}
-                                        />
-                                    </IconButton>
-                                </Tooltip>
-                            </label>
+                                        <IconButton
+                                            component="span"
+                                            aria-label="add"
+                                        >
+                                            <Avatar
+                                                alt={userInfo.username.toUpperCase()}
+                                                src={userInfo.avatarUrl}
+                                                className={classes.large}
+                                                // style={{borderStyle: 'solid'}}
+                                            />
+                                        </IconButton>
+                                    </Tooltip>
+                                </label>
+                            </Grid>
                         </Grid>
                     </Grid>
-                </Grid>
 
-                {/* <Grid item xs={5}>
+                    {/* <Grid item xs={5}>
                     <Grid
                         container
                         alignItems="center"
@@ -213,88 +218,89 @@ export default function UpdateProfile() {
                         </Grid>
                     </Grid>
                 </Grid> */}
-                <Grid item xs={12}>
-                    <br />
+                    <Grid item xs={12}>
+                        <br />
+                    </Grid>
+                    <Grid item xs={10} md={12}>
+                        <TextField
+                            required
+                            id="title"
+                            label="Title"
+                            variant="outlined"
+                            fullWidth
+                            value={userInfo.title || ''}
+                            onChange={(event) =>
+                                handleInput('title', event.target.value)
+                            }
+                        >
+                            Title
+                        </TextField>
+                    </Grid>
+                    <Grid item xs={10} md={12}>
+                        <TextField
+                            required
+                            id="firstName"
+                            label="First Name"
+                            variant="outlined"
+                            fullWidth
+                            value={userInfo.firstName || ''}
+                            onChange={(event) =>
+                                handleInput('firstName', event.target.value)
+                            }
+                        >
+                            First Name
+                        </TextField>
+                    </Grid>
+                    <Grid item xs={10} md={12}>
+                        <TextField
+                            required
+                            id="lastName"
+                            name="lastName"
+                            label="Last Name"
+                            variant="outlined"
+                            fullWidth
+                            autoComplete="family-name"
+                            value={userInfo.lastName || ''}
+                            onChange={(event) =>
+                                handleInput('lastName', event.target.value)
+                            }
+                        />
+                    </Grid>
+                    <Grid item xs={10} md={12}>
+                        <TextField
+                            required
+                            id="email"
+                            name="email"
+                            label="Email Address"
+                            variant="outlined"
+                            fullWidth
+                            autoComplete="Email Address"
+                            value={userInfo.email || ''}
+                            onChange={(event) =>
+                                handleInput('email', event.target.value)
+                            }
+                        />
+                    </Grid>
+                    <Grid item>
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={onUpdateHandler}
+                            className={classes.resetButton}
+                            disabled={
+                                !userInfo.title ||
+                                !userInfo.firstName ||
+                                !userInfo.lastName ||
+                                !userInfo.email ||
+                                !isModified()
+                            }
+                        >
+                            {' '}
+                            Update
+                        </Button>
+                    </Grid>
                 </Grid>
-                <Grid item xs={10} md={12}>
-                    <TextField
-                        required
-                        id="title"
-                        label="Title"
-                        variant="outlined"
-                        fullWidth
-                        value={userInfo.title || ''}
-                        onChange={(event) =>
-                            handleInput('title', event.target.value)
-                        }
-                    >
-                        Title
-                    </TextField>
-                </Grid>
-                <Grid item xs={10} md={12}>
-                    <TextField
-                        required
-                        id="firstName"
-                        label="First Name"
-                        variant="outlined"
-                        fullWidth
-                        value={userInfo.firstName || ''}
-                        onChange={(event) =>
-                            handleInput('firstName', event.target.value)
-                        }
-                    >
-                        First Name
-                    </TextField>
-                </Grid>
-                <Grid item xs={10} md={12}>
-                    <TextField
-                        required
-                        id="lastName"
-                        name="lastName"
-                        label="Last Name"
-                        variant="outlined"
-                        fullWidth
-                        autoComplete="family-name"
-                        value={userInfo.lastName || ''}
-                        onChange={(event) =>
-                            handleInput('lastName', event.target.value)
-                        }
-                    />
-                </Grid>
-                <Grid item xs={10} md={12}>
-                    <TextField
-                        required
-                        id="email"
-                        name="email"
-                        label="Email Address"
-                        variant="outlined"
-                        fullWidth
-                        autoComplete="Email Address"
-                        value={userInfo.email || ''}
-                        onChange={(event) =>
-                            handleInput('email', event.target.value)
-                        }
-                    />
-                </Grid>
-                <Grid item>
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        onClick={onUpdateHandler}
-                        className={classes.resetButton}
-                        disabled={
-                            !userInfo.title ||
-                            !userInfo.firstName ||
-                            !userInfo.lastName ||
-                            !userInfo.email ||
-                            !isModified()
-                        }
-                    >
-                        {' '}
-                        Update
-                    </Button>
-                </Grid>
-            </Grid>
-        </div>
+            </CardContent>
+        </Card>
     );
 }

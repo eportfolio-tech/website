@@ -47,12 +47,12 @@ const routers = [
     {
         icon: <FollowIcon />,
         path: 'follows',
-        name: 'Follower(s)',
+        name: 'Follow',
     },
     {
         icon: <TagIcon />,
         path: 'tags',
-        name: 'Tag(s)',
+        name: 'Tag',
     },
     {
         icon: <KeyIcon />,
