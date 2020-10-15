@@ -9,6 +9,7 @@ import {
     ListItemAvatar,
     Avatar,
     Tooltip,
+    Grow,
 } from '@material-ui/core';
 
 import List from '@material-ui/core/List';
@@ -91,52 +92,55 @@ export default withWidth()(({width, isFollower}: any) => {
         <List component="div" disablePadding>
             <Divider variant="inset" component="li" />
             {avatars && avatars.length > 0 ? (
-                avatars.map((each: any) => (
-                    <ListItem
-                        button
-                        alignItems="flex-start"
-                        className={classes.nested}
-                        onClick={() => {
-                            history.push('/portfolio/' + getUsername(each));
-                        }}
-                    >
-                        <ListItemAvatar>
-                            <Avatar>{getUsername(each)[0]}</Avatar>
-                        </ListItemAvatar>
+                avatars.map((each: any, key: number) => (
+                    <Grow in timeout={'auto'}>
+                        <ListItem
+                            button
+                            alignItems="flex-start"
+                            className={classes.nested}
+                            onClick={() => {
+                                history.push('/portfolio/' + getUsername(each));
+                            }}
+                            key={key}
+                        >
+                            <ListItemAvatar>
+                                <Avatar>{getUsername(each)[0]}</Avatar>
+                            </ListItemAvatar>
 
-                        <ListItemText
-                            primary={getUsername(each)}
-                            secondary={
-                                isFollower
-                                    ? 'is following you'
-                                    : 'click to check it out'
-                            }
-                        />
-                        {isFollower ? null : (
-                            <ListItemSecondaryAction>
-                                <Tooltip
-                                    title={
-                                        <Typography variant="body2">
-                                            remove
-                                        </Typography>
-                                    }
-                                    placement="left"
-                                >
-                                    <IconButton
-                                        edge="end"
-                                        onClick={async () => {
-                                            await unFollowHandler(
-                                                getUsername(each)
-                                            );
-                                            fetchFollow();
-                                        }}
+                            <ListItemText
+                                primary={getUsername(each)}
+                                secondary={
+                                    isFollower
+                                        ? 'is following you'
+                                        : 'click to check it out'
+                                }
+                            />
+                            {isFollower ? null : (
+                                <ListItemSecondaryAction>
+                                    <Tooltip
+                                        title={
+                                            <Typography variant="body2">
+                                                remove
+                                            </Typography>
+                                        }
+                                        placement="left"
                                     >
-                                        <RemoveIcon />
-                                    </IconButton>
-                                </Tooltip>
-                            </ListItemSecondaryAction>
-                        )}
-                    </ListItem>
+                                        <IconButton
+                                            edge="end"
+                                            onClick={async () => {
+                                                await unFollowHandler(
+                                                    getUsername(each)
+                                                );
+                                                fetchFollow();
+                                            }}
+                                        >
+                                            <RemoveIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                </ListItemSecondaryAction>
+                            )}
+                        </ListItem>
+                    </Grow>
                 ))
             ) : avatars === null ? (
                 <Loading />
