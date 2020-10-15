@@ -1,16 +1,16 @@
 import 'braft-editor/dist/index.css';
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import BraftEditor from 'braft-editor';
 
-import {Button, Grid, TextField, useTheme} from '@material-ui/core';
+import { Button, Grid, TextField, useTheme } from '@material-ui/core';
 
-import {userService} from '../../utils/userService';
-import {pageService} from '../../utils/pageService';
-import {templateService} from '../../utils/templateService';
+import { userService } from '../../utils/userService';
+import { pageService } from '../../utils/pageService';
+import { templateService } from '../../utils/templateService';
 import Paper from '@material-ui/core/Paper';
 
-import {alertActions} from '../../store/actions/alertActions';
-import {useDispatch} from 'react-redux';
+import { alertActions, pageActions } from '../../store/actions';
+import { useDispatch } from 'react-redux';
 
 import TemplateDialog from './Template/TemplateDialog';
 
@@ -47,7 +47,6 @@ export default () => {
             .then((data) => {
                 // console.log('portfolio: ', data.portfolio);
                 setPortfolio(data.portfolio);
-
                 setEditorState(
                     BraftEditor.createEditorState(
                         data.portfolio.content !== null
@@ -59,10 +58,17 @@ export default () => {
                 setDescription(data.portfolio.description);
             })
             .catch((error) => {
+                dispatch(pageActions.loading());
                 setPortfolio(null);
                 if (error.response !== undefined) {
                     if (error.response.status === 404) {
-                        setOpenTemplate(true);
+                        // setOpenTemplate(true);
+                        // if no portfolio, create a blank page by default
+                        setEditorState(BraftEditor.createEditorState(null));
+                        createProfolio();
+                        pageActions.sleep(1000);
+                        onSaveHandlerRemote();
+                        dispatch(pageActions.loaded());
                     } else {
                         dispatch(alertActions.error(error));
                     }
@@ -127,6 +133,21 @@ export default () => {
         const htmlString = editorState.toHTML();
         setHtml(htmlString);
         // setShowHtml(true);
+    };
+
+    const createProfolio = async () => {
+        const userInfo = JSON.parse(localStorage.getItem('user') || 'null');
+        const username = userInfo.user.username;
+        try {
+            await pageService.createPortfolio(username, {
+                description: username,
+                title: 'My E-Portfolio',
+                visibility: 'PUBLIC',
+            });
+            dispatch(alertActions.success('E-Portfolio Created'));
+        } catch (error) {
+            dispatch(alertActions.error(error));
+        }
     };
 
     const myUploadFn = async (param: any) => {
@@ -194,7 +215,7 @@ export default () => {
                             renderHTML();
                             setOpenPreview(true);
                         }}
-                        handlePrint={() => {}}
+                        handlePrint={() => { }}
                         handleTemplate={() => {
                             setOpenTemplate(true);
                         }}
@@ -260,8 +281,8 @@ export default () => {
                                     value={editorState}
                                     onChange={handleChange}
                                     language="en"
-                                    media={{uploadFn: myUploadFn}}
-                                    contentStyle={{height: 'auto'}}
+                                    media={{ uploadFn: myUploadFn }}
+                                    contentStyle={{ height: 'auto' }}
                                     textBackgroundColor={true}
                                 />
                             </Paper>
