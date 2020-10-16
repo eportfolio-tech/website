@@ -22,6 +22,7 @@ import Dashboard from './Dashboard';
 
 import NotFound from './NotFoundPage/NotFoundPage';
 
+import Terms from '../components/Terms/Terms';
 export {
     Search,
     ForgetPassword,
@@ -34,4 +35,5 @@ export {
     ProfilePage,
     NotFound,
     Dashboard,
+    Terms,
 };
