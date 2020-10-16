@@ -64,7 +64,7 @@ export default withWidth()(({width, isFollower}: any) => {
             if (isFollower) {
                 setAvatars(data.followers);
             } else {
-                setAvatars(data.following);
+                setAvatars(data.followings);
             }
         } catch (error) {
             dispatch(alertActions.error(error));
@@ -86,29 +86,37 @@ export default withWidth()(({width, isFollower}: any) => {
     };
 
     const getUsername = (avatar: any) =>
-        isFollower ? avatar.sourceUsername : avatar.destinationUsername;
+        isFollower
+            ? avatar.user_follow.sourceUsername
+            : avatar.user_follow.destinationUsername;
+
+    const getUserInfo = (avatar: any) =>
+        isFollower ? avatar.source_user : avatar.destination_user;
 
     return (
         <List component="div" disablePadding>
             <Divider variant="inset" component="li" />
             {avatars && avatars.length > 0 ? (
                 avatars.map((each: any, key: number) => (
-                    <Grow in timeout={'auto'}>
+                    <Grow in timeout={key * 200}>
                         <ListItem
                             button
                             alignItems="flex-start"
                             className={classes.nested}
                             onClick={() => {
                                 history.push('/portfolio/' + getUsername(each));
+                                //console.log(getUserInfo(each));
                             }}
-                            key={key}
+                            key={key + ''}
                         >
                             <ListItemAvatar>
-                                <Avatar>{getUsername(each)[0]}</Avatar>
+                                <Avatar src={getUserInfo(each).avatarUrl} />
                             </ListItemAvatar>
 
                             <ListItemText
-                                primary={getUsername(each)}
+                                primary={`${getUserInfo(each).firstName} ${
+                                    getUserInfo(each).lastName
+                                }`}
                                 secondary={
                                     isFollower
                                         ? 'is following you'
