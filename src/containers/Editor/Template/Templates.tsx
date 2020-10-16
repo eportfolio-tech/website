@@ -9,7 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
 import FormatPaintIcon from '@material-ui/icons/FormatPaint';
-import {Grid, Typography} from '@material-ui/core';
+import {Button, Grid} from '@material-ui/core';
 
 // import {pageService} from '../../../utils/pageService';
 import {templateService} from '../../../utils/templateService';
@@ -63,13 +63,17 @@ export default function SimpleListMenu({selectCallback, select}: any) {
         <div className={classes.root}>
             <Grid container>
                 <Grid item xs={6}>
-                    <Typography
-                        style={{marginTop: 20}}
-                        align="center"
-                        variant="body1"
+                    <Button
+                        color="secondary"
+                        variant="outlined"
+                        style={{marginTop: 14, marginLeft: 20}}
+                        onClick={() => {
+                            select(-1);
+                            selectCallback(null);
+                        }}
                     >
-                        Chosen Template :
-                    </Typography>
+                        Blank page
+                    </Button>
                 </Grid>
                 <Grid item xs={6}>
                     <List component="nav" aria-label="Device settings">
@@ -84,7 +88,7 @@ export default function SimpleListMenu({selectCallback, select}: any) {
                                 <FormatPaintIcon />
                             </ListItemIcon>
 
-                            {selectedIndex === -1 ? (
+                            {selectedIndex === -1 || selectedIndex === -2 ? (
                                 <ListItemText primary={'Click here'} />
                             ) : (
                                 <ListItemText

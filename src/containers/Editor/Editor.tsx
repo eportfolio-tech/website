@@ -32,7 +32,6 @@ export default () => {
     const [openTemplate, setOpenTemplate] = useState(false);
     const [openPreview, setOpenPreview] = useState(false);
     const [html, setHtml] = useState(null);
-    // const [showHtml, setShowHtml] = useState(false);
 
     const [title, setTitle] = useState(null);
     const [description, setDescription] = useState(null);
@@ -58,23 +57,24 @@ export default () => {
                 setDescription(data.portfolio.description);
             })
             .catch((error) => {
-                dispatch(pageActions.loading());
+                // dispatch(pageActions.loading());
                 setPortfolio(null);
                 if (error.response !== undefined) {
                     if (error.response.status === 404) {
-                        // setOpenTemplate(true);
+                        setOpenTemplate(true);
                         // if no portfolio, create a blank page by default
-                        setEditorState(BraftEditor.createEditorState(null));
-                        createProfolio();
-                        pageActions.sleep(1000);
-                        onSaveHandlerRemote();
-                        dispatch(pageActions.loaded());
+                        // setEditorState(BraftEditor.createEditorState(null));
+                        // createProfolio();
+                        // pageActions.sleep(1000);
+                        // onSaveHandlerRemote();
+                        // pageActions.sleep(1000);
+                        // dispatch(pageActions.loaded());
                     } else {
                         dispatch(alertActions.error(error));
                     }
                 }
             });
-    }, [dispatch]);
+    }, []);
 
     const handleChange = (editorState: any) => {
         setEditorState(editorState);
@@ -172,7 +172,7 @@ export default () => {
         const errorFn = (response: any) => {
             // 上传发生错误时调用param.error
             param.error({
-                msg: 'unable to upload.',
+                msg: 'unable to upload: ' + response,
             });
         };
 
@@ -182,12 +182,6 @@ export default () => {
         } catch (error) {
             errorFn(error);
         }
-
-        // const progressFn = (event) => {
-        //     // 上传进度发生变化时调用param.progress
-
-        //     param.progress((event.loaded / event.total) * 100);
-        // };
     };
 
     if (!editorState) {
