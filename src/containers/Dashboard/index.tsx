@@ -10,6 +10,7 @@ import {
 
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import {useHistory, useLocation} from 'react-router-dom';
+// @ts-ignore
 import SwipeableViews from 'react-swipeable-views';
 
 import KeyIcon from '@material-ui/icons/VpnKey';

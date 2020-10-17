@@ -1,16 +1,16 @@
 import 'braft-editor/dist/index.css';
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import BraftEditor from 'braft-editor';
 
-import { Button, Grid, TextField, useTheme } from '@material-ui/core';
+import {Button, Grid, TextField, useTheme} from '@material-ui/core';
 
-import { userService } from '../../utils/userService';
-import { pageService } from '../../utils/pageService';
-import { templateService } from '../../utils/templateService';
+import {userService} from '../../utils/userService';
+import {pageService} from '../../utils/pageService';
+import {templateService} from '../../utils/templateService';
 import Paper from '@material-ui/core/Paper';
 
-import { alertActions, pageActions } from '../../store/actions';
-import { useDispatch } from 'react-redux';
+import {alertActions, pageActions} from '../../store/actions';
+import {useDispatch} from 'react-redux';
 
 import TemplateDialog from './Template/TemplateDialog';
 
@@ -215,7 +215,7 @@ export default () => {
                             renderHTML();
                             setOpenPreview(true);
                         }}
-                        handlePrint={() => { }}
+                        handlePrint={() => {}}
                         handleTemplate={() => {
                             setOpenTemplate(true);
                         }}
@@ -281,8 +281,8 @@ export default () => {
                                     value={editorState}
                                     onChange={handleChange}
                                     language="en"
-                                    media={{ uploadFn: myUploadFn }}
-                                    contentStyle={{ height: 'auto' }}
+                                    media={{uploadFn: myUploadFn}}
+                                    contentStyle={{height: 'auto'}}
                                     textBackgroundColor={true}
                                 />
                             </Paper>
