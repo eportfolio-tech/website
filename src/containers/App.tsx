@@ -23,6 +23,8 @@ import {
     NotFound,
     Dashboard,
     Terms,
+    Privacy,
+    AboutUs,
 } from '.';
 
 interface IProtectedRoute {
@@ -152,6 +154,16 @@ function App() {
                                 component={NotFound}
                             />
                             <Route exact path={'/terms'} component={Terms} />
+                            <Route
+                                exact
+                                path={'/privacy'}
+                                component={Privacy}
+                            />
+                            <Route
+                                exact
+                                path={'/aboutus'}
+                                component={AboutUs}
+                            />
                             <Redirect push to="/notfound" />
                         </Switch>
                     </SnackbarProvider>

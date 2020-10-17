@@ -23,6 +23,10 @@ import Dashboard from './Dashboard';
 import NotFound from './NotFoundPage/NotFoundPage';
 
 import Terms from '../components/Terms/Terms';
+
+import Privacy from '../components/Terms/Privacy';
+
+import AboutUs from '../components/Terms/About';
 export {
     Search,
     ForgetPassword,
@@ -36,4 +40,6 @@ export {
     NotFound,
     Dashboard,
     Terms,
+    Privacy,
+    AboutUs,
 };
