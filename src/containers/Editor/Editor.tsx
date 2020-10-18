@@ -7,8 +7,10 @@ import {
     Card,
     CardContent,
     CardMedia,
+    Checkbox,
+    FormControlLabel,
+    FormGroup,
     Grid,
-    IconButton,
     TextField,
     Typography,
     useTheme,
@@ -29,7 +31,6 @@ import Preview from './Preview';
 import Actions from './Actions';
 
 import SaveIcon from '@material-ui/icons/Save';
-import {userInfo} from 'os';
 
 export default () => {
     const dispatch = useDispatch();
@@ -47,6 +48,7 @@ export default () => {
     const [title, setTitle] = useState(null);
     const [description, setDescription] = useState(null);
     const [coverImage, setCoverImage] = useState(null);
+    const [publicFolio, setPublicFolio] = useState(true);
 
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem('user') || 'null');
@@ -68,6 +70,7 @@ export default () => {
                 setTitle(data.portfolio.title);
                 setDescription(data.portfolio.description);
                 setCoverImage(data.portfolio.coverImage);
+                setPublicFolio(data.portfolio.visibility === 'PUBLIC');
             })
             .catch((error) => {
                 // dispatch(pageActions.loading());
@@ -95,6 +98,7 @@ export default () => {
             await pageService.updatePortfolio(username, {
                 title: title,
                 description: description,
+                visibility: publicFolio ? 'PUBLIC' : 'PRIVATE',
             });
             dispatch(alertActions.success('Save succeed'));
         } catch (error) {
@@ -310,9 +314,29 @@ export default () => {
                                 startIcon={<SaveIcon />}
                                 size="large"
                                 onClick={onSaveHandlerRemote}
+                                style={{display: 'inline-block'}}
                             >
                                 Save
                             </Button>
+                            <FormGroup
+                                row
+                                style={{
+                                    display: 'inline-block',
+                                    marginLeft: 20,
+                                }}
+                            >
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            checked={publicFolio}
+                                            onChange={() => {
+                                                setPublicFolio(!publicFolio);
+                                            }}
+                                        />
+                                    }
+                                    label="Make Public"
+                                />
+                            </FormGroup>
                         </Grid>
                     </Grid>
                 </div>
