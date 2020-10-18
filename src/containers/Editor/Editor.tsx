@@ -47,7 +47,7 @@ export default () => {
 
     const [title, setTitle] = useState(null);
     const [description, setDescription] = useState(null);
-    const [coverImage, setCoverImage] = useState(null);
+    const [coverImage, setCoverImage] = useState('');
     const [publicFolio, setPublicFolio] = useState(true);
 
     useEffect(() => {
@@ -99,6 +99,7 @@ export default () => {
                 title: title,
                 description: description,
                 visibility: publicFolio ? 'PUBLIC' : 'PRIVATE',
+                coverImage: coverImage,
             });
             dispatch(alertActions.success('Save succeed'));
         } catch (error) {
@@ -112,10 +113,14 @@ export default () => {
             const username = userInfo.user.username;
 
             const response = await userService.uploadFile(username, file);
-            dispatch(alertActions.success('Save succeed'));
+            dispatch(
+                alertActions.success(
+                    'Upload succeed, remember to save your progress'
+                )
+            );
             return response;
         } catch (error) {
-            dispatch(alertActions.error(error, 'Save failed'));
+            dispatch(alertActions.error(error, 'Upload failed'));
         }
     };
 
@@ -267,24 +272,31 @@ export default () => {
                                     name="upload-photo"
                                     type="file"
                                     accept=".png,.jpg"
-                                    // src="a.jpg"
+                                    onChange={(event) => {
+                                        console.log(event.target.files);
+                                        if (event.target.files !== null) {
+                                            onUpload(
+                                                event.target!.files[0]
+                                            ).then((res) => {
+                                                setCoverImage(res.URI);
+                                            });
+                                        }
+                                    }}
                                 />
-                                <Card>
-                                    <CardContent>
-                                        <Typography
-                                            gutterBottom
-                                            variant="h5"
-                                            component="h2"
-                                        >
-                                            Click to change cover image
-                                        </Typography>
-                                    </CardContent>
-                                    <CardMedia
-                                        style={{height: 0}}
-                                        image="./a.jpg"
-                                        title="Paella dish"
-                                    />
-                                </Card>
+                                {coverImage === null ? (
+                                    <div>
+                                        Click here to upload your cover image
+                                    </div>
+                                ) : (
+                                    <CardMedia>
+                                        <img
+                                            src={coverImage}
+                                            style={{
+                                                width: '100%',
+                                            }}
+                                        />
+                                    </CardMedia>
+                                )}
                             </label>
                         </Grid>
 
