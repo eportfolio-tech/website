@@ -10,6 +10,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import PlaylistAddOutlinedIcon from '@material-ui/icons/PlaylistAddOutlined';
 import CommentOutlinedIcon from '@material-ui/icons/CommentOutlined';
+import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
+
 // @ts-ignore
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {
@@ -146,7 +148,11 @@ export default function ProfilePage({
                     color={follower ? 'secondary' : undefined}
                     onClick={handleFollow}
                 >
-                    <PlaylistAddOutlinedIcon />
+                    {follower ? (
+                        <PlaylistAddCheckIcon />
+                    ) : (
+                        <PlaylistAddOutlinedIcon />
+                    )}
                 </IconButton>
             </Tooltip>
             <br />

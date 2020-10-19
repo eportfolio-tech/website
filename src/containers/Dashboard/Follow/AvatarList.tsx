@@ -67,6 +67,7 @@ export default withWidth()(({width, isFollower}: any) => {
                 setAvatars(data.followings);
             }
         } catch (error) {
+            console.log(error);
             dispatch(alertActions.error(error));
         }
     };
