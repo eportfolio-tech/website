@@ -79,7 +79,7 @@ export default withWidth()(() => {
         } else if (query.get('sign-up')) {
             setOpenSignUp('true');
         }
-    }, [location.pathname, query]);
+    }, [location.pathname]);
 
     return (
         <div>

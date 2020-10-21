@@ -22,7 +22,7 @@ const useStyles: any = makeStyles((theme: Theme) =>
         card: {
             display: 'flex',
             justifyContent: 'center',
-            backgroundColor: '#ffb84d',
+            backgroundColor: '#bcffeb',
             padding: theme.spacing(8, 3),
         },
         cardContent: {
@@ -122,7 +122,7 @@ function ProductCTA() {
                     <Hidden smDown>
                         <div className={classes.imageDots} />
                         <img
-                            src="https://images.unsplash.com/photo-1527853787696-f7be74f2e39a?auto=format&fit=crop&w=750&q=80"
+                            src="https://comp30002.blob.core.windows.net/image/unimelb.jpg"
                             alt="call to action"
                             className={classes.image}
                         />

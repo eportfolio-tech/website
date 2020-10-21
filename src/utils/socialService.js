@@ -4,9 +4,9 @@ export const socialService = {
     findWhoLikedThisPortfolio,
     likePortfolio,
     unlikePortfolio,
-    findWhofollowedThisPortfolio,
+    findWhoFollowedThisPortfolio,
     followPortfolio,
-    unfollowPortfolio,
+    unFollowPortfolio,
     findWhoIamFollowing,
     createComment,
 };
@@ -26,7 +26,7 @@ async function unlikePortfolio(ownerUsername) {
     return response.data.data;
 }
 
-async function findWhofollowedThisPortfolio(destinationUsername) {
+async function findWhoFollowedThisPortfolio(destinationUsername) {
     const response = await axios.get(`/users/${destinationUsername}/followers`);
     return response.data.data;
 }
@@ -38,7 +38,7 @@ async function followPortfolio(destinationUsername) {
     return response.data.data;
 }
 
-async function unfollowPortfolio(destinationUsername) {
+async function unFollowPortfolio(destinationUsername) {
     const response = await axios.delete(
         `/users/${destinationUsername}/followers`
     );

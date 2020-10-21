@@ -4,7 +4,6 @@ import React from 'react';
 // import Avatar from '@atlaskit/avatar';
 
 import Comment, {
-    CommentAction,
     CommentAuthor,
     CommentEdited,
     CommentTime,
@@ -46,22 +45,22 @@ export default (props: any) => {
                 // restrictedTo="Restricted to Admins Only"
                 time={<CommentTime>{props.date}</CommentTime>}
                 content={<p>{props.content}</p>}
-                actions={
-                    props.editable
-                        ? [
-                              <CommentAction>Reply</CommentAction>,
-                              <CommentAction>Edit</CommentAction>,
-                              <CommentAction>Like</CommentAction>,
-                          ]
-                        : [
-                              <CommentAction>Reply</CommentAction>,
-                              <CommentAction>Like</CommentAction>,
-                          ]
-                }
+                // actions={
+                //     props.editable
+                //         ? [
+                //               <CommentAction>Reply</CommentAction>,
+                //               <CommentAction>Edit</CommentAction>,
+                //               <CommentAction>Like</CommentAction>,
+                //           ]
+                //         : [
+                //               <CommentAction>Reply</CommentAction>,
+                //               <CommentAction>Like</CommentAction>,
+                //           ]
+                // }
             >
                 {props.children}
             </Comment>
-            <br />
+            {/* <br /> */}
         </div>
     );
 };

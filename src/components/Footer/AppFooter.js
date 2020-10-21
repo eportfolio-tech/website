@@ -1,9 +1,10 @@
 import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
 import Container from '@material-ui/core/Container';
 import {Typography} from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import {useHistory} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -49,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AppFooter() {
     const classes = useStyles();
-
+    const history = useHistory();
     return (
         <Typography component="footer" className={classes.root}>
             <Container className={classes.container}>
@@ -89,36 +90,58 @@ export default function AppFooter() {
                     {/*    </Grid>*/}
                     {/*</Grid>*/}
 
-                    <Grid item xs={6} sm={4} md={2}>
-                        <Typography variant="h6" marked="left" gutterBottom>
+                    <Grid item xs={12} sm={4} md={3}>
+                        <Typography variant="h5" marked="centre" gutterBottom>
                             Helpful Link
                         </Typography>
                         <ul className={classes.list}>
                             <li className={classes.listItem}>
-                                <Link href="https://www.google.com">Terms</Link>
+                                <Button
+                                    color="secondary"
+                                    onClick={() => {
+                                        history.push('/terms/');
+                                    }}
+                                >
+                                    Terms and Policy
+                                </Button>
                             </li>
                             <li className={classes.listItem}>
-                                <Link href="https://www.google.com">
+                                <Button
+                                    color="secondary"
+                                    onClick={() => {
+                                        history.push('/privacy/');
+                                    }}
+                                >
                                     Privacy
-                                </Link>
+                                </Button>
                             </li>
                         </ul>
                     </Grid>
 
-                    <Grid item xs={6} sm={4} md={2}>
-                        <Typography variant="h6" marked="left" gutterBottom>
+                    <Grid item xs={12} sm={4} md={3}>
+                        <Typography variant="h5" marked="centre" gutterBottom>
                             About Us
                         </Typography>
                         <ul className={classes.list}>
                             <li className={classes.listItem}>
-                                <Link href="https://www.google.com">
-                                    What is Forty-Two
-                                </Link>
+                                <Button
+                                    color="secondary"
+                                    onClick={() => {
+                                        history.push('/aboutus/');
+                                    }}
+                                >
+                                    What is Forty-Two?
+                                </Button>
                             </li>
                             <li className={classes.listItem}>
-                                <Link href="https://www.google.com">
+                                <Button
+                                    color="secondary"
+                                    href={
+                                        'https://www.seek.com.au/Forty+Two-jobs'
+                                    }
+                                >
                                     Careers
-                                </Link>
+                                </Button>
                             </li>
                         </ul>
                     </Grid>

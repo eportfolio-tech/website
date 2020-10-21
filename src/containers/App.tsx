@@ -8,7 +8,6 @@ import {SnackbarProvider} from 'notistack';
 
 import Layout from '../components/Navigation';
 import theme from '../theme/fortyTwo';
-import Footer from '../components/Footer/AppFooter';
 
 import Explore from '../containers/Explore';
 
@@ -22,6 +21,10 @@ import {
     Setting,
     Verify,
     NotFound,
+    Dashboard,
+    Terms,
+    Privacy,
+    AboutUs,
 } from '.';
 
 interface IProtectedRoute {
@@ -136,6 +139,10 @@ function App() {
                                 Component={Explore}
                             />
                             <LoggedInRoute
+                                path={'/dashboard'}
+                                Component={Dashboard}
+                            />
+                            <LoggedInRoute
                                 exact
                                 path={'/settings'}
                                 Component={Settings}
@@ -146,9 +153,19 @@ function App() {
                                 path={'/notfound'}
                                 component={NotFound}
                             />
+                            <Route exact path={'/terms'} component={Terms} />
+                            <Route
+                                exact
+                                path={'/privacy'}
+                                component={Privacy}
+                            />
+                            <Route
+                                exact
+                                path={'/aboutus'}
+                                component={AboutUs}
+                            />
                             <Redirect push to="/notfound" />
                         </Switch>
-                        <Footer />
                     </SnackbarProvider>
                 </ThemeProvider>
             </DocumentTitle>

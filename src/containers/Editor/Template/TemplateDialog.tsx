@@ -96,8 +96,8 @@ export default function AlertDialog({
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
                             {portfolio
-                                ? 'Overwrite your own E-portfolio by selecting a template.'
-                                : 'Create your own E-portfolio by selecting a template.'}
+                                ? 'Overwrite by selecting a template or starting from scratch.'
+                                : 'Create by selecting a template or starting from scratch.'}
                         </DialogContentText>
 
                         <Templates
@@ -111,7 +111,7 @@ export default function AlertDialog({
                             color="primary"
                             variant="contained"
                             onClick={deleteTemplate}
-                            disabled={isCreating || selectID == null}
+                            disabled={isCreating || selectID === null || selectID === -1}
                         >
                             Delete
                         </Button>
@@ -120,7 +120,7 @@ export default function AlertDialog({
                             color="secondary"
                             variant="contained"
                             onClick={createProfolio}
-                            disabled={isCreating || selectID == null}
+                            disabled={isCreating || selectID === null}
                         >
                             {portfolio ? 'Overwrite' : 'Create'}
                         </Button>
@@ -129,7 +129,7 @@ export default function AlertDialog({
                             disabled={isCreating}
                             onClick={() => {
                                 handleClose();
-                                if (portfolio == null) {
+                                if (portfolio === null) {
                                     history.push('/search');
                                 }
                             }}

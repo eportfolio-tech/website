@@ -2,14 +2,26 @@ import 'braft-editor/dist/index.css';
 import React, {useState, useEffect} from 'react';
 import BraftEditor from 'braft-editor';
 
-import {Button, Grid, TextField, useTheme} from '@material-ui/core';
+import {
+    Button,
+    Card,
+    CardContent,
+    CardMedia,
+    Checkbox,
+    FormControlLabel,
+    FormGroup,
+    Grid,
+    TextField,
+    Typography,
+    useTheme,
+} from '@material-ui/core';
 
 import {userService} from '../../utils/userService';
 import {pageService} from '../../utils/pageService';
 import {templateService} from '../../utils/templateService';
 import Paper from '@material-ui/core/Paper';
 
-import {alertActions} from '../../store/actions/alertActions';
+import {alertActions, pageActions} from '../../store/actions';
 import {useDispatch} from 'react-redux';
 
 import TemplateDialog from './Template/TemplateDialog';
@@ -32,10 +44,11 @@ export default () => {
     const [openTemplate, setOpenTemplate] = useState(false);
     const [openPreview, setOpenPreview] = useState(false);
     const [html, setHtml] = useState(null);
-    // const [showHtml, setShowHtml] = useState(false);
 
     const [title, setTitle] = useState(null);
     const [description, setDescription] = useState(null);
+    const [coverImage, setCoverImage] = useState('');
+    const [publicFolio, setPublicFolio] = useState(true);
 
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem('user') || 'null');
@@ -47,7 +60,6 @@ export default () => {
             .then((data) => {
                 // console.log('portfolio: ', data.portfolio);
                 setPortfolio(data.portfolio);
-
                 setEditorState(
                     BraftEditor.createEditorState(
                         data.portfolio.content !== null
@@ -57,8 +69,11 @@ export default () => {
                 );
                 setTitle(data.portfolio.title);
                 setDescription(data.portfolio.description);
+                setCoverImage(data.portfolio.coverImage);
+                setPublicFolio(data.portfolio.visibility === 'PUBLIC');
             })
             .catch((error) => {
+                // dispatch(pageActions.loading());
                 setPortfolio(null);
                 if (error.response !== undefined) {
                     if (error.response.status === 404) {
@@ -68,7 +83,7 @@ export default () => {
                     }
                 }
             });
-    }, [dispatch]);
+    }, []);
 
     const handleChange = (editorState: any) => {
         setEditorState(editorState);
@@ -83,6 +98,8 @@ export default () => {
             await pageService.updatePortfolio(username, {
                 title: title,
                 description: description,
+                visibility: publicFolio ? 'PUBLIC' : 'PRIVATE',
+                coverImage: coverImage,
             });
             dispatch(alertActions.success('Save succeed'));
         } catch (error) {
@@ -96,10 +113,14 @@ export default () => {
             const username = userInfo.user.username;
 
             const response = await userService.uploadFile(username, file);
-            dispatch(alertActions.success('Save succeed'));
+            dispatch(
+                alertActions.success(
+                    'Upload succeed, remember to save your progress'
+                )
+            );
             return response;
         } catch (error) {
-            dispatch(alertActions.error(error, 'Save failed'));
+            dispatch(alertActions.error(error, 'Upload failed'));
         }
     };
 
@@ -118,9 +139,7 @@ export default () => {
     };
 
     const onSelectTemplateCallback = (selectedTemplate: any) => {
-        // console.log('callback');
         setEditorState(BraftEditor.createEditorState(selectedTemplate));
-        // console.log(editorState);
     };
 
     const renderHTML = () => {
@@ -151,7 +170,7 @@ export default () => {
         const errorFn = (response: any) => {
             // 上传发生错误时调用param.error
             param.error({
-                msg: 'unable to upload.',
+                msg: 'unable to upload: ' + response,
             });
         };
 
@@ -161,12 +180,6 @@ export default () => {
         } catch (error) {
             errorFn(error);
         }
-
-        // const progressFn = (event) => {
-        //     // 上传进度发生变化时调用param.progress
-
-        //     param.progress((event.loaded / event.total) * 100);
-        // };
     };
 
     if (!editorState) {
@@ -249,12 +262,52 @@ export default () => {
                         </Grid>
 
                         <Grid item xs={9}>
+                            <label
+                                htmlFor="upload-photo"
+                                style={{margin: 'auto'}}
+                            >
+                                <input
+                                    style={{display: 'none', outline: 'none'}}
+                                    id="upload-photo"
+                                    name="upload-photo"
+                                    type="file"
+                                    accept=".png,.jpg"
+                                    onChange={(event) => {
+                                        console.log(event.target.files);
+                                        if (event.target.files !== null) {
+                                            onUpload(
+                                                event.target!.files[0]
+                                            ).then((res) => {
+                                                setCoverImage(res.URI);
+                                            });
+                                        }
+                                    }}
+                                />
+                                {coverImage === null ? (
+                                    <div>
+                                        Click here to upload your cover image
+                                    </div>
+                                ) : (
+                                    <CardMedia>
+                                        <img
+                                            src={coverImage}
+                                            style={{
+                                                width: '100%',
+                                            }}
+                                        />
+                                    </CardMedia>
+                                )}
+                            </label>
+                        </Grid>
+
+                        <Grid item xs={9}>
                             <Paper
                                 style={{
                                     minHeight: '50VH',
                                     background:
                                         theme.palette.background.default,
                                 }}
+                                elevation={3}
                             >
                                 <BraftEditor
                                     value={editorState}
@@ -273,9 +326,29 @@ export default () => {
                                 startIcon={<SaveIcon />}
                                 size="large"
                                 onClick={onSaveHandlerRemote}
+                                style={{display: 'inline-block'}}
                             >
                                 Save
                             </Button>
+                            <FormGroup
+                                row
+                                style={{
+                                    display: 'inline-block',
+                                    marginLeft: 20,
+                                }}
+                            >
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            checked={publicFolio}
+                                            onChange={() => {
+                                                setPublicFolio(!publicFolio);
+                                            }}
+                                        />
+                                    }
+                                    label="Make Public"
+                                />
+                            </FormGroup>
                         </Grid>
                     </Grid>
                 </div>
