@@ -6,27 +6,12 @@ import './styles.css';
 
 import FeedItem from '../../components/Feed/FeedItem';
 
-const urls = [
-    null,
-    null,
-    'https://comp30002.blob.core.windows.net/image/photo-1601252360231-6925f0888ff4.jpeg',
-    'https://comp30002.blob.core.windows.net/image/photo-1601173662818-95e6e19c4c50.jpeg',
-    null,
-    'https://comp30002.blob.core.windows.net/image/photo-1601202786213-8aeec3445a28.jpeg',
-    'https://comp30002.blob.core.windows.net/image/photo-1601164768085-c3a5665db36f.jpeg',
-    null,
-    'https://comp30002.blob.core.windows.net/image/photo-1601249573867-f5937fea25e9.jpeg',
-    'https://comp30002.blob.core.windows.net/image/photo-1586219136310-aef99aae7bac.jpeg',
-    'https://comp30002.blob.core.windows.net/image/photo-1597763397091-6010cf10fdeb.jpeg',
-    'https://comp30002.blob.core.windows.net/image/photo-1601253784060-807c709cfed7.jpeg',
-];
-
 // These two are just helpers, they curate spring data, values that are later being interpolated into css
 const to = (i) => ({
     x: 0,
     y: i * -4,
     scale: 1,
-    rot: -10 + Math.random() * 20,
+    rot: -0 + Math.random() * 0,
     delay: i * 100,
 });
 const from = (i) => ({x: 0, rot: 0, scale: 1.5, y: -1000});
@@ -38,7 +23,7 @@ const trans = (r, s) =>
 
 function Deck(props) {
     const [gone] = useState(() => new Set()); // The set flags all the cards that are flicked out
-    const [springProps, set] = useSprings(urls.length, (i) => ({
+    const [springProps, set] = useSprings(props.activities.length, (i) => ({
         ...to(i),
         from: from(i),
     })); // Create a bunch of springs using the helpers above
@@ -76,8 +61,10 @@ function Deck(props) {
                     },
                 };
             });
-            if (!down && gone.size === urls.length)
-                setTimeout(() => gone.clear() || set((i) => to(i)), 600);
+            if (!down && gone.size === props.activities.length) {
+                props.fetchFeed();
+                //setTimeout(() => gone.clear() || set((i) => to(i)), 600);
+            }
         }
     );
     // Now we're just mapping the animated values to our view, that's it. Btw, this component only renders once. :-)
@@ -101,7 +88,7 @@ function Deck(props) {
                                 transform: interpolate([rot, scale], trans),
                             }}
                         >
-                            <FeedItem image={urls[i]} />
+                            <FeedItem activity={props.activities[i]} />
                         </animated.div>
                     </animated.div>
                 ))}

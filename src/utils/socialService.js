@@ -9,6 +9,7 @@ export const socialService = {
     unFollowPortfolio,
     findWhoIamFollowing,
     createComment,
+    feed,
 };
 
 async function findWhoLikedThisPortfolio(ownerUsername) {
@@ -60,5 +61,10 @@ async function createComment(ownerUsername, comment) {
             },
         }
     );
+    return response.data.data;
+}
+
+async function feed() {
+    const response = await axios.get(`/feed/`);
     return response.data.data;
 }
