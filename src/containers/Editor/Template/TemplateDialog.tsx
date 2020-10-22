@@ -111,7 +111,11 @@ export default function AlertDialog({
                             color="primary"
                             variant="contained"
                             onClick={deleteTemplate}
-                            disabled={isCreating || selectID === null || selectID === -1}
+                            disabled={
+                                isCreating ||
+                                selectID === null ||
+                                selectID === -1
+                            }
                         >
                             Delete
                         </Button>

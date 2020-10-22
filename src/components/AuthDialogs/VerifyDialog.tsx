@@ -65,7 +65,7 @@ export default ({open, setOpen}: IVerify) => {
                 query.get('username')
             );
 
-            history.push('/login');
+            history.push('/?login=true');
             setOpen(false);
             dispatch(
                 alertActions.success(
