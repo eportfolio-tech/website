@@ -127,7 +127,7 @@ export default (props: {close: () => void}) => {
                             fullWidth
                             style={{textTransform: 'none'}}
                             onClick={() => {
-                                history.push('/sign-up');
+                                history.push('/?sign-up=true');
                             }}
                         >
                             Sign up
