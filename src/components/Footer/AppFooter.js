@@ -101,6 +101,7 @@ export default function AppFooter() {
                                     color="secondary"
                                     onClick={() => {
                                         history.push('/terms/');
+                                        window.scrollTo(0, 0);
                                     }}
                                 >
                                     Terms and Policy
@@ -111,6 +112,7 @@ export default function AppFooter() {
                                     color="secondary"
                                     onClick={() => {
                                         history.push('/privacy/');
+                                        window.scrollTo(0, 0);
                                     }}
                                 >
                                     Privacy
@@ -129,6 +131,7 @@ export default function AppFooter() {
                                     color="secondary"
                                     onClick={() => {
                                         history.push('/aboutus/');
+                                        window.scrollTo(0, 0);
                                     }}
                                 >
                                     What is Forty-Two?

@@ -128,6 +128,8 @@ export default (props: {close: () => void}) => {
                             style={{textTransform: 'none'}}
                             onClick={() => {
                                 history.push('/?sign-up=true');
+                                // @ts-ignore
+                                window.location.reload();
                             }}
                         >
                             Sign up
