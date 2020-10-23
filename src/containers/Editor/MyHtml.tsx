@@ -19,6 +19,8 @@ export default (props: any) => {
     // console.log(props);
     const classes = useStyles();
 
+    console.log("props", props);
+
     return (
         <Card
             className={
@@ -28,6 +30,9 @@ export default (props: any) => {
             }
             elevation={0}
         >
+            <div>
+                <img src={props.coverImage} />    
+            </div>
             <div
                 className="braft-output-content"
                 dangerouslySetInnerHTML={{__html: props.html}}
