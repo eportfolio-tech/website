@@ -4,8 +4,6 @@ import BraftEditor from 'braft-editor';
 
 import {
     Button,
-    Card,
-    CardContent,
     CardMedia,
     Checkbox,
     FormControlLabel,
@@ -14,6 +12,9 @@ import {
     TextField,
     Typography,
     useTheme,
+    Tooltip,
+    withWidth,
+    isWidthUp,
 } from '@material-ui/core';
 
 import {userService} from '../../utils/userService';
@@ -21,7 +22,7 @@ import {pageService} from '../../utils/pageService';
 import {templateService} from '../../utils/templateService';
 import Paper from '@material-ui/core/Paper';
 
-import {alertActions, pageActions} from '../../store/actions';
+import {alertActions} from '../../store/actions';
 import {useDispatch} from 'react-redux';
 
 import TemplateDialog from './Template/TemplateDialog';
@@ -31,11 +32,13 @@ import Preview from './Preview';
 import Actions from './Actions';
 
 import SaveIcon from '@material-ui/icons/Save';
+import noImage from '../../assets/noImage.jpg';
 
-export default () => {
+export default withWidth()(({width}: any) => {
     const dispatch = useDispatch();
 
     const theme = useTheme();
+    const largeScreen = isWidthUp('md', width);
 
     const [portfolio, setPortfolio] = useState<any>();
     const [editorState, setEditorState] = useState(
@@ -219,13 +222,14 @@ export default () => {
                         html={html}
                         title={title}
                         description={description}
+                        coverImage={coverImage}
                     />
 
                     <Grid
                         container
-                        spacing={4}
+                        spacing={2}
                         alignItems="center"
-                        justify="center"
+                        justify={largeScreen ? 'center' : 'flex-start'}
                     >
                         <Grid item xs={9}>
                             <TextField
@@ -262,42 +266,78 @@ export default () => {
                         </Grid>
 
                         <Grid item xs={9}>
-                            <label
-                                htmlFor="upload-photo"
-                                style={{margin: 'auto'}}
-                            >
-                                <input
-                                    style={{display: 'none', outline: 'none'}}
-                                    id="upload-photo"
-                                    name="upload-photo"
-                                    type="file"
-                                    accept=".png,.jpg"
-                                    onChange={(event) => {
-                                        console.log(event.target.files);
-                                        if (event.target.files !== null) {
-                                            onUpload(
-                                                event.target!.files[0]
-                                            ).then((res) => {
-                                                setCoverImage(res.URI);
-                                            });
+                            <Grid container justify="center">
+                                <label
+                                    htmlFor="upload-photo"
+                                    style={{margin: 'auto'}}
+                                >
+                                    <input
+                                        style={{
+                                            display: 'none',
+                                            outline: 'none',
+                                        }}
+                                        id="upload-photo"
+                                        name="upload-photo"
+                                        type="file"
+                                        accept=".png,.jpg"
+                                        onChange={(event) => {
+                                            console.log(event.target.files);
+                                            if (event.target.files !== null) {
+                                                onUpload(
+                                                    event.target!.files[0]
+                                                ).then((res) => {
+                                                    setCoverImage(res.URI);
+                                                });
+                                            }
+                                        }}
+                                    />
+                                    <Tooltip
+                                        placement="top"
+                                        title={
+                                            <Typography variant="body1">
+                                                Upload Cover Image
+                                            </Typography>
                                         }
-                                    }}
-                                />
-                                {coverImage === null ? (
-                                    <div>
-                                        Click here to upload your cover image
-                                    </div>
-                                ) : (
-                                    <CardMedia>
-                                        <img
-                                            src={coverImage}
-                                            style={{
-                                                width: '100%',
-                                            }}
-                                        />
-                                    </CardMedia>
-                                )}
-                            </label>
+                                        arrow
+                                        style={{width: '100%'}}
+                                    >
+                                        <Button
+                                            component="span"
+                                            aria-label="add"
+                                            style={{width: '100%'}}
+                                            fullWidth
+                                        >
+                                            <CardMedia
+                                                image={
+                                                    coverImage
+                                                        ? coverImage
+                                                        : noImage
+                                                }
+                                                title="portfolio"
+                                                style={{
+                                                    width: '62VW',
+                                                    height: '30VH',
+                                                    //paddingTop: '30.25%',
+                                                }}
+                                            >
+                                                {/* <img
+                                                    src={
+                                                        coverImage
+                                                            ? coverImage
+                                                            : noImage
+                                                    }
+                                                    title="portfolio"
+                                                    style={{
+                                                        width: '100%',
+
+                                                        // paddingTop: '30.25%',
+                                                    }}
+                                                /> */}
+                                            </CardMedia>
+                                        </Button>
+                                    </Tooltip>
+                                </label>
+                            </Grid>
                         </Grid>
 
                         <Grid item xs={9}>
@@ -355,4 +395,4 @@ export default () => {
             )}
         </div>
     );
-};
+});

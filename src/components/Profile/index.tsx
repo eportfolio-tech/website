@@ -1,7 +1,16 @@
 import React from 'react';
 import {createStyles, makeStyles} from '@material-ui/core/styles';
 
-import {Card, Container, Divider, Grid, Avatar} from '@material-ui/core';
+import {
+    Card,
+    Container,
+    Divider,
+    Grid,
+    Avatar,
+    withWidth,
+    isWidthUp,
+    CardMedia,
+} from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
 // @ts-ignore
 import Typed from 'react-typed';
@@ -9,13 +18,20 @@ import Typed from 'react-typed';
 import MyHTML from '../../containers/Editor/MyHtml';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
-
+import noImage from '../../assets/noImage.jpg';
+import BackupIcon from '@material-ui/icons/Backup';
 // @ts-ignore
 const useStyles: any = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            width: '100%',
-            // backgroundColor: theme.palette.background.paper,
+            //width: '100%',
+            marginRight: '7%',
+            //backgroundColor: theme.palette.background.paper,
+        },
+        rootSmallScreen: {
+            marginRight: '7%',
+            backgroundColor: theme.palette.background.default,
+            borderStyle: 'none',
         },
         profile: {
             textAlign: 'center',
@@ -47,22 +63,29 @@ const useStyles: any = makeStyles((theme: Theme) =>
     })
 );
 
-export default ({portfolio, content, height}: any) => {
+export default withWidth()(({portfolio, content, height, width}: any) => {
     const classes = useStyles();
+    const largeScreen = isWidthUp('md', width);
 
     return (
-        <Card variant={'outlined'} style={{marginRight: '7%'}}>
+        <Card
+            variant={'outlined'}
+            className={largeScreen ? classes.root : classes.rootSmallScreen}
+            elevation={largeScreen ? undefined : 0}
+        >
             {portfolio && content ? (
                 <Container style={{minHeight: height + 'VH'}}>
                     <Grid container className={classes.skeletonHeader}>
-                        <Grid xs={3} md={1}>
-                            <Avatar
-                                alt="Remy Sharp"
-                                src={portfolio.avatarUrl}
-                                className={classes.avatar}
-                            />
+                        <Grid xs={12} md={1}>
+                            <Grid container justify="center">
+                                <Avatar
+                                    alt="Remy Sharp"
+                                    src={portfolio.avatarUrl}
+                                    className={classes.avatar}
+                                />
+                            </Grid>
                         </Grid>
-                        <Grid xs={9} md={11}>
+                        <Grid xs={12} md={11}>
                             <Typography variant={'h5'}>
                                 <Typed
                                     strings={[
@@ -90,8 +113,23 @@ export default ({portfolio, content, height}: any) => {
 
                     <div>
                         <Divider />
+                        <br />
+                        <CardMedia
+                            className={classes.media}
+                            image={
+                                portfolio.coverImage
+                                    ? portfolio.coverImage
+                                    : noImage
+                            }
+                            title="portfolio"
+                            style={{height: 0, paddingTop: '30.25%'}}
+                        />
+
                         <CardContent>
-                            <MyHTML html={content} />
+                            <MyHTML
+                                html={content}
+                                defaultBackground={!largeScreen}
+                            />
                         </CardContent>
                     </div>
                 </Container>
@@ -126,4 +164,4 @@ export default ({portfolio, content, height}: any) => {
             )}
         </Card>
     );
-};
+});

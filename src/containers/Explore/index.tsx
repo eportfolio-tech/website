@@ -53,7 +53,10 @@ export default withWidth()(({width}: any) => {
         <Layout>
             <div>
                 {largeScreen ? (
-                    <JustifyDialog config={config} setConfig={setConfig} />
+                    <div>
+                        <JustifyDialog config={config} setConfig={setConfig} />
+                        <br />
+                    </div>
                 ) : null}
 
                 {activities ? (

@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 
 import EditIcon from '@material-ui/icons/Edit';
-import SettingsIcon from '@material-ui/icons/Settings';
+import DashboardIcon from '@material-ui/icons/Dashboard';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import SearchIcon from '@material-ui/icons/Search';
 import HomeIcon from '@material-ui/icons/Home';
@@ -118,14 +118,19 @@ export default withWidth()(({handleRouting, openDrawer}: IMenuListProps) => {
             <List>
                 <ListItem
                     button
-                    onClick={() => handleRouting('settings')}
-                    selected={path === '/settings'}
+                    onClick={() => handleRouting('dashboard/profile')}
+                    selected={
+                        path === '/dashboard/profile' ||
+                        path === '/dashboard/follows' ||
+                        path === '/dashboard/tags' ||
+                        path === '/dashboard/password'
+                    }
                     className={classes.item}
                 >
                     <ListItemIcon className={classes.icon}>
-                        <SettingsIcon />
+                        <DashboardIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Settings" />
+                    <ListItemText primary="Dashboard" />
                 </ListItem>
 
                 <ListItem button onClick={logOut} className={classes.item}>

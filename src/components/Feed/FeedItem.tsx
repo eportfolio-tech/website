@@ -113,7 +113,11 @@ export default function FeedItem({activity, width}: any) {
                             <Grid xs={3} md={1}>
                                 <Avatar
                                     alt={activity.portfolio.username}
-                                    src={activity.portfolio.username[0]}
+                                    src={
+                                        activity.avatar
+                                            ? activity.avatar
+                                            : activity.portfolio.username[0]
+                                    }
                                     className={classes.avatar}
                                 />
                             </Grid>

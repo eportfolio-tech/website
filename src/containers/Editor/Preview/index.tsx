@@ -36,9 +36,11 @@ const useStyles = makeStyles((theme: Theme) =>
             },
             width: '100%',
             minWidth: '100VW',
+            background: theme.palette.background.default,
         },
         root: {
             //display: 'flex',
+            background: theme.palette.background.default,
         },
     })
 );
@@ -56,6 +58,7 @@ export default function FullScreenDialog({
     html,
     title,
     description,
+    coverImage,
 }: any) {
     const classes = useStyles();
     const userInfo = JSON.parse(localStorage.getItem('user') || 'null').user;
@@ -73,6 +76,7 @@ export default function FullScreenDialog({
         firstName: userInfo.firstName,
         lastName: userInfo.lastName,
         username: userInfo.username,
+        coverImage: coverImage,
     };
 
     return (
