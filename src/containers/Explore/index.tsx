@@ -1,8 +1,10 @@
-import {Grid} from '@material-ui/core';
 import React from 'react';
+import {Grid, isWidthUp, withWidth} from '@material-ui/core';
+
 import Layout from '../../components/Navigation';
-import Deck from './cards';
+import Deck from './Deck';
 import JustifyDialog from './justifyDialog';
+import FeedsGrid from './FeedsGrid';
 
 import {socialService} from '../../utils/socialService';
 import {useDispatch} from 'react-redux';
@@ -19,11 +21,13 @@ function shuffle(a: Array<any>) {
     return a;
 }
 
-export default () => {
+export default withWidth()(({width}: any) => {
     const dispatch = useDispatch();
+    const largeScreen = isWidthUp('md', width);
+
     const [config, setConfig] = React.useState({
         zoom: false,
-        layout: true,
+        layout: largeScreen,
     });
     const [activities, setActivities] = React.useState<any>(null);
 
@@ -48,23 +52,32 @@ export default () => {
     return (
         <Layout>
             <div>
-                <JustifyDialog config={config} setConfig={setConfig} />
+                {largeScreen ? (
+                    <JustifyDialog config={config} setConfig={setConfig} />
+                ) : null}
 
-                <Grid
-                    container
-                    justify="center"
-                    alignItems="center"
-                    style={{height: '50VH'}}
-                >
-                    {activities ? (
-                        <Deck
-                            zoom={config.zoom ? 1.1 : 1.0}
+                {activities ? (
+                    config.layout ? (
+                        <Grid
+                            container
+                            justify="center"
+                            alignItems="center"
+                            style={{height: '50VH'}}
+                        >
+                            <Deck
+                                zoom={config.zoom ? 1.1 : 1.0}
+                                activities={activities}
+                                fetchFeed={fetchFeed}
+                            />
+                        </Grid>
+                    ) : (
+                        <FeedsGrid
                             activities={activities}
                             fetchFeed={fetchFeed}
                         />
-                    ) : null}
-                </Grid>
+                    )
+                ) : null}
             </div>
         </Layout>
     );
-};
+});

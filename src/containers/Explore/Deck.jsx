@@ -88,7 +88,10 @@ function Deck(props) {
                                 transform: interpolate([rot, scale], trans),
                             }}
                         >
-                            <FeedItem activity={props.activities[i]} />
+                            <FeedItem
+                                activity={props.activities[i]}
+                                width={50}
+                            />
                         </animated.div>
                     </animated.div>
                 ))}

@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-export default function FeedItem({activity}: any) {
+export default function FeedItem({activity, width}: any) {
     const classes = useStyles();
     const history = useHistory();
     const dispatch = useDispatch();
@@ -270,5 +270,5 @@ export default function FeedItem({activity}: any) {
                 return <div></div>;
         }
     };
-    return <Card className={classes.root}>{getContainer(activity)}</Card>;
+    return <Card style={{width: width + 'VW'}}>{getContainer(activity)}</Card>;
 }
