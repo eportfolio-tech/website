@@ -27,7 +27,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     toolbarTitle: {},
     getStarted: {
         marginLeft: theme.spacing(2),
-        minWidth: '10rem',
+        [theme.breakpoints.up('sm')]: {
+            minWidth: '12rem',
+        },
+
         borderRadius: 10,
         textTransform: 'none',
         fontWeight: 550,
@@ -36,7 +39,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     signIn: {
         textTransform: 'none',
-        minWidth: '10rem',
+        [theme.breakpoints.up('sm')]: {
+            minWidth: '12rem',
+        },
         fontWeight: 550,
         borderRadius: 10,
     },
@@ -85,34 +90,33 @@ export default withWidth()(({width}: any) => {
             <AppBar position="fixed" className={classes.appBar}>
                 <Toolbar className={classes.toolbar}>
                     <Grid container>
+                        {largeScreen ? <Grid item md={1} /> : null}
                         {largeScreen ? (
                             <Grid item md={5}>
-                                <Grid container justify="center">
-                                    <Link
-                                        underline="none"
-                                        color="textPrimary"
-                                        href="/"
-                                        className={classes.toolbarTitle}
+                                <Link
+                                    underline="none"
+                                    color="textPrimary"
+                                    href="/"
+                                    className={classes.toolbarTitle}
+                                >
+                                    <Button
+                                        style={{
+                                            textTransform: 'none',
+                                        }}
                                     >
-                                        <Button
-                                            style={{
-                                                textTransform: 'none',
-                                            }}
+                                        <img
+                                            className={classes.logo}
+                                            src={logoImage}
+                                            alt="logo"
+                                        />
+                                        <Typography
+                                            variant="h6"
+                                            style={{fontWeight: 800}}
                                         >
-                                            <img
-                                                className={classes.logo}
-                                                src={logoImage}
-                                                alt="logo"
-                                            />
-                                            <Typography
-                                                variant="h6"
-                                                style={{fontWeight: 800}}
-                                            >
-                                                Forty-Two
-                                            </Typography>
-                                        </Button>
-                                    </Link>
-                                </Grid>
+                                            Forty-Two
+                                        </Typography>
+                                    </Button>
+                                </Link>
                             </Grid>
                         ) : null}
                         <Grid xs={12} md={6}>

@@ -51,6 +51,9 @@ export default (props: {close: () => void}) => {
             const user = await authService.login(userName, userPassword);
             dispatch(userActions.login(user));
             dispatch(alertActions.success('sign in succeed'));
+            setTimeout(() => {
+                history.push('/explore');
+            }, 50);
             props.close();
         } catch (error) {
             dispatch(alertActions.error(error, 'sign in failed'));

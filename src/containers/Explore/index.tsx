@@ -59,7 +59,7 @@ export default withWidth()(({width}: any) => {
                     </div>
                 ) : null}
 
-                {activities ? (
+                {activities && activities.length > 0 ? (
                     config.layout ? (
                         <Grid
                             container

@@ -25,6 +25,7 @@ export default ({label, required, setState, type}: ITextField) => {
             onChange={(e) => {
                 setState(e.target.value);
             }}
+            style={{background: 'white', borderRadius: 4}}
         />
     );
 };

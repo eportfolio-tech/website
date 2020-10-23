@@ -1,13 +1,20 @@
 import React from 'react';
-import {Theme, makeStyles, createStyles} from '@material-ui/core/styles';
+import {
+    Theme,
+    makeStyles,
+    createStyles,
+    useTheme,
+} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import Container from '@material-ui/core/Container';
-import Typography from '../Typography/Typography';
+import Typography from '@material-ui/core/Typography';
 import TextField from '../TextField';
 import Button from '../Button/Button';
 import {alertActions} from '../../store/actions';
 import {useDispatch} from 'react-redux';
+import 'pattern.css';
+import GiftIcon from '@material-ui/icons/CardGiftcard';
 
 const useStyles: any = makeStyles((theme: Theme) =>
     createStyles({
@@ -22,8 +29,9 @@ const useStyles: any = makeStyles((theme: Theme) =>
         card: {
             display: 'flex',
             justifyContent: 'center',
-            backgroundColor: '#bcffeb',
+            backgroundColor: theme.palette.secondary.main,
             padding: theme.spacing(8, 3),
+            color: 'white',
         },
         cardContent: {
             maxWidth: 400,
@@ -34,6 +42,7 @@ const useStyles: any = makeStyles((theme: Theme) =>
             marginBottom: theme.spacing(2),
         },
         button: {
+            marginTop: theme.spacing(3),
             width: '100%',
         },
         imagesWrapper: {
@@ -60,10 +69,11 @@ const useStyles: any = makeStyles((theme: Theme) =>
     })
 );
 
-function ProductCTA() {
+export default () => {
     const classes = useStyles();
     const [, setOpen] = React.useState(false);
     const dispatch = useDispatch();
+    const theme = useTheme();
     const handleSubmit = (event: any) => {
         event.preventDefault();
         setOpen(true);
@@ -74,20 +84,32 @@ function ProductCTA() {
         <Container className={classes.root} component="section">
             <Grid container>
                 <Grid item xs={12} md={6} className={classes.cardWrapper}>
-                    <div className={classes.card}>
+                    <div
+                        className={'pattern-horizontal-stripes-xl'}
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            backgroundColor: theme.palette.secondary.main,
+                            padding: theme.spacing(8, 3),
+                            color: '#0d838f',
+                        }}
+                    >
                         <form
                             onSubmit={handleSubmit}
                             className={classes.cardContent}
                         >
                             <Typography
-                                variant="h2"
-                                component="h2"
-                                gutterBottom
-                                marked="center"
+                                variant="h3"
+                                style={{fontWeight: 550, color: 'white'}}
+                                align="center"
                             >
                                 Contact Us
                             </Typography>
-                            <Typography variant="h5">
+                            <Typography
+                                variant="h5"
+                                gutterBottom
+                                style={{color: 'white'}}
+                            >
                                 If you have any questions, please leave your
                                 email address here.
                             </Typography>
@@ -111,6 +133,7 @@ function ProductCTA() {
                                 type="submit"
                                 color="primary"
                                 variant="contained"
+                                startIcon={<GiftIcon />}
                                 className={classes.button}
                             >
                                 Get in Touch
@@ -131,6 +154,4 @@ function ProductCTA() {
             </Grid>
         </Container>
     );
-}
-
-export default ProductCTA;
+};
