@@ -97,6 +97,7 @@ const useStyles = makeStyles((theme: Theme) =>
             },
             [theme.breakpoints.down('sm')]: {
                 padding: theme.spacing(8),
+                marginTop: '4%',
             },
             [theme.breakpoints.between('sm', 'md')]: {
                 padding: theme.spacing(8),
@@ -104,9 +105,18 @@ const useStyles = makeStyles((theme: Theme) =>
             },
             maxWidth: '100%',
         },
-        noPaddingContent: {
+        noPaddingContentLogin: {
             flexGrow: 1,
+            marginTop: theme.spacing(4.5),
             maxWidth: '100%',
+            [theme.breakpoints.up('md')]: {
+                marginTop: theme.spacing(8),
+            },
+        },
+        noPaddingContentLogOut: {
+            flexGrow: 1,
+
+            marginTop: theme.spacing(8),
         },
         bottom: {
             position: 'fixed',
@@ -250,7 +260,9 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
                 <main
                     className={
                         noPadding
-                            ? classes.noPaddingContent
+                            ? loggedIn
+                                ? classes.noPaddingContentLogin
+                                : classes.noPaddingContentLogOut
                             : loggedIn
                             ? classes.contentLogin
                             : classes.contentOut
