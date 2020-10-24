@@ -6,18 +6,21 @@ import Typography from '../Typography/Typography';
 import 'pattern.css';
 import {CssBaseline} from '@material-ui/core';
 
+// const test =
+//     'https://images.unsplash.com/photo-1585758874546-c593da5f29e7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80';
+
 const useStyles: any = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             display: 'flex',
             backgroundColor: '#bcffeb',
             overflow: 'hidden',
-            color: theme.palette.background.default,
-            // backgroundImage: `url(${test})`,
+            //color: theme.palette.background.default,
+            //backgroundImage: `url(${test})`,
         },
         container: {
             marginTop: theme.spacing(10),
-            marginBottom: theme.spacing(15),
+            marginBottom: theme.spacing(10),
             position: 'relative',
             display: 'flex',
             flexDirection: 'column',
@@ -63,7 +66,7 @@ export default function HowItWorks() {
     return (
         <section className={classes.root}>
             <div
-                className={'pattern-diagonal-lines-sm'}
+                // className={'pattern-diagonal-lines-sm'}
                 style={{width: '100%'}}
             >
                 <CssBaseline />

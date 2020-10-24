@@ -41,8 +41,8 @@ export default withWidth()(({width}: any) => {
             //find comment of this portfolio
             setActivities(null);
             const results = await socialService.feed();
-            setActivities(shuffle(results.activities));
-            console.log(shuffle(results.activities));
+            setActivities(results.activities);
+            console.log(results.activities);
         } catch (error) {
             //console.log(error);
             dispatch(alertActions.error(error));

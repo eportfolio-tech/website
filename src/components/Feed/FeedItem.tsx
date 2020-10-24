@@ -305,7 +305,23 @@ export default function FeedItem({activity, width}: any) {
                                 </Typography>
                             </Grid>{' '}
                         </Grid>
-
+                        <div>
+                            <CardContent>
+                                {' '}
+                                <CardMedia
+                                    className={classes.media}
+                                    image={activity.portfolio.coverImage}
+                                    title="Paella dish"
+                                />
+                                <br />
+                                <Typography
+                                    variant={'body1'}
+                                    className={classes.description}
+                                >
+                                    {activity.portfolio.description}
+                                </Typography>
+                            </CardContent>
+                        </div>
                         <CardActions disableSpacing>
                             <IconButton
                                 aria-label="more"
