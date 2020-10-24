@@ -128,7 +128,7 @@ export default withWidth()(({portfolio, content, height, width}: any) => {
                         <CardContent>
                             <MyHTML
                                 html={content}
-                                coverImage={portfolio.coverImage}
+                                //coverImage={portfolio.coverImage}
                                 defaultBackground={!largeScreen}
                             />
                         </CardContent>

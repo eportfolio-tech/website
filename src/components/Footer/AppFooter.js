@@ -270,8 +270,8 @@ export default withWidth()(({width}) => {
                         style={{height: '100%'}}
                     >
                         <Typography variant="body3">
-                            © 2020, made with {<Heart />} by Forty-Two for a
-                            better IT Project.
+                            Copyright © 2020, made with {<Heart />} by Forty-Two
+                            for a better IT Project.
                         </Typography>
                     </Grid>
                 </Grid>
