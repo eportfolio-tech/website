@@ -54,7 +54,7 @@ export default function SpeedDials({
 
     const actions = [
         {icon: <SaveIcon />, name: 'Save', handle: handleSave},
-        {icon: <PrintIcon />, name: 'Print', handle: handlePrint},
+        // {icon: <PrintIcon />, name: 'Print', handle: handlePrint},
         {icon: <VisibilityIcon />, name: 'Preview', handle: handlePreview},
         {icon: <FormatPaintIcon />, name: 'Template', handle: handleTemplate},
         {icon: <PublishIcon />, name: 'UploadTemplate', handle: handleUpload},
