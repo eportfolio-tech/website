@@ -103,17 +103,17 @@ export default function FullScreenDialog({
                 </Toolbar>
             </AppBar>
             <div className={classes.content}>
-                <Actions
-                    handleLike={() => {
-                        setLiked(!liked);
-                    }}
-                    liked={liked}
-                    handleComment={() => {}}
-                    handleFollow={() => {}}
-                    audioSrc={
-                        'https://comp30002.blob.core.windows.net/image/cocabona,Glimlip-Drops.mp3'
-                    }
-                />
+                {/*<Actions*/}
+                {/*    handleLike={() => {*/}
+                {/*        setLiked(!liked);*/}
+                {/*    }}*/}
+                {/*    liked={liked}*/}
+                {/*    handleComment={() => {}}*/}
+                {/*    handleFollow={() => {}}*/}
+                {/*    audioSrc={*/}
+                {/*        'https://comp30002.blob.core.windows.net/image/cocabona,Glimlip-Drops.mp3'*/}
+                {/*    }*/}
+                {/*/>*/}
                 <Grid container justify="center">
                     <Grid xs={12}>
                         <Profile
