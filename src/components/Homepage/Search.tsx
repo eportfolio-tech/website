@@ -6,6 +6,8 @@ import ProductHeroLayout from './SearchLayout';
 
 import SearchBar from '../Search/SearchBar';
 
+//import backgroundImage from '../../assets/searchBackground.jpeg';
+
 const backgroundImage =
     'https://comp30002.blob.core.windows.net/image/career.jpg';
 
@@ -48,6 +50,7 @@ function ProductHero() {
                 align="center"
                 variant="h2"
                 color="inherit"
+                style={{fontWeight: 400}}
             >
                 Search E-Portfolio
             </Typography>

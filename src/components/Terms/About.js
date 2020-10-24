@@ -3,7 +3,6 @@ import Layout from '../Navigation';
 export default () => {
     return (
         <Layout>
-            {' '}
             <h1 style={{textAlign: 'center', color: 'green'}}>
                 <strong>What is Forty-Two?</strong>
             </h1>

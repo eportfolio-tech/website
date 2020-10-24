@@ -193,7 +193,9 @@ export default withWidth()(({width}: any) => {
                             </Tabs>
                         </div>
                     </Grid>
-                    <Grid item xs={12} md={1}></Grid>
+                    <Grid item xs={12} md={1}>
+                        <br />
+                    </Grid>
 
                     <Grid item xs={10} md={8}>
                         <SwipeableViews

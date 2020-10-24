@@ -60,33 +60,6 @@ const LoggedInRoute = ({Component, exact, path}: IProtectedRoute) => {
     );
 };
 
-// const LoggedOutRoute = ({Component, exact, path}: IProtectedRoute) => {
-//     const isAuthenticated = useSelector<IRootState, boolean | undefined>(
-//         (state) => state.auth.loggedIn
-//     );
-
-//     return (
-//         <Route
-//             exact={exact}
-//             path={path}
-//             render={() => {
-//                 // console.log("isAuthenticated", isAuthenticated);
-//                 if (isAuthenticated === false) {
-//                     return <Component />;
-//                 } else {
-//                     return (
-//                         <Redirect
-//                             to={{
-//                                 pathname: '/settings',
-//                             }}
-//                         />
-//                     );
-//                 }
-//             }}
-//         />
-//     );
-// };
-
 function App() {
     const EditorBoard = () => (
         <div>

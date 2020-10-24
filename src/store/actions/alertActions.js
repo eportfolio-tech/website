@@ -21,18 +21,25 @@ function warning(message) {
 }
 
 function error(error, errorHeader) {
-    const statusCode = error.response.status;
-    let normalError = error.response.data.data;
-    if (!normalError) {
-        normalError = error.response.data;
-    }
+    if (error.response) {
+        const statusCode = error.response.status;
+        let normalError = error.response.data.data;
+        if (!normalError) {
+            normalError = error.response.data;
+        }
 
-    return {
-        type: alertConstants.ERROR,
-        message: `${statusCode}${
-            errorHeader ? ' ' + errorHeader : ''
-        }: ${JSON.stringify(normalError)}`,
-    };
+        return {
+            type: alertConstants.ERROR,
+            message: `${statusCode}${
+                errorHeader ? ' ' + errorHeader : ''
+            }: ${JSON.stringify(normalError)}`,
+        };
+    } else {
+        return {
+            type: alertConstants.ERROR,
+            message: `System crashed! please check console. [${error}]`,
+        };
+    }
 }
 
 function clear() {

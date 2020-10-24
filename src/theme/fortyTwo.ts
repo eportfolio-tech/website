@@ -1,4 +1,7 @@
-import {createMuiTheme} from '@material-ui/core/styles';
+import {createMuiTheme, responsiveFontSizes} from '@material-ui/core/styles';
+import './Font.css';
+
+//const font = "'Quicksand', sans-serif";
 
 const fortyTwo = createMuiTheme({
     palette: {
@@ -18,6 +21,9 @@ const fortyTwo = createMuiTheme({
             main: '#15d300',
         },
     },
+    // typography: {
+    //     fontFamily: font,
+    // },
 });
 
-export default fortyTwo;
+export default responsiveFontSizes(fortyTwo);

@@ -115,7 +115,7 @@ const routers = [
     },
     {
         icon: <SearchIcon />,
-        path: 'search?query=arts',
+        path: 'search',
         matchPath: 'search',
         name: 'Search',
     },
@@ -123,7 +123,7 @@ const routers = [
         icon: <EditIcon />,
         path: 'editor',
         matchPath: 'editor',
-        name: 'Editor',
+        name: 'Edit My E-Portfolio',
     },
 ];
 
@@ -159,6 +159,7 @@ export default withWidth()(({width, handleDrawerOpen}: any) => {
     //const classes = useStyles();
     const history = useHistory();
     const largeScreen = isWidthUp('md', width);
+    const extraLgScreen = isWidthUp('lg', width);
     const classes = useStyles();
 
     //Popover hooks and functions
@@ -176,12 +177,30 @@ export default withWidth()(({width, handleDrawerOpen}: any) => {
 
     //handle Tabs change
     const handleChange = (event: any, active: any) => {
+        console.log(active);
         if (active === 4) return handleClick(event);
         history.push('/' + routers[active].path);
     };
 
     return (
         <AppBar position="fixed" className={classes.appBar}>
+            <Popover
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                }}
+                className={classes.popover}
+            >
+                <DashboardList />
+            </Popover>
             {!largeScreen ? (
                 <Grid container justify="center">
                     <Button
@@ -194,51 +213,38 @@ export default withWidth()(({width, handleDrawerOpen}: any) => {
                 </Grid>
             ) : (
                 <Grid container>
-                    <Grid item xs={5}>
-                        <Popover
-                            id={id}
-                            open={open}
-                            anchorEl={anchorEl}
-                            onClose={handleClose}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'center',
-                            }}
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'center',
-                            }}
-                            className={classes.popover}
-                        >
-                            <DashboardList />
-                        </Popover>
-                        <Link
-                            underline="none"
-                            color="textPrimary"
-                            href="/"
-                            className={classes.toolbarTitle}
-                        >
-                            <Button
-                                style={{
-                                    textTransform: 'none',
-                                }}
+                    {extraLgScreen ? (
+                        <Grid item xs={5}>
+                            <Link
+                                underline="none"
+                                color="textPrimary"
+                                href="/"
+                                className={classes.toolbarTitle}
                             >
-                                <img
-                                    className={classes.logo}
-                                    src={logoImage}
-                                    alt="logo"
-                                />
-                                <Typography
-                                    variant="h6"
-                                    style={{fontWeight: 800}}
+                                <Button
+                                    style={{
+                                        textTransform: 'none',
+                                    }}
                                 >
-                                    Forty-Two
-                                </Typography>
-                            </Button>
-                        </Link>
-                    </Grid>
+                                    <img
+                                        className={classes.logo}
+                                        src={logoImage}
+                                        alt="logo"
+                                    />
+                                    <Typography
+                                        variant="h6"
+                                        style={{fontWeight: 800}}
+                                    >
+                                        Forty-Two
+                                    </Typography>
+                                </Button>
+                            </Link>
+                        </Grid>
+                    ) : (
+                        <Grid item xs={2}></Grid>
+                    )}
 
-                    <Grid item xs={6}>
+                    <Grid item md={8} lg={6}>
                         <Toolbar>
                             <Tabs
                                 className={classes.root}

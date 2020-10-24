@@ -67,6 +67,7 @@ interface ITypography {
     component?: any;
     className?: any;
     gutterBottom?: boolean;
+    style?: any;
 }
 
 function Typography(props: ITypography) {
@@ -79,6 +80,7 @@ function Typography(props: ITypography) {
         component,
         className,
         gutterBottom,
+        style,
     } = props;
 
     const classes = useStyles();
@@ -91,6 +93,7 @@ function Typography(props: ITypography) {
             component={component}
             className={className}
             gutterBottom={gutterBottom}
+            style={style}
         >
             {children}
             {marked ? (

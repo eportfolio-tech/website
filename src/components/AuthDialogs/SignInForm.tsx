@@ -51,6 +51,9 @@ export default (props: {close: () => void}) => {
             const user = await authService.login(userName, userPassword);
             dispatch(userActions.login(user));
             dispatch(alertActions.success('sign in succeed'));
+            setTimeout(() => {
+                history.push('/explore');
+            }, 50);
             props.close();
         } catch (error) {
             dispatch(alertActions.error(error, 'sign in failed'));
@@ -90,44 +93,46 @@ export default (props: {close: () => void}) => {
                 </Button>
 
                 <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                        <GoogleLogin
-                            clientId="1079841086908-gqndjb0tl4np1s0ripbed859638n5ajc.apps.googleusercontent.com"
-                            buttonText="Login"
-                            onSuccess={responseGoogle}
-                            onFailure={responseGoogle}
-                            cookiePolicy={'single_host_origin'}
-                            style={{width: '100%'}}
-                            render={(renderProps) => (
-                                <Button
-                                    fullWidth
-                                    onClick={renderProps.onClick}
-                                    disabled={renderProps.disabled}
-                                    style={{
-                                        textTransform: 'none',
-                                        borderRadius: 20,
-                                        background: 'white',
-                                    }}
-                                    variant="contained"
-                                    startIcon={
-                                        <img
-                                            src={googleLogo}
-                                            style={{width: '1rem'}}
-                                            alt="google"
-                                        ></img>
-                                    }
-                                >
-                                    Login with google
-                                </Button>
-                            )}
-                        />
-                    </Grid>
+                    {/*<Grid item xs={12}>*/}
+                    {/*    <GoogleLogin*/}
+                    {/*        clientId="1079841086908-gqndjb0tl4np1s0ripbed859638n5ajc.apps.googleusercontent.com"*/}
+                    {/*        buttonText="Login"*/}
+                    {/*        onSuccess={responseGoogle}*/}
+                    {/*        onFailure={responseGoogle}*/}
+                    {/*        cookiePolicy={'single_host_origin'}*/}
+                    {/*        style={{width: '100%'}}*/}
+                    {/*        render={(renderProps) => (*/}
+                    {/*            <Button*/}
+                    {/*                fullWidth*/}
+                    {/*                onClick={renderProps.onClick}*/}
+                    {/*                disabled={renderProps.disabled}*/}
+                    {/*                style={{*/}
+                    {/*                    textTransform: 'none',*/}
+                    {/*                    borderRadius: 20,*/}
+                    {/*                    background: 'white',*/}
+                    {/*                }}*/}
+                    {/*                variant="contained"*/}
+                    {/*                startIcon={*/}
+                    {/*                    <img*/}
+                    {/*                        src={googleLogo}*/}
+                    {/*                        style={{width: '1rem'}}*/}
+                    {/*                        alt="google"*/}
+                    {/*                    ></img>*/}
+                    {/*                }*/}
+                    {/*            >*/}
+                    {/*                Login with google*/}
+                    {/*            </Button>*/}
+                    {/*        )}*/}
+                    {/*    />*/}
+                    {/*</Grid>*/}
                     <Grid item xs={12}>
                         <Button
                             fullWidth
                             style={{textTransform: 'none'}}
                             onClick={() => {
-                                history.push('/sign-up');
+                                history.push('/?sign-up=true');
+                                // @ts-ignore
+                                window.location.reload();
                             }}
                         >
                             Sign up

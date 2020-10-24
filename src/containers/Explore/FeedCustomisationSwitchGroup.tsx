@@ -40,7 +40,7 @@ export default function SwitchesGroup(props: {config: any; changeConfig: any}) {
                             name="layout"
                         />
                     }
-                    label="layout"
+                    label="Swiping Mode"
                 />
                 {/*<FormControlLabel*/}
                 {/*    control={<Switch checked={props.config.antoine} onChange={handleChange} name="antoine" />}*/}
