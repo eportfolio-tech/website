@@ -17,6 +17,7 @@ import {
     CardActions,
     Chip,
     CardMedia,
+    Badge,
 } from '@material-ui/core';
 // import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
@@ -26,6 +27,7 @@ import Typed from 'react-typed';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import NewIcon from '@material-ui/icons/Autorenew';
 import {useHistory} from 'react-router-dom';
 
 import {socialService} from '../../utils/socialService';
@@ -254,6 +256,72 @@ export default function FeedItem({activity, width}: any) {
                                 text={
                                     'http://dev.eportfolio.tech/portfolio/' +
                                     activity.username
+                                }
+                                onCopy={() => {
+                                    dispatch(
+                                        alertActions.success(
+                                            'URL have copied to your clipboard.'
+                                        )
+                                    );
+                                }}
+                            >
+                                <IconButton aria-label="share">
+                                    <ShareIcon />
+                                </IconButton>
+                            </CopyToClipboard>
+                        </CardActions>
+                    </Container>
+                );
+            case 'UPDATE':
+                return (
+                    <Container>
+                        <Grid container className={classes.skeletonHeader}>
+                            {' '}
+                            <Grid xs={3} md={1}>
+                                <Avatar
+                                    alt={activity.portfolio.username}
+                                    src={
+                                        activity.avatar
+                                            ? activity.avatar
+                                            : activity.portfolio.username[0]
+                                    }
+                                    className={classes.avatar}
+                                />
+                            </Grid>
+                            <Grid xs={9} md={11}>
+                                <Typography variant={'h5'}>
+                                    <Typed
+                                        strings={[
+                                            activity.portfolio.username +
+                                                ' just Updated his/her E-portfolio.' +
+                                                '^3000',
+                                            ' Go there and check it out!' +
+                                                '^500',
+                                        ]}
+                                        typeSpeed={80}
+                                        loop
+                                    ></Typed>
+                                    {/* {`${portfolio.firstName} ${portfolio.lastName}`} */}
+                                </Typography>
+                            </Grid>{' '}
+                        </Grid>
+
+                        <CardActions disableSpacing>
+                            <IconButton
+                                aria-label="more"
+                                onClick={() => {
+                                    history.push(
+                                        '/portfolio/' +
+                                            activity.portfolio.username
+                                    );
+                                }}
+                            >
+                                <NewIcon />
+                            </IconButton>
+                            <CopyToClipboard
+                                text={
+                                    'http://dev.eportfolio.tech/portfolio/' +
+                                    activity.portfolio.username
                                 }
                                 onCopy={() => {
                                     dispatch(
