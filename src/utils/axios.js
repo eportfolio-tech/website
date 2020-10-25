@@ -2,14 +2,14 @@ import axios from 'axios';
 
 // Set config defaults when creating the instance
 // @ts-ignore
-//const testEnvironment = 'https://haswell.eportfolio.tech/api/';
+const testEnvironment = 'https://haswell.eportfolio.tech/api/';
 // @ts-ignore
 const devEnvironment = 'https://dev.eportfolio.tech/api/';
 
 // const localEnvironment = 'http://localhost:8090';
 
 const instance = axios.create({
-    baseURL: devEnvironment,
+    baseURL: testEnvironment,
 });
 
 instance.interceptors.request.use(

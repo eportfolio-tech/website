@@ -15,6 +15,7 @@ import {
     Tooltip,
     withWidth,
     isWidthUp,
+    Fab,
 } from '@material-ui/core';
 
 import {userService} from '../../utils/userService';
@@ -33,6 +34,7 @@ import Actions from './Actions';
 
 import SaveIcon from '@material-ui/icons/Save';
 import noImage from '../../assets/noImage.jpg';
+import MusicNoteIcon from '@material-ui/icons/MusicNote';
 
 export default withWidth()(({width}: any) => {
     const dispatch = useDispatch();
@@ -52,6 +54,7 @@ export default withWidth()(({width}: any) => {
     const [description, setDescription] = useState(null);
     const [coverImage, setCoverImage] = useState('');
     const [publicFolio, setPublicFolio] = useState(true);
+    const [music, setMusic] = useState<any>(null);
 
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem('user') || 'null');
@@ -74,6 +77,7 @@ export default withWidth()(({width}: any) => {
                 setDescription(data.portfolio.description);
                 setCoverImage(data.portfolio.coverImage);
                 setPublicFolio(data.portfolio.visibility === 'PUBLIC');
+                setMusic(data.portfolio.music);
             })
             .catch((error) => {
                 // dispatch(pageActions.loading());
@@ -103,10 +107,62 @@ export default withWidth()(({width}: any) => {
                 description: description,
                 visibility: publicFolio ? 'PUBLIC' : 'PRIVATE',
                 coverImage: coverImage,
+                music: music,
             });
             dispatch(alertActions.success('Save succeed'));
         } catch (error) {
             dispatch(alertActions.error(error, 'Put data failed'));
+        }
+    };
+
+    const onPublicRemote = async (publicFolio: any) => {
+        try {
+            const rawJSON = editorState.toRAW(true);
+            const userInfo = JSON.parse(localStorage.getItem('user') || 'null');
+            const username = userInfo.user.username;
+            await pageService.putContent(username, rawJSON);
+            await pageService.updatePortfolio(username, {
+                title: title,
+                description: description,
+                visibility: publicFolio ? 'PUBLIC' : 'PRIVATE',
+                coverImage: coverImage,
+                music: music,
+            });
+            if (publicFolio) {
+                dispatch(
+                    alertActions.success(
+                        'Your portfolio is public, everyone can see it.'
+                    )
+                );
+            } else {
+                dispatch(
+                    alertActions.success(
+                        'Your portfolio is private, everyone with link can see it.'
+                    )
+                );
+            }
+            //dispatch(alertActions.success('Your'));
+        } catch (error) {
+            dispatch(alertActions.error(error, 'Save Public failed'));
+        }
+    };
+
+    const onMusicRemote = async (music: any) => {
+        try {
+            const rawJSON = editorState.toRAW(true);
+            const userInfo = JSON.parse(localStorage.getItem('user') || 'null');
+            const username = userInfo.user.username;
+            await pageService.putContent(username, rawJSON);
+            await pageService.updatePortfolio(username, {
+                title: title,
+                description: description,
+                visibility: publicFolio ? 'PUBLIC' : 'PRIVATE',
+                coverImage: coverImage,
+                music: music,
+            });
+            dispatch(alertActions.success('Save succeed'));
+        } catch (error) {
+            dispatch(alertActions.error(error, 'Save Public failed'));
         }
     };
 
@@ -215,6 +271,11 @@ export default withWidth()(({width}: any) => {
                             setOpenTemplate(true);
                         }}
                         handleUpload={onUploadTemplate}
+                        handlePublic={async () => {
+                            await onPublicRemote(!publicFolio);
+                            setPublicFolio(!publicFolio);
+                        }}
+                        publicFolio={publicFolio}
                     />
                     <Preview
                         open={openPreview}
@@ -223,6 +284,7 @@ export default withWidth()(({width}: any) => {
                         title={title}
                         description={description}
                         coverImage={coverImage}
+                        music={music}
                     />
 
                     <Grid
@@ -360,35 +422,67 @@ export default withWidth()(({width}: any) => {
                             </Paper>
                         </Grid>
                         <Grid item xs={9}>
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                startIcon={<SaveIcon />}
-                                size="large"
-                                onClick={onSaveHandlerRemote}
-                                style={{display: 'inline-block'}}
-                            >
-                                Save
-                            </Button>
-                            <FormGroup
-                                row
-                                style={{
-                                    display: 'inline-block',
-                                    marginLeft: 20,
-                                }}
-                            >
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            checked={publicFolio}
-                                            onChange={() => {
-                                                setPublicFolio(!publicFolio);
-                                            }}
-                                        />
-                                    }
-                                    label="Make Public"
-                                />
-                            </FormGroup>
+                            <Grid container justify="space-between">
+                                <Grid item>
+                                    <Button
+                                        variant="contained"
+                                        color="secondary"
+                                        startIcon={<SaveIcon />}
+                                        size="large"
+                                        onClick={onSaveHandlerRemote}
+                                        style={{display: 'inline-block'}}
+                                    >
+                                        Save
+                                    </Button>
+                                </Grid>
+
+                                <Grid item>
+                                    <Grid container justify="flex-end">
+                                        <label htmlFor="upload-music">
+                                            <input
+                                                style={{display: 'none'}}
+                                                id="upload-music"
+                                                name="upload-music"
+                                                type="file"
+                                                accept=".mp3"
+                                                onChange={(event) => {
+                                                    console.log(
+                                                        event.target.files
+                                                    );
+                                                    if (
+                                                        event.target.files !==
+                                                        null
+                                                    ) {
+                                                        onUpload(
+                                                            event.target!
+                                                                .files[0]
+                                                        ).then((res) => {
+                                                            if (res) {
+                                                                setMusic(
+                                                                    res.URI
+                                                                );
+                                                                onMusicRemote(
+                                                                    res.URI
+                                                                );
+                                                            }
+
+                                                            console.log(res);
+                                                            //setMusic(res.URI);
+                                                        });
+                                                    }
+                                                }}
+                                            />
+                                            <Fab
+                                                color="primary"
+                                                component="span"
+                                                aria-label="add"
+                                            >
+                                                <MusicNoteIcon />
+                                            </Fab>
+                                        </label>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </div>
