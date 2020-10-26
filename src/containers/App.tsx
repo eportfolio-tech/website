@@ -137,7 +137,7 @@ function App() {
                                 path={'/aboutus'}
                                 component={AboutUs}
                             />
-                            <Redirect push to="/notfound" />
+                            <Route path={'/'} component={NotFound} />
                         </Switch>
                     </SnackbarProvider>
                 </ThemeProvider>

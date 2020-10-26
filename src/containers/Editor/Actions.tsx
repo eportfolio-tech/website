@@ -8,6 +8,12 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FormatPaintIcon from '@material-ui/icons/FormatPaint';
 import PublishIcon from '@material-ui/icons/Publish';
+//import VpnLockIcon from '@material-ui/icons/VpnLock';
+import LockIcon from '@material-ui/icons/Lock';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
+
+import PublicIcon from '@material-ui/icons/Public';
+import GroupIcon from '@material-ui/icons/Group';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -39,6 +45,8 @@ export default function SpeedDials({
     handlePrint,
     handleTemplate,
     handleUpload,
+    publicFolio,
+    handlePublic,
 }: any) {
     const classes = useStyles();
 
@@ -58,6 +66,11 @@ export default function SpeedDials({
         {icon: <VisibilityIcon />, name: 'Preview', handle: handlePreview},
         {icon: <FormatPaintIcon />, name: 'Template', handle: handleTemplate},
         {icon: <PublishIcon />, name: 'UploadTemplate', handle: handleUpload},
+        {
+            icon: !publicFolio ? <LockOpenIcon /> : <LockIcon />,
+            name: !publicFolio ? 'Make Public' : 'Make Private',
+            handle: handlePublic,
+        },
     ];
 
     return (
