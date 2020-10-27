@@ -29,12 +29,8 @@ cache:
 
 script:
     - npm test
-    - if [ $TRAVIS_BRANCH == "master"]; then
-      CI=false npm run build-prod;
-    fi
-    - if [ $TRAVIS_BRANCH == "dev"]; then
-      CI=false npm run build;
-    fi
+    - test $TRAVIS_BRANCH = "master" && CI=false npm run build-prod
+    - test $TRAVIS_BRANCH = "dev" && CI=false npm run build
 
 before_deploy:
     - eval "$(ssh-agent -s)"
