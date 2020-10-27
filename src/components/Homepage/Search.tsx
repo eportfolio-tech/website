@@ -6,10 +6,10 @@ import ProductHeroLayout from './SearchLayout';
 
 import SearchBar from '../Search/SearchBar';
 
-//import backgroundImage from '../../assets/searchBackground.jpeg';
+import backgroundImage from '../../assets/searchBackground.jpeg';
 
-const backgroundImage =
-    'https://images.unsplash.com/photo-1468434453985-b1ca3b555f00?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80';
+// const backgroundImage =
+//     'https://images.unsplash.com/photo-1468434453985-b1ca3b555f00?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80';
 
 const useStyles: any = makeStyles((theme: Theme) =>
     createStyles({
@@ -40,11 +40,11 @@ function ProductHero() {
     return (
         <ProductHeroLayout backgroundClassName={classes.background}>
             {/* Increase the network loading priority of the background image. */}
-            <img
+            {/* <img
                 style={{display: 'none'}}
                 src={backgroundImage}
                 alt="increase priority"
-            />
+            /> */}
             <Typography
                 marked="center"
                 align="center"
