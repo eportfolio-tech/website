@@ -40,16 +40,14 @@ before_deploy:
 deploy:
     - provider: script
       skip_cleanup: true
-      script: 
-        CI=false npm run build-prod
-        rsync -r --delete-after --quiet -e 'ssh' $TRAVIS_BUILD_DIR/build/* haswell@haswf.com:/home/haswell/prod/
+      script: CI=false npm run build-prod
+          rsync -r --delete-after --quiet -e 'ssh' $TRAVIS_BUILD_DIR/build/* haswell@haswf.com:/home/haswell/prod/
       on:
           branch: master
     - provider: script
       skip_cleanup: true
-      script: 
-        CI=false npm run build
-        rsync -r --delete-after --quiet -e 'ssh' $TRAVIS_BUILD_DIR/build/* haswell@haswf.com:/home/haswell/dev/
+      script: CI=false npm run build
+          rsync -r --delete-after --quiet -e 'ssh' $TRAVIS_BUILD_DIR/build/* haswell@haswf.com:/home/haswell/dev/
       on:
           branch: dev
 

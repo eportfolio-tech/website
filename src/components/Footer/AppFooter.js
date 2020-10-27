@@ -271,7 +271,7 @@ export default withWidth()(({width}) => {
                     >
                         <Typography variant="body3">
                             Copyright © 2020, made with {<Heart />} by Forty-Two
-                            for a better IT Project.
+                            for IT Project.
                         </Typography>
                     </Grid>
                 </Grid>

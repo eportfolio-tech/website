@@ -9,7 +9,7 @@ import SearchBar from '../Search/SearchBar';
 //import backgroundImage from '../../assets/searchBackground.jpeg';
 
 const backgroundImage =
-    'https://comp30002.blob.core.windows.net/image/career.jpg';
+    'https://images.unsplash.com/photo-1468434453985-b1ca3b555f00?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80';
 
 const useStyles: any = makeStyles((theme: Theme) =>
     createStyles({
