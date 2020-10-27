@@ -29,6 +29,12 @@ cache:
 
 script:
     - npm test
+    - if [ $TRAVIS_BRANCH == "master"]; then
+      CI=false npm run build-prod;
+    fi
+    - if [ $TRAVIS_BRANCH == "dev"]; then
+      CI=false npm run build;
+    fi
 
 before_deploy:
     - eval "$(ssh-agent -s)"
@@ -41,13 +47,13 @@ deploy:
     - provider: script
       skip_cleanup: true
       script: 
-        CI=false npm run build-prod && rsync -r --delete-after --quiet -e 'ssh' $TRAVIS_BUILD_DIR/build/* haswell@haswf.com:/home/haswell/prod/
+        rsync -r --delete-after --quiet -e 'ssh' $TRAVIS_BUILD_DIR/build/* haswell@haswf.com:/home/haswell/prod/
       on:
           branch: master
     - provider: script
       skip_cleanup: true
       script: 
-        CI=false npm run build && rsync -r --delete-after --quiet -e 'ssh' $TRAVIS_BUILD_DIR/build/* haswell@haswf.com:/home/haswell/dev/
+        rsync -r --delete-after --quiet -e 'ssh' $TRAVIS_BUILD_DIR/build/* haswell@haswf.com:/home/haswell/dev/
       on:
           branch: dev
 
