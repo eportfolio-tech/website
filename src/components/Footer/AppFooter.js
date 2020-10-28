@@ -141,9 +141,7 @@ export default withWidth()(({width}) => {
                         <Grid item xs={3}>
                             <Grid container justify="center">
                                 <IconButton
-                                    href={
-                                        'https://github.com/Haswf/COMP30022FrontEndDev'
-                                    }
+                                    href={'https://github.com/eportfolio-tech'}
                                     style={{color: '#13a87c'}}
                                 >
                                     <GitHubIcon />
