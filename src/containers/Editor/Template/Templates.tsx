@@ -89,7 +89,7 @@ export default function SimpleListMenu({selectCallback, select}: any) {
                             </ListItemIcon>
 
                             {selectedIndex === -1 || selectedIndex === -2 ? (
-                                <ListItemText primary={'Click here'} />
+                                <ListItemText primary={'choose template'} />
                             ) : (
                                 <ListItemText
                                     primary={options[selectedIndex]}

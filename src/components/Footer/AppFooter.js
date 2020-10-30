@@ -141,9 +141,7 @@ export default withWidth()(({width}) => {
                         <Grid item xs={3}>
                             <Grid container justify="center">
                                 <IconButton
-                                    href={
-                                        'https://github.com/Haswf/COMP30022FrontEndDev'
-                                    }
+                                    href={'https://github.com/eportfolio-tech'}
                                     style={{color: '#13a87c'}}
                                 >
                                     <GitHubIcon />
@@ -271,7 +269,7 @@ export default withWidth()(({width}) => {
                     >
                         <Typography variant="body3">
                             Copyright © 2020, made with {<Heart />} by Forty-Two
-                            for a better IT Project.
+                            for IT Project.
                         </Typography>
                     </Grid>
                 </Grid>

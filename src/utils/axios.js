@@ -1,10 +1,6 @@
 import axios from 'axios';
 
-// Set config defaults when creating the instance
-// @ts-ignore
-//const testEnvironment = 'https://haswell.eportfolio.tech/api/';
-// @ts-ignore
-const devEnvironment = 'https://dev.eportfolio.tech/api/';
+const devEnvironment = process.env.REACT_APP_ENDPOINT;
 
 // const localEnvironment = 'http://localhost:8090';
 
