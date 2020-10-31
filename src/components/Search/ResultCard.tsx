@@ -75,7 +75,11 @@ export default ({content}: IResultCard) => {
                     <Hidden xsDown>
                         <CardMedia
                             className={classes.cardMedia}
-                            image={logoImage}
+                            image={
+                                content.coverImage
+                                    ? content.coverImage
+                                    : logoImage
+                            }
                             title={'?'}
                         />
                     </Hidden>

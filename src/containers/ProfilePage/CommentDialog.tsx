@@ -24,6 +24,7 @@ const useStyles: any = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             // backgroundColor: theme.palette.background.paper,
+            minWidth: '280px',
         },
         closeComments: {
             marginTop: theme.spacing(1),
@@ -84,7 +85,7 @@ export default ({
                 setOpenComment(false);
             }}
         >
-            <Grid container style={{width: '35VW'}}>
+            <Grid container style={{maxWidth: '480px'}}>
                 <Grid item xs={1}></Grid>
                 <Grid item xs={9} className={classes.header}>
                     <Typography variant="h6">{`  Responses(${

@@ -5,6 +5,9 @@ import {createStyles, makeStyles} from '@material-ui/core/styles';
 import {useLocation} from 'react-router-dom';
 import {Autocomplete} from '@material-ui/lab';
 import TagType from './TagType';
+import {useDispatch} from 'react-redux';
+import {userService} from '../../utils/userService';
+import {alertActions} from '../../store/actions/alertActions';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -39,6 +42,7 @@ export default ({setInput, style}: ITagInput) => {
     const classes = useStyles();
     const query = useQuery();
     const queryTag = query.get('tag');
+    const dispatch = useDispatch();
 
     const [open, setOpen] = useState(false);
     const [options, setOptions] = useState<TagType[]>([]);
@@ -72,12 +76,15 @@ export default ({setInput, style}: ITagInput) => {
 	};*/
 
     const fetchChips = async (active: boolean) => {
-        if (active) {
-            setSelected('');
-            const response = await fetch('https://api.eportfolio.tech/tags/');
-            const tags = await response.json();
-            await sleep(500);
-            setOptions(tags.data.tag);
+        try {
+            if (active) {
+                setSelected('');
+                const tags = await userService.getAllTags();
+                await sleep(500);
+                setOptions(tags.tag);
+            }
+        } catch (error) {
+            dispatch(alertActions.error(error));
         }
     };
 

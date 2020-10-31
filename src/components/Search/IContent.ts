@@ -5,6 +5,7 @@ export default interface IContent {
     userId: number;
     content: any;
     description: string;
+    coverImage?: any;
     visibility?: 'PUBLIC' | 'PRIVATE';
     deleted?: boolean;
     createdDate?: Date;

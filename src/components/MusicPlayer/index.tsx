@@ -44,6 +44,7 @@ export default ({style, src}: any) => {
             onEnded={() => {
                 setPlaying(false);
             }}
+            volume={0.3}
 
             // other props here
         />

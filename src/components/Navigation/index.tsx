@@ -81,12 +81,12 @@ const useStyles = makeStyles((theme: Theme) =>
                 padding: theme.spacing(15),
             },
             [theme.breakpoints.down('sm')]: {
-                padding: theme.spacing(8),
-                marginTop: '18%',
+                padding: theme.spacing(2),
+                marginTop: theme.spacing(6),
             },
             [theme.breakpoints.between('sm', 'md')]: {
                 padding: theme.spacing(8),
-                marginTop: '8%',
+                marginTop: theme.spacing(4),
             },
             maxWidth: '100%',
         },
@@ -97,17 +97,26 @@ const useStyles = makeStyles((theme: Theme) =>
             },
             [theme.breakpoints.down('sm')]: {
                 padding: theme.spacing(8),
-                marginTop: '18%',
+                marginTop: '4%',
             },
             [theme.breakpoints.between('sm', 'md')]: {
                 padding: theme.spacing(8),
-                marginTop: '8%',
+                marginTop: '4%',
             },
             maxWidth: '100%',
         },
-        noPaddingContent: {
+        noPaddingContentLogin: {
             flexGrow: 1,
+            marginTop: theme.spacing(4.5),
             maxWidth: '100%',
+            [theme.breakpoints.up('md')]: {
+                marginTop: theme.spacing(8),
+            },
+        },
+        noPaddingContentLogOut: {
+            flexGrow: 1,
+
+            marginTop: theme.spacing(8),
         },
         bottom: {
             position: 'fixed',
@@ -251,7 +260,9 @@ export default withWidth()(({children, width, noPadding}: ILayoutProps) => {
                 <main
                     className={
                         noPadding
-                            ? classes.noPaddingContent
+                            ? loggedIn
+                                ? classes.noPaddingContentLogin
+                                : classes.noPaddingContentLogOut
                             : loggedIn
                             ? classes.contentLogin
                             : classes.contentOut

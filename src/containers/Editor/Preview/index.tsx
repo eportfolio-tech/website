@@ -28,17 +28,19 @@ const useStyles = makeStyles((theme: Theme) =>
             },
             [theme.breakpoints.down('sm')]: {
                 padding: theme.spacing(8),
-                // marginTop: '18%',
+                marginTop: '4%',
             },
             [theme.breakpoints.between('sm', 'md')]: {
                 padding: theme.spacing(8),
-                // marginTop: '4%',
+                marginTop: '4%',
             },
             width: '100%',
             minWidth: '100VW',
+            background: theme.palette.background.default,
         },
         root: {
             //display: 'flex',
+            background: theme.palette.background.default,
         },
     })
 );
@@ -56,6 +58,8 @@ export default function FullScreenDialog({
     html,
     title,
     description,
+    coverImage,
+    music,
 }: any) {
     const classes = useStyles();
     const userInfo = JSON.parse(localStorage.getItem('user') || 'null').user;
@@ -73,6 +77,7 @@ export default function FullScreenDialog({
         firstName: userInfo.firstName,
         lastName: userInfo.lastName,
         username: userInfo.username,
+        coverImage: coverImage,
     };
 
     return (
@@ -107,7 +112,9 @@ export default function FullScreenDialog({
                     handleComment={() => {}}
                     handleFollow={() => {}}
                     audioSrc={
-                        'https://comp30002.blob.core.windows.net/image/cocabona,Glimlip-Drops.mp3'
+                        music
+                            ? music
+                            : 'https://comp30002.blob.core.windows.net/image/cocabona,Glimlip-Drops.mp3'
                     }
                 />
                 <Grid container justify="center">

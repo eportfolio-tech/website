@@ -2,14 +2,28 @@ import 'braft-editor/dist/index.css';
 import React, {useState, useEffect} from 'react';
 import BraftEditor from 'braft-editor';
 
-import {Button, Grid, TextField, useTheme} from '@material-ui/core';
+import {
+    Button,
+    CardMedia,
+    Checkbox,
+    FormControlLabel,
+    FormGroup,
+    Grid,
+    TextField,
+    Typography,
+    useTheme,
+    Tooltip,
+    withWidth,
+    isWidthUp,
+    Fab,
+} from '@material-ui/core';
 
 import {userService} from '../../utils/userService';
 import {pageService} from '../../utils/pageService';
 import {templateService} from '../../utils/templateService';
 import Paper from '@material-ui/core/Paper';
 
-import {alertActions} from '../../store/actions/alertActions';
+import {alertActions} from '../../store/actions';
 import {useDispatch} from 'react-redux';
 
 import TemplateDialog from './Template/TemplateDialog';
@@ -19,11 +33,14 @@ import Preview from './Preview';
 import Actions from './Actions';
 
 import SaveIcon from '@material-ui/icons/Save';
+import noImage from '../../assets/noImage.jpg';
+import MusicNoteIcon from '@material-ui/icons/MusicNote';
 
-export default () => {
+export default withWidth()(({width}: any) => {
     const dispatch = useDispatch();
 
     const theme = useTheme();
+    const largeScreen = isWidthUp('md', width);
 
     const [portfolio, setPortfolio] = useState<any>();
     const [editorState, setEditorState] = useState(
@@ -32,10 +49,12 @@ export default () => {
     const [openTemplate, setOpenTemplate] = useState(false);
     const [openPreview, setOpenPreview] = useState(false);
     const [html, setHtml] = useState(null);
-    // const [showHtml, setShowHtml] = useState(false);
 
     const [title, setTitle] = useState(null);
     const [description, setDescription] = useState(null);
+    const [coverImage, setCoverImage] = useState('');
+    const [publicFolio, setPublicFolio] = useState(true);
+    const [music, setMusic] = useState<any>(null);
 
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem('user') || 'null');
@@ -47,7 +66,6 @@ export default () => {
             .then((data) => {
                 // console.log('portfolio: ', data.portfolio);
                 setPortfolio(data.portfolio);
-
                 setEditorState(
                     BraftEditor.createEditorState(
                         data.portfolio.content !== null
@@ -57,8 +75,12 @@ export default () => {
                 );
                 setTitle(data.portfolio.title);
                 setDescription(data.portfolio.description);
+                setCoverImage(data.portfolio.coverImage);
+                setPublicFolio(data.portfolio.visibility === 'PUBLIC');
+                setMusic(data.portfolio.music);
             })
             .catch((error) => {
+                // dispatch(pageActions.loading());
                 setPortfolio(null);
                 if (error.response !== undefined) {
                     if (error.response.status === 404) {
@@ -68,7 +90,7 @@ export default () => {
                     }
                 }
             });
-    }, [dispatch]);
+    }, []);
 
     const handleChange = (editorState: any) => {
         setEditorState(editorState);
@@ -83,10 +105,64 @@ export default () => {
             await pageService.updatePortfolio(username, {
                 title: title,
                 description: description,
+                visibility: publicFolio ? 'PUBLIC' : 'PRIVATE',
+                coverImage: coverImage,
+                music: music,
             });
             dispatch(alertActions.success('Save succeed'));
         } catch (error) {
             dispatch(alertActions.error(error, 'Put data failed'));
+        }
+    };
+
+    const onPublicRemote = async (publicFolio: any) => {
+        try {
+            const rawJSON = editorState.toRAW(true);
+            const userInfo = JSON.parse(localStorage.getItem('user') || 'null');
+            const username = userInfo.user.username;
+            await pageService.putContent(username, rawJSON);
+            await pageService.updatePortfolio(username, {
+                title: title,
+                description: description,
+                visibility: publicFolio ? 'PUBLIC' : 'PRIVATE',
+                coverImage: coverImage,
+                music: music,
+            });
+            if (publicFolio) {
+                dispatch(
+                    alertActions.success(
+                        'Your portfolio is public, everyone can see it.'
+                    )
+                );
+            } else {
+                dispatch(
+                    alertActions.success(
+                        'Your portfolio is private, everyone with link can see it.'
+                    )
+                );
+            }
+            //dispatch(alertActions.success('Your'));
+        } catch (error) {
+            dispatch(alertActions.error(error, 'Save Public failed'));
+        }
+    };
+
+    const onMusicRemote = async (music: any) => {
+        try {
+            const rawJSON = editorState.toRAW(true);
+            const userInfo = JSON.parse(localStorage.getItem('user') || 'null');
+            const username = userInfo.user.username;
+            await pageService.putContent(username, rawJSON);
+            await pageService.updatePortfolio(username, {
+                title: title,
+                description: description,
+                visibility: publicFolio ? 'PUBLIC' : 'PRIVATE',
+                coverImage: coverImage,
+                music: music,
+            });
+            dispatch(alertActions.success('Save succeed'));
+        } catch (error) {
+            dispatch(alertActions.error(error, 'Save Public failed'));
         }
     };
 
@@ -96,10 +172,14 @@ export default () => {
             const username = userInfo.user.username;
 
             const response = await userService.uploadFile(username, file);
-            dispatch(alertActions.success('Save succeed'));
+            dispatch(
+                alertActions.success(
+                    'Upload succeed, remember to save your progress'
+                )
+            );
             return response;
         } catch (error) {
-            dispatch(alertActions.error(error, 'Save failed'));
+            dispatch(alertActions.error(error, 'Upload failed'));
         }
     };
 
@@ -118,9 +198,7 @@ export default () => {
     };
 
     const onSelectTemplateCallback = (selectedTemplate: any) => {
-        // console.log('callback');
         setEditorState(BraftEditor.createEditorState(selectedTemplate));
-        // console.log(editorState);
     };
 
     const renderHTML = () => {
@@ -151,7 +229,7 @@ export default () => {
         const errorFn = (response: any) => {
             // 上传发生错误时调用param.error
             param.error({
-                msg: 'unable to upload.',
+                msg: 'unable to upload: ' + response,
             });
         };
 
@@ -161,12 +239,6 @@ export default () => {
         } catch (error) {
             errorFn(error);
         }
-
-        // const progressFn = (event) => {
-        //     // 上传进度发生变化时调用param.progress
-
-        //     param.progress((event.loaded / event.total) * 100);
-        // };
     };
 
     if (!editorState) {
@@ -199,6 +271,11 @@ export default () => {
                             setOpenTemplate(true);
                         }}
                         handleUpload={onUploadTemplate}
+                        handlePublic={async () => {
+                            await onPublicRemote(!publicFolio);
+                            setPublicFolio(!publicFolio);
+                        }}
+                        publicFolio={publicFolio}
                     />
                     <Preview
                         open={openPreview}
@@ -206,13 +283,15 @@ export default () => {
                         html={html}
                         title={title}
                         description={description}
+                        coverImage={coverImage}
+                        music={music}
                     />
 
                     <Grid
                         container
-                        spacing={4}
+                        spacing={2}
                         alignItems="center"
-                        justify="center"
+                        justify={largeScreen ? 'center' : 'flex-start'}
                     >
                         <Grid item xs={9}>
                             <TextField
@@ -249,12 +328,88 @@ export default () => {
                         </Grid>
 
                         <Grid item xs={9}>
+                            <Grid container justify="center">
+                                <label
+                                    htmlFor="upload-photo"
+                                    style={{margin: 'auto'}}
+                                >
+                                    <input
+                                        style={{
+                                            display: 'none',
+                                            outline: 'none',
+                                        }}
+                                        id="upload-photo"
+                                        name="upload-photo"
+                                        type="file"
+                                        accept=".png,.jpg"
+                                        onChange={(event) => {
+                                            console.log(event.target.files);
+                                            if (event.target.files !== null) {
+                                                onUpload(
+                                                    event.target!.files[0]
+                                                ).then((res) => {
+                                                    setCoverImage(res.URI);
+                                                });
+                                            }
+                                        }}
+                                    />
+                                    <Tooltip
+                                        placement="top"
+                                        title={
+                                            <Typography variant="body1">
+                                                Upload Cover Image
+                                            </Typography>
+                                        }
+                                        arrow
+                                        style={{width: '100%'}}
+                                    >
+                                        <Button
+                                            component="span"
+                                            aria-label="add"
+                                            style={{width: '100%'}}
+                                            fullWidth
+                                        >
+                                            <CardMedia
+                                                image={
+                                                    coverImage
+                                                        ? coverImage
+                                                        : noImage
+                                                }
+                                                title="portfolio"
+                                                style={{
+                                                    width: '62VW',
+                                                    height: '30VH',
+                                                    //paddingTop: '30.25%',
+                                                }}
+                                            >
+                                                {/* <img
+                                                    src={
+                                                        coverImage
+                                                            ? coverImage
+                                                            : noImage
+                                                    }
+                                                    title="portfolio"
+                                                    style={{
+                                                        width: '100%',
+
+                                                        // paddingTop: '30.25%',
+                                                    }}
+                                                /> */}
+                                            </CardMedia>
+                                        </Button>
+                                    </Tooltip>
+                                </label>
+                            </Grid>
+                        </Grid>
+
+                        <Grid item xs={9}>
                             <Paper
                                 style={{
                                     minHeight: '50VH',
                                     background:
                                         theme.palette.background.default,
                                 }}
+                                elevation={3}
                             >
                                 <BraftEditor
                                     value={editorState}
@@ -267,19 +422,71 @@ export default () => {
                             </Paper>
                         </Grid>
                         <Grid item xs={9}>
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                startIcon={<SaveIcon />}
-                                size="large"
-                                onClick={onSaveHandlerRemote}
-                            >
-                                Save
-                            </Button>
+                            <Grid container justify="space-between">
+                                <Grid item>
+                                    <Button
+                                        variant="contained"
+                                        color="secondary"
+                                        startIcon={<SaveIcon />}
+                                        size="large"
+                                        onClick={onSaveHandlerRemote}
+                                        style={{display: 'inline-block'}}
+                                    >
+                                        Save
+                                    </Button>
+                                </Grid>
+
+                                <Grid item>
+                                    <Grid container justify="flex-end">
+                                        <label htmlFor="upload-music">
+                                            <input
+                                                style={{display: 'none'}}
+                                                id="upload-music"
+                                                name="upload-music"
+                                                type="file"
+                                                accept=".mp3"
+                                                onChange={(event) => {
+                                                    console.log(
+                                                        event.target.files
+                                                    );
+                                                    if (
+                                                        event.target.files !==
+                                                        null
+                                                    ) {
+                                                        onUpload(
+                                                            event.target!
+                                                                .files[0]
+                                                        ).then((res) => {
+                                                            if (res) {
+                                                                setMusic(
+                                                                    res.URI
+                                                                );
+                                                                onMusicRemote(
+                                                                    res.URI
+                                                                );
+                                                            }
+
+                                                            console.log(res);
+                                                            //setMusic(res.URI);
+                                                        });
+                                                    }
+                                                }}
+                                            />
+                                            <Fab
+                                                color="primary"
+                                                component="span"
+                                                aria-label="add"
+                                            >
+                                                <MusicNoteIcon />
+                                            </Fab>
+                                        </label>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </div>
             )}
         </div>
     );
-};
+});

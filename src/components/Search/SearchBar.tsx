@@ -12,6 +12,8 @@ import {
     Tooltip,
     Typography,
     Grid,
+    isWidthUp,
+    withWidth,
 } from '@material-ui/core';
 import {Search as SearchIcon} from '@material-ui/icons';
 
@@ -29,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         divider: {
             height: 33,
-            marginTop: '11px',
+            // marginTop: '11px',
         },
 
         root: {
@@ -65,9 +67,10 @@ function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
 
-export default () => {
+export default withWidth()(({width}: any) => {
     const classes = useStyles();
     const query = useQuery();
+    const largeScreen = isWidthUp('md', width);
 
     const [option, setOption] = useState(query.get('tag') ? 'Tag' : 'Text');
 
@@ -79,77 +82,99 @@ export default () => {
         <Container maxWidth="md">
             <form action={'/search'}>
                 <Paper className={classes.root}>
-                    <Grid container>
-                        <Grid item xs={1}>
-                            <Grid container justify="center">
-                                {option === 'Tag' ? (
-                                    <TagIcon
-                                        fontSize="large"
-                                        className={classes.icon}
-                                    />
-                                ) : (
-                                    <TextFieldsIcon
-                                        fontSize="large"
-                                        className={classes.icon}
-                                    />
-                                )}
+                    <Grid
+                        container
+                        justify="center"
+                        alignItems="center"
+                        style={{height: '100%'}}
+                    >
+                        {largeScreen ? (
+                            <Grid item xs={1}>
+                                <Grid container justify="center">
+                                    {option === 'Tag' ? (
+                                        <TagIcon fontSize="large" />
+                                    ) : (
+                                        <TextFieldsIcon fontSize="large" />
+                                    )}
+                                </Grid>
+                            </Grid>
+                        ) : null}
+                        <Grid item xs={8} md={9}>
+                            <Grid
+                                container
+                                style={{height: '100%'}}
+                                alignItems="center"
+                                justify="space-around"
+                            >
+                                <TagInput
+                                    style={{
+                                        visibility:
+                                            option === 'Tag'
+                                                ? 'visible'
+                                                : 'collapse',
+                                        maxWidth:
+                                            option === 'Tag' ? '85%' : '0px',
+
+                                        height:
+                                            option === 'Tag' ? '100%' : '0px',
+                                    }}
+                                    setInput={setInput}
+                                />
+
+                                <InputBase
+                                    fullWidth
+                                    inputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <SearchIcon />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    placeholder="Search E-Portfolio"
+                                    value={input || ''}
+                                    onChange={(
+                                        event: React.ChangeEvent<
+                                            HTMLInputElement
+                                        >
+                                    ) => {
+                                        setInput(event.target.value);
+                                    }}
+                                    name={option === 'Tag' ? 'tag' : 'query'}
+                                    style={{
+                                        visibility:
+                                            option === 'Tag'
+                                                ? 'collapse'
+                                                : 'visible',
+                                        maxWidth:
+                                            option === 'Tag' ? '0px' : '100%',
+                                        // maxHeight:
+                                        //     option === 'Tag' ? '0px' : '100%',
+
+                                        marginLeft: largeScreen ? '0px' : '6px',
+                                    }}
+                                />
                             </Grid>
                         </Grid>
-                        <Grid item xs={9}>
-                            <TagInput
-                                style={{
-                                    visibility:
-                                        option === 'Tag'
-                                            ? 'visible'
-                                            : 'collapse',
-                                    maxWidth: option === 'Tag' ? '100%' : '0px',
-                                    maxHeight:
-                                        option === 'Tag' ? '100%' : '0px',
-                                    marginTop:
-                                        option === 'Tag' ? '11px' : '0px',
-                                }}
-                                setInput={setInput}
-                            />
-
-                            <InputBase
-                                fullWidth
-                                inputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <SearchIcon />
-                                        </InputAdornment>
-                                    ),
-                                }}
-                                placeholder="Search E-Portfolio"
-                                value={input || ''}
-                                onChange={(
-                                    event: React.ChangeEvent<HTMLInputElement>
-                                ) => {
-                                    setInput(event.target.value);
-                                }}
-                                name={option === 'Tag' ? 'tag' : 'query'}
-                                style={{
-                                    visibility:
-                                        option === 'Tag'
-                                            ? 'collapse'
-                                            : 'visible',
-                                    maxWidth: option === 'Tag' ? '0px' : '100%',
-                                    maxHeight:
-                                        option === 'Tag' ? '0px' : '100%',
-                                    marginTop:
-                                        option === 'Tag' ? '0px' : '13px',
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={2}>
-                            <Grid container>
+                        <Grid item xs={4} md={2}>
+                            <Grid
+                                container
+                                justify="space-around"
+                                style={{height: '100%'}}
+                                alignItems={'center'}
+                            >
                                 <Grid item xs={5}>
                                     <Grid container justify="center">
                                         <IconButton
                                             color="secondary"
                                             type="submit"
                                         >
-                                            <SearchIcon fontSize="large" />
+                                            <SearchIcon
+                                                fontSize={
+                                                    largeScreen
+                                                        ? 'large'
+                                                        : undefined
+                                                }
+                                            />
                                         </IconButton>
                                     </Grid>
                                 </Grid>
@@ -186,7 +211,13 @@ export default () => {
                                                     }
                                                 }}
                                             >
-                                                <MenuIcon fontSize="large" />
+                                                <MenuIcon
+                                                    fontSize={
+                                                        largeScreen
+                                                            ? 'large'
+                                                            : undefined
+                                                    }
+                                                />
                                             </IconButton>
                                         </Tooltip>
                                     </Grid>
@@ -198,4 +229,4 @@ export default () => {
             </form>
         </Container>
     );
-};
+});

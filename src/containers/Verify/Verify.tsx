@@ -61,7 +61,7 @@ export default () => {
                 query.get('username')
             );
 
-            history.push('/login');
+            history.push('/');
             dispatch(
                 alertActions.success(
                     'Your email have been successfully verified.'

@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import BraftEditor from 'braft-editor';
 // @material-ui/icons
 // core components
-// import Footer from '../../components/Footer/AppFooter';
+import Footer from '../../components/Footer/AppFooter';
 
 import {pageService} from '../../utils/pageService';
 import Layout from '../../components/Navigation';
@@ -97,7 +97,7 @@ export default function ProfilePage({match, history, forceUpdate}: any) {
     const fetchFollow = async () => {
         try {
             // find who follow this portfolio
-            const follower = await socialService.findWhofollowedThisPortfolio(
+            const follower = await socialService.findWhoFollowedThisPortfolio(
                 match.params.username
             );
             setFollower(follower.followed);
@@ -160,7 +160,7 @@ export default function ProfilePage({match, history, forceUpdate}: any) {
             try {
                 const username = match.params.username;
                 // @ts-ignore
-                await socialService.unfollowPortfolio(username);
+                await socialService.unFollowPortfolio(username);
                 // @ts-ignore
                 setFollower(false);
                 dispatch(
@@ -209,7 +209,7 @@ export default function ProfilePage({match, history, forceUpdate}: any) {
                     />
                 </div>
             </Layout>
-            {/* <Footer /> */}
+            <Footer />
         </div>
     );
 }

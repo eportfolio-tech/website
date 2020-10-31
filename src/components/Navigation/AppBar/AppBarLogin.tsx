@@ -12,14 +12,16 @@ import {
     Grid,
     Link,
     isWidthUp,
+    Popover,
 } from '@material-ui/core';
 
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
+import DashboardIcon from '@material-ui/icons/Dashboard';
 import MenuIcon from '@material-ui/icons/Menu';
 import EditIcon from '@material-ui/icons/Edit';
-import SettingsIcon from '@material-ui/icons/Settings';
+//import SettingsIcon from '@material-ui/icons/Settings';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import SearchIcon from '@material-ui/icons/Search';
 import HomeIcon from '@material-ui/icons/Home';
@@ -27,6 +29,7 @@ import ExploreIcon from '@material-ui/icons/Explore';
 import {useHistory} from 'react-router-dom';
 import logoImage from '../../../assets/logo.svg';
 
+import DashboardList from './DashboardList';
 // const drawerWidth = 400;
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -91,6 +94,9 @@ const useStyles = makeStyles((theme: Theme) =>
         logout: {
             marginTop: theme.spacing(1),
         },
+        popover: {
+            marginTop: theme.spacing(0.5),
+        },
     })
 );
 
@@ -109,7 +115,7 @@ const routers = [
     },
     {
         icon: <SearchIcon />,
-        path: 'search?query=arts',
+        path: 'search',
         matchPath: 'search',
         name: 'Search',
     },
@@ -117,13 +123,7 @@ const routers = [
         icon: <EditIcon />,
         path: 'editor',
         matchPath: 'editor',
-        name: 'Editor',
-    },
-    {
-        icon: <SettingsIcon />,
-        path: 'settings',
-        matchPath: 'settings',
-        name: 'Settings',
+        name: 'Edit My E-Portfolio',
     },
 ];
 
@@ -137,7 +137,15 @@ const getIndex = (path: any) => {
             return 2;
         case '/editor':
             return 3;
-        case '/settings':
+        case '/dashboard':
+            return 4;
+        case '/dashboard/profile':
+            return 4;
+        case '/dashboard/password':
+            return 4;
+        case '/dashboard/follows':
+            return 4;
+        case '/dashboard/tags':
             return 4;
         default:
             return -1;
@@ -151,15 +159,48 @@ export default withWidth()(({width, handleDrawerOpen}: any) => {
     //const classes = useStyles();
     const history = useHistory();
     const largeScreen = isWidthUp('md', width);
+    const extraLgScreen = isWidthUp('lg', width);
     const classes = useStyles();
 
+    //Popover hooks and functions
+    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
+        null
+    );
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
+
+    //handle Tabs change
     const handleChange = (event: any, active: any) => {
+        console.log(active);
+        if (active === 4) return handleClick(event);
         history.push('/' + routers[active].path);
     };
 
-    console.log(getIndex(history.location.pathname));
     return (
         <AppBar position="fixed" className={classes.appBar}>
+            <Popover
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                }}
+                className={classes.popover}
+            >
+                <DashboardList />
+            </Popover>
             {!largeScreen ? (
                 <Grid container justify="center">
                     <Button
@@ -172,34 +213,38 @@ export default withWidth()(({width, handleDrawerOpen}: any) => {
                 </Grid>
             ) : (
                 <Grid container>
-                    <Grid item xs={5}>
-                        <Link
-                            underline="none"
-                            color="textPrimary"
-                            href="/"
-                            className={classes.toolbarTitle}
-                        >
-                            <Button
-                                style={{
-                                    textTransform: 'none',
-                                }}
+                    {extraLgScreen ? (
+                        <Grid item xs={5}>
+                            <Link
+                                underline="none"
+                                color="textPrimary"
+                                href="/"
+                                className={classes.toolbarTitle}
                             >
-                                <img
-                                    className={classes.logo}
-                                    src={logoImage}
-                                    alt="logo"
-                                />
-                                <Typography
-                                    variant="h6"
-                                    style={{fontWeight: 800}}
+                                <Button
+                                    style={{
+                                        textTransform: 'none',
+                                    }}
                                 >
-                                    Forty-Two
-                                </Typography>
-                            </Button>
-                        </Link>
-                    </Grid>
+                                    <img
+                                        className={classes.logo}
+                                        src={logoImage}
+                                        alt="logo"
+                                    />
+                                    <Typography
+                                        variant="h6"
+                                        style={{fontWeight: 800}}
+                                    >
+                                        Forty-Two
+                                    </Typography>
+                                </Button>
+                            </Link>
+                        </Grid>
+                    ) : (
+                        <Grid item xs={2}></Grid>
+                    )}
 
-                    <Grid item xs={6}>
+                    <Grid item md={8} lg={6}>
                         <Toolbar>
                             <Tabs
                                 className={classes.root}
@@ -231,6 +276,25 @@ export default withWidth()(({width, handleDrawerOpen}: any) => {
                                         </Tooltip>
                                     );
                                 })}
+                                <Tooltip
+                                    arrow
+                                    title={
+                                        <Typography variant="body1">
+                                            Dashboard
+                                        </Typography>
+                                    }
+                                    placement="bottom"
+                                >
+                                    <Tab
+                                        icon={<DashboardIcon />}
+                                        key={4}
+                                        classes={{
+                                            root: classes.pills,
+                                            selected: classes.primary,
+                                            wrapper: classes.tabWrapper,
+                                        }}
+                                    ></Tab>
+                                </Tooltip>
                             </Tabs>
                         </Toolbar>
                     </Grid>
