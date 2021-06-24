@@ -36,7 +36,7 @@
         "material-ui-chip-input": "^2.0.0-beta.2",
         "material-ui-icons": "^1.0.0-beta.36",
         "moment": "^2.29.0",
-        "node-sass": "^4.14.1",
+        "node-sass": "^6.0.1",
         "notistack": "^1.0.0",
         "pattern.css": "^1.0.0",
         "prettier": "^2.1.2",
