@@ -40,7 +40,7 @@
         "notistack": "^1.0.0",
         "pattern.css": "^1.0.0",
         "prettier": "^2.1.2",
-        "prismjs": "^1.21.0",
+        "prismjs": "^1.27.0",
         "prop-types": "latest",
         "react": "^16.13.1",
         "react-copy-to-clipboard": "^5.0.2",
